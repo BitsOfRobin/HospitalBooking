@@ -2,22 +2,33 @@ package com.example.hospitalbooking
 
 
 
+//import com.example.hospitalsmartt.databinding.ActivityMainBinding
+import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-//import com.example.hospitalsmartt.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.lang.Double.valueOf
+import java.lang.Float.valueOf
+import java.math.RoundingMode.valueOf
+import java.security.Timestamp
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+
+
 
 class DoctorAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -25,6 +36,7 @@ class DoctorAppointment : AppCompatActivity() {
     private var docDetail:String?=null
     private var arrayDel = ArrayList<String>()
     //    private lateinit var binding: ActivityMainBinding
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_appointment)
@@ -96,6 +108,8 @@ class DoctorAppointment : AppCompatActivity() {
     }
 
 
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun readUser() {
         val doctor = FirebaseAuth.getInstance().currentUser
         docDetail = doctor?.uid
@@ -105,13 +119,25 @@ class DoctorAppointment : AppCompatActivity() {
         val arraylistPro = ArrayList<String>()
         val arraylistUser = ArrayList<String>()
         var arraylistDocName= ArrayList<String>()
+        val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user=" "
         var doc=" "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.listAppoint)
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+            } else {
 
+                user = " NOne"
+            }
+
+        }
         val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
-        docRef?.get()?.addOnSuccessListener {
+        docRef?.whereEqualTo("user",user)?.get()?.addOnSuccessListener {
 
 
 
@@ -132,7 +158,7 @@ class DoctorAppointment : AppCompatActivity() {
                     // Name, email address, and profile photo Url
 //                    val name = user.displayName
                     if (userGoogle != null) {
-                        user = userGoogle.email.toString()
+                        user = userGoogle.displayName.toString()
                     }
 
                     else{
@@ -159,6 +185,23 @@ class DoctorAppointment : AppCompatActivity() {
 
 
                  doc=document.get("doctorAppoint").toString()
+//                var dateInString = "2020-05-02"
+//                var simpleFormat =  DateTimeFormatter.ISO_DATE;
+//                var convertedDate = LocalDate.parse(dateInString, simpleFormat)
+//
+//                val calendarDate= Calendar.getInstance().time
+//                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+//                val currentDate = sdf.format(Date())
+//
+//
+//                if(currentDate>(convertedDate.toString()))
+//                {
+//                    val txt=findViewById<TextView>(R.id.txtAppoint)
+//                    txt.setTextColor(androidx.appcompat.R.color.error_color_material_dark)
+//
+//                }
+
+
                 arraylistUser.add(user)
                 if(user ==null){
                     arraylist.add("No records found")
@@ -167,6 +210,8 @@ class DoctorAppointment : AppCompatActivity() {
                 else
                 {
                     arraylist.add("User:$user\nAppointed Doctor:$docName\nAppointment Detail:$doc\n\n")
+
+                    arraylistAppointment.add(AppointmentDetail(user,docName,doc))
                     arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
                 }
 
@@ -198,8 +243,19 @@ class DoctorAppointment : AppCompatActivity() {
 //
 //            }
 
-            val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
+
+            val arr=listCustomAdapter(this,arraylistAppointment)
+
+
+
+
+//            val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
             docView.adapter = arr
+
+
+
+
+
 
 
 
@@ -304,7 +360,7 @@ class DoctorAppointment : AppCompatActivity() {
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
             if (userGoogle != null) {
-                user = userGoogle.email.toString()
+                user = userGoogle.displayName.toString()
             } else {
 
                 user = " NOne"
@@ -333,27 +389,75 @@ class DoctorAppointment : AppCompatActivity() {
 //
 //            }
             Toast.makeText(this, "Success ${arrayDel.elementAt(i)}delete the user ", Toast.LENGTH_SHORT).show()
-            val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Delete Appointment Alert")
+            builder.setMessage("Are you sure to cancel this appointment?")
+
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT).show()
+
+
+
+                val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDel.elementAt(i)}")
 
 // Remove the 'capital' field from the document
-            val updates = hashMapOf<String, Any>(
-                "user" to FieldValue.delete(),
-                "doctorAppoint" to FieldValue.delete(),
-                "docName" to FieldValue.delete()
-            )
+                val updates = hashMapOf<String, Any>(
+                    "user" to FieldValue.delete(),
+                    "doctorAppoint" to FieldValue.delete(),
+                    "docName" to FieldValue.delete()
+                )
 
-            docRef.update(updates).addOnCompleteListener {
+                docRef.update(updates).addOnCompleteListener {
 
-                Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
+
+                }
+
+                docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+                    .delete()
+                    .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
+                    .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
+
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+
+
 
             }
 
-            docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
-                .delete()
-                .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
-                .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT).show()
+            }
 
-//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+            builder.show()
+
+
+//            val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+//
+//// Remove the 'capital' field from the document
+//            val updates = hashMapOf<String, Any>(
+//                "user" to FieldValue.delete(),
+//                "doctorAppoint" to FieldValue.delete(),
+//                "docName" to FieldValue.delete()
+//            )
+//
+//            docRef.update(updates).addOnCompleteListener {
+//
+//                Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
+//
+//            }
+//
+//            docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+//                .delete()
+//                .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
+//                .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
+//
+////                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
 
 
         }
@@ -362,6 +466,7 @@ class DoctorAppointment : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun refresh()
     {
         val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)

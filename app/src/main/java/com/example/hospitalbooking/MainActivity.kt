@@ -14,12 +14,12 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var modalList=ArrayList<Modal>()
+    private var modalList=ArrayList<ModalFormMain>()
     private var names= arrayOf(
-        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login"
+        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors"
     )
 
-    var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc2,R.drawable.doc3)
+    var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc3,R.drawable.settime)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
         for(i in names.indices)
         {
 
-            modalList.add(Modal(names[i],images[i]))
+            modalList.add(ModalFormMain(names[i],images[i]))
         }
         var customAdapter=CustomAdapter(modalList,this)
         val grid = findViewById<GridView>(R.id.gridView)
 
-        val arraylist = arrayOf("Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login")
+        val arraylist = arrayOf("Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login","Set time for Doctors")
 
 //        id.adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, arraylist)
         grid.adapter=customAdapter
@@ -65,8 +65,16 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+//            else if (i == 4) {
+//                val intent = Intent(this, UserRegister::class.java)
+////            intent.putExtra("DoctorName", tempListViewClickedValue)
+//                startActivity(intent)
+//
+//
+//            }
+
             else if (i == 4) {
-                val intent = Intent(this, UserRegister::class.java)
+                val intent = Intent(this, UserLogin::class.java)
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
 
@@ -74,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             else if (i == 5) {
-                val intent = Intent(this, UserLogin::class.java)
+                val intent = Intent(this, MainPage::class.java)
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
 
@@ -85,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    class CustomAdapter(var itemModel: ArrayList<Modal>, var context: Context):BaseAdapter(){
+    class CustomAdapter(var itemModel: ArrayList<ModalFormMain>, var context: Context):BaseAdapter(){
         override fun getCount(): Int {
 
             return itemModel.size
@@ -105,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             var view=view
             if(view==null)
             {
-                view=layoutInflater.inflate(R.layout.row_items,viewGroup,false)
+                view=layoutInflater.inflate(R.layout.welcomepagegridview,viewGroup,false)
             }
             var tvImageName=view?.findViewById<TextView>(R.id.imageName )
             var imageView=view?.findViewById<ImageView>(R.id.imageView)

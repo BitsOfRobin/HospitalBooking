@@ -6,43 +6,50 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FilterAppointment : AppCompatActivity() {
-    private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
-
-
-    private var docToSearch:String="Tan Ah kau"
+    private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
+    private var arraylistDocName = ArrayList<String>()
+    private var arraylistDocSearch = ArrayList<String>()
+    private var docToSearch: String = " "
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter_appointment)
-        val txt =findViewById<TextView>(R.id.txtDoc)
-        txt.text=" "
+        val txt = findViewById<TextView>(R.id.txtDoc)
+//        txt.text = "None"
+
         filter(txt)
-//        refresh()
+        filDoc(txt)
+        refresh(txt)
     }
 
 
-    private fun filter(txt:TextView) {
+    private fun filter(txt: TextView)
+    {
 
-//        val docView = findViewById<ListView>(R.id.listDoc)
+//        val docView = findViewById<ListView>(R.id.listFil)
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
         val spinDocName = findViewById<Spinner>(R.id.spinnerDocName)
         val arraylist = ArrayList<String>()
-        val arraylistDocSearch = ArrayList<String>()
-        val arraylistUser = ArrayList<String>()
-        val arraylistDocName= ArrayList<String>()
 
-        var user=" "
-        var doc=" "
+        val arraylistUser = ArrayList<String>()
+
+
+        var user = " "
+        var doc = " "
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
             if (userGoogle != null) {
-                user = userGoogle.email.toString()
+                user = userGoogle.displayName.toString()
             } else {
 
                 user = " NOne"
@@ -50,7 +57,7 @@ class FilterAppointment : AppCompatActivity() {
 
         }
         val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
-        docRef?.get()?.addOnSuccessListener {
+        docRef?.whereEqualTo("user",user)?.get()?.addOnSuccessListener {
 
 
 //            var docName = it.documents
@@ -63,7 +70,6 @@ class FilterAppointment : AppCompatActivity() {
 //                arraylist.add(document.data.toString())
 
 //                var user=document.get("user").toString()
-
 
 
 //                    val photoUrl = user.photoUrl
@@ -106,23 +112,53 @@ class FilterAppointment : AppCompatActivity() {
             }
 
 
-
             val arrDocName = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistDocName)
             spinDocName.adapter = arrDocName
 
+            Toast.makeText(
+                this,
+                "Found search doc for spinner =${arraylistDocName.toString()} ",
+                Toast.LENGTH_SHORT
+            ).show()
 
         }
 
-
+    }
 
 //        var docToSearch:String="Tan Ah kau"
 //            var docToSearch = ArrayList<String>()
+        private fun filDoc(txt: TextView)
+        {
+//            arraylistDocSearch.clear()
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+        val spinDocName = findViewById<Spinner>(R.id.spinnerDocName)
+        val arraylist = ArrayList<String>()
+//        var arraylistDocSearch = ArrayList<String>()
+        val arraylistUser = ArrayList<String>()
+//        val arraylistDocName= ArrayList<String>()
+
+        var user=" "
+        var doc=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+            } else {
+
+                user = " NOne"
+            }
+
+        }
+        val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
         spinDocName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                docToSearch=arraylistDocName[p2].toString()
-                docRef?.whereEqualTo("docName", "$docToSearch")
+                docToSearch = arraylistDocName[p2].toString()
+                docRef?.whereEqualTo("docName",docToSearch)
                     ?.get()
                     ?.addOnSuccessListener {
+                        arraylistDocSearch.clear()
                         for (document in it) {
                             var docName = document.get("docName").toString()
 //                            if (docName != null) {
@@ -131,19 +167,19 @@ class FilterAppointment : AppCompatActivity() {
 //                            }
 
 
-
                             doc = document.get("doctorAppoint").toString()
+                            var userFound= document.get("user").toString()
                             arraylistUser.add(user)
-                            if (user == null) {
+                            if (userFound != user) {
                                 arraylistDocSearch.add("No records found")
 
                             } else {
+
                                 arraylistDocSearch.add("User: $user\n Appointed Doctor:$docName\n Appointment Detail: $doc\n\n\n\n")
                             }
 
 
-                            txt.text=arraylistDocSearch.toString()
-
+//
 //                            Toast.makeText(
 //                                this,
 //                                "Found=${arraylistDocSearch.toString()} ",
@@ -167,16 +203,16 @@ class FilterAppointment : AppCompatActivity() {
 //                ).show()
 
 
-
-//        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistDocSearch)
-//        docView.adapter = arr
+//
+//                val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistDocSearch)
+//                docView.adapter = arr
 
 
 
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                arraylistUser.add(" ")
+                txt.text="NONE"
             }
 
 
@@ -192,40 +228,57 @@ class FilterAppointment : AppCompatActivity() {
 
         Toast.makeText(
             this,
-            "Found search=hi ",
+            "Found search=$docToSearch ",
             Toast.LENGTH_SHORT
         ).show()
-    }
 
-//    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//        docToSearch=arraylistDocName[p2].toString()
-//    }
 //
-//    override fun onNothingSelected(p0: AdapterView<*>?) {
-//        docToSearch="Failed"
-//    }
+//        val arr=ArrayAdapter(this, android.R.layout.simple_list_item_1,arraylistDocSearch)
+//        docView.adapter=arr
+            txt.text=" "
+            txt.text=arraylistDocSearch.toString()
 
 
-//    private fun refresh()
+      }
+
+//    private fun readDoc(txt: TextView)
 //    {
-//        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
-//
-//        swipe.setOnRefreshListener {
-//
-//           filter()
-//            Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
-//            swipe.isRefreshing=false
-//
-//        }
 //
 //
+//        txt.text = "None"
+//        Toast.makeText(
+//            this,
+//            "Found search doc=${arraylistDocSearch.toString()} ",
+//            Toast.LENGTH_SHORT
+//        ).show()
+//
+//        txt.text=arraylistDocSearch.toString()
 //
 //
-////        var arraylist = ArrayList<String>()
-////        arraylist= arrayListOf(" ")
-////        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
-////        docView.adapter = arr
 //    }
+
+    private fun refresh(txt: TextView)
+    {
+        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+
+        swipe.setOnRefreshListener {
+//            txt.setText(null)
+//            arraylistDocSearch.clear()
+
+            filDoc(txt)
+//           readDoc(txt)
+            Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
+            swipe.isRefreshing=false
+
+        }
+
+
+
+//        var arraylist = ArrayList<String>()
+//        arraylist= arrayListOf(" ")
+//        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
+//        docView.adapter = arr
+    }
 
 
 }

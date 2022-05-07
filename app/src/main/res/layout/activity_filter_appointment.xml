@@ -11,22 +11,39 @@
         android:layout_width="358dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/txtDoc"
-        android:layout_width="278dp"
-        android:layout_height="406dp"
-        android:text=" "
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="324dp"
+        android:layout_height="591dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.298"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDocName" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDocName"
+        app:layout_constraintVertical_bias="0.562"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/txtDoc"
+            android:layout_width="286dp"
+            android:layout_height="483dp"
+            android:text="TextView"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@color/browser_actions_bg_grey"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerDocName" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

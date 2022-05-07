@@ -7,15 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.hospitalbooking.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import java.util.ArrayList
+import java.util.*
 
 class AppointmentSelect : AppCompatActivity(){
-    private var arraylistTime = ArrayList<String>()
+//    private var arraylistTime = ArrayList<String>()
     private var docName=" "
     var nameNtime:String=" "
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
@@ -23,7 +21,8 @@ class AppointmentSelect : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointment_select)
 
-        appointSelect()
+        validAppoint()
+//        appointSelect()
     }
 
     private fun readUser():String{
@@ -55,26 +54,62 @@ class AppointmentSelect : AppCompatActivity(){
         return userId
     }
 
+    private fun validAppoint()
+    {
+
+
+        var user=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+                appointSelect()
+            } else {
+
+                val intent = Intent(this, UserLogin::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+                startActivity(intent)
+            }
+
+        }
+    }
+
+
     private fun appointSelect() {
+        var arraylistTime = ArrayList<String>()
+
         val tempHolder = intent.getStringExtra("DoctorName")
-        val docSpin=findViewById<Spinner>(R.id.spin)
+        val docSpin=findViewById<Spinner>(R.id.spinDocAppoint)
         docName=tempHolder.toString()
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
 //        val arraylistTime2= ArrayList<String>()
         val docRef = mFirebaseDatabaseInstance?.collection("doctor")
+        val calendarDate= Calendar.getInstance().time
         docRef?.whereEqualTo("name",tempHolder)?.get()?.addOnSuccessListener {
 
 
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                var time = document.get("Time") as com.google.firebase.Timestamp
-                val date = time.toDate()
-                arraylistTime.add(date.toString())
-                var time2 = document.get("Time2") as com.google.firebase.Timestamp
-                val date2 = time2.toDate()
+                var time = document.get("Time")
+                val date = time
 
-                arraylistTime.add(date2.toString())
+//                if(calendarDate.before(date))
+//                {
+                arraylistTime.add(date.toString())
+
+////                }
+//                var time2 = document.get("Time2") as com.google.firebase.Timestamp
+//                val date2 = time2.toDate()
+//
+////                if(calendarDate.before(date2))
+////                {
+//                arraylistTime.add(date2.toString())
+
+//                }
+
 
 
 
@@ -83,10 +118,26 @@ class AppointmentSelect : AppCompatActivity(){
 
 
         }
+
+
+
+        var appointedTime=" "
+
         arraylistTime= arrayListOf(arraylistTime.toString())
-        val arr = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arraylistTime)
-        val btn=findViewById<Button>(R.id.btn)
+        Toast.makeText(this,"arraTime=$arraylistTime",Toast.LENGTH_SHORT).show()
+//        for(i in arraylistTime.indices)
+//        {
+//            if(arraylistTime[i].isEmpty())
+//            {
+//                arraylistTime.remove(arraylistTime[i])
+//            }
+//
+//        }
+        Toast.makeText(this,"arraTime2=$arraylistTime",Toast.LENGTH_SHORT).show()
+        val arr = ArrayAdapter(this, android.R.layout.simple_gallery_item, arraylistTime)
         docSpin.adapter = arr
+        val btn=findViewById<Button>(R.id.btn)
+
         val txt=findViewById<TextView>(R.id.txtV)
         var checkBtn:Boolean=true
 //            val str=docSpin.selectedItem.toString()
@@ -95,13 +146,23 @@ class AppointmentSelect : AppCompatActivity(){
 //        btn.isClickable=false
         docSpin.onItemSelectedListener=object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                txt.textSize=20f
-                txt.text = "Selected: "+arraylistTime[p2].toString()
-                nameNtime = tempHolder +"\n" +arraylistTime[p2].toString()
+                if(arraylistTime[p2]!=null)
+                {
+                    txt.textSize=20f
+                    txt.text = "Selected: "+arraylistTime[p2].toString()
+                    appointedTime=arraylistTime[p2].toString()
+
+                    nameNtime = tempHolder +"\n" +arraylistTime[p2].toString()
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
 
-                btn.isClickable=true
-                checkBtn=true
+                    btn.isEnabled=true
+
+                    checkBtn=true
+
+                }
+
+
+
 
 
             }
@@ -120,15 +181,16 @@ class AppointmentSelect : AppCompatActivity(){
         {
 
             btn.setOnClickListener() {
+                writeUser(appointedTime)
                 val intent = Intent(this, DoctorAppointment::class.java)
 //                intent.putExtra("DoctorName", nameNtime)
                 startActivity(intent)
-                Toast.makeText(
-                    this,
-                    "navigate to appointment ${nameNtime.toString()} ",
-                    Toast.LENGTH_SHORT
-                ).show()
-                writeUser()
+//                Toast.makeText(
+//                    this,
+//                    "navigate to appointment ${nameNtime.toString()} ",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                writeUser(appointedTime)
             }
 
         }
@@ -149,12 +211,12 @@ class AppointmentSelect : AppCompatActivity(){
 
     }
 
-    private fun writeUser(){
+    private fun writeUser(appointTime:String){
 
 //        val tempHolder = intent.getStringExtra("DoctorName")
 //        Toast.makeText(this, "Enter the firebase${tempHolder.toString()} ", Toast.LENGTH_SHORT).show()
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
-        Toast.makeText(this,"Enter getData",Toast.LENGTH_SHORT).show()
+
         val arraylist=ArrayList<String>()
         val arraylistPro=ArrayList<String>()
         //        val docView=findViewById<RecyclerView>(R.id.Rview)
@@ -169,7 +231,7 @@ class AppointmentSelect : AppCompatActivity(){
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
             if (userGoogle != null) {
-                loginUser = userGoogle.email.toString()
+                loginUser = userGoogle.displayName.toString()
             }
 
             else{
@@ -188,7 +250,7 @@ class AppointmentSelect : AppCompatActivity(){
         }
 //        val loginUser=readUser()
         val user= hashMapOf(
-            "doctorAppoint" to nameNtime,
+            "doctorAppoint" to appointTime,
             "user" to loginUser,
             "docName" to docName
 
@@ -201,7 +263,7 @@ class AppointmentSelect : AppCompatActivity(){
         mFirebaseDatabaseInstance?.collection("userAppointment")?.document( "$user")?.set(user)?.addOnSuccessListener {
 
 
-            Toast.makeText(this,"Successfully added user ",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,"Successfully added user ",Toast.LENGTH_SHORT).show()
 
         }
             ?.addOnFailureListener {

@@ -10,14 +10,14 @@
     <TextView
         android:id="@+id/textView"
         style="@style/TextAppearance.MaterialComponents.Caption"
-        android:layout_width="191dp"
-        android:layout_height="148dp"
+        android:layout_width="130dp"
+        android:layout_height="43dp"
         android:text="logged in"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,12 +32,23 @@
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="324dp"
+        android:layout_marginBottom="280dp"
         android:text="log out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginStart="20dp"
+        android:id="@+id/userImg"
+        android:layout_width="155dp"
+        android:layout_height="186dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/google" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

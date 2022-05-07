@@ -8,9 +8,9 @@ class docModal {
 
 
     var name:String?=null
-    var image: Bitmap?=null
+    var image: Drawable?=null
 
-    constructor(name:String,image:Bitmap){
+    constructor(name:String,image:Drawable){
         this.name=name
         this.image=image
 

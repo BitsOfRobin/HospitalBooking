@@ -1,12 +1,18 @@
 package com.example.hospitalbooking
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.BitmapFactory
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import org.w3c.dom.Text
+import com.squareup.picasso.Picasso
+import java.io.InputStream
+
 
 class Profile : AppCompatActivity() {
     private lateinit var  firebaseAuth: FirebaseAuth
@@ -36,8 +42,14 @@ class Profile : AppCompatActivity() {
         else{
 
             val email=firebaseUser.email
+            val data=firebaseUser.displayName
+            val image=firebaseUser.photoUrl
+
             val etxt=findViewById<TextView>(R.id.emailTv)
-            etxt.text=email
+            val userImg=findViewById<ImageView>(R.id.userImg)
+            etxt.text="$email\n$data"
+            Picasso.get().load(image).into(userImg);
+
 
         }
 
