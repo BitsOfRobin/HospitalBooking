@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var modalList=ArrayList<ModalFormMain>()
+    private var modalList=ArrayList<Modal>()
     private var names= arrayOf(
         "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors"
     )
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         for(i in names.indices)
         {
 
-            modalList.add(ModalFormMain(names[i],images[i]))
+            modalList.add(Modal(names[i],images[i]))
         }
         var customAdapter=CustomAdapter(modalList,this)
         val grid = findViewById<GridView>(R.id.gridView)
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    class CustomAdapter(var itemModel: ArrayList<ModalFormMain>, var context: Context):BaseAdapter(){
+    class CustomAdapter(var itemModel: ArrayList<Modal>, var context: Context):BaseAdapter(){
         override fun getCount(): Int {
 
             return itemModel.size

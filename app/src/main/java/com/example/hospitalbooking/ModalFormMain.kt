@@ -1,12 +1,14 @@
 package com.example.hospitalbooking
 
+import android.graphics.Bitmap
+
 class ModalFormMain {
 
     var name:String?=null
 
-    var image:Int?=null
+    var image:Bitmap?=null
 
-    constructor(name:String,image:Int){
+    constructor(name:String,image:Bitmap){
         this.name=name
 
         this.image=image

@@ -33,7 +33,7 @@ class MainPage : AppCompatActivity() {
     private var modalList=ArrayList<ModalFormMain>()
     var images= intArrayOf(R.drawable.dt1,R.drawable.dt2,R.drawable.dt3)
 
-
+    private val arraylistData= ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +50,15 @@ class MainPage : AppCompatActivity() {
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
 //        setDoctor()
         getDataDoc()
+
         refresh()
 
     }
     private fun getDataDoc()
     {
-        modalList.clear()
+//        modalList.clear()
+//        arraylistData.clear()
+//        var modalList=ArrayList<ModalFormMain>()
         val doctor= FirebaseAuth.getInstance().currentUser
         docDetail=doctor?.uid
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
@@ -63,14 +66,15 @@ class MainPage : AppCompatActivity() {
         val arraylistName= ArrayList<String>()
         val arraylistTime= ArrayList<String>()
         val arraylistPro= ArrayList<String>()
-        val arraylist= ArrayList<String>()
+//        val arraylistData= ArrayList<String>()
+
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView=findViewById<GridView>(R.id.gridView)
 //        val txt=findViewById<TextView>(R.id.txtV)
 //        val name=findViewById<TextView>(R.id.txtName)
 //        val pro=findViewById<TextView>(R.id.txtPro)
         val docRef=mFirebaseDatabaseInstance?.collection("doctor")
-        docRef?.get()?.addOnSuccessListener { querySnapshot ->
+        docRef?.get()?.addOnSuccessListener {
 
 
 ////                val doc=it.toString()
@@ -78,7 +82,7 @@ class MainPage : AppCompatActivity() {
 //            val result2:StringBuffer= StringBuffer()
 //
 
-            var docName=querySnapshot.documents
+
 //                for(doc in it.documents ){
 ////
 
@@ -97,7 +101,8 @@ class MainPage : AppCompatActivity() {
 
 
 //                }
-            for (document in querySnapshot) {
+            arraylistData.clear()
+            for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 var time=document.get("Time").toString()
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
@@ -115,7 +120,7 @@ class MainPage : AppCompatActivity() {
                 arraylistName.add(name)
                 arraylistPro.add(pro)
                 arraylistTime.add(date)
-                arraylist.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
+                arraylistData.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
 
 //                Toast.makeText(this, "Enter the first read ${arraylistTime.toString()} ", Toast.LENGTH_SHORT).show()
 //                Toast.makeText(this, "Enter the firebase id ${document.id.toString()} ", Toast.LENGTH_SHORT).show()
@@ -167,7 +172,8 @@ class MainPage : AppCompatActivity() {
 //            var dt=1
             var arrBitMap=ArrayList<Bitmap>()
             val file = File.createTempFile("img","jpg")
-            for(i in arraylist.indices)
+
+            for(i in arraylistData.indices)
             {
 
                 val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
@@ -187,7 +193,13 @@ class MainPage : AppCompatActivity() {
 //                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
 //                imageArr.add(bitmap)
                     val img=findViewById<ImageView>(R.id.imageView)
-//                    arrBitMap.add(bitmap)
+
+                        modalList.add(ModalFormMain(arraylistData[i],bitmap))
+
+
+
+
+                            arrBitMap.add(bitmap)
 //                    modalList.add(docModal(arraylist[i],))
 
                     Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
@@ -200,7 +212,7 @@ class MainPage : AppCompatActivity() {
 //                dt++
             }
 
-
+            Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
 //            var images= intArrayOf()
 //            for( i in imageArr)
 //            {
@@ -211,21 +223,26 @@ class MainPage : AppCompatActivity() {
 
 //            var images= 0
 //            var images=intArrayOf(R.drawable.dt1,R.drawable.dt2)
-            for(i in arraylist.indices)
-            {
-
-//                val image: MutableList<Int> = ArrayList(imageArr.size)
-//                images=imageArr[i].toString().toInt()
-//                modalList.add(Modal(arraylistName[i],arraylistTime[i],arraylistPro[i],images[i]))
-                modalList.add(ModalFormMain(arraylist[i],images[i]))
-
-            }
+//            for(i in arraylist.indices)
+//            {
+//
+////                val image: MutableList<Int> = ArrayList(imageArr.size)
+////                images=imageArr[i].toString().toInt()
+////                modalList.add(Modal(arraylistName[i],arraylistTime[i],arraylistPro[i],images[i]))
+//                modalList.add(ModalFormMain(arraylist[i],arrBitMap[i]))
+//
+//            }
             //                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+
+
+
+
             var customAdapter= CustomAdapter(modalList, this)
 
 
 
             docView.adapter = customAdapter
+
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
                 val tempListViewClickedValue = arraylistName[i].toString()
@@ -400,7 +417,7 @@ class MainPage : AppCompatActivity() {
 //            tvTime?.text=itemModel[position].date
 //            tvPro?.text=itemModel[position].pro
 
-            itemModel[position].image?.let { imageView?.setImageResource(it) }
+            itemModel[position].image?.let { imageView?.setImageBitmap(it) }
 
             return view!!
         }
@@ -418,6 +435,7 @@ class MainPage : AppCompatActivity() {
 //            arraylistDocSearch.clear()
 
             getDataDoc()
+
 //           readDoc(txt)
             Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
             swipe.isRefreshing=false
