@@ -3,9 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/HospitalBooking/app/src/main/res/layout/row_items.xml" value="0.25416666666666665" />
+        <entry key="..\:/HospitalBooking/app/src/main/res/layout/welcomepagegridview.xml" value="0.25416666666666665" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_appointment_select.xml" value="0.2105978260869565" />
-        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_calendar_time_picker.xml" value="0.23177083333333334" />
-        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_calendar_time_pocker.xml" value="0.24456521739130435" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_doctor_appointment.xml" value="0.2105978260869565" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_filter_appointment.xml" value="0.18432971014492755" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
@@ -15,9 +15,7 @@
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_user_login.xml" value="0.21784420289855072" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_user_medicine.xml" value="0.21784420289855072" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_user_register.xml" value="0.21784420289855072" />
-        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/customlistview.xml" value="0.25" />
-        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/row_items.xml" value="0.264" />
-        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/welcomepagegridview.xml" value="0.25" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/row_items.xml" value="0.1" />
       </map>
     </option>
   </component>

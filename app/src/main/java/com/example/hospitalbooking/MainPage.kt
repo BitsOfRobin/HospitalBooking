@@ -30,7 +30,7 @@ class MainPage : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     private var docDetail:String?=null
 //    private lateinit var binding: ActivityMainBinding
-    private var modalList=ArrayList<ModalFormMain>()
+    private var modalList=ArrayList<Modal>()
     var images= intArrayOf(R.drawable.dt1,R.drawable.dt2,R.drawable.dt3)
 
 
@@ -113,9 +113,9 @@ class MainPage : AppCompatActivity() {
 //                val list2=dateFormat2.split("G")
 //                var dateTime2=list2[0]+"\nG"+list2[1]
                 arraylistName.add(name)
-//                arraylistPro.add(pro)
-//                arraylistTime.add(date)
-                arraylist.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
+                arraylistPro.add(pro)
+                arraylistTime.add(date)
+//                arraylist.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
 
 //                Toast.makeText(this, "Enter the first read ${arraylistTime.toString()} ", Toast.LENGTH_SHORT).show()
 //                Toast.makeText(this, "Enter the firebase id ${document.id.toString()} ", Toast.LENGTH_SHORT).show()
@@ -216,8 +216,8 @@ class MainPage : AppCompatActivity() {
 
 //                val image: MutableList<Int> = ArrayList(imageArr.size)
 //                images=imageArr[i].toString().toInt()
-//                modalList.add(Modal(arraylistName[i],arraylistTime[i],arraylistPro[i],images[i]))
-                modalList.add(ModalFormMain(arraylist[i],images[i]))
+                modalList.add(Modal(arraylistName[i],arraylistTime[i],arraylistPro[i],images[i]))
+//                modalList.add(arraylist[i],images[i]))
 
             }
             //                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
@@ -368,7 +368,7 @@ class MainPage : AppCompatActivity() {
     }
 
 
-    class CustomAdapter(var itemModel:ArrayList<ModalFormMain>,var context: Context): BaseAdapter(){
+    class CustomAdapter(var itemModel:ArrayList<Modal>,var context: Context): BaseAdapter(){
         override fun getCount(): Int {
 
             return itemModel.size
@@ -390,7 +390,7 @@ class MainPage : AppCompatActivity() {
             {
                 view=layoutInflater.inflate(R.layout.row_items,viewGroup,false)
             }
-            var tvImageName=view?.findViewById<TextView>(R.id.imageName )
+            var tvImageName=view?.findViewById<TextView>(R.id.name )
 //            var tvTime=view?.findViewById<TextView>(R.id.date )
 //            var tvPro=view?.findViewById<TextView>(R.id.Pro )
 
