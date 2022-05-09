@@ -128,7 +128,7 @@ class MainPage : AppCompatActivity() {
 
 
 //                Toast.makeText(this, "Enter the firebase${docName.toString()} ",Toast.LENGTH_SHORT).show()
-//                Toast.makeText(this, "Enter the firebase data ${ .toString()} ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "arr=$arraylistData ",Toast.LENGTH_SHORT).show()
 //
 //
 //                Toast.makeText(this, "Enter the firebase$f{arraylist[0].toString()} ",Toast.LENGTH_SHORT).show()
@@ -173,46 +173,46 @@ class MainPage : AppCompatActivity() {
             var arrBitMap=ArrayList<Bitmap>()
             val file = File.createTempFile("img","jpg")
 
-            for(i in arraylistData.indices)
-            {
+//            for(i in arraylistData.indices)
+//            {
+//
+//                val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
+////            val fireb=FirebaseStorage.getInstance().getReference("/Img")
+//                val localfile= File.createTempFile("tempImage","jpg")
+//                var bitmap:Bitmap
+//                fireb.getFile(localfile).addOnSuccessListener {
+////                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
+////                imageArr.add(bitmap)
+//                    bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
+////                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
+////                val x: Int = bitmap.width
+////                val y: Int = bitmap.height
+////                val intArray = IntArray(x * y)
+////                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
+//
+////                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
+////                imageArr.add(bitmap)
+//                    val img=findViewById<ImageView>(R.id.imageView)
+//
+//                        modalList.add(ModalFormMain(arraylistData[i],bitmap))
+//
+//
+//
+//
+//                            arrBitMap.add(bitmap)
+////                    modalList.add(docModal(arraylist[i],))
+//
+//                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
+//
+//                }.addOnFailureListener{
+//
+//                    Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
+//                }
+//
+////                dt++
+//            }
 
-                val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
-//            val fireb=FirebaseStorage.getInstance().getReference("/Img")
-                val localfile= File.createTempFile("tempImage","jpg")
-                var bitmap:Bitmap
-                fireb.getFile(localfile).addOnSuccessListener {
-//                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
-//                imageArr.add(bitmap)
-                    bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
-//                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
-//                val x: Int = bitmap.width
-//                val y: Int = bitmap.height
-//                val intArray = IntArray(x * y)
-//                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
 
-//                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
-//                imageArr.add(bitmap)
-                    val img=findViewById<ImageView>(R.id.imageView)
-
-                        modalList.add(ModalFormMain(arraylistData[i],bitmap))
-
-
-
-
-                            arrBitMap.add(bitmap)
-//                    modalList.add(docModal(arraylist[i],))
-
-                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
-
-                }.addOnFailureListener{
-
-                    Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
-                }
-
-//                dt++
-            }
-
-            Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
 //            var images= intArrayOf()
 //            for( i in imageArr)
 //            {
@@ -236,60 +236,60 @@ class MainPage : AppCompatActivity() {
 
 
 
-
-            var customAdapter= CustomAdapter(modalList, this)
-
-
-
-            docView.adapter = customAdapter
-
-
-            docView.setOnItemClickListener { adapterView, view, i, l ->
-                val tempListViewClickedValue = arraylistName[i].toString()
-//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-                val intent= Intent(this,AppointmentSelect::class.java)
-                intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-
-
-
-            }
-
-
-            var user=" "
-            val userGoogle = Firebase.auth.currentUser
-            userGoogle.let {
-                // Name, email address, and profile photo Url
-//                    val name = user.displayName
-                if (userGoogle != null) {
-                    user = userGoogle.displayName.toString()
-
-                } else {
-
-                    val intent = Intent(this, UserLogin::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                    startActivity(intent)
-                }
-
-            }
-
-            if(user=="ZHONG LEAN LOW")
-            {
-
-                docView.setOnItemClickListener { adapterView, view, i, l ->
-                    val tempListViewClickedValue = arraylistName[i].toString()
-//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-                    val intent= Intent(this,CalendarTimePicker::class.java)
-                    intent.putExtra("DoctorName", tempListViewClickedValue)
-                    startActivity(intent)
-//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-
-
-
-                }
-
-            }
+//
+//            var customAdapter= CustomAdapter(modalList, this)
+//
+//
+//
+//            docView.adapter = customAdapter
+//
+//
+//            docView.setOnItemClickListener { adapterView, view, i, l ->
+//                val tempListViewClickedValue = arraylistName[i].toString()
+////                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+//                val intent= Intent(this,AppointmentSelect::class.java)
+//                intent.putExtra("DoctorName", tempListViewClickedValue)
+//                startActivity(intent)
+////                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+//
+//
+//
+//            }
+//
+//
+//            var user=" "
+//            val userGoogle = Firebase.auth.currentUser
+//            userGoogle.let {
+//                // Name, email address, and profile photo Url
+////                    val name = user.displayName
+//                if (userGoogle != null) {
+//                    user = userGoogle.displayName.toString()
+//
+//                } else {
+//
+//                    val intent = Intent(this, UserLogin::class.java)
+////            intent.putExtra("DoctorName", tempListViewClickedValue)
+//                    startActivity(intent)
+//                }
+//
+//            }
+//
+//            if(user=="ZHONG LEAN LOW")
+//            {
+//
+//                docView.setOnItemClickListener { adapterView, view, i, l ->
+//                    val tempListViewClickedValue = arraylistName[i].toString()
+////                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+//                    val intent= Intent(this,CalendarTimePicker::class.java)
+//                    intent.putExtra("DoctorName", tempListViewClickedValue)
+//                    startActivity(intent)
+////                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+//
+//
+//
+//                }
+//
+//            }
 
 
 
@@ -344,10 +344,178 @@ class MainPage : AppCompatActivity() {
                 Toast.makeText(this,"Failed ", Toast.LENGTH_SHORT).show()
             }
 
+        getImg()
+
+
+
+
+
+
+        docView.setOnItemClickListener { adapterView, view, i, l ->
+            val tempListViewClickedValue = arraylistName[i].toString()
+//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+            val intent= Intent(this,AppointmentSelect::class.java)
+            intent.putExtra("DoctorName", tempListViewClickedValue)
+            startActivity(intent)
+//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+
+
+
+        }
+
+
+        var user=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+
+            } else {
+
+                val intent = Intent(this, UserLogin::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+                startActivity(intent)
+            }
+
+        }
+
+        if(user=="ZHONG LEAN LOW")
+        {
+
+            docView.setOnItemClickListener { adapterView, view, i, l ->
+                val tempListViewClickedValue = arraylistName[i].toString()
+//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+                val intent= Intent(this,CalendarTimePicker::class.java)
+                intent.putExtra("DoctorName", tempListViewClickedValue)
+                startActivity(intent)
+//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+
+
+
+            }
+
+        }
 
 
 
     }
+
+
+    private  fun getImg()
+    {
+        var arrBitMap=ArrayList<Bitmap>()
+        val docView=findViewById<GridView>(R.id.gridView)
+        if(modalList.size>arraylistData.size)
+        {
+            for(i in arraylistData.size..modalList.size)
+            {
+                modalList.clear()
+
+            }
+
+
+
+        }
+
+        else
+        {
+
+            for(i in arraylistData.indices)
+            {
+
+                val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
+//            val fireb=FirebaseStorage.getInstance().getReference("/Img")
+                val localfile= File.createTempFile("tempImage","jpg")
+                var bitmap:Bitmap
+                fireb.getFile(localfile).addOnSuccessListener {
+//                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
+//                imageArr.add(bitmap)
+                    bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
+//                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
+//                val x: Int = bitmap.width
+//                val y: Int = bitmap.height
+//                val intArray = IntArray(x * y)
+//                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
+
+//                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
+//                imageArr.add(bitmap)
+                    val img=findViewById<ImageView>(R.id.imageView)
+
+                    modalList.add(ModalFormMain(arraylistData[i],bitmap))
+
+
+
+
+                    arrBitMap.add(bitmap)
+//                    modalList.add(docModal(arraylist[i],))
+
+                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
+
+                }.addOnFailureListener{
+
+                    Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
+                }
+
+//                dt++
+            }
+
+
+            var customAdapter= CustomAdapter(modalList, this)
+
+
+
+            docView.adapter = customAdapter
+
+        }
+//
+//        for(i in arraylistData.indices)
+//        {
+//
+//            val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
+////            val fireb=FirebaseStorage.getInstance().getReference("/Img")
+//            val localfile= File.createTempFile("tempImage","jpg")
+//            var bitmap:Bitmap
+//            fireb.getFile(localfile).addOnSuccessListener {
+////                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
+////                imageArr.add(bitmap)
+//                bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
+////                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
+////                val x: Int = bitmap.width
+////                val y: Int = bitmap.height
+////                val intArray = IntArray(x * y)
+////                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
+//
+////                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
+////                imageArr.add(bitmap)
+//                val img=findViewById<ImageView>(R.id.imageView)
+//
+//                modalList.add(ModalFormMain(arraylistData[i],bitmap))
+//
+//
+//
+//
+//                arrBitMap.add(bitmap)
+////                    modalList.add(docModal(arraylist[i],))
+//
+//                Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
+//
+//            }.addOnFailureListener{
+//
+//                Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
+//            }
+//
+////                dt++
+//        }
+
+        Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
+
+    }
+
+
+
+
 
 
     private fun setDoctor()
