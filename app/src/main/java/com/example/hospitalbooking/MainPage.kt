@@ -32,7 +32,7 @@ class MainPage : AppCompatActivity() {
 //    private lateinit var binding: ActivityMainBinding
     private var modalList=ArrayList<ModalFormMain>()
     var images= intArrayOf(R.drawable.dt1,R.drawable.dt2,R.drawable.dt3)
-
+    private var arraylistName= ArrayList<String>()
     private val arraylistData= ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,7 @@ class MainPage : AppCompatActivity() {
         docDetail=doctor?.uid
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
         Toast.makeText(this,"Enter getData", Toast.LENGTH_SHORT).show()
-        val arraylistName= ArrayList<String>()
+//        val arraylistName= ArrayList<String>()
         val arraylistTime= ArrayList<String>()
         val arraylistPro= ArrayList<String>()
 //        val arraylistData= ArrayList<String>()
@@ -348,22 +348,6 @@ class MainPage : AppCompatActivity() {
 
 
 
-
-
-
-        docView.setOnItemClickListener { adapterView, view, i, l ->
-            val tempListViewClickedValue = arraylistName[i].toString()
-//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-            val intent= Intent(this,AppointmentSelect::class.java)
-            intent.putExtra("DoctorName", tempListViewClickedValue)
-            startActivity(intent)
-//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-
-
-
-        }
-
-
         var user=" "
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
@@ -380,6 +364,24 @@ class MainPage : AppCompatActivity() {
             }
 
         }
+
+
+        docView.setOnItemClickListener { adapterView, view, i, l ->
+            val name = arraylistName[i].toString()
+            val time = arraylistTime[i].toString()
+            writeUser(time,name,user)
+//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+            val intent= Intent(this,DoctorAppointment::class.java)
+            intent.putExtra("DoctorName", name)
+            startActivity(intent)
+//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+
+
+
+        }
+
+
+
 
         if(user=="ZHONG LEAN LOW")
         {
@@ -421,11 +423,11 @@ class MainPage : AppCompatActivity() {
 
         else
         {
-
-            for(i in arraylistData.indices)
+            var i=0
+            for(name in arraylistName)
             {
 
-                val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
+                val fireb= Firebase.storage.reference.child("Img/$name.jpg")
 //            val fireb=FirebaseStorage.getInstance().getReference("/Img")
                 val localfile= File.createTempFile("tempImage","jpg")
                 var bitmap:Bitmap
@@ -442,8 +444,12 @@ class MainPage : AppCompatActivity() {
 //                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
 //                imageArr.add(bitmap)
                     val img=findViewById<ImageView>(R.id.imageView)
+                    if(i<arraylistData.size)
+                    {
+                        modalList.add(ModalFormMain(arraylistData[i],bitmap))
+                        i++
+                    }
 
-                    modalList.add(ModalFormMain(arraylistData[i],bitmap))
 
 
 
@@ -618,6 +624,86 @@ class MainPage : AppCompatActivity() {
 //        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
 //        docView.adapter = arr
     }
+
+    private fun writeUser(appointTime:String,docName:String,loginUser:String){
+
+//        val tempHolder = intent.getStringExtra("DoctorName")
+//        Toast.makeText(this, "Enter the firebase${tempHolder.toString()} ", Toast.LENGTH_SHORT).show()
+        mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
+
+        val arraylist= java.util.ArrayList<String>()
+        val arraylistPro= java.util.ArrayList<String>()
+        //        val docView=findViewById<RecyclerView>(R.id.Rview)
+//        val docView=findViewById<ListView>(R.id.Rview)
+        //        val txt=findViewById<TextView>(R.id.txtV)
+        //        val name=findViewById<TextView>(R.id.txtName)
+        //        val pro=findViewById<TextView>(R.id.txtPro)
+
+//        var loginUser=" "
+//        val userGoogle = Firebase.auth.currentUser
+//        userGoogle.let {
+//            // Name, email address, and profile photo Url
+////                    val name = user.displayName
+//            if (userGoogle != null) {
+//                loginUser = userGoogle.displayName.toString()
+//            }
+//
+//            else{
+//
+//                loginUser=" NOne"
+//            }
+////                    val photoUrl = user.photoUrl
+////
+////                    // Check if user's email is verified
+////                    val emailVerified = user.isEmailVerified
+////
+////                    // The user's ID, unique to the Firebase project. Do NOT use this value to
+////                    // authenticate with your backend server, if you have one. Use
+////                    // FirebaseUser.getToken() instead.
+////                    val uid = user.uid
+//        }
+//        val loginUser=readUser()
+        val user= hashMapOf(
+            "doctorAppoint" to appointTime,
+            "user" to loginUser,
+            "docName" to docName
+
+
+
+        )
+//        val  doc =doctor?.uid
+
+//
+        mFirebaseDatabaseInstance?.collection("userAppointment")?.document( "$user")?.set(user)?.addOnSuccessListener {
+
+
+//            Toast.makeText(this,"Successfully added user ",Toast.LENGTH_SHORT).show()
+
+        }
+            ?.addOnFailureListener {
+
+                Toast.makeText(this,"Failed to add user",Toast.LENGTH_SHORT).show()
+            }
+
+
+
+
+
+
+//        userNum+=1
+
+
+
+
+
+
+
+
+
+    }
+
+
+
 
 
 
