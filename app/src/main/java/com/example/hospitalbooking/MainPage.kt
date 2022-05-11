@@ -102,13 +102,15 @@ class MainPage : AppCompatActivity() {
 
 //                }
             arraylistData.clear()
+            arraylistName.clear()
+            arraylistTime.clear()
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 var time=document.get("Time").toString()
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
 //                val date2 = time2.toDate()
                 val date = time
-                arraylistTime.add(date.toString())
+//                arraylistTime.add(date.toString())
                 var name=document.get("name").toString()
                 var pro=document.get("pro").toString()
 //                var dateFormat=date.toString()
@@ -374,7 +376,8 @@ class MainPage : AppCompatActivity() {
             val intent= Intent(this,DoctorAppointment::class.java)
             intent.putExtra("DoctorName", name)
             startActivity(intent)
-//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
 
 
 
@@ -407,15 +410,16 @@ class MainPage : AppCompatActivity() {
 
     private  fun getImg()
     {
+//        arraylistName.ensureCapacity(arraylistData.size)
         var arrBitMap=ArrayList<Bitmap>()
         val docView=findViewById<GridView>(R.id.gridView)
         if(modalList.size>arraylistData.size)
         {
-            for(i in arraylistData.size..modalList.size)
-            {
-                modalList.clear()
+//            for(i in arraylistData.size..modalList.size)
+//            {
+//                modalList.clear()
 
-            }
+//            }
 
 
 
@@ -452,6 +456,7 @@ class MainPage : AppCompatActivity() {
 
 
 
+                    Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
 
 
                     arrBitMap.add(bitmap)
