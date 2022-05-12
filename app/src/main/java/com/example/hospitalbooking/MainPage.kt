@@ -34,7 +34,7 @@ class MainPage : AppCompatActivity() {
     var images= intArrayOf(R.drawable.dt1,R.drawable.dt2,R.drawable.dt3)
     private var arraylistName= ArrayList<String>()
     private val arraylistData= ArrayList<String>()
-
+    private val arraylistTime= ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
@@ -64,7 +64,7 @@ class MainPage : AppCompatActivity() {
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
         Toast.makeText(this,"Enter getData", Toast.LENGTH_SHORT).show()
 //        val arraylistName= ArrayList<String>()
-        val arraylistTime= ArrayList<String>()
+//        val arraylistTime= ArrayList<String>()
         val arraylistPro= ArrayList<String>()
 //        val arraylistData= ArrayList<String>()
 
@@ -369,8 +369,10 @@ class MainPage : AppCompatActivity() {
 
 
         docView.setOnItemClickListener { adapterView, view, i, l ->
-            val name = arraylistName[i].toString()
-            val time = arraylistTime[i].toString()
+
+            val name = modalList.get(i).docName.toString()
+            val time = modalList.get(i).time.toString()
+//            val time = arraylistTime[i].toString()
             writeUser(time,name,user)
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
             val intent= Intent(this,DoctorAppointment::class.java)
@@ -390,7 +392,7 @@ class MainPage : AppCompatActivity() {
         {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
-                val tempListViewClickedValue = arraylistName[i].toString()
+                val tempListViewClickedValue =   modalList.get(i).docName.toString()
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
                 val intent= Intent(this,CalendarTimePicker::class.java)
                 intent.putExtra("DoctorName", tempListViewClickedValue)
@@ -427,7 +429,7 @@ class MainPage : AppCompatActivity() {
 
         else
         {
-            var i=0
+//            var i=0
             for(name in arraylistName)
             {
 
@@ -448,11 +450,16 @@ class MainPage : AppCompatActivity() {
 //                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
 //                imageArr.add(bitmap)
                     val img=findViewById<ImageView>(R.id.imageView)
-                    if(i<arraylistData.size)
+                    for(i in arraylistData.indices)
                     {
-                        modalList.add(ModalFormMain(arraylistData[i],bitmap))
-                        i++
+                        if(arraylistData[i].contains(name))
+                        {
+                            modalList.add(ModalFormMain(arraylistData[i],bitmap,arraylistName[i],arraylistTime[i]))
+
+                        }
+
                     }
+
 
 
 
