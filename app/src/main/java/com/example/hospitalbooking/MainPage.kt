@@ -15,10 +15,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -119,10 +121,19 @@ class MainPage : AppCompatActivity() {
 //                var dateFormat2=date2.toString()
 //                val list2=dateFormat2.split("G")
 //                var dateTime2=list2[0]+"\nG"+list2[1]
-                arraylistName.add(name)
-                arraylistPro.add(pro)
-                arraylistTime.add(date)
-                arraylistData.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
+                if(name==null)
+                {
+
+                }
+                else{
+                    arraylistName.add(name)
+                    arraylistPro.add(pro)
+                    arraylistTime.add(date)
+
+                    arraylistData.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
+                }
+
+
 
 //                Toast.makeText(this, "Enter the first read ${arraylistTime.toString()} ", Toast.LENGTH_SHORT).show()
 //                Toast.makeText(this, "Enter the firebase id ${document.id.toString()} ", Toast.LENGTH_SHORT).show()
@@ -402,6 +413,8 @@ class MainPage : AppCompatActivity() {
 
 
             }
+
+            deleteDoc()
 
         }
 
@@ -714,9 +727,142 @@ class MainPage : AppCompatActivity() {
 
     }
 
+    private fun deleteDoc(){
+
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+        val docView=findViewById<GridView>(R.id.gridView)
+
+
+
+
+               docView.onItemLongClickListener =
+                   AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+
+
+
+                       val builder = AlertDialog.Builder(this)
+                       builder.setTitle("Delete Doctor Alert")
+                       builder.setMessage("Are you sure to delete Doctor?")
+
+
+                       builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                           Toast.makeText(
+                               applicationContext,
+                               android.R.string.yes, Toast.LENGTH_SHORT
+                           ).show()
+
+
+                           val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
+                               .document("${modalList.get(i).docName}")
+
+// Remove the 'capital' field from the document
+                           val updates = hashMapOf<String, Any>(
+                               "name" to FieldValue.delete(),
+                               "pro" to FieldValue.delete(),
+                               "time" to FieldValue.delete()
+                           )
+
+                           docRef.update(updates).addOnCompleteListener {
+
+                               Toast.makeText(this, "Success delete the doctor ", Toast.LENGTH_SHORT)
+                                   .show()
+
+                           }
+
+                           docRef.collection("userAppointment").document("${modalList.get(i).docName}")
+                               .delete()
+                               .addOnSuccessListener {
+                                   Toast.makeText(
+                                       this,
+                                       "${modalList.get(i).docName}\" successfully deleted!",
+                                       Toast.LENGTH_SHORT
+                                   ).show()
+                               }
+                               .addOnFailureListener {
+                                   Toast.makeText(
+                                       this,
+                                       "Error deleting document",
+                                       Toast.LENGTH_SHORT
+                                   ).show()
+                               }
+
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+
+                       }
+
+                       builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                           Toast.makeText(
+                               applicationContext,
+                               android.R.string.no, Toast.LENGTH_SHORT
+                           ).show()
+                       }
+
+
+                       builder.show()
+                       true
+                   }
+
+//        { adapterView, view, i, l ->
+
+
+////           mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")
+//            val updates = hashMapOf<String,FieldValue>(
+//            "user" to FieldValue.delete(),
+//            "doctorAppoint" to FieldValue.delete()
+//            )
+//
+//            mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")?.update(updates as Map<String, Any>)?.addOnCompleteListener {
+//
+//
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+//
+//
+//            }
+
+//            mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")?.delete()?.addOnSuccessListener {
+//
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+//
+//            }
+
+
+
+//            val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+//
+//// Remove the 'capital' field from the document
+//            val updates = hashMapOf<String, Any>(
+//                "user" to FieldValue.delete(),
+//                "doctorAppoint" to FieldValue.delete(),
+//                "docName" to FieldValue.delete()
+//            )
+//
+//            docRef.update(updates).addOnCompleteListener {
+//
+//                Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
+//
+//            }
+//
+//            docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+//                .delete()
+//                .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
+//                .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
+//
+////                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+
+               }
 
 
 
 
 
-}
+
+
+
+
+    }
+
+
+
+

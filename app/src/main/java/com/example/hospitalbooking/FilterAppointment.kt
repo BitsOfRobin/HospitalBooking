@@ -112,7 +112,7 @@ class FilterAppointment : AppCompatActivity() {
             }
 
 
-            val arrDocName = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistDocName)
+            val arrDocName = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arraylistDocName)
             spinDocName.adapter = arrDocName
 
             Toast.makeText(
@@ -171,7 +171,7 @@ class FilterAppointment : AppCompatActivity() {
                             var userFound= document.get("user").toString()
                             arraylistUser.add(user)
                             if (userFound != user) {
-                                arraylistDocSearch.add("No records found")
+//                                arraylistDocSearch.add("No records found")
 
                             } else {
 

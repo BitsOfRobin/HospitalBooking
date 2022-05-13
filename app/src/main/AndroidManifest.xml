@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
+            android:name=".DoctorInformation"
+            android:exported="false" />
+        <activity
+            android:name=".UploadImg"
+            android:exported="false" />
+        <activity
             android:name=".CalendarTimePicker"
             android:exported="false" />
         <activity

@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private var modalList=ArrayList<Modal>()
     private var names= arrayOf(
-        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors"
+        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors","Upload Images for Doctor"
     )
 
-    var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc3,R.drawable.settime)
+    var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc3,R.drawable.settime,R.drawable.upload)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         var customAdapter=CustomAdapter(modalList,this)
         val grid = findViewById<GridView>(R.id.gridView)
 
-        val arraylist = arrayOf("Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login","Set time for Doctors")
+//        val arraylist = arrayOf("Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login","Set time for Doctors","Upload Images for doctor")
 
 //        id.adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, arraylist)
         grid.adapter=customAdapter
@@ -86,6 +86,14 @@ class MainActivity : AppCompatActivity() {
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
 
+
+            }
+
+            else if(i==6)
+            {
+                val intent = Intent(this, UploadImg::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+                startActivity(intent)
 
             }
 
