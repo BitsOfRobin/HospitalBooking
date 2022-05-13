@@ -38,28 +38,45 @@ class UploadImg : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-       val progressDialog=ProgressDialog(this)
-        progressDialog.setMessage("Uploading File....")
-        progressDialog.setCancelable(false)
-        progressDialog.show()
+
         val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
         val name=findViewById<EditText>(R.id.dtName)
         val dtname=name.text
         var docName="Mr $dtname"
-        val storageReference=FirebaseStorage.getInstance().getReference("Img/$docName.jpg")
-        storageReference.putFile(ImageUri).addOnSuccessListener {
-            firebaseImg.setImageURI(null)
-            if(progressDialog.isShowing)progressDialog.dismiss()
-            Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
-            val intent= Intent(this,DoctorInformation::class.java)
-            intent.putExtra("DoctorName", docName)
-            startActivity(intent)
+        val letter:Boolean=isLetters(dtname.toString())
+
+        if(letter)
+        {
+            val progressDialog=ProgressDialog(this)
+            progressDialog.setMessage("Uploading File....")
+            progressDialog.setCancelable(false)
+            progressDialog.show()
+            val storageReference=FirebaseStorage.getInstance().getReference("Img/$docName.jpg")
+            storageReference.putFile(ImageUri).addOnSuccessListener {
+                firebaseImg.setImageURI(null)
+                if(progressDialog.isShowing)progressDialog.dismiss()
+                Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
+                val intent= Intent(this,DoctorInformation::class.java)
+                intent.putExtra("DoctorName", docName)
+                startActivity(intent)
 
 
-        }.addOnFailureListener{
+            }.addOnFailureListener{
 
-            if(progressDialog.isShowing)progressDialog.dismiss()
+                if(progressDialog.isShowing)progressDialog.dismiss()
+            }
+
+
         }
+
+        else{
+
+            Toast.makeText(this,"Doctor Name consists NON alphabet",Toast.LENGTH_SHORT).show()
+
+
+        }
+
+
 
     }
 
@@ -86,5 +103,11 @@ class UploadImg : AppCompatActivity() {
             }
 
 
+    }
+
+
+
+    private fun isLetters(string: String): Boolean {
+        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
 }

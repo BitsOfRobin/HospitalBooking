@@ -108,24 +108,24 @@ class MainPage : AppCompatActivity() {
             arraylistTime.clear()
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                var time=document.get("Time").toString()
+                val time=document.get("Time").toString()
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
 //                val date2 = time2.toDate()
                 val date = time
 //                arraylistTime.add(date.toString())
-                var name=document.get("name").toString()
-                var pro=document.get("pro").toString()
+                val name=document.get("name").toString()
+                val pro=document.get("pro").toString()
 //                var dateFormat=date.toString()
 //                val list=dateFormat.split("G")
 //                var dateTime=list[0]+"\nG"+list[1]
 //                var dateFormat2=date2.toString()
 //                val list2=dateFormat2.split("G")
 //                var dateTime2=list2[0]+"\nG"+list2[1]
-                if(name==null)
-                {
 
-                }
-                else{
+
+
+                if(name.isNotEmpty())
+                {
                     arraylistName.add(name)
                     arraylistPro.add(pro)
                     arraylistTime.add(date)
@@ -135,8 +135,20 @@ class MainPage : AppCompatActivity() {
 
 
 
+
 //                Toast.makeText(this, "Enter the first read ${arraylistTime.toString()} ", Toast.LENGTH_SHORT).show()
 //                Toast.makeText(this, "Enter the firebase id ${document.id.toString()} ", Toast.LENGTH_SHORT).show()
+            }
+
+            for(arr in arraylistName)
+            {
+
+                if(arr.isEmpty())
+                {
+
+                    arraylistName.remove(arr)
+                }
+
             }
 
 
@@ -426,7 +438,7 @@ class MainPage : AppCompatActivity() {
     private  fun getImg()
     {
 //        arraylistName.ensureCapacity(arraylistData.size)
-        var arrBitMap=ArrayList<Bitmap>()
+        val arrBitMap=ArrayList<Bitmap>()
         val docView=findViewById<GridView>(R.id.gridView)
         if(modalList.size>arraylistData.size)
         {
@@ -463,15 +475,20 @@ class MainPage : AppCompatActivity() {
 //                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
 //                imageArr.add(bitmap)
                     val img=findViewById<ImageView>(R.id.imageView)
-                    for(i in arraylistData.indices)
+                    if(name.isNotEmpty())
                     {
-                        if(arraylistData[i].contains(name))
+                        for(i in arraylistData.indices)
                         {
-                            modalList.add(ModalFormMain(arraylistData[i],bitmap,arraylistName[i],arraylistTime[i]))
+                            if(arraylistData[i].contains(name))
+                            {
+                                modalList.add(ModalFormMain(arraylistData[i],bitmap,arraylistName[i],arraylistTime[i]))
+
+                            }
 
                         }
 
                     }
+
 
 
 

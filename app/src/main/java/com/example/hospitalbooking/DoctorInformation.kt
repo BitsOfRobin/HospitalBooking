@@ -45,46 +45,68 @@ class DoctorInformation : AppCompatActivity() {
         docInfo.text=docName
 
         val docPro=findViewById<EditText>(R.id.dtPro)
-
+        var dtpro=docPro.text
+        var pro=dtpro.toString()
+        pro=pro.replace(" ","")
+        val letter:Boolean=isLetters(pro)
 
         val btn=findViewById<Button>(R.id.updateBtn)
+
+
+
         btn.setOnClickListener {
 
-            var pro=docPro.text.toString()
+
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName.toString()
+            if(letter)
+            {
+                val doc= hashMapOf(
 
-            val doc= hashMapOf(
-
-                "name" to doctorName,
-                "pro" to pro
+                    "name" to doctorName,
+                    "pro" to pro
 
 
 
-            )
+                )
 //        val  doc =doctor?.uid
 
 //
 
 
-            mFirebaseDatabaseInstance?.collection("doctor")?.document( "$doctorName")?.set(doc)?.addOnSuccessListener {
+                mFirebaseDatabaseInstance?.collection("doctor")?.document( "$doctorName")?.set(doc)?.addOnSuccessListener {
 
 
-                Toast.makeText(this,"Successfully added doctor",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Successfully added doctor",Toast.LENGTH_SHORT).show()
 
+
+                }
+                    ?.addOnFailureListener {
+
+                        Toast.makeText(this,"Failed to add doctor", Toast.LENGTH_SHORT).show()
+                    }
+
+                val intent= Intent(this,MainPage::class.java)
+                intent.putExtra("DoctorName", docName)
+                startActivity(intent)
 
             }
-                ?.addOnFailureListener {
 
-                    Toast.makeText(this,"Failed to add doctor", Toast.LENGTH_SHORT).show()
-                }
+            else{
 
-            val intent= Intent(this,MainPage::class.java)
-            intent.putExtra("DoctorName", docName)
-            startActivity(intent)
+                Toast.makeText(this,"Professional consists of NON alphabet",Toast.LENGTH_SHORT).show()
+
+            }
+
         }
 
 
+    }
+
+
+
+    private fun isLetters(string: String): Boolean {
+        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
 
 
