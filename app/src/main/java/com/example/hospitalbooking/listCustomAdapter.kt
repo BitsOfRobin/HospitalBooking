@@ -51,13 +51,13 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 
         var dateInString = appointment.AppointmentDetail.toString().replace(" ", "-")
 
-        if(dateInString[0].toString().toInt()<10)
-        {
-            dateInString="0$dateInString"
 
-        }
-        val calendarDate= Calendar.getInstance().time
 
+            if (dateInString[0].toString().toInt() < 10) {
+                dateInString = "0$dateInString"
+
+            }
+            val calendarDate = Calendar.getInstance().time
 
 
 //        val utc = TimeZone.getTimeZone("UTC")
@@ -70,21 +70,17 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 //        destFormat.format(convertedDate)
 
 
-        val formatter = SimpleDateFormat("dd-MMM-yyyy")
-        val date = formatter.parse(dateInString)
-        if(calendarDate<date)
-        {
+            val formatter = SimpleDateFormat("dd-MMM-yyyy")
+            val date = formatter.parse(dateInString)
+            if (calendarDate < date) {
 
 
+            } else {
+                viewHolder.txtName.setTextColor(Color.parseColor("#FF0000"))
+                viewHolder.txtName.text =
+                    appointment.AppointmentDetail.toString() + "\n" + appointment.docName.toString() + "\n" + appointment.userName.toString() + "\n" + "BOOKING TIME PASSED" + "\n"
 
-        }
-
-        else
-        {
-            viewHolder.txtName.setTextColor(Color.parseColor("#FF0000"))
-            viewHolder.txtName.text=appointment.AppointmentDetail.toString()+"\n"+appointment.docName.toString()+"\n"+appointment.userName.toString()+"\n"+"BOOKING TIME PASSED"+"\n"
-
-        }
+            }
 
 
 

@@ -42,11 +42,14 @@ class UploadImg : AppCompatActivity() {
         val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
         val name=findViewById<EditText>(R.id.dtName)
         val dtname=name.text
-        var docName="Mr $dtname"
-        val letter:Boolean=isLetters(dtname.toString())
+        var docName=dtname.toString()
+        docName.replace(" ","")
+
+        val letter:Boolean=isLetters(docName)
 
         if(letter)
         {
+            docName="Dr $docName"
             val progressDialog=ProgressDialog(this)
             progressDialog.setMessage("Uploading File....")
             progressDialog.setCancelable(false)
@@ -108,6 +111,8 @@ class UploadImg : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
+        return string.matches("^[a-zA-Z ]*$".toRegex())
+
+//        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
 }

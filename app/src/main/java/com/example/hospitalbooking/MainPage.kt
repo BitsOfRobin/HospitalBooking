@@ -124,7 +124,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-                if(name.isNotEmpty())
+                if(name.contains("Dr"))
                 {
                     arraylistName.add(name)
                     arraylistPro.add(pro)
@@ -140,16 +140,16 @@ class MainPage : AppCompatActivity() {
 //                Toast.makeText(this, "Enter the firebase id ${document.id.toString()} ", Toast.LENGTH_SHORT).show()
             }
 
-            for(arr in arraylistName)
-            {
-
-                if(arr.isEmpty())
-                {
-
-                    arraylistName.remove(arr)
-                }
-
-            }
+//            for(arr in arraylistName)
+//            {
+//
+//                if(arr.isEmpty())
+//                {
+//
+//                    arraylistName.remove(arr)
+//                }
+//
+//            }
 
 
 //                Toast.makeText(this, "Enter the firebase${docName.toString()} ",Toast.LENGTH_SHORT).show()
@@ -374,12 +374,14 @@ class MainPage : AppCompatActivity() {
 
 
         var user=" "
+        var userEmail=" "
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
             if (userGoogle != null) {
                 user = userGoogle.displayName.toString()
+                userEmail=userGoogle.email.toString()
 
             } else {
 
@@ -391,27 +393,11 @@ class MainPage : AppCompatActivity() {
         }
 
 
-        docView.setOnItemClickListener { adapterView, view, i, l ->
-
-            val name = modalList.get(i).docName.toString()
-            val time = modalList.get(i).time.toString()
-//            val time = arraylistTime[i].toString()
-            writeUser(time,name,user)
-//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-            val intent= Intent(this,DoctorAppointment::class.java)
-            intent.putExtra("DoctorName", name)
-            startActivity(intent)
-                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
-
-
-
-        }
 
 
 
 
-        if(user=="ZHONG LEAN LOW")
+        if( userEmail.contains("@student.tar"))
         {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
@@ -427,6 +413,34 @@ class MainPage : AppCompatActivity() {
             }
 
             deleteDoc()
+
+        }
+
+        else
+        {
+
+            docView.setOnItemClickListener { adapterView, view, i, l ->
+
+                val name = modalList.get(i).docName.toString()
+                val time = modalList.get(i).time.toString()
+//            val time = arraylistTime[i].toString()
+
+                if(time.contains('0')){
+                    writeUser(time,name,user)
+                    val intent= Intent(this,DoctorAppointment::class.java)
+                    intent.putExtra("DoctorName", name)
+                    startActivity(intent)
+                    Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
+
+                }
+
+//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+
+
+
+            }
+
 
         }
 
@@ -475,8 +489,8 @@ class MainPage : AppCompatActivity() {
 //                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
 //                imageArr.add(bitmap)
                     val img=findViewById<ImageView>(R.id.imageView)
-                    if(name.isNotEmpty())
-                    {
+//                    if(name.isNotEmpty())
+//                    {
                         for(i in arraylistData.indices)
                         {
                             if(arraylistData[i].contains(name))
@@ -487,7 +501,7 @@ class MainPage : AppCompatActivity() {
 
                         }
 
-                    }
+//                    }
 
 
 
@@ -814,6 +828,16 @@ class MainPage : AppCompatActivity() {
                                android.R.string.no, Toast.LENGTH_SHORT
                            ).show()
                        }
+
+
+
+                       val fireb= Firebase.storage.reference.child("Img/${modalList.get(i).docName}.jpg")
+                       fireb.delete().addOnSuccessListener {
+                           Toast.makeText(this,"Successfully delete images${modalList.get(i).docName}",Toast.LENGTH_SHORT).show()
+                       }.addOnFailureListener {
+
+                       }
+
 
 
                        builder.show()

@@ -45,10 +45,7 @@ class DoctorInformation : AppCompatActivity() {
         docInfo.text=docName
 
         val docPro=findViewById<EditText>(R.id.dtPro)
-        var dtpro=docPro.text
-        var pro=dtpro.toString()
-        pro=pro.replace(" ","")
-        val letter:Boolean=isLetters(pro)
+
 
         val btn=findViewById<Button>(R.id.updateBtn)
 
@@ -56,7 +53,10 @@ class DoctorInformation : AppCompatActivity() {
 
         btn.setOnClickListener {
 
-
+            val dtpro=docPro.text
+            val pro=dtpro.toString()
+//        pro=pro.replace(" ","")
+            val letter:Boolean=isLetters(pro)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName.toString()
             if(letter)
@@ -106,7 +106,9 @@ class DoctorInformation : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
+        return string.matches("^[a-zA-Z ]*$".toRegex())
+
+//        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
 
 
