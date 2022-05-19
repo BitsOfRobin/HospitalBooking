@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
+            android:name=".MedicineRecord"
+            android:exported="false" />
+        <activity
             android:name=".DoctorInformation"
             android:exported="false" />
         <activity
@@ -51,6 +54,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <meta-data
+                android:name="com.google.mlkit.vision.DEPENDENCIES"
+                android:value="ocr" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -79,6 +79,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.mikhaellopez:circularimageview:4.3.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.0'
+
 }
 //
 //apply plugin:"com.google.gms.google-services"

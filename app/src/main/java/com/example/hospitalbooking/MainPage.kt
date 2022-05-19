@@ -64,7 +64,7 @@ class MainPage : AppCompatActivity() {
         val doctor= FirebaseAuth.getInstance().currentUser
         docDetail=doctor?.uid
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
-        Toast.makeText(this,"Enter getData", Toast.LENGTH_SHORT).show()
+
 //        val arraylistName= ArrayList<String>()
 //        val arraylistTime= ArrayList<String>()
         val arraylistPro= ArrayList<String>()

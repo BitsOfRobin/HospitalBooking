@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private var modalList=ArrayList<Modal>()
     private var names= arrayOf(
-        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors","Upload Images for Doctor"
+        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors","Upload Images for Doctor","Medicine Recognition"
     )
 
-    var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc3,R.drawable.settime,R.drawable.upload)
+    var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc3,R.drawable.settime,R.drawable.upload,R.drawable.medicine)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
             } else if (i == 1) {
-                val intent = Intent(this, MedicineViewCustomer::class.java)
+                val intent = Intent(this, MedicineRecord::class.java)
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
 
@@ -92,6 +92,14 @@ class MainActivity : AppCompatActivity() {
             else if(i==6)
             {
                 val intent = Intent(this, UploadImg::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+                startActivity(intent)
+
+            }
+
+            else if(i==7)
+            {
+                val intent = Intent(this, UserMedicine::class.java)
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
 

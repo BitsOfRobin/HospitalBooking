@@ -153,18 +153,18 @@ class DoctorAppointment : AppCompatActivity() {
 //                var user=document.get("user").toString()
 
 
-                val userGoogle = Firebase.auth.currentUser
-                userGoogle.let {
-                    // Name, email address, and profile photo Url
-//                    val name = user.displayName
-                    if (userGoogle != null) {
-                        user = userGoogle.displayName.toString()
-                    }
-
-                    else{
-
-                        user=" NOne"
-                    }
+//                val userGoogle = Firebase.auth.currentUser
+//                userGoogle.let {
+//                    // Name, email address, and profile photo Url
+////                    val name = user.displayName
+//                    if (userGoogle != null) {
+//                        user = userGoogle.displayName.toString()
+//                    }
+//
+//                    else{
+//
+//                        user=" NOne"
+//                    }
 //                    val photoUrl = user.photoUrl
 //
 //                    // Check if user's email is verified
@@ -174,7 +174,7 @@ class DoctorAppointment : AppCompatActivity() {
 //                    // authenticate with your backend server, if you have one. Use
 //                    // FirebaseUser.getToken() instead.
 //                    val uid = user.uid
-                }
+//                }
                 var docName=document.get("docName").toString()
                 if(docName!=null)
                 {

@@ -35,7 +35,7 @@ class DoctorInformation : AppCompatActivity() {
 //                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
 //                imageArr.add(bitmap)
             bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-            val imgDoct = findViewById<ImageView>(R.id.ImgDoc)
+            val imgDoct = findViewById<ImageView>(R.id.ImgMed)
                 imgDoct.setImageBitmap(bitmap)
 
         }

@@ -1,14 +1,24 @@
 package com.example.hospitalbooking
 
+import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.Spanned
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.util.Log
+import android.widget.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import java.io.IOException
 import java.util.ArrayList
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -16,176 +26,176 @@ import java.util.regex.Pattern
 class UserMedicine : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     private var userId=" "
+    private lateinit var ImageUri: Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_medicine)
-        readUser()
-        Toast.makeText(this, "retrieve=$userId", Toast.LENGTH_SHORT).show()
-        readMedicine()
-    }
+
+//        readMedicine()
 
 
 
-    private fun readMedicine() {
+        val selectImgBtn=findViewById<Button>(R.id.selectImageBtn)
+        val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
 
-        val medicine = findViewById<EditText>(R.id.id)
-        val disease = findViewById<EditText>(R.id.pass)
-        val dosage = findViewById<EditText>(R.id.age)
+        selectImgBtn.setOnClickListener {
+            selectImage()
 
+        }
 
-        val btnSubmit = findViewById<Button>(R.id.btnSubmit)
-        btnSubmit.setOnClickListener {
-//            medicine.filters = arrayOf<InputFilter>(ValidateFilter())
-//            disease.filters = arrayOf<InputFilter>(ValidateFilter())
-//        dosage.filters = arrayOf<InputFilter>(ValidateFilter())
-            val truth:Boolean = isNumber(dosage.text.toString())
-            val truthMed:Boolean = isLetters(medicine.text.toString())
-            val truthDis:Boolean = isLetters(disease.text.toString())
-            if (truth) {
-
-                Toast.makeText(
-                    this,
-                    "It is digit} ",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-
-                Toast.makeText(
-                    this,
-                    "It is not digit} ",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            }
-
-
-
-
-            if (truth && truthMed && truthDis) {
-
-
-                val userMedicine = hashMapOf(
-                    "userMedicine" to medicine.text.toString(),
-                    "userDisease" to disease.text.toString(),
-                    "userDosage" to dosage.text.toString(),
-                    "userId" to userId
-
-
-                )
-//        val  doc =doctor?.uid
-
-                mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
-                mFirebaseDatabaseInstance?.collection("userMedicine")?.document("medicine")
-                    ?.set(userMedicine)?.addOnSuccessListener {
-
-
-                        Toast.makeText(this, "Successfully added user medicine ", Toast.LENGTH_SHORT).show()
-
-                    }
-                    ?.addOnFailureListener {
-
-                        Toast.makeText(this, "Failed to add user medicine", Toast.LENGTH_SHORT).show()
-                    }
-
-
-            } else {
-
-                Toast.makeText(this, "The inputs for Disease and medicine contains non alphabet", Toast.LENGTH_SHORT).show()
-
-            }
-
-
-
-            val intent= Intent(this,MedicineViewCustomer::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-            btnSubmit.context.startActivity(intent)
-
+        uploadImgBtn.setOnClickListener {
+//
+            uploadImage()
         }
     }
 
+    private fun uploadImage() {
 
-    inner class ValidateFilter : InputFilter {
-        override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned?, dstart: Int, dend: Int): CharSequence? {
-            var string:String =" "
-            for (i in start until end) {
-//                val string = editText.text.toString().trim()
 
-                val checkMe = source[i].toString()
-                val pattern: Pattern = Pattern.compile("[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789]*")
-                val matcher: Matcher = pattern.matcher(checkMe)
-                val valid: Boolean = matcher.matches()
-                string = if (!valid) {
+        val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
+//        val name=findViewById<EditText>(R.id.dtName)
+//        val dtname=name.text
+//        var docName=dtname.toString()
+//        docName.replace(" ","")
+//
+//        val letter:Boolean=true
+        var user=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+            } else {
 
-                    " "
-                } else{
-
-                    checkMe
-                }
+                user = " NOne"
             }
-            return string
+
         }
 
 
 
 
+//        if(letter)
+//        {
+//            docName="Dr $docName"
+            val progressDialog= ProgressDialog(this)
+            progressDialog.setMessage("Uploading File....")
+            progressDialog.setCancelable(false)
+            progressDialog.show()
+            val storageReference= FirebaseStorage.getInstance().getReference("medImg/medi.jpg")
+            storageReference.putFile(ImageUri).addOnSuccessListener {
+                firebaseImg.setImageURI(null)
+                if(progressDialog.isShowing)progressDialog.dismiss()
+                Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
+                val intent= Intent(this,MedicineViewCustomer::class.java)
+//                intent.putExtra("medicineCount", i)
+                startActivity(intent)
+
+
+            }.addOnFailureListener{
+
+                if(progressDialog.isShowing)progressDialog.dismiss()
+            }
+
+//
+//        }
+//
+//        else{
+//
+//            Toast.makeText(this,"Doctor Name consists NON alphabet",Toast.LENGTH_SHORT).show()
+//
+//
+//        }
 
     }
+
+    private fun selectImage() {
+
+        val intent= Intent()
+        intent.type="image/*"
+        intent.action=Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent,100)
+
+
+    }
+
+
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode==100&& resultCode== RESULT_OK)
+        {
+            ImageUri=data?.data!!
+            val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
+            firebaseImg.setImageURI(ImageUri)
+
+        }
+
+
+    }
+
+//    private fun readMedicine() {
+//
+////        val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
+////        firebaseImg.setImageURI()
+//
+//        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+//        val image: InputImage
+//        var elementText=" "
+////        image = InputImage.fromFilePath(this,ImageUri)
+//        try {
+//            image = InputImage.fromFilePath(this,ImageUri)
+//            val result = recognizer.process(image)
+//                .addOnSuccessListener { visionText ->
+//                    // Task completed successfully
+//                    // ...
+//                }
+//                .addOnFailureListener { e ->
+//                    // Task failed with an exception
+//                    // ...
+//                }
+//
+//            val resultText = result.result
+//            for (block in resultText.textBlocks) {
+//                val blockText = block.text
+//                val blockCornerPoints = block.cornerPoints
+//                val blockFrame = block.boundingBox
+//                for (line in block.lines) {
+//                    val lineText = line.text
+//                    val lineCornerPoints = line.cornerPoints
+//                    val lineFrame = line.boundingBox
+//                    for (element in line.elements) {
+//                        elementText = element.text
+//                        val elementCornerPoints = element.cornerPoints
+//                        val elementFrame = element.boundingBox
+//                    }
+//                }
+//            }
+//
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
+//
+//
+//
+//
+//
+//        val medText=findViewById<TextView>(R.id.medName)
+//
+//        medText.text=elementText
+//
+//    }
+
 
 
     private fun isLetters(string: String): Boolean {
         return string.matches("^[a-zA-Z]*$".toRegex())
+
+//        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
-
-
-
-
-    private fun isNumber(s: String?): Boolean {
-        return !s.isNullOrEmpty() && s.matches(Regex("\\d+"))
-    }
-
-
-
-    private fun readUser(){
-        val arraylist = ArrayList<String>()
-        Toast.makeText(this, "enter to retrieve", Toast.LENGTH_SHORT).show()
-        val docRef = mFirebaseDatabaseInstance?.collection("ValidUser")
-        docRef?.get()?.addOnSuccessListener {
-
-
-            var docName = it.documents
-
-            //                }
-
-            for (document in it) {
-
-
-                userId = document.get("userId").toString()
-
-                if (userId == null) {
-                    arraylist.add("No records found")
-
-                }
-
-            }
-
-            Toast.makeText(this, "success to retrieve", Toast.LENGTH_SHORT).show()
-
-        }?.addOnFailureListener {
-
-
-            Toast.makeText(this, "failed to retrieve", Toast.LENGTH_SHORT).show()
-
-
-        }
-
-
-    }
-
-
-
-
-
-
 
 
 
