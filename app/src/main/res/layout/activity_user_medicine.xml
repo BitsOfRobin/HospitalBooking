@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="32dp"
-        android:id="@+id/selectImageBtn"
+        android:id="@+id/btnRet"
         android:text="Select Medicine Image"
         />
     <Button
@@ -45,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textSize="30dp"
         android:inputType="textPersonName"
         android:text="Medicine Name" />
 

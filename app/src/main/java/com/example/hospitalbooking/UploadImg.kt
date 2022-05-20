@@ -6,12 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
-import java.net.URI
-import java.text.SimpleDateFormat
-import java.util.*
 
 class UploadImg : AppCompatActivity() {
     private lateinit var ImageUri: Uri
@@ -20,7 +15,7 @@ class UploadImg : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_img)
 
-        val selectImgBtn=findViewById<Button>(R.id.selectImageBtn)
+        val selectImgBtn=findViewById<Button>(R.id.btnRet)
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
 
         selectImgBtn.setOnClickListener {

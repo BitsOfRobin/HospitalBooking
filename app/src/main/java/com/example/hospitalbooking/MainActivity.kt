@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private var modalList=ArrayList<Modal>()
     private var names= arrayOf(
-        "Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","Login","Set time for Doctors","Upload Images for Doctor","Medicine Recognition"
+        "Book Appointment", "Medicine Record", "Filter Patient Medicine","View Doctor Appointment","Login","Set time for Doctors","Upload Images for Doctor","Medicine Recognition"
     )
 
     var images=intArrayOf(R.drawable.appointment,R.drawable.entermedicine,R.drawable.medicine,R.drawable.doc,R.drawable.doc3,R.drawable.settime,R.drawable.upload,R.drawable.medicine)
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 
             } else if (i == 2) {
-                val intent = Intent(this, UserMedicine::class.java)
+                val intent = Intent(this, DoctorFilterMedicine::class.java)
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
                 startActivity(intent)
 

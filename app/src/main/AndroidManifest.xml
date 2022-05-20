@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
+            android:name=".DoctorFilterMedicine"
+            android:exported="false" />
+        <activity
+            android:name=".MedicineListView"
+            android:exported="false" />
+        <activity
             android:name=".MedicineRecord"
             android:exported="false" />
         <activity

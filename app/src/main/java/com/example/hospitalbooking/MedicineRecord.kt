@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 class MedicineRecord : AppCompatActivity() {
 
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+  
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class MedicineRecord : AppCompatActivity() {
     {
         var loginUser=" "
         val userGoogle = Firebase.auth.currentUser
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
         userGoogle.let {
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
@@ -45,44 +47,35 @@ class MedicineRecord : AppCompatActivity() {
         }
 
         val arraylistMedi= ArrayList<String>()
-        val docRef = mFirebaseDatabaseInstance?.collection("medicine")
-        var medicine=" "
+
+//        var medicine=" "
         var mediText=" "
+        Toast.makeText(this,loginUser,Toast.LENGTH_SHORT).show()
+        val docRef = mFirebaseDatabaseInstance?.collection("medicine")
         docRef?.whereEqualTo("user",loginUser)?.get()?.addOnSuccessListener {
 
 
-            for (document in it) {
-
-
-                medicine = document.get("medicine").toString()
-    //                mediText=medicine.replace(" ","")
-    //                if(isLetters(mediText))
-    //                {
-
-                arraylistMedi.add("$medicine\n$loginUser")
-
-    //                }
-
+            for(document in it) {
+                val medicine=document.get("userMedicine").toString()
+                arraylistMedi.add(medicine)
 
             }
-
             Toast.makeText(this,"success",Toast.LENGTH_SHORT).show()
+            val arr= ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistMedi)
+            val medilist=findViewById<ListView>(R.id.listMedi)
+            medilist.adapter=arr
 
         }
+
             ?.addOnFailureListener{
 
-                Toast.makeText(this,"failed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"fail",Toast.LENGTH_SHORT).show()
             }
-
-
         Toast.makeText(this,"$arraylistMedi",Toast.LENGTH_SHORT).show()
 
 
 //            val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
 
-        val arr= ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistMedi)
-        val medilist=findViewById<ListView>(R.id.listMedi)
-        medilist.adapter=arr
 
     }
 

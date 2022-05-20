@@ -166,7 +166,7 @@ class MedicineViewCustomer : AppCompatActivity() {
         }
 //        val loginUser=readUser()
         val user= hashMapOf(
-            "medicine" to mediText,
+            "userMedicine" to mediText,
             "user" to loginUser,
 
 

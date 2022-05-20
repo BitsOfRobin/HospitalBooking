@@ -7,10 +7,12 @@
         <entry key="..\:/HospitalBooking/app/src/main/res/layout/welcomepagegridview.xml" value="0.25416666666666665" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_appointment_select.xml" value="0.2105978260869565" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_doctor_appointment.xml" value="0.2105978260869565" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_doctor_filter_medicine.xml" value="0.25" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_doctor_information.xml" value="0.23596014492753623" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_filter_appointment.xml" value="0.18432971014492755" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_main_page.xml" value="0.21784420289855072" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_medicine_list_view.xml" value="0.25" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_medicine_record.xml" value="0.25" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_medicine_view_customer.xml" value="0.21784420289855072" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_profile.xml" value="0.2" />
