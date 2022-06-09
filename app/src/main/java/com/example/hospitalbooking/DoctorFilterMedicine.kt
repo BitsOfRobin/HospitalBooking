@@ -62,7 +62,7 @@ class DoctorFilterMedicine : AppCompatActivity() {
                     for (document in it) {
                         dbMedicine = document.get("userMedicine").toString()
 
-                        if (dbMedicine.contains(medicine)) {
+                        if (dbMedicine.contains(medicine,true)) {
                             arraylistMedi.add(dbMedicine)
                             detect++
                         }

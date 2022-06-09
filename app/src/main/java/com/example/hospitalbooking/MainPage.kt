@@ -37,6 +37,7 @@ class MainPage : AppCompatActivity() {
     private var arraylistName= ArrayList<String>()
     private val arraylistData= ArrayList<String>()
     private val arraylistTime= ArrayList<String>()
+    private val arraylistPro= ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
@@ -67,7 +68,7 @@ class MainPage : AppCompatActivity() {
 
 //        val arraylistName= ArrayList<String>()
 //        val arraylistTime= ArrayList<String>()
-        val arraylistPro= ArrayList<String>()
+//        val arraylistPro= ArrayList<String>()
 //        val arraylistData= ArrayList<String>()
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
@@ -106,12 +107,13 @@ class MainPage : AppCompatActivity() {
             arraylistData.clear()
             arraylistName.clear()
             arraylistTime.clear()
+            arraylistPro.clear()
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 val time=document.get("Time").toString()
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
 //                val date2 = time2.toDate()
-                val date = time
+                var date = time
 //                arraylistTime.add(date.toString())
                 val name=document.get("name").toString()
                 val pro=document.get("pro").toString()
@@ -126,8 +128,14 @@ class MainPage : AppCompatActivity() {
 
                 if(name.contains("Dr"))
                 {
+
                     arraylistName.add(name)
+
+
                     arraylistPro.add(pro)
+                    val index=date.indexOf(",")
+                    date=date.substring(0,index)+"\n"+date.substring(index,date.length)
+
                     arraylistTime.add(date)
 
                     arraylistData.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
@@ -454,6 +462,7 @@ class MainPage : AppCompatActivity() {
 //        arraylistName.ensureCapacity(arraylistData.size)
         val arrBitMap=ArrayList<Bitmap>()
         val docView=findViewById<GridView>(R.id.gridView)
+        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
         if(modalList.size>arraylistData.size)
         {
 //            for(i in arraylistData.size..modalList.size)
@@ -471,6 +480,7 @@ class MainPage : AppCompatActivity() {
 //            var i=0
             for(name in arraylistName)
             {
+
 
                 val fireb= Firebase.storage.reference.child("Img/$name.jpg")
 //            val fireb=FirebaseStorage.getInstance().getReference("/Img")
@@ -495,7 +505,7 @@ class MainPage : AppCompatActivity() {
                         {
                             if(arraylistData[i].contains(name))
                             {
-                                modalList.add(ModalFormMain(arraylistData[i],bitmap,arraylistName[i],arraylistTime[i]))
+                                modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],arraylistTime[i]))
 
                             }
 
@@ -637,15 +647,29 @@ class MainPage : AppCompatActivity() {
             {
                 view=layoutInflater.inflate(R.layout.row_items,viewGroup,false)
             }
-            var tvImageName=view?.findViewById<TextView>(R.id.imageName)
-//            var tvTime=view?.findViewById<TextView>(R.id.date )
-//            var tvPro=view?.findViewById<TextView>(R.id.Pro )
+            val tvImageName=view?.findViewById<TextView>(R.id.imageName)
+            val tvTime=view?.findViewById<TextView>(R.id.docPro )
+            val tvPro=view?.findViewById<TextView>(R.id.docTime)
 
-            var imageView=view?.findViewById<ImageView>(R.id.imageView)
+            val imageView=view?.findViewById<ImageView>(R.id.imageView)
+            var CheckName=itemModel[position].docName
+            if (CheckName != null) {
+                if(CheckName.length>10) {
+                    var index=CheckName.indexOf(" ",5,true)
+                    CheckName=CheckName.substring(0,index)+"\n"+CheckName.substring(index,CheckName.length)
+                    tvImageName?.text=CheckName
 
-            tvImageName?.text=itemModel[position].name
-//            tvTime?.text=itemModel[position].date
-//            tvPro?.text=itemModel[position].pro
+                }
+
+                else{
+                    tvImageName?.text=CheckName
+
+                }
+            }
+
+//            tvImageName?.text=itemModel[position].docName
+            tvTime?.text=itemModel[position].time
+            tvPro?.text=itemModel[position].pro
 
             itemModel[position].image?.let { imageView?.setImageBitmap(it) }
 

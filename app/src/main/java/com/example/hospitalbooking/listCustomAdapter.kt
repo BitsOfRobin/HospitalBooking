@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,7 +28,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         return p0.toLong()
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var view:View
@@ -52,7 +53,6 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         var dateInString = appointment.AppointmentDetail.toString().replace(" ", "-")
 
 
-
             if (dateInString[0].toString().toInt() < 10) {
                 dateInString = "0$dateInString"
 
@@ -72,13 +72,10 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 
             val formatter = SimpleDateFormat("dd-MMM-yyyy")
             val date = formatter.parse(dateInString)
-            if (calendarDate < date) {
+            if (calendarDate.after(date) ) {
+                viewHolder.txtName.setTextColor(Color.parseColor("#FFE91E63"))
+                viewHolder.txtName.text = appointment.AppointmentDetail.toString() + "\n" + appointment.docName.toString() + "\n" + appointment.userName.toString() + "\n" + "BOOKING TIME PASSED" + "\n"
 
-
-            } else {
-                viewHolder.txtName.setTextColor(Color.parseColor("#FF0000"))
-                viewHolder.txtName.text =
-                    appointment.AppointmentDetail.toString() + "\n" + appointment.docName.toString() + "\n" + appointment.userName.toString() + "\n" + "BOOKING TIME PASSED" + "\n"
 
             }
 

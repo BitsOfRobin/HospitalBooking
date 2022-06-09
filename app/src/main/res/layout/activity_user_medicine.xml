@@ -36,7 +36,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="Upload Medicine Image"
+        android:text="Recognise Medicine"
         android:id="@+id/uploadImageBtn"
         />
 

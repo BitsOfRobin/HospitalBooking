@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
+            android:name=".PrescriptionDisplay"
+            android:exported="false" />
+        <activity
+            android:name=".PatientPrescription"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorViewAppointment"
+            android:exported="false" />
+        <activity
             android:name=".DoctorFilterMedicine"
             android:exported="false" />
         <activity

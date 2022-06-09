@@ -4,13 +4,13 @@ import android.graphics.Bitmap
 
 class ModalFormMain {
 
-    var name:String?=null
+    var pro:String?=null
 
     var image:Bitmap?=null
     var docName:String?=null
     var time:String?=null
-    constructor(name:String,image:Bitmap,docName:String,time:String){
-        this.name=name
+    constructor(pro:String,image:Bitmap,docName:String,time:String){
+        this.pro=pro
 
         this.image=image
 

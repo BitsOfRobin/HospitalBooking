@@ -19,13 +19,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import java.lang.Double.valueOf
-import java.lang.Float.valueOf
-import java.math.RoundingMode.valueOf
-import java.security.Timestamp
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -123,7 +116,7 @@ class DoctorAppointment : AppCompatActivity() {
         var user=" "
         var doc=" "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
-        val docView = findViewById<ListView>(R.id.listAppoint)
+        val docView = findViewById<ListView>(R.id.listDocAppoint)
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
             // Name, email address, and profile photo Url
@@ -353,7 +346,7 @@ class DoctorAppointment : AppCompatActivity() {
     private fun deleteUser(){
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
-        val docView=findViewById<ListView>(R.id.listAppoint)
+        val docView=findViewById<ListView>(R.id.listDocAppoint)
         val userGoogle = Firebase.auth.currentUser
         var user=" "
         userGoogle.let {
