@@ -51,19 +51,23 @@ class DoctorFilterMedicine : AppCompatActivity() {
             val  userMedicine=findViewById<EditText>(R.id.medicineText)
           var medicine=userMedicine.text.toString()
           var dbMedicine=" "
+          var dbMedicine2=" "
+          var user=" "
 
             if(isLetters(medicine)) {
 
                 Toast.makeText(this, medicine, Toast.LENGTH_SHORT).show()
-                val docRef = mFirebaseDatabaseInstance?.collection("medicine")
+                val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
                 docRef?.get()?.addOnSuccessListener {
 
 
                     for (document in it) {
-                        dbMedicine = document.get("userMedicine").toString()
+                        dbMedicine = document.get("medicine1").toString()
+                        dbMedicine2 = document.get("medicine2").toString()
+                        user = document.get("user").toString()
 
-                        if (dbMedicine.contains(medicine,true)) {
-                            arraylistMedi.add(dbMedicine)
+                        if (dbMedicine.contains(medicine,true)||dbMedicine2.contains(medicine,true)) {
+                            arraylistMedi.add("user is $user, medicine 1 is $dbMedicine, medicine 2 is $dbMedicine2")
                             detect++
                         }
 

@@ -6,17 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".PatientPrescription">
 
+
     <EditText
         android:id="@+id/med1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="29dp"
+        android:alpha="0.4"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Medicine Name"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="26dp" />
@@ -27,10 +30,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="172dp"
-        android:layout_marginEnd="73dp"
+        android:layout_marginTop="167dp"
+        android:layout_marginEnd="34dp"
+        android:alpha="0.4"
         android:ems="10"
         android:inputType="number"
+        android:text="XX mg"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="101dp"
         tools:layout_editor_absoluteY="114dp" />
 
@@ -53,10 +59,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="471dp"
+        android:layout_marginTop="469dp"
         android:text="Dosage"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="127dp" />
+        tools:layout_editor_absoluteY="127dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -66,8 +74,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="180dp"
         android:text="Dosage"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="313dp" />
+        tools:layout_editor_absoluteY="313dp"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/med2"
@@ -75,11 +85,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="69dp"
-        android:layout_marginBottom="301dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="304dp"
+        android:alpha="0.4"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Medicine 2 Name"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="107dp"
         tools:layout_editor_absoluteY="238dp" />
 
@@ -90,9 +102,49 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="461dp"
+        android:layout_marginTop="456dp"
+        android:alpha="0.4"
         android:ems="10"
         android:inputType="number"
+        android:text="XX mg"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="104dp"
         tools:layout_editor_absoluteY="302dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="25dp"
+        android:text="Patient Prescription"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="100dp"
+        android:text="Medicine 1"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="304dp"
+        android:text="Medicine 2"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 </RelativeLayout>

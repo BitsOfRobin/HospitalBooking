@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:text="Upload Medicine Image"
-        android:textColor="@color/black"
+
         android:textSize="26dp"
         android:textStyle="bold"
         />

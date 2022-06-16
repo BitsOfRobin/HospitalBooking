@@ -8,10 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.SearchView
 import android.widget.TextView
 
 
-class ListCustomAdapterForPrescription(var context: Context, private var pres:ArrayList<String>):
+class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private var pres:ArrayList<Prescription>):
     BaseAdapter() {
     override fun getCount(): Int {
         return pres.count()
@@ -33,7 +34,7 @@ class ListCustomAdapterForPrescription(var context: Context, private var pres:Ar
         if(p1==null)
         {
             var layout= LayoutInflater.from(context)
-            view=layout.inflate(R.layout.customlistview,p2,false)
+            view=layout.inflate(R.layout.list_view_prescription,p2,false)
             viewHolder=ViewHolder(view)
             view.tag=viewHolder
         }
@@ -43,8 +44,10 @@ class ListCustomAdapterForPrescription(var context: Context, private var pres:Ar
             viewHolder=view.tag as ViewHolder
         }
 
-        var prescription=getItem(p0) as String
-        viewHolder.txtName.text=prescription
+        var prescription=getItem(p0) as Prescription
+        viewHolder.txtName.text=prescription.user.toString()
+        viewHolder.txtDoc.text=prescription.doc.toString()
+        viewHolder.txtMedi.text=prescription.medicine.toString()
 
 
         return view as View
@@ -53,10 +56,14 @@ class ListCustomAdapterForPrescription(var context: Context, private var pres:Ar
 
     private  class ViewHolder(row:View?){
         lateinit var txtName: TextView
+        lateinit var txtDoc: TextView
+        lateinit var txtMedi: TextView
 //        lateinit var ivImage:ImageView
 
         init {
             this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
+            this.txtDoc= row.findViewById(R.id.txtDoc) as TextView
+            this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
 //            this.ivImage=row?.findViewById(R.id.imgAppoint) as ImageView
 
         }

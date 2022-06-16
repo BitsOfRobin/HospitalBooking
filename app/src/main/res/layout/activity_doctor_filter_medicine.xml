@@ -33,7 +33,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Medicine" />
+        android:text="Medicine"
+        android:textStyle="italic"
+        android:alpha="0.4"/>
 
 <!--    <TextView-->
 <!--        android:id="@+id/medDisplay"-->

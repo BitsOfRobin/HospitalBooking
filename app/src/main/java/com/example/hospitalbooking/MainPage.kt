@@ -133,10 +133,19 @@ class MainPage : AppCompatActivity() {
 
 
                     arraylistPro.add(pro)
-                    val index=date.indexOf(",")
-                    date=date.substring(0,index)+"\n"+date.substring(index,date.length)
+                    if(date.contains("0"))
+                    {
+                        val index=date.indexOf(",")
+                        date=date.substring(0,index)+"\n"+date.substring(index,date.length-2)
 
-                    arraylistTime.add(date)
+                        arraylistTime.add(date)
+
+                    }
+                    else{
+
+                        arraylistTime.add(" ")
+                    }
+
 
                     arraylistData.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
                 }
@@ -668,6 +677,9 @@ class MainPage : AppCompatActivity() {
             }
 
 //            tvImageName?.text=itemModel[position].docName
+
+
+
             tvTime?.text=itemModel[position].time
             tvPro?.text=itemModel[position].pro
 

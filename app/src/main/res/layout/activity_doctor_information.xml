@@ -39,7 +39,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Doctor Professional" />
+        android:text="(Doctor Professional)"
+        android:textStyle="italic"
+        android:alpha="0.4"/>
 
 
     <Button

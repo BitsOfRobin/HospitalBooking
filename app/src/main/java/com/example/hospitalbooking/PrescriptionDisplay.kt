@@ -1,20 +1,10 @@
 package com.example.hospitalbooking
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Context
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -32,13 +22,14 @@ class PrescriptionDisplay : AppCompatActivity() {
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 //        Toast.makeText(this, "Enter read user", Toast.LENGTH_SHORT).show()
-        val arraylist = ArrayList<String>()
+        val arraylistPres = ArrayList<Prescription>()
         val arraylistPro = ArrayList<String>()
         val arraylistUser = ArrayList<String>()
         var arraylistDocName = ArrayList<String>()
         val arrayForSearch = ArrayList<String>()
         val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = " "
+        var userG = " "
         var medicine1 = " "
         var medicine2 = " "
         var dos1=" "
@@ -51,16 +42,31 @@ class PrescriptionDisplay : AppCompatActivity() {
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
             if (userGoogle != null) {
-                user = userGoogle.displayName.toString()
+                userG = userGoogle.displayName.toString()
+
 
             }
 
             else {
 //
-                user = " NOne"
+                userG = " NOne"
             }
 
         }
+
+//        var userName = intent.getStringExtra("userName").toString()
+//
+//        Toast.makeText(this, userName,Toast.LENGTH_SHORT).show()
+//        if(userName.contains("     ")){
+//
+//            user=userG
+//        }
+//
+//        else{
+//
+//            user=userName
+//        }
+        user=userG
         val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
         docRef?.whereEqualTo("user",user)?.get()?.addOnSuccessListener {
 
@@ -99,7 +105,9 @@ class PrescriptionDisplay : AppCompatActivity() {
 //
 //                } else {
                 if (docName.contains("Dr")) {
-                    arraylist.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
+//                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
+                    var medi= "$medicine1 \n $dos1 mg \n $medicine2 \n$dos2 mg\n"
+                        arraylistPres.add(Prescription(user,docName,medi))
 
 
                 }
@@ -111,7 +119,7 @@ class PrescriptionDisplay : AppCompatActivity() {
             }
 
 
-            val arr = ListCustomAdapterForPrescription(this,arraylist)
+            val arr = ListCustomAdapterForPrescription(this,arraylistPres)
 
 
 
