@@ -69,12 +69,16 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 //        val convertedDate = sourceFormat.parse(dateInString)
 //        destFormat.format(convertedDate)
 
-
+        viewHolder.txtNum.text =(p0+1).toString()
             val formatter = SimpleDateFormat("dd-MMM-yyyy")
             val date = formatter.parse(dateInString)
             if (calendarDate.after(date) ) {
-                viewHolder.txtName.setTextColor(Color.parseColor("#FFE91E63"))
-                viewHolder.txtName.text = appointment.AppointmentDetail.toString() + "\n" + appointment.docName.toString() + "\n" + appointment.userName.toString() + "\n" + "BOOKING TIME PASSED" + "\n"
+                viewHolder.txtWarn.setTextColor(Color.parseColor("#FFE91E63"))
+                viewHolder.txtName.text = appointment.userName.toString()
+                viewHolder.txtTime.text = appointment.AppointmentDetail.toString()
+                viewHolder.txtDoc.text =  appointment.docName.toString()
+                viewHolder.txtWarn.text = "BOOKING TIME PASSED"
+                viewHolder.txtNum.setTextColor(Color.parseColor("#FFE91E63"))
 
 
             }
@@ -89,10 +93,18 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 
     private  class ViewHolder(row:View?){
         lateinit var txtName:TextView
+        lateinit var txtDoc:TextView
+        lateinit var txtTime:TextView
+        lateinit var txtWarn:TextView
+        lateinit var txtNum:TextView
 //        lateinit var ivImage:ImageView
 
         init {
             this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
+            this.txtDoc=row?.findViewById(R.id.txtDoc) as TextView
+            this.txtTime=row?.findViewById(R.id.txtUser) as TextView
+            this.txtWarn=row?.findViewById(R.id.txtWarn) as TextView
+            this.txtNum=row?.findViewById(R.id.txtNum) as TextView
 //            this.ivImage=row?.findViewById(R.id.imgAppoint) as ImageView
 
         }

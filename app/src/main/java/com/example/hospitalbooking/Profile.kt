@@ -46,8 +46,10 @@ class Profile : AppCompatActivity() {
             val image=firebaseUser.photoUrl
 
             val etxt=findViewById<TextView>(R.id.emailTv)
+            val name=findViewById<TextView>(R.id.DisplayName)
             val userImg=findViewById<ImageView>(R.id.userImg)
-            etxt.text="$email\n$data"
+            etxt.text="Email:\n$email"
+            name.text="Name:$data"
             Picasso.get().load(image).into(userImg);
 
 

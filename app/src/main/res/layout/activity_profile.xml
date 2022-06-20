@@ -1,54 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Profile">
 
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TextAppearance.MaterialComponents.Caption"
-        android:layout_width="130dp"
-        android:layout_height="43dp"
-        android:text="logged in"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/emailTv"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-
-
-        />
-
-    <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="280dp"
-        android:text="log out"
+    <androidx.cardview.widget.CardView
+        android:layout_width="378dp"
+        android:layout_height="694dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="5dp"
+        android:background="#FFC107"
+        android:padding="2dp"
+        app:cardBackgroundColor="#FFC107"
+        app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginStart="20dp"
-        android:id="@+id/userImg"
-        android:layout_width="155dp"
-        android:layout_height="186dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/google" />
+        app:layout_constraintVertical_bias="0.499">
+
+        <!--    <androidx.cardview.widget.CardView-->
+        <!--        android:layout_width="310dp"-->
+        <!--        android:layout_height="636dp"-->
+        <!--        android:layout_alignParentStart="true"-->
+        <!--        android:layout_alignParentTop="true"-->
+        <!--        android:layout_marginStart="50dp"-->
+        <!--        android:layout_marginTop="23dp">-->
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="130dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="141dp"
+            android:layout_marginTop="300dp"
+            android:text="logged in"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="300dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImg"
+            android:layout_width="103dp"
+            android:layout_height="161dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="61dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.402"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.31"
+            app:srcCompat="@drawable/google" />
+
+        <Button
+            android:id="@+id/logoutBtn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="log out" />
+
+        <TextView
+            android:id="@+id/DisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="132dp"
+            android:layout_marginBottom="151dp"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/emailTv"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="131dp"
+            android:layout_marginBottom="230dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

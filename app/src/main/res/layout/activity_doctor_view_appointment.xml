@@ -33,8 +33,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="61dp"
         android:layout_marginTop="26dp"
+        
 
-        android:background="@color/teal_200" />
+        android:background="#85B6B2" />
 
 
 </RelativeLayout>

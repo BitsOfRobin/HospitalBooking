@@ -4,19 +4,15 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.SearchView
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.ArrayList
 
 class DoctorViewAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -35,6 +31,7 @@ class DoctorViewAppointment : AppCompatActivity() {
         val arraylistPro = ArrayList<String>()
         val arraylistUser = ArrayList<String>()
         var arraylistDocName = ArrayList<String>()
+        var appointment = ArrayList<String>()
         val arrayForSearch=ArrayList<String>()
         val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = " "
@@ -76,7 +73,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                 doc = document.get("doctorAppoint").toString()
                 user=document.get("user").toString()
 
-
+                appointment.add(doc)
                 arraylistUser.add(user)
 //                if (user == null) {
 //                    arraylist.add("No records found")
@@ -106,62 +103,52 @@ class DoctorViewAppointment : AppCompatActivity() {
 
             docView.adapter = arr
 
-//            var count=0
-//            val searchView=findViewById<SearchView>(R.id.searchDoc)
-//            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//                override fun onQueryTextSubmit(query: String): Boolean {
-//
-//                    for(i in arraylist.indices)
-//                    {
-//
-//                        if(arraylist.get(i).user.toString().contains(query))
-//                        {
-//                            arraySearchUser.add(Prescription(arraylist.get(i).user.toString(),
-//                                arraylist.get(i).doc.toString(),arraylist.get(i).medicine.toString()))
-//                            count++
-//                        }
-//
-//                    }
-//
-//
-//
-//
-//
-//                    return false
-//                }
-//
-//                override fun onQueryTextChange(p0: String): Boolean {
-//                    for(i in arraylist.indices)
-//                    {
-//
-//                        if(arraylist.get(i).user.toString().contains(p0))
-//                        {
-//                            arraySearchUser.add(Prescription(arraylist.get(i).user.toString(),
-//                                arraylist.get(i).doc.toString(),arraylist.get(i).medicine.toString()))
-//                            count++
-//                        }
-//
-//                    }
-//
-//                    return false
-//                }
-//
-//            })
-//
-//            if(count>0)
-//            {
-//                val arl = ListCustomAdapterForPrescription(this,arraySearchUser)
-//
-//                docView.adapter = arl
-//
-//            }
-//
-//            else{
-//
-//                arr = ListCustomAdapterForPrescription(this,arraylist)
-//
-//                docView.adapter = arr
-//            }
+            var tempList=ArrayList<Prescription>()
+            val searchView=findViewById<SearchView>(R.id.searchDoc)
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+
+                    tempList.clear()
+                    if (p0 != null) {
+                        if(p0.isNotEmpty()) {
+                            for(i in arraylistUser.indices)
+                            {
+                                if(arraylistUser[i].contains(p0,true))
+                                {
+                                    tempList.add(Prescription(arraylistUser[i],arraylistDocName[i],appointment[i]))
+
+                                }
+
+                            }
+
+
+                                dataChanged(tempList)
+
+
+
+                        }
+
+
+                        else
+                        {
+                            docView.adapter = arr
+
+                        }
+                    }
+
+
+                    return false
+                }
+
+
+
+            })
+
 
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
@@ -179,7 +166,14 @@ class DoctorViewAppointment : AppCompatActivity() {
 
     }
 
+private  fun dataChanged(arraylist:ArrayList<Prescription>)
+{
 
+    val docView = findViewById<ListView>(R.id.listDocAppoint)
+    var arr = ListCustomAdapterForPrescription(this,arraylist)
+
+    docView.adapter = arr
+}
 
 
 
@@ -224,6 +218,12 @@ class DoctorViewAppointment : AppCompatActivity() {
             return view as View
 
         }
+
+
+
+
+
+
 
         private  class ViewHolder(row: View?){
             lateinit var txtName: TextView

@@ -549,6 +549,10 @@ class MainPage : AppCompatActivity() {
 
             docView.adapter = customAdapter
 
+
+
+
+
         }
 //
 //        for(i in arraylistData.indices)
