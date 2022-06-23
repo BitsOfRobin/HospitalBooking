@@ -66,7 +66,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userImg"
                 android:layout_width="28dp"
                 android:layout_height="30dp"
@@ -79,25 +79,26 @@
 
         </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/txtDoc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="102dp"
-        android:layout_marginEnd="51dp"
-        android:layout_toEndOf="@+id/imgAppoint"
-        android:text="Appointment"
-        android:textColor="#9C27B0"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtDoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="102dp"
+            android:layout_marginEnd="51dp"
+            android:layout_toEndOf="@+id/imgAppoint"
+            android:text="Appointment"
+            android:textColor="#9C27B0"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/txtMedi"
-        android:layout_width="wrap_content"
+        android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -105,13 +106,12 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="12dp"
         android:text="Appointment"
         android:textColor="#282BDC"
         android:textSize="25sp"
         android:textStyle="bold" />
-
 
     <ImageView
         android:id="@+id/imageView3"

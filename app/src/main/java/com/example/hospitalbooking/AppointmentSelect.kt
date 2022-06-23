@@ -94,11 +94,13 @@ class AppointmentSelect : AppCompatActivity(){
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 var time = document.get("Time")
-                val date = time
+                var time2 = document.get("Time2")
+
 
 //                if(calendarDate.before(date))
 //                {
-                arraylistTime.add(date.toString())
+                arraylistTime.add(time.toString())
+                arraylistTime.add(time2.toString())
 
 ////                }
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
@@ -144,6 +146,8 @@ class AppointmentSelect : AppCompatActivity(){
 //            val str=arraylistTime[i].toString()
 //        val str=docSpin.selectedIte()
 //        btn.isClickable=false
+
+        var deleteTime=0
         docSpin.onItemSelectedListener=object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if(arraylistTime[p2]!=null)
@@ -152,9 +156,9 @@ class AppointmentSelect : AppCompatActivity(){
                     txt.text = "Selected: "+arraylistTime[p2].toString()
                     appointedTime=arraylistTime[p2].toString()
 
-                    nameNtime = tempHolder +"\n" +arraylistTime[p2].toString()
+//                    nameNtime = tempHolder +"\n" +arraylistTime[p2].toString()
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-
+                    deleteTime=p2
                     btn.isEnabled=true
 
                     checkBtn=true
@@ -183,6 +187,7 @@ class AppointmentSelect : AppCompatActivity(){
             btn.setOnClickListener() {
                 writeUser(appointedTime)
                 val intent = Intent(this, DoctorAppointment::class.java)
+                arraylistTime.remove(arraylistTime[deleteTime])
 //                intent.putExtra("DoctorName", nameNtime)
                 startActivity(intent)
 //                Toast.makeText(

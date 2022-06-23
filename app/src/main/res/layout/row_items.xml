@@ -9,8 +9,8 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_width="406dp"
+            android:layout_height="385dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -101,6 +101,9 @@
                     tools:layout_editor_absoluteX="223dp"
                     tools:layout_editor_absoluteY="522dp" />
 
+
+
         </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

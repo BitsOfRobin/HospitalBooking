@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -50,12 +52,58 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     private fun pickDate() {
 
         val btnTime = findViewById<Button>(R.id.btn_timePicker)
-        btnTime.setOnClickListener {
+        val btnEndTime = findViewById<Button>(R.id.btnEnd)
+        val btnup1 = findViewById<Button>(R.id.btnup1)
+        val btnup2 = findViewById<Button>(R.id.btnup2)
 
-            getDateTimeCalendar()
-            DatePickerDialog(this, this, year, month, day).show()
+        var loginUser=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                loginUser = userGoogle.email.toString()
+            }
+
+            else{
+
+                loginUser=" NOne"
+            }
+//
+        }
+
+        if(loginUser.contains("@student.tarc")) {
+
+
+
+            btnTime.setOnClickListener {
+
+                getDateTimeCalendar()
+                DatePickerDialog(this, this, year, month, day).show()
+
+
+            }
+
+            btnup1.setOnClickListener {
+                updateDoc()
+
+            }
+
+
+
+            btnEndTime.setOnClickListener {
+                getDateTimeCalendar()
+                DatePickerDialog(this, this, year, month, day).show()
+
+
+            }
+
+        btnup2.setOnClickListener {
+            setEndTime()
+        }
 
         }
+
     }
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
@@ -74,7 +122,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         savedHour = p1
         savedMinute = p2
         val tvTime = findViewById<TextView>(R.id.tv_textTime)
+        val endTime = findViewById<TextView>(R.id.EndTime)
         tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+        endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
 
 
 
@@ -118,8 +168,6 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         Toast.makeText(this,"time$realDate",Toast.LENGTH_SHORT).show()
 
-        updateDoc()
-
 
     }
 
@@ -150,6 +198,39 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
                 Toast.makeText(this,"Failed to update doctor",Toast.LENGTH_SHORT).show()
             }
+
+
+
+
+
+
+
+    }
+
+    private fun setEndTime()
+    {
+        val doctorName = intent.getStringExtra("DoctorName")
+
+        val mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
+
+        val doctor= hashMapOf(
+            "Time2" to realDate
+
+
+
+
+        )
+        mFirebaseDatabaseInstance?.collection("doctor")?.document("$doctorName").update("Time2",realDate) .addOnSuccessListener {
+
+
+            Toast.makeText(this,"Successfully update doctor ",Toast.LENGTH_SHORT).show()
+
+        }
+            ?.addOnFailureListener {
+
+                Toast.makeText(this,"Failed to update doctor",Toast.LENGTH_SHORT).show()
+            }
+
 
 
     }

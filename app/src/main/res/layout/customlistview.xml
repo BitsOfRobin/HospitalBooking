@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -35,40 +36,40 @@
         <!--            app:srcCompat="@drawable/appointment" />-->
 
 
+        <TextView
+            android:id="@+id/txtAppoint"
+            android:layout_width="188dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="49dp"
+
+            android:text="Appointment"
+            android:textColor="#282BDC"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
     <TextView
-        android:id="@+id/txtAppoint"
-        android:layout_width="188dp"
-        android:layout_height="45dp"
+        android:id="@+id/txtNum"
+        android:layout_width="109dp"
+        android:layout_height="83dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_gravity="right"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="49dp"
 
-        android:text="Appointment"
-        android:textColor="#282BDC"
-        android:textSize="25sp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="top"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="291dp"
+        android:text="Num"
+        android:textColor="#673AB7"
+        android:textSize="45sp"
         android:textStyle="bold" />
 
     <TextView
-            android:id="@+id/txtNum"
-            android:layout_width="111dp"
-            android:layout_height="153dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-
-            android:layout_centerInParent="true"
-            android:layout_gravity="top"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="267dp"
-            android:text="Num"
-            android:textColor="#673AB7"
-            android:textSize="45sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/txtWarn"
             android:layout_width="181dp"
             android:layout_height="59dp"
@@ -117,6 +118,16 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImg"
+        android:layout_width="52dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="22dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
-    </androidx.cardview.widget.CardView>
+
+</androidx.cardview.widget.CardView>
 </RelativeLayout>

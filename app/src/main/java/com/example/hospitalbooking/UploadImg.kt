@@ -25,7 +25,9 @@ class UploadImg : AppCompatActivity() {
 
         uploadImgBtn.setOnClickListener {
 
-            uploadImage()
+
+                    uploadImage()
+
         }
 
 

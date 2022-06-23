@@ -170,7 +170,7 @@ class MainPage : AppCompatActivity() {
 
 
 //                Toast.makeText(this, "Enter the firebase${docName.toString()} ",Toast.LENGTH_SHORT).show()
-                Toast.makeText(this, "arr=$arraylistData ",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "arr=$arraylistData ",Toast.LENGTH_SHORT).show()
 //
 //
 //                Toast.makeText(this, "Enter the firebase$f{arraylist[0].toString()} ",Toast.LENGTH_SHORT).show()
@@ -443,12 +443,12 @@ class MainPage : AppCompatActivity() {
 //            val time = arraylistTime[i].toString()
 
                 if(time.contains('0')){
-                    writeUser(time,name,user)
-                    val intent= Intent(this,DoctorAppointment::class.java)
+//                    writeUser(time,name,user)
+                    val intent= Intent(this,AppointmentSelect::class.java)
                     intent.putExtra("DoctorName", name)
                     startActivity(intent)
-                    Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
 
                 }
 
@@ -471,7 +471,7 @@ class MainPage : AppCompatActivity() {
 //        arraylistName.ensureCapacity(arraylistData.size)
         val arrBitMap=ArrayList<Bitmap>()
         val docView=findViewById<GridView>(R.id.gridView)
-        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
         if(modalList.size>arraylistData.size)
         {
 //            for(i in arraylistData.size..modalList.size)
@@ -512,7 +512,7 @@ class MainPage : AppCompatActivity() {
 //                    {
                         for(i in arraylistData.indices)
                         {
-                            if(arraylistData[i].contains(name))
+                            if(arraylistData[i].equals(name,true))
                             {
                                 modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],arraylistTime[i]))
 
@@ -526,13 +526,13 @@ class MainPage : AppCompatActivity() {
 
 
 
-                    Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
 
 
                     arrBitMap.add(bitmap)
 //                    modalList.add(docModal(arraylist[i],))
 
-                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
 
                 }.addOnFailureListener{
 
@@ -594,7 +594,7 @@ class MainPage : AppCompatActivity() {
 ////                dt++
 //        }
 
-        Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
 
     }
 
@@ -605,7 +605,7 @@ class MainPage : AppCompatActivity() {
 
     private fun setDoctor()
     {
-        Toast.makeText(this,"enter set Doctor ", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"enter set Doctor ", Toast.LENGTH_SHORT).show()
         val docName="Mr Liew"
 
 

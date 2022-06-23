@@ -1,10 +1,13 @@
 package com.example.hospitalbooking
 
 import android.annotation.SuppressLint
+import android.app.SearchManager
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,12 +16,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DoctorViewAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_view_appointment)
+
         readUserRecord()
     }
 
@@ -105,6 +112,7 @@ class DoctorViewAppointment : AppCompatActivity() {
 
             var tempList=ArrayList<Prescription>()
             val searchView=findViewById<SearchView>(R.id.searchDoc)
+            searchView.queryHint="search User"
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -211,8 +219,65 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
 
             var prescription=getItem(p0) as Prescription
             viewHolder.txtName.text=prescription.user.toString()
-            viewHolder.txtDoc.text=prescription.doc.toString()
-            viewHolder.txtMedi.text=prescription.medicine.toString()
+//            viewHolder.txtMedi.text=prescription.medicine.toString()
+
+
+
+
+
+            var dateInString = prescription.medicine.toString().replace(" ", "-")
+
+
+            if (dateInString[0].toString().toInt() < 10) {
+                dateInString = "0$dateInString"
+
+            }
+            val calendarDate = Calendar.getInstance().time
+
+
+//        val utc = TimeZone.getTimeZone("UTC")
+//        val sourceFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")
+//        val destFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm aa")
+//        sourceFormat.timeZone =utc
+
+//
+//        val convertedDate = sourceFormat.parse(dateInString)
+//        destFormat.format(convertedDate)
+
+
+            val formatter = SimpleDateFormat("dd-MMM-yyyy")
+            val date = formatter.parse(dateInString)
+            if (calendarDate.after(date) ) {
+
+                viewHolder.txtMedi.text=prescription.medicine.toString()
+                viewHolder.txtMedi.setTextColor(Color.parseColor("#282BDC"))
+
+
+            }
+            else{
+                viewHolder.txtMedi.text="Appointment is not conducted yet"
+                viewHolder.txtMedi.setTextColor(Color.parseColor("#FFE91E63"))
+
+            }
+
+
+
+
+
+            var CheckName=prescription.doc.toString()
+            if (CheckName != null) {
+                if(CheckName.length>10) {
+                    var index=CheckName.indexOf(" ",5,true)
+                    CheckName=CheckName.substring(0,index)+"\n"+CheckName.substring(index,CheckName.length)
+                    viewHolder.txtDoc.text =CheckName
+
+                }
+
+                else{
+                    viewHolder.txtDoc.text =CheckName
+
+                }
+            }
 
 
             return view as View

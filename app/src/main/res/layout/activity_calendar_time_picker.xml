@@ -7,26 +7,73 @@
     tools:context=".CalendarTimePicker">
 
     <Button
+        android:id="@+id/btn_timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_timePicker"
-        android:layout_centerInParent="true"
-        android:text="What time?"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="31dp"
+        android:text="What time?" />
 
     <TextView
+        android:id="@+id/tv_textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_textTime"
         android:layout_below="@+id/btn_timePicker"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="27dp"
+        android:textColor="#282BDC"
+
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+    <Button
+        android:id="@+id/btnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginBottom="355dp"
+        android:text="End Time" />
+
+    <TextView
+        android:id="@+id/EndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_timePicker"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="314dp"
         android:textColor="#282BDC"
         android:textSize="22sp"
         android:textStyle="bold"
-        tools:text="@tools:sample/date/ddmmyy"
+        tools:text="@tools:sample/date/ddmmyy" />
 
-        />
+    <Button
+        android:id="@+id/btnup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="167dp"
+        android:text="update time1" />
 
-
+    <Button
+        android:id="@+id/btnup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginBottom="238dp"
+        android:text="update time 2" />
 
 </RelativeLayout>
