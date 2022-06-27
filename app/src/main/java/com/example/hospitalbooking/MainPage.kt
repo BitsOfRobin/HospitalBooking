@@ -7,8 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,12 +18,20 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.GenericTransitionOptions.with
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.with
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.io.File
 
 
@@ -37,7 +45,11 @@ class MainPage : AppCompatActivity() {
     private var arraylistName= ArrayList<String>()
     private val arraylistData= ArrayList<String>()
     private val arraylistTime= ArrayList<String>()
+    private val arraylistTime2= ArrayList<String>()
     private val arraylistPro= ArrayList<String>()
+    private var count=0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
@@ -107,10 +119,13 @@ class MainPage : AppCompatActivity() {
             arraylistData.clear()
             arraylistName.clear()
             arraylistTime.clear()
+            arraylistTime2.clear()
             arraylistPro.clear()
+            modalList.clear()
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 val time=document.get("Time").toString()
+                val time2=document.get("Time2").toString()
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
 //                val date2 = time2.toDate()
                 var date = time
@@ -145,7 +160,18 @@ class MainPage : AppCompatActivity() {
 
                         arraylistTime.add(" ")
                     }
+                    if(time2.contains("0"))
+                    {
+                        val index=time2.indexOf(",")
+                        var date2=time2.substring(0,index)+"\n"+time2.substring(index,time2.length-2)
 
+                        arraylistTime2.add(date2)
+
+                    }
+                    else{
+
+                        arraylistTime2.add(" ")
+                    }
 
                     arraylistData.add("Name: $name \nProfessional:\n $pro \nAvailable Date:\n$date \n")
                 }
@@ -470,7 +496,9 @@ class MainPage : AppCompatActivity() {
     {
 //        arraylistName.ensureCapacity(arraylistData.size)
         val arrBitMap=ArrayList<Bitmap>()
+//        count=0
         val docView=findViewById<GridView>(R.id.gridView)
+//        modalList.clear()
 //        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
         if(modalList.size>arraylistData.size)
         {
@@ -487,11 +515,12 @@ class MainPage : AppCompatActivity() {
         else
         {
 //            var i=0
-            for(name in arraylistName)
+            count=arraylistName.size
+//             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
+            for( i in arraylistName.indices)
             {
 
-
-                val fireb= Firebase.storage.reference.child("Img/$name.jpg")
+                val fireb= Firebase.storage.reference.child("Img/${arraylistName.get(i)}.jpg")
 //            val fireb=FirebaseStorage.getInstance().getReference("/Img")
                 val localfile= File.createTempFile("tempImage","jpg")
                 var bitmap:Bitmap
@@ -510,25 +539,28 @@ class MainPage : AppCompatActivity() {
                     val img=findViewById<ImageView>(R.id.imageView)
 //                    if(name.isNotEmpty())
 //                    {
-                        for(i in arraylistData.indices)
-                        {
-                            if(arraylistData[i].equals(name,true))
-                            {
-                                modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],arraylistTime[i]))
+//
+//                        for(i in arraylistName.indices)
+//                        {
+//                            if(arraylistName[i].equals(name,true))
+//                            {
+                                var time=arraylistTime[i]+"\n"+arraylistTime2[i]
+                                modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],time))
 
-                            }
 
-                        }
+
+//                            }
+
+//                        }
 
 //                    }
 
 
 
 
+//                    Toast.makeText(this,"name=$modalList",Toast.LENGTH_SHORT).show()
 
-//                    Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
-
-
+//                    count=0
                     arrBitMap.add(bitmap)
 //                    modalList.add(docModal(arraylist[i],))
 
@@ -664,8 +696,9 @@ class MainPage : AppCompatActivity() {
             val tvTime=view?.findViewById<TextView>(R.id.docPro )
             val tvPro=view?.findViewById<TextView>(R.id.docTime)
 
-            val imageView=view?.findViewById<ImageView>(R.id.imageView)
+            val imageView=view!!.findViewById<ImageView>(R.id.imageView)
             var CheckName=itemModel[position].docName
+            var name=itemModel[position].docName
             if (CheckName != null) {
                 if(CheckName.length>10) {
                     var index=CheckName.indexOf(" ",5,true)
@@ -687,7 +720,58 @@ class MainPage : AppCompatActivity() {
             tvTime?.text=itemModel[position].time
             tvPro?.text=itemModel[position].pro
 
-            itemModel[position].image?.let { imageView?.setImageBitmap(it) }
+
+
+//            itemModel[position].image?.let { imageView?.setImageBitmap(it) }
+
+            with(context)
+                .load(itemModel[position].image)
+                .into(imageView)
+
+
+
+//            val fire= Firebase.storage.reference.child("Img/$name.jpg")
+//                    Glide.with(context)
+//                        .load(fire)
+//                        .into(imageView)
+
+//            if(count!=itemModel.size)
+//            {
+////                try{
+
+////                    Toast.makeText(context,"image saved",Toast.LENGTH_SHORT).show()
+//
+//
+//
+//
+//
+//
+//          fire.downloadUrl
+//                .addOnSuccessListener(OnSuccessListener<Any> { uri -> // Got the download URL for 'users/me/profile.png'
+//                    // Pass it to Picasso to download, show in ImageView and caching
+//                    Picasso.with(context).load(uri.toString()).into(imageView)
+//
+//                    Toast.makeText(context,"image saved",Toast.LENGTH_SHORT).show()
+//                }).addOnFailureListener(OnFailureListener {
+//                  Toast.makeText(context,"image failed to save ",Toast.LENGTH_SHORT).show()
+//                })
+//
+
+//                catch (e:NullPointerException){
+//                    Toast.makeText(context,"image not found",Toast.LENGTH_SHORT).show()
+//                }
+
+
+
+//            }
+
+//            else{
+//                itemModel[position].image?.let { imageView?.setImageBitmap(it) }
+//                Toast.makeText(context,"fully retrieved",Toast.LENGTH_SHORT).show()
+//
+//            }
+//
+
 
             return view!!
         }
@@ -707,7 +791,7 @@ class MainPage : AppCompatActivity() {
             getDataDoc()
 
 //           readDoc(txt)
-            Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
             swipe.isRefreshing=false
 
         }

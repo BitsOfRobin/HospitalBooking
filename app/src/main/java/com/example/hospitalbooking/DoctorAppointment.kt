@@ -4,7 +4,10 @@ package com.example.hospitalbooking
 
 //import com.example.hospitalsmartt.databinding.ActivityMainBinding
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,12 +16,15 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -28,6 +34,8 @@ class DoctorAppointment : AppCompatActivity() {
     private var userNum:Int=0
     private var docDetail:String?=null
     private var arrayDel = ArrayList<String>()
+    private val CHANNEL_ID="channel_id_example_01"
+    private  val notificationId=101
     //    private lateinit var binding: ActivityMainBinding
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +48,47 @@ class DoctorAppointment : AppCompatActivity() {
         readUser()
         deleteUser()
         refresh()
-
+        createNoti()
 
 
     }
+    private fun timeToNoti(time:String)
+    {
 
+        var dateInString = time
+        dateInString.replace(" ", "-")
+
+
+        if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
+            dateInString = "0$dateInString"
+
+        }
+        else
+        {
+
+            dateInString=dateInString
+        }
+        val calendarDate = Calendar.getInstance().time
+
+
+//        val utc = TimeZone.getTimeZone("UTC")
+//        val sourceFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")
+//        val destFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm aa")
+//        sourceFormat.timeZone =utc
+
+//
+//        val convertedDate = sourceFormat.parse(dateInString)
+//        destFormat.format(convertedDate)
+
+
+        val formatter = SimpleDateFormat("dd-MMM-yyyy")
+        val date = formatter.parse(dateInString.replace(" ","-"))
+        if (calendarDate.after(date)){
+
+            sendNotifi()
+            }
+
+        }
 
 
     private fun writeUser(){
@@ -178,6 +222,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
                  doc=document.get("doctorAppoint").toString()
+                timeToNoti(doc)
 //                var dateInString = "2020-05-02"
 //                var simpleFormat =  DateTimeFormatter.ISO_DATE;
 //                var convertedDate = LocalDate.parse(dateInString, simpleFormat)
@@ -483,7 +528,38 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
+    private fun createNoti()
+    {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
 
+            val name="Hospital Appointmnet"
+            val txt="Your Appointment is approaching"
+            val imp= NotificationManager.IMPORTANCE_DEFAULT
+            val channel= NotificationChannel(CHANNEL_ID,name,imp).apply {
+                description=txt
+            }
+
+            val notiManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notiManager.createNotificationChannel(channel)
+
+
+        }
+
+    }
+
+    private fun sendNotifi()
+    {
+        val builder= NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.appointment)
+            .setContentText("Your Appointment is past")
+            .setContentTitle("Hospital Appointment")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)){
+
+            notify(notificationId,builder.build())
+        }
+
+    }
 
 
 

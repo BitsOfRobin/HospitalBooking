@@ -53,12 +53,18 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         viewHolder.txtName.text=appointment.AppointmentDetail.toString()+"\n"+appointment.docName.toString()+"\n"+appointment.userName.toString()+"\n"
 
 
-        var dateInString = appointment.AppointmentDetail.toString().replace(" ", "-")
+        var dateInString = appointment.AppointmentDetail.trim()
+        dateInString.replace(" ", "-")
 
 
-            if (dateInString[0].toString().toInt() < 10) {
+            if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
                 dateInString = "0$dateInString"
 
+            }
+        else
+            {
+
+                dateInString=dateInString
             }
             val calendarDate = Calendar.getInstance().time
 
@@ -74,7 +80,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 
         viewHolder.txtNum.text =(p0+1).toString()
             val formatter = SimpleDateFormat("dd-MMM-yyyy")
-            val date = formatter.parse(dateInString)
+            val date = formatter.parse(dateInString.replace(" ","-"))
             if (calendarDate.after(date) ) {
                 viewHolder.txtWarn.setTextColor(Color.parseColor("#FFE91E63"))
                 viewHolder.txtName.text = appointment.userName.toString()
