@@ -7,8 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.icu.number.NumberFormatter.with
-import android.icu.number.NumberRangeFormatter.with
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,20 +16,13 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.bumptech.glide.GenericTransitionOptions.with
-import com.bumptech.glide.Glide
 import com.bumptech.glide.Glide.with
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.with
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.squareup.picasso.Picasso
 import java.io.File
 
 
@@ -47,6 +38,7 @@ class MainPage : AppCompatActivity() {
     private val arraylistTime= ArrayList<String>()
     private val arraylistTime2= ArrayList<String>()
     private val arraylistPro= ArrayList<String>()
+//    private val docView: GridView =findViewById<GridView>(R.id.gridView)
     private var count=0
 
 
@@ -74,6 +66,7 @@ class MainPage : AppCompatActivity() {
 //        modalList.clear()
 //        arraylistData.clear()
 //        var modalList=ArrayList<ModalFormMain>()
+        val docView: GridView =findViewById<GridView>(R.id.gridView)
         val doctor= FirebaseAuth.getInstance().currentUser
         docDetail=doctor?.uid
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
@@ -84,7 +77,7 @@ class MainPage : AppCompatActivity() {
 //        val arraylistData= ArrayList<String>()
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
-        val docView=findViewById<GridView>(R.id.gridView)
+//        val docView=findViewById<GridView>(R.id.gridView)
 //        val txt=findViewById<TextView>(R.id.txtV)
 //        val name=findViewById<TextView>(R.id.txtName)
 //        val pro=findViewById<TextView>(R.id.txtPro)
@@ -575,13 +568,13 @@ class MainPage : AppCompatActivity() {
             }
 
 
-            var customAdapter= CustomAdapter(modalList, this)
+            val customAdapter= CustomAdapter(modalList, this)
 
 
 
             docView.adapter = customAdapter
 
-
+            searchDoc(customAdapter)
 
 
 
@@ -1020,7 +1013,110 @@ class MainPage : AppCompatActivity() {
 
 
 
+            private fun searchDoc(customAdapter: CustomAdapter)
+            {
 
+                val docView: GridView =findViewById<GridView>(R.id.gridView)
+                docView.adapter = customAdapter
+
+
+                var temp=""
+                val searchView=findViewById<SearchView>(R.id.searchDoc)
+                searchView.queryHint="search Doctor Professional"
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(p0: String?): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(p0: String?): Boolean {
+
+
+
+                            if(p0!= null) {
+                                for(i in arraylistPro.indices) {
+                                    if(arraylistPro[i].contains(p0,true)) {
+                                        temp=arraylistName[i]
+
+                                    }
+
+                                }
+
+
+                                dataChanged(temp)
+
+
+                            } else {
+                                docView.adapter = customAdapter
+
+                            }
+
+
+
+
+                        return false
+                    }
+
+
+
+                })
+
+            }
+
+
+
+    private  fun dataChanged(tempName:String)
+    {
+        val docView: GridView =findViewById<GridView>(R.id.gridView)
+
+        var modalListSearch=ArrayList<ModalFormMain>()
+            count=arraylistName.size
+//             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
+            for( i in arraylistName.indices)
+            {
+                if(arraylistName[i] == tempName)
+                {
+                    val fireb= Firebase.storage.reference.child("Img/${arraylistName.get(i)}.jpg")
+
+                    val localfile= File.createTempFile("tempImage","jpg")
+                    var bitmap:Bitmap
+                    fireb.getFile(localfile).addOnSuccessListener {
+
+                        bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
+
+                        val time=arraylistTime[i]+"\n"+arraylistTime2[i]
+                        modalListSearch.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],time))
+
+
+
+
+
+                    }.addOnFailureListener{
+
+                        Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
+                    }
+
+
+
+                }
+
+
+//                dt++
+            }
+
+
+            val customSearch= CustomAdapter(modalListSearch, this)
+
+
+
+            docView.adapter = customSearch
+
+
+
+
+
+
+    }
 
 
 
