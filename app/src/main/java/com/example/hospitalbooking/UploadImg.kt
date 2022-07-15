@@ -52,7 +52,7 @@ class UploadImg : AppCompatActivity() {
             progressDialog.setCancelable(false)
             progressDialog.show()
             val storageReference=FirebaseStorage.getInstance().getReference("Img/$docName.jpg")
-            storageReference.putFile(ImageUri).addOnSuccessListener {
+            storageReference.putFile(ImageUri).addOnCompleteListener {
                 firebaseImg.setImageURI(null)
                 if(progressDialog.isShowing)progressDialog.dismiss()
                 Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
@@ -108,7 +108,7 @@ class UploadImg : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.matches("^[a-zA-Z ]*$".toRegex())
+        return string.matches("^[a-zA-Z]*$".toRegex())
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }

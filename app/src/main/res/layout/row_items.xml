@@ -57,7 +57,8 @@
                     android:layout_toEndOf="@+id/imageView"
                     android:textColor="@color/black"
                     android:textSize="27sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <TextView
 

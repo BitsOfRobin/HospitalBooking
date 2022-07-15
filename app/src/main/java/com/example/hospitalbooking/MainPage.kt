@@ -1020,7 +1020,7 @@ class MainPage : AppCompatActivity() {
                 docView.adapter = customAdapter
 
 
-                var temp=""
+                val temp=ArrayList<String>()
                 val searchView=findViewById<SearchView>(R.id.searchDoc)
                 searchView.queryHint="search Doctor Professional"
 
@@ -1031,12 +1031,12 @@ class MainPage : AppCompatActivity() {
 
                     override fun onQueryTextChange(p0: String?): Boolean {
 
-
+                            temp.clear()
 
                             if(p0!= null) {
                                 for(i in arraylistPro.indices) {
                                     if(arraylistPro[i].contains(p0,true)) {
-                                        temp=arraylistName[i]
+                                        temp.add(arraylistName[i])
 
                                     }
 
@@ -1065,16 +1065,18 @@ class MainPage : AppCompatActivity() {
 
 
 
-    private  fun dataChanged(tempName:String)
+    private  fun dataChanged(tempName:ArrayList<String>)
     {
         val docView: GridView =findViewById<GridView>(R.id.gridView)
 
-        var modalListSearch=ArrayList<ModalFormMain>()
-            count=arraylistName.size
+        val modalListSearch=ArrayList<ModalFormMain>()
+        modalListSearch.clear()
+            var j=0
+//        Toast.makeText(this,"$count",Toast.LENGTH_SHORT).show()
 //             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
-            for( i in arraylistName.indices)
+            for( i in arraylistName.indices )
             {
-                if(arraylistName[i] == tempName)
+                if(arraylistName[i] == tempName[j])
                 {
                     val fireb= Firebase.storage.reference.child("Img/${arraylistName.get(i)}.jpg")
 
@@ -1090,12 +1092,16 @@ class MainPage : AppCompatActivity() {
 
 
 
-
                     }.addOnFailureListener{
 
                         Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
                     }
 
+                    if(j<tempName.size-1)
+                    {
+                        j++
+
+                    }
 
 
                 }
