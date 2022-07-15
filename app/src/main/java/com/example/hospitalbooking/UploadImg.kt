@@ -40,11 +40,11 @@ class UploadImg : AppCompatActivity() {
         val name=findViewById<EditText>(R.id.dtName)
         val dtname=name.text
         var docName=dtname.toString()
-        docName.replace(" ","")
+//        docName.replace(" ","")
 
         val letter:Boolean=isLetters(docName)
 
-        if(letter)
+        if(letter&&docName!=" "&&docName!="")
         {
             docName="Dr $docName"
             val progressDialog=ProgressDialog(this)
@@ -108,7 +108,7 @@ class UploadImg : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.matches("^[a-zA-Z]*$".toRegex())
+        return string.matches("^[a-zA-Z ]*$".toRegex())
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }

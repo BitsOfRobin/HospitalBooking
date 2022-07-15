@@ -80,7 +80,7 @@ class PrescriptionDisplay : AppCompatActivity() {
                 arraylistPro.add(document.id.toString())
 
                 var docName = document.get("docName").toString()
-                if (docName != null) {
+                if (docName !=" "&& docName!="") {
                     arraylistDocName.add(docName)
 
                 }
@@ -106,7 +106,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 //                } else {
                 if (docName.contains("Dr")) {
 //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
-                    var medi= "$medicine1 \n $dos1 mg \n $medicine2 \n$dos2 mg\n"
+                    val medi= "$medicine1 \n $dos1 mg \n $medicine2 \n$dos2 mg\n"
                         arraylistPres.add(Prescription(user,docName,medi))
 
 

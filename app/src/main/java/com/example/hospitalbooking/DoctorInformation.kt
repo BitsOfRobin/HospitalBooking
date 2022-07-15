@@ -59,7 +59,7 @@ class DoctorInformation : AppCompatActivity() {
             val letter:Boolean=isLetters(pro)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName.toString()
-            if(letter)
+            if(letter&&pro!=" "&&pro!="")
             {
                 val doc= hashMapOf(
 

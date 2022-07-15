@@ -52,7 +52,7 @@ class PatientPrescription : AppCompatActivity() {
 
 
 
-                if (isLetters(medText) || isLetters(medText2)) {
+            if (isLetters(medText)&&medText!=" "&&medText!="" || isLetters(medText2)&&medText2!=" "&&medText2!="" ) {
 
                     mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
@@ -115,7 +115,7 @@ class PatientPrescription : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.matches("^[a-zA-Z]*$".toRegex())
+        return string.matches("^[a-zA-Z ]*$".toRegex())
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }

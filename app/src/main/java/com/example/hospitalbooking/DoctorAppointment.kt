@@ -83,9 +83,9 @@ class DoctorAppointment : AppCompatActivity() {
 
         val formatter = SimpleDateFormat("dd-MMM-yyyy")
         val date = formatter.parse(dateInString.replace(" ","-"))
-        if (calendarDate.after(date)){
+        if (calendarDate.before(date)){
 
-            sendNotifi()
+            sendNotifi(time)
             }
 
         }
@@ -547,10 +547,10 @@ class DoctorAppointment : AppCompatActivity() {
 
     }
 
-    private fun sendNotifi()
+    private fun sendNotifi(date:String)
     {
         val builder= NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.appointment)
-            .setContentText("Your Appointment is past")
+            .setContentText("Appointment: $date")
             .setContentTitle("Hospital Appointment")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
