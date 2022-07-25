@@ -54,7 +54,7 @@ class DoctorFilterMedicine : AppCompatActivity() {
           var dbMedicine2=" "
           var user=" "
 
-            if(isLetters(medicine)) {
+            if(isLetters(medicine)&&medicine!=""&&medicine!=" ") {
 
                 Toast.makeText(this, medicine, Toast.LENGTH_SHORT).show()
                 val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")

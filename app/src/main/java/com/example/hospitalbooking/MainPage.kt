@@ -1026,31 +1026,64 @@ class MainPage : AppCompatActivity() {
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(p0: String?): Boolean {
+                        temp.clear()
+
+                        if(p0!= null) {
+                            for(i in arraylistPro.indices) {
+                                if(arraylistPro[i].contains(p0,true)) {
+                                    temp.add(arraylistName[i])
+
+                                }
+
+                            }
+                            if(temp.isNotEmpty())
+                            {
+                                dataChanged(temp)
+                            }
+                            else
+                            {
+                               showMsg()
+
+                            }
+
+
+
+
+                        } else {
+                            docView.adapter = customAdapter
+
+                        }
+
+
+
+
                         return false
+
                     }
 
                     override fun onQueryTextChange(p0: String?): Boolean {
 
-                            temp.clear()
-
-                            if(p0!= null) {
-                                for(i in arraylistPro.indices) {
-                                    if(arraylistPro[i].contains(p0,true)) {
-                                        temp.add(arraylistName[i])
-
-                                    }
-
-                                }
-
-
-                                dataChanged(temp)
-
-
-                            } else {
-                                docView.adapter = customAdapter
-
-                            }
-
+//                            temp.clear()
+//
+//                            if(p0!= null) {
+//                                for(i in arraylistPro.indices) {
+//                                    if(arraylistPro[i].contains(p0,true)) {
+//                                        temp.add(arraylistPro[i])
+//
+//                                    }
+//
+//                                }
+//
+//
+//                                matchSearch(temp,searchView)
+//
+//
+//                            } else {
+//                                docView.adapter = customAdapter
+//
+//                            }
+//
+//
 
 
 
@@ -1061,8 +1094,26 @@ class MainPage : AppCompatActivity() {
 
                 })
 
+
             }
 
+
+//   private fun matchSearch(temp: ArrayList<String>, searchView: SearchView)
+//   {
+//
+//       val adapter=ArrayAdapter(this, android.R.layout.simple_list_item_1,temp)
+//       searchView.adapter
+//
+//   }
+//
+
+
+     private fun showMsg()
+     {
+
+
+         Toast.makeText(this,"Doctor is not found",Toast.LENGTH_SHORT).show()
+     }
 
 
     private  fun dataChanged(tempName:ArrayList<String>)
