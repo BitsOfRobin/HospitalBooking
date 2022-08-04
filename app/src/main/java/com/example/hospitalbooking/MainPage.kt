@@ -5,6 +5,7 @@ package com.example.hospitalbooking
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -1013,40 +1014,36 @@ class MainPage : AppCompatActivity() {
 
 
 
-            private fun searchDoc(customAdapter: CustomAdapter)
-            {
+            private fun searchDoc(customAdapter: CustomAdapter) {
 
-                val docView: GridView =findViewById<GridView>(R.id.gridView)
+                val docView: GridView = findViewById<GridView>(R.id.gridView)
                 docView.adapter = customAdapter
 
 
-                val temp=ArrayList<String>()
-                val searchView=findViewById<SearchView>(R.id.searchDoc)
-                searchView.queryHint="search Doctor Professional"
+                val temp = ArrayList<String>()
+                val searchView = findViewById<SearchView>(R.id.searchDoc)
+                searchView.queryHint = "search Doctor Professional"
 
+                val proAdapter:ArrayAdapter<String> =
+                    ArrayAdapter(this,android.R.layout.simple_list_item_1,arraylistPro)
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(p0: String?): Boolean {
                         temp.clear()
 
-                        if(p0!= null) {
-                            for(i in arraylistPro.indices) {
-                                if(arraylistPro[i].contains(p0,true)) {
+                        if (p0 != null) {
+                            for (i in arraylistPro.indices) {
+                                if (arraylistPro[i].contains(p0, true)) {
                                     temp.add(arraylistName[i])
 
                                 }
 
                             }
-                            if(temp.isNotEmpty())
-                            {
+                            if (temp.isNotEmpty()) {
                                 dataChanged(temp)
-                            }
-                            else
-                            {
-                               showMsg()
+                            } else {
+                                showMsg()
 
                             }
-
-
 
 
                         } else {
@@ -1063,36 +1060,43 @@ class MainPage : AppCompatActivity() {
 
                     override fun onQueryTextChange(p0: String?): Boolean {
 
-//                            temp.clear()
+//                        temp.clear()
 //
-//                            if(p0!= null) {
-//                                for(i in arraylistPro.indices) {
-//                                    if(arraylistPro[i].contains(p0,true)) {
-//                                        temp.add(arraylistPro[i])
-//
-//                                    }
+//                        if (p0 != null) {
+//                            for (i in arraylistPro.indices) {
+//                                if (arraylistPro[i].contains(p0, true)) {
+//                                    temp.add(arraylistName[i])
 //
 //                                }
 //
-//
-//                                matchSearch(temp,searchView)
-//
-//
+//                            }
+//                            if (temp.isNotEmpty()) {
+//                                dataChanged(temp)
 //                            } else {
-//                                docView.adapter = customAdapter
+//                                showMsg()
 //
 //                            }
 //
 //
-
-
+//                        } else {
+//                            docView.adapter = customAdapter
+//
+//                        }
 
                         return false
                     }
 
 
-
                 })
+
+
+
+
+
+
+
+
+
 
 
             }
@@ -1105,8 +1109,35 @@ class MainPage : AppCompatActivity() {
 //       searchView.adapter
 //
 //   }
+//    private fun suggestion()
+////    {
+////
+////        val searchView = findViewById<SearchView>(R.id.searchDoc)
+////
+////    searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+////        override fun onSuggestionSelect(position: Int): Boolean {
+////            return true
+////        }
+////
+////        override fun onSuggestionClick(position: Int): Boolean {
+////            val cursor: Cursor = searchView.suggestionsAdapter.cursor
+////            cursor.moveToPosition(position)
+////            var suggestion=""
+////            for (i in arraylistPro.indices) {
+////                if (arraylistPro[i].equals(cursor.getString(position), true)) {
+////                    suggestion=arraylistPro[i].toString()
+////                }
+////
+////            }
+////
+//////                        val suggestion: String =
+//////                            cursor.getString(2) //2 is the index of col containing suggestion name.
+////            searchView.setQuery(suggestion, true) //setting suggestion
+////            return true
+////        }
+////    })
+////    }
 //
-
 
      private fun showMsg()
      {

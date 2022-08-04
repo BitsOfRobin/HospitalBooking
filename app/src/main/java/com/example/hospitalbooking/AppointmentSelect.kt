@@ -112,15 +112,68 @@ class AppointmentSelect : AppCompatActivity() {
 
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                var time = document.get("Time").toString()
-                var time2 = document.get("Time2").toString()
+                val time = document.get("Time").toString()
+                val time2 = document.get("Time2").toString()
+
+                var dateInString = time.replace(" ", "-")
 
 
-                if (time.contains("0") || time2.contains("0")) {
-                    arraylistTime.add(time)
-                    arraylistTime.add(time2)
+                if (dateInString[0].toString().toInt() < 10) {
+                    dateInString = "0$dateInString"
 
                 }
+                val calendarDate = Calendar.getInstance().time
+
+
+
+
+                val formatter = SimpleDateFormat("dd-MMM-yyyy")
+                val date = formatter.parse(dateInString)
+                if (calendarDate.before(date) ) {
+                    arraylistTime.add(time)
+                }
+                else{
+
+                    arraylistTime.add("appointment past")
+                }
+
+
+
+                var dateInString2 = time2.replace(" ", "-")
+
+
+                if (dateInString2[0].toString().toInt() < 10) {
+                    dateInString2 = "0$dateInString2"
+
+                }
+//                val calendarDate2 = Calendar.getInstance().time
+
+
+
+
+//                val formatter = SimpleDateFormat("dd-MMM-yyyy")
+                val date2 = formatter.parse(dateInString2)
+                if (calendarDate.before(date2) ) {
+                    arraylistTime.add(time2)
+                }
+
+                else{
+
+                    arraylistTime.add("appointment past")
+                }
+
+
+//                    if (time.contains("0") || time2.contains("0")) {
+//
+//                    arraylistTime.add(time2)
+//
+//                }
+//
+
+
+
+
+
 //                var time2 = document.get("Time2") as com.google.firebase.Timestamp
 //                val date2 = time2.toDate()
 //
