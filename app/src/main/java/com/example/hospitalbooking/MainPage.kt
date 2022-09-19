@@ -5,7 +5,6 @@ package com.example.hospitalbooking
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -16,8 +15,14 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
+import com.example.hospitalbooking.databinding.ActivityMainPageBinding
+import com.example.hospitalbooking.databinding.FragmentWithSearchingBinding
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -28,7 +33,7 @@ import java.io.File
 
 
 class MainPage : AppCompatActivity() {
-
+    private lateinit var binding:FragmentWithSearchingBinding
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     private var docDetail:String?=null
 //    private lateinit var binding: ActivityMainBinding
@@ -42,9 +47,10 @@ class MainPage : AppCompatActivity() {
 //    private val docView: GridView =findViewById<GridView>(R.id.gridView)
     private var count=0
 
-
+//    private lateinit var binding:AppCompatActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding= FragmentWithSearchingBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main_page)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -59,6 +65,36 @@ class MainPage : AppCompatActivity() {
 //
 //        )
 
+        val fragment=FragmentWithSearching()
+//        supportFragmentManager.beginTransaction().apply {
+//            replace(R.id.fragment,fragment)
+//            commit()
+//
+//
+//        }
+
+        val drawer=findViewById<BottomNavigationView>(R.id.naviBtm)
+        drawer.setOnItemReselectedListener{
+            when(it.itemId){
+                R.id.home->mainAc()
+
+
+            }
+
+            true
+
+            Toast.makeText(this, "Enter the layout ",Toast.LENGTH_SHORT).show()
+
+
+
+        }
+
+//        drawer.setOnClickListener {
+//
+//            mainAc()
+//
+//        }
+
 
 
 
@@ -69,6 +105,21 @@ class MainPage : AppCompatActivity() {
 
 
         refresh()
+
+    }
+
+    private fun mainAc() {
+//        val fragment=FragmentWithSearching()
+//        supportFragmentManager.beginTransaction().apply {
+//            replace(R.id.gridView,fragment)
+//            commit()
+//
+//
+//        }
+        val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+        startActivity(intent)
+        Toast.makeText(this, "Enter  ",Toast.LENGTH_SHORT).show()
 
     }
 
