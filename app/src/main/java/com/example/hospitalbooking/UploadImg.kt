@@ -14,7 +14,9 @@ class UploadImg : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_img)
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Upload Image")
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
 
@@ -32,6 +34,11 @@ class UploadImg : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun uploadImage() {

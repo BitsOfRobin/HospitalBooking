@@ -22,6 +22,9 @@ class FilterAppointment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter_appointment)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("This New Page")
         val txt = findViewById<TextView>(R.id.txtDoc)
 //        txt.text = "None"
 
@@ -29,7 +32,10 @@ class FilterAppointment : AppCompatActivity() {
         filDoc(txt)
         refresh(txt)
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 
     private fun filter(txt: TextView)
     {

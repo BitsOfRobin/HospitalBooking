@@ -46,6 +46,11 @@ class MainPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Doctor Appointment")
+
+
 //        binding= ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
 //        var imageId= intArrayOf(
@@ -55,13 +60,23 @@ class MainPage : AppCompatActivity() {
 //        )
 
 
+
+
+
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
 //        setDoctor()
         getDataDoc()
 
+
         refresh()
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
     private fun getDataDoc()
     {
 //        modalList.clear()
@@ -388,7 +403,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-
+            getImg()
 
 
 
@@ -406,7 +421,7 @@ class MainPage : AppCompatActivity() {
                 Toast.makeText(this,"Failed ", Toast.LENGTH_SHORT).show()
             }
 
-        getImg()
+//        getImg()
 
 
 

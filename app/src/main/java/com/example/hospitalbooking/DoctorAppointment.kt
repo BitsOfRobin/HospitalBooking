@@ -41,7 +41,9 @@ class DoctorAppointment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_appointment)
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("View Appointment")
 
 
 //        writeUser()
@@ -52,6 +54,11 @@ class DoctorAppointment : AppCompatActivity() {
 
 
     }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
     private fun timeToNoti(time:String)
     {
 

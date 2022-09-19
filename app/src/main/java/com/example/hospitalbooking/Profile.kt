@@ -20,7 +20,9 @@ class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Profile")
         firebaseAuth= FirebaseAuth.getInstance()
         checkUser()
         val btn=findViewById<Button>(R.id.logoutBtn)
@@ -30,6 +32,11 @@ class Profile : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun checkUser() {

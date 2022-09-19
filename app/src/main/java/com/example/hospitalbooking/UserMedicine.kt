@@ -21,7 +21,9 @@ class UserMedicine : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_medicine)
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Patient Medicine")
 //        readMedicine()
 
 
@@ -38,6 +40,12 @@ class UserMedicine : AppCompatActivity() {
 //
             uploadImage()
         }
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun uploadImage() {
