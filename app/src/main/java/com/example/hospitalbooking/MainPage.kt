@@ -102,7 +102,7 @@ class MainPage : AppCompatActivity() {
         mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
 //        setDoctor()
         getDataDoc()
-
+//        getDataDoc()
 
         refresh()
 
@@ -453,7 +453,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-
+//
             getImg()
 
 
@@ -558,6 +558,9 @@ class MainPage : AppCompatActivity() {
         val arrBitMap=ArrayList<Bitmap>()
 //        count=0
         val docView=findViewById<GridView>(R.id.gridView)
+        var detect=0
+        val extractName=ArrayList<String>()
+//        extractName.clear()
 //        modalList.clear()
 //        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
         if(modalList.size>arraylistData.size)
@@ -596,6 +599,7 @@ class MainPage : AppCompatActivity() {
 
 //                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
 //                imageArr.add(bitmap)
+
                     val img=findViewById<ImageView>(R.id.imageView)
 //                    if(name.isNotEmpty())
 //                    {
@@ -605,7 +609,30 @@ class MainPage : AppCompatActivity() {
 //                            if(arraylistName[i].equals(name,true))
 //                            {
                                 var time=arraylistTime[i]+"\n"+arraylistTime2[i]
-                                modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],time))
+                                if(modalList.isEmpty() )
+                                {
+                                    modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],time))
+
+                                }
+
+                                else
+                                {
+                                    for (m in modalList.indices){
+
+                                       extractName.add(modalList.elementAt(m).docName.toString())
+
+
+                                    }
+                                    if(!extractName.contains(arraylistName[i]))
+                                    {
+                                        modalList.add(ModalFormMain(arraylistPro[i],bitmap,arraylistName[i],time))
+
+                                    }
+
+
+
+
+                                }
 
 
 
@@ -628,6 +655,11 @@ class MainPage : AppCompatActivity() {
 
                 }.addOnFailureListener{
 
+
+                    getImg()
+
+//                    refresh()
+//                    ++call
                     Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
                 }
 
@@ -635,17 +667,29 @@ class MainPage : AppCompatActivity() {
             }
 
 
-            val customAdapter= CustomAdapter(modalList, this)
-
-
-
-            docView.adapter = customAdapter
-
-            searchDoc(customAdapter)
+//            val customAdapter= CustomAdapter(modalList, this)
+//
+//
+//
+//            docView.adapter = customAdapter
+//
+//            searchDoc(customAdapter)
 
 
 
         }
+
+        val customAdapter= CustomAdapter(modalList, this)
+
+
+
+        docView.adapter = customAdapter
+
+        searchDoc(customAdapter)
+//        if(call!=0){
+//
+//            getImg()
+//        }
 //
 //        for(i in arraylistData.indices)
 //        {
