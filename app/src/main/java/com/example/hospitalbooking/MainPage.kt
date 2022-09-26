@@ -104,7 +104,6 @@ class MainPage : AppCompatActivity() {
         getDataDoc()
 //        getDataDoc()
 
-        refresh()
 
     }
 
@@ -454,7 +453,11 @@ class MainPage : AppCompatActivity() {
 
 
 //
-            getImg()
+
+
+                getImg()
+
+
 
 
 
@@ -474,7 +477,10 @@ class MainPage : AppCompatActivity() {
 
 //        getImg()
 
-
+//        while(modalList.size!=arraylistName.size){
+//
+//            getImg()
+//        }
 
         var user=" "
         var userEmail=" "
@@ -655,9 +661,7 @@ class MainPage : AppCompatActivity() {
 
                 }.addOnFailureListener{
 
-
-                    getImg()
-
+                      retrieveImg()
 //                    refresh()
 //                    ++call
                     Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
@@ -734,7 +738,129 @@ class MainPage : AppCompatActivity() {
 
     }
 
+    private fun retrieveImg(){
+        val arrBitMap=ArrayList<Bitmap>()
+//        count=0
+        val docView=findViewById<GridView>(R.id.gridView)
+        var detect=0
+        val extractName=ArrayList<String>()
+//        extractName.clear()
+//        modalList.clear()
+//        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
+        if(modalList.size>arraylistData.size)
+        {
+//            for(i in arraylistData.size..modalList.size)
+//            {
+//                modalList.clear()
 
+//            }
+
+
+
+        }
+
+        else {
+//            var i=0
+            count = arraylistName.size
+//             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
+            for (i in arraylistName.indices) {
+
+                val fireb = Firebase.storage.reference.child("Img/${arraylistName.get(i)}.jpg")
+//            val fireb=FirebaseStorage.getInstance().getReference("/Img")
+                val localfile = File.createTempFile("tempImage", "jpg")
+                var bitmap: Bitmap
+                fireb.getFile(localfile).addOnSuccessListener {
+//                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
+//                imageArr.add(bitmap)
+                    bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+//                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
+//                val x: Int = bitmap.width
+//                val y: Int = bitmap.height
+//                val intArray = IntArray(x * y)
+//                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
+
+//                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
+//                imageArr.add(bitmap)
+
+                    val img = findViewById<ImageView>(R.id.imageView)
+//                    if(name.isNotEmpty())
+//                    {
+//
+//                        for(i in arraylistName.indices)
+//                        {
+//                            if(arraylistName[i].equals(name,true))
+//                            {
+                    var time = arraylistTime[i] + "\n" + arraylistTime2[i]
+                    if (modalList.isEmpty()) {
+                        modalList.add(
+                            ModalFormMain(
+                                arraylistPro[i],
+                                bitmap,
+                                arraylistName[i],
+                                time
+                            )
+                        )
+
+                    } else {
+                        for (m in modalList.indices) {
+
+                            extractName.add(modalList.elementAt(m).docName.toString())
+
+
+                        }
+                        if (!extractName.contains(arraylistName[i])) {
+                            modalList.add(
+                                ModalFormMain(
+                                    arraylistPro[i],
+                                    bitmap,
+                                    arraylistName[i],
+                                    time
+                                )
+                            )
+
+                        }
+
+
+                    }
+
+
+//                            }
+
+//                        }
+
+//                    }
+
+
+//                    Toast.makeText(this,"name=$modalList",Toast.LENGTH_SHORT).show()
+
+//                    count=0
+                    arrBitMap.add(bitmap)
+//                    modalList.add(docModal(arraylist[i],))
+
+//                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
+
+                }.addOnFailureListener {
+
+
+//                    refresh()
+//                    ++call
+                    Toast.makeText(this, "failed to retrieve iamge", Toast.LENGTH_SHORT).show()
+                }
+
+//                dt++
+            }
+        }
+
+
+
+        val customAdapter= CustomAdapter(modalList, this)
+
+
+
+        docView.adapter = customAdapter
+
+        searchDoc(customAdapter)
+    }
 
 
 
