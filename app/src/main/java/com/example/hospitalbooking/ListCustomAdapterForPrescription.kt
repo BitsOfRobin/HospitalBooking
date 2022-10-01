@@ -1,7 +1,9 @@
 package com.example.hospitalbooking
 
+import MyCache
 import android.annotation.SuppressLint
-import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.view.LayoutInflater
@@ -9,13 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private var pres:ArrayList<Prescription>):
@@ -69,6 +69,8 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
 
 
         var CheckName=prescription.doc.toString()
+        var docName=pres[p0].doc.toString()
+
         if (CheckName != null) {
             if(CheckName.length>10) {
                 var index=CheckName.indexOf(" ",5,true)
@@ -85,7 +87,20 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         val firebaseAuth= FirebaseAuth.getInstance()
         val firebaseUser=firebaseAuth.currentUser
         val image= firebaseUser?.photoUrl
+//        val bitmap = BitmapFactory.decodeFile(image!!.path)
         Picasso.get().load(image).into(viewHolder.ivImage);
+        val cache=MyCache()
+//        Glide.with(context)
+//            .load(cache.retrieveBitmapFromCache("a"))
+//            .into(viewHolder.ivImage2)
+//        val cache=MyCache()
+//        cache.saveBitmapToCahche(firebaseUser.toString(),bitmap)
+//        cache.retrieveBitmapFromCache(firebaseUser.toString())
+//        Picasso.get().load(image).into(viewHolder.ivImage);
+        val bit: Bitmap? =cache.retrieveBitmapFromCache(docName)
+        Glide.with(context)
+            .load(bit)
+            .into(viewHolder.ivImage2)
         return view as View
 
     }
@@ -95,12 +110,14 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         lateinit var txtDoc: TextView
         lateinit var txtMedi: TextView
         lateinit var ivImage: ImageView
+        lateinit var ivImage2: ImageView
 
         init {
             this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
             this.txtDoc= row.findViewById(R.id.txtDoc) as TextView
             this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
-            this.ivImage=row?.findViewById(R.id.userImg) as ImageView
+            this.ivImage= row.findViewById(R.id.userImg) as ImageView
+            this.ivImage2= row.findViewById(R.id.imageView3) as ImageView
 
         }
 

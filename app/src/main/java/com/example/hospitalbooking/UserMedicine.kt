@@ -1,18 +1,22 @@
 package com.example.hospitalbooking
 
+import MyCache
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import java.io.File
 import java.io.IOException
-import java.util.ArrayList
+
 
 class UserMedicine : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -204,6 +208,14 @@ class UserMedicine : AppCompatActivity() {
         val medText=findViewById<TextView>(R.id.medName)
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         val image = InputImage.fromFilePath(this, ImageUri)
+
+//        val bitmapFile =
+//            File(image.toString())
+//        val bitmap = BitmapFactory.decodeFile(bitmapFile.toString())
+//        val cache=MyCache()
+//        cache.saveBitmapToCahche("a",bitmap)
+
+
         var mediText=" "
         var resultText=" "
 //        image = InputImage.fromFilePath(this,ImageUri)

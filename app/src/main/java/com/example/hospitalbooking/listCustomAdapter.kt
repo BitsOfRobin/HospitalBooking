@@ -1,7 +1,9 @@
 package com.example.hospitalbooking
 
+import MyCache
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -77,7 +80,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 //
 //        val convertedDate = sourceFormat.parse(dateInString)
 //        destFormat.format(convertedDate)
-
+        val docName=appointmentDetail[p0].docName
         viewHolder.txtNum.text =(p0+1).toString()
             val formatter = SimpleDateFormat("dd-MMM-yyyy")
             val date = formatter.parse(dateInString.replace(" ","-"))
@@ -106,7 +109,11 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         val firebaseUser=firebaseAuth.currentUser
         val image= firebaseUser?.photoUrl
         Picasso.get().load(image).into(viewHolder.ivImage);
-
+        val cache=MyCache()
+        val bit: Bitmap? =cache.retrieveBitmapFromCache(docName)
+        Glide.with(context)
+            .load(bit)
+            .into(viewHolder.ivImage2)
 //        viewHolder.ivImage.setImageResource((appointment.image))
 
         return view as View
@@ -120,6 +127,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         lateinit var txtWarn:TextView
         lateinit var txtNum:TextView
         lateinit var ivImage: ImageView
+        lateinit var ivImage2: ImageView
 
         init {
             this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
@@ -128,6 +136,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
             this.txtWarn=row?.findViewById(R.id.txtWarn) as TextView
             this.txtNum=row?.findViewById(R.id.txtNum) as TextView
             this.ivImage=row?.findViewById(R.id.userImg) as ImageView
+            this.ivImage2=row?.findViewById(R.id.docImg) as ImageView
 
         }
 

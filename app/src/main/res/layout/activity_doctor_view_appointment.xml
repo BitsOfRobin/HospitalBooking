@@ -9,33 +9,48 @@
 
     <ListView
         android:id="@+id/listDocAppoint"
-        android:layout_width="375dp"
-        android:layout_height="487dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         app:civ_border_width="5dp"
         android:textColor="@color/black"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="1dp"
+        android:background="@color/white"
 
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
     <SearchView
         android:id="@+id/searchDoc"
-        android:layout_width="260dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:background="#85B6B2" />
+</LinearLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.hospitalbooking.ViewPatientFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="26dp"
-        
+        android:layout_marginStart="177dp" />
 
-        android:background="#85B6B2" />
+
+    <!-- <fragment-->
+<!--      android:layout_height="wrap_content"-->
+<!--     android:layout_width="match_parent"-->
+<!--     android:name="com.example.hospitalbooking.ViewPatientFragment"></fragment>-->
 
 
 </RelativeLayout>

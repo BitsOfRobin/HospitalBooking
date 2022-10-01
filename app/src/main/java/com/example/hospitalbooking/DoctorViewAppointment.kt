@@ -1,13 +1,13 @@
 package com.example.hospitalbooking
 
+import MyCache
 import android.annotation.SuppressLint
-import android.app.SearchManager
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,6 +23,15 @@ import kotlin.collections.ArrayList
 
 class DoctorViewAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+    private var fragmentInput:String?=null
+    val arraylist = ArrayList<Prescription>()
+    val arraySearchUser = ArrayList<Prescription>()
+    val arraylistPro = ArrayList<String>()
+    val arraylistUser = ArrayList<String>()
+    var arraylistDocName = ArrayList<String>()
+    var appointment = ArrayList<String>()
+    val arrayForSearch=ArrayList<String>()
+    val arraylistAppointment = ArrayList<AppointmentDetail>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_view_appointment)
@@ -39,14 +49,14 @@ class DoctorViewAppointment : AppCompatActivity() {
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 //        Toast.makeText(this, "Enter read user", Toast.LENGTH_SHORT).show()
-        val arraylist = ArrayList<Prescription>()
-        val arraySearchUser = ArrayList<Prescription>()
-        val arraylistPro = ArrayList<String>()
-        val arraylistUser = ArrayList<String>()
-        var arraylistDocName = ArrayList<String>()
-        var appointment = ArrayList<String>()
-        val arrayForSearch=ArrayList<String>()
-        val arraylistAppointment = ArrayList<AppointmentDetail>()
+//        val arraylist = ArrayList<Prescription>()
+////        val arraySearchUser = ArrayList<Prescription>()
+//        val arraylistPro = ArrayList<String>()
+//        val arraylistUser = ArrayList<String>()
+//        var arraylistDocName = ArrayList<String>()
+//        var appointment = ArrayList<String>()
+//        val arrayForSearch=ArrayList<String>()
+//        val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = " "
         var doc = " "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
@@ -113,7 +123,7 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
             var arr = ListCustomAdapterForPrescription(this,arraylist)
-
+//            fragmentSearchPatient(arr)
             docView.adapter = arr
 
             var tempList=ArrayList<Prescription>()
@@ -271,6 +281,7 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
 
 
             var CheckName=prescription.doc.toString()
+            var docName=pres[p0].doc.toString()
             if (CheckName != null) {
                 if(CheckName.length>10) {
                     var index=CheckName.indexOf(" ",5,true)
@@ -285,7 +296,18 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
                 }
             }
 
-
+            val cache=MyCache()
+//        Glide.with(context)
+//            .load(cache.retrieveBitmapFromCache("a"))
+//            .into(viewHolder.ivImage2)
+//        val cache=MyCache()
+//        cache.saveBitmapToCahche(firebaseUser.toString(),bitmap)
+//        cache.retrieveBitmapFromCache(firebaseUser.toString())
+//        Picasso.get().load(image).into(viewHolder.ivImage);
+            val bit: Bitmap? =cache.retrieveBitmapFromCache(docName)
+            Glide.with(context)
+                .load(bit)
+                .into(viewHolder.ivImage2)
             return view as View
 
         }
@@ -300,13 +322,15 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
             lateinit var txtName: TextView
             lateinit var txtDoc: TextView
             lateinit var txtMedi: TextView
-//        lateinit var ivImage:ImageView
+        lateinit var ivImage2:ImageView
 
             init {
                 this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
                 this.txtDoc= row.findViewById(R.id.txtDoc) as TextView
                 this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
 //            this.ivImage=row?.findViewById(R.id.imgAppoint) as ImageView
+                this.ivImage2= row.findViewById(R.id.imageView3) as ImageView
+
 
             }
 
@@ -316,6 +340,55 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
 
     }
 
-
+//    fun captureInput(p0:String){
+//
+//        fragmentInput?.replace("",p0,true)
+//
+//
+//    }
+//
+//
+//    private fun fragmentSearchPatient(arr: ListCustomAdapterForPrescription) {
+//
+//
+//        val docView = findViewById<ListView>(R.id.listDocAppoint)
+//
+//        var tempList = ArrayList<Prescription>()
+//        val searchView = findViewById<SearchView>(R.id.searchDoc)
+////        searchView.queryHint = "search User"
+//
+//
+//        tempList.clear()
+//        if (fragmentInput != null) {
+//            if (fragmentInput!!.isNotEmpty()) {
+//                for (i in arraylistUser.indices) {
+//                    if (arraylistUser[i].contains(fragmentInput!!, true)) {
+//                        tempList.add(
+//                            Prescription(
+//                                arraylistUser[i],
+//                                arraylistDocName[i],
+//                                appointment[i]
+//                            )
+//                        )
+//
+//                    }
+//
+//                }
+//
+//
+//                dataChanged(tempList)
+//
+//
+//            } else {
+//                docView.adapter = arr
+//
+//            }
+//        }
+//
+//
+//
+//
+//
+//    }
 
 }
