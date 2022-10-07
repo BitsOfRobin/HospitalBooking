@@ -428,9 +428,22 @@ class MainPage : AppCompatActivity() {
 
 
 //
+            val cache=MyCache()
 
 
-            getImg()
+
+                if(cache.retrieveBitmapFromCache(arraylistName[0])==null){
+
+
+                        getImg()
+
+
+                }
+
+                else{
+
+                    retrieveCache()
+                }
 
 
         }
@@ -708,7 +721,6 @@ class MainPage : AppCompatActivity() {
             }
 
 
-            swipe.isRefreshing = false
 
 
 //            val customAdapter= CustomAdapter(modalList, this)
@@ -729,6 +741,7 @@ class MainPage : AppCompatActivity() {
         docView.adapter = customAdapter
 
         searchDoc(customAdapter)
+         swipe.isRefreshing=false
 //        if(call!=0){
 //
 //            getImg()
@@ -776,6 +789,57 @@ class MainPage : AppCompatActivity() {
 //        Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
 
     }
+
+    private fun retrieveCache(){
+
+        val docView=findViewById<GridView>(R.id.gridView)
+        val cache=MyCache()
+        for (i in arraylistName.indices) {
+            val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
+            var time = arraylistTime[i] + "\n" + arraylistTime2[i]
+
+                bitmap?.let {
+                    ModalFormMain(
+                        arraylistPro[i],
+                        it,
+                        arraylistName[i],
+                        time
+                    )
+                }?.let {
+                    modalList.add(
+                        it
+                    )
+                }
+
+
+
+        }
+
+
+//            val customAdapter= CustomAdapter(modalList, this)
+//
+//
+//
+//            docView.adapter = customAdapter
+//
+//            searchDoc(customAdapter)
+
+
+
+
+    val customAdapter = CustomAdapter(modalList, this)
+
+
+
+    docView.adapter = customAdapter
+
+    searchDoc(customAdapter)
+
+    }
+
+
+
+
 
     private fun retrieveImg(extractName: ArrayList<String>) {
         val arrBitMap = ArrayList<Bitmap>()

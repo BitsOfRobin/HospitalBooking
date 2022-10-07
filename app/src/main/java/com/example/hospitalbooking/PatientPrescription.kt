@@ -1,11 +1,8 @@
 package com.example.hospitalbooking
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 class PatientPrescription : AppCompatActivity() {
@@ -28,7 +25,16 @@ class PatientPrescription : AppCompatActivity() {
     private fun setPrescription() {
 
         val userName = intent.getStringExtra("userName")
+        var equal=0
+        equal= userName?.indexOf("r=")!!
+        val name=  userName.substring(equal+2,userName.length-1)
 
+        retrieveRegMedicine(name)
+        Toast.makeText(
+            this,
+            "$name ",
+            Toast.LENGTH_SHORT
+        ).show()
         val med1=findViewById<EditText>(R.id.med1)
         val med2=findViewById<EditText>(R.id.med2)
         val dos1=findViewById<EditText>(R.id.dos1)
@@ -120,6 +126,11 @@ class PatientPrescription : AppCompatActivity() {
 
 
         }
+
+
+
+
+
     }
 
 
@@ -128,6 +139,36 @@ class PatientPrescription : AppCompatActivity() {
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
+
+     private fun retrieveRegMedicine(userName: String?) {
+         var medi=""
+         val spin=findViewById<Spinner>(R.id.spinnerMedi)
+         val arrMedi=ArrayList<String>()
+         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+         mFirebaseDatabaseInstance?.collection("medicine")
+             ?.whereEqualTo("user","$userName")?.get()?.addOnSuccessListener {
+                 for (document in it) {
+                     medi= document.get("userMedicine").toString()
+                     arrMedi.add(medi)
+
+
+                 }
+                 Toast.makeText(
+                     this,
+                     "$userName Success $arrMedi",
+                     Toast.LENGTH_SHORT
+                 ).show()
+             }?.addOnFailureListener {
+
+                 Toast.makeText(
+                     this,
+                     "Failed to retrieve User Recognise Medicine",
+                     Toast.LENGTH_SHORT
+                 ).show()
+             }
+         val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
+            spin.adapter=arr
+     }
 
 
 }

@@ -145,6 +145,16 @@
         android:layout_marginStart="19dp"
         android:layout_marginBottom="304dp"
         android:text="Medicine 2"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinnerMedi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="416dp"
+       />
 </RelativeLayout>

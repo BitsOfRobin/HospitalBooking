@@ -313,7 +313,7 @@ class UserMedicine : AppCompatActivity() {
 //        val  doc =doctor?.uid
 
 //
-        mFirebaseDatabaseInstance?.collection("medicine")?.document("$user")?.set(user)?.addOnSuccessListener {
+        mFirebaseDatabaseInstance?.collection("medicine")?.document(loginUser)?.set(user)?.addOnSuccessListener {
 
 
 //            Toast.makeText(this,"Successfully added user ",Toast.LENGTH_SHORT).show()
