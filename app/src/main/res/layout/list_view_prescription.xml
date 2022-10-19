@@ -117,16 +117,27 @@
         android:textStyle="bold"
         android:fontFamily="serif-monospace"/>
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView3"-->
+<!--            android:layout_width="27dp"-->
+<!--            android:layout_height="34dp"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginStart="34dp"-->
+<!--            android:layout_marginTop="98dp"-->
+<!--            app:srcCompat="@drawable/doctor" />-->
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView3"
-            android:layout_width="27dp"
-            android:layout_height="34dp"
+            android:layout_width="59dp"
+            android:layout_height="64dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="98dp"
-            app:srcCompat="@drawable/doctor" />
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="84dp"
+            />
 
         <ImageView
         android:id="@+id/imageView4"
@@ -135,9 +146,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="174dp"
         app:srcCompat="@drawable/medi" />
 
-            </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
 </RelativeLayout>

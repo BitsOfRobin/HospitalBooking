@@ -2,6 +2,7 @@ package com.example.hospitalbooking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -141,14 +142,15 @@ class PatientPrescription : AppCompatActivity() {
     }
 
      private fun retrieveRegMedicine(userName: String?) {
-         var medi=""
-         val spin=findViewById<Spinner>(R.id.spinnerMedi)
-         val arrMedi=ArrayList<String>()
+         var medi = ""
+         val spin = findViewById<Spinner>(R.id.spinnerMedi)
+         val arrMedi = ArrayList<String>()
+         arrMedi.add(0,"Choose patient medicine")
          mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
          mFirebaseDatabaseInstance?.collection("medicine")
-             ?.whereEqualTo("user","$userName")?.get()?.addOnSuccessListener {
+             ?.whereEqualTo("user", "$userName")?.get()?.addOnSuccessListener {
                  for (document in it) {
-                     medi= document.get("userMedicine").toString()
+                     medi = document.get("userMedicine").toString()
                      arrMedi.add(medi)
 
 
@@ -167,8 +169,42 @@ class PatientPrescription : AppCompatActivity() {
                  ).show()
              }
          val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
-            spin.adapter=arr
-     }
+         spin.adapter = arr
 
+         val med1=findViewById<EditText>(R.id.med1)
+         val med2=findViewById<EditText>(R.id.med2)
+         val med3=findViewById<TextView>(R.id.textView7)
+         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+
+                 if(med1.text.isEmpty()){
+
+                     med1.setText(arrMedi[p2])
+                 }
+                 else if(med2.text.isEmpty())
+                 {
+                     med2.setText(arrMedi[p2])
+
+                 }
+
+
+                 else if(med1.text.isNotEmpty() && med2.text.isNotEmpty() ){
+
+                     med1.setText(arrMedi[p2])
+                 }
+
+
+
+
+             }
+
+             override fun onNothingSelected(p0: AdapterView<*>?) {
+                 TODO("Not yet implemented")
+             }
+
+
+         }
+     }
 
 }

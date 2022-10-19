@@ -57,8 +57,7 @@
                     android:layout_toEndOf="@+id/imageView"
                     android:textColor="@color/black"
                     android:textSize="27sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
 
@@ -68,12 +67,12 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="right"
-                    android:layout_marginStart="28dp"
+                    android:layout_marginStart="30dp"
 
                     android:layout_marginTop="178dp"
 
 
-                    android:layout_marginEnd="17dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_toEndOf="@+id/imageView"
                     android:textColor="#152CAE"
                     android:textSize="25sp"
@@ -102,6 +101,48 @@
                     tools:layout_editor_absoluteX="223dp"
                     tools:layout_editor_absoluteY="522dp" />
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="179dp"
+            app:srcCompat="@drawable/baseline_medication_liquid_20" />
+
+        <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="33dp"
+                    android:layout_height="34dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="169dp"
+                    android:layout_marginTop="96dp"
+                    app:srcCompat="@drawable/baseline_event_18" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="43dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="161dp"
+                    android:layout_marginTop="131dp"
+                    app:srcCompat="@drawable/baseline_event_20" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="48dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="165dp"
+                    android:layout_marginTop="17dp"
+                    app:srcCompat="@drawable/baseline_badge_20" />
 
 
         </androidx.cardview.widget.CardView>

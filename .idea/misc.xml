@@ -5,7 +5,16 @@
       <map>
         <entry key="..\:/HospitalBooking/app/src/main/res/layout/row_items.xml" value="0.25416666666666665" />
         <entry key="..\:/HospitalBooking/app/src/main/res/layout/welcomepagegridview.xml" value="0.25416666666666665" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/appointment.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/baseline_badge_20.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/baseline_event_18.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/baseline_event_20.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/baseline_event_24.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/baseline_medication_liquid_20.xml" value="0.119" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/baseline_medication_liquid_24.xml" value="0.119" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1025" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/drawable/ic_launcher_background.xml" value="0.119" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_appointment_select.xml" value="0.2105978260869565" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_calendar_time_picker.xml" value="0.25" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/activity_doctor_appointment.xml" value="0.2105978260869565" />
@@ -30,7 +39,7 @@
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/fragment_with_searching.xml" value="0.1" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/list_view_prescription.xml" value="0.25" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/navigationbar.xml" value="0.25" />
-        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/row_items.xml" value="0.2" />
+        <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/row_items.xml" value="0.264" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/layout/welcomepagegridview.xml" value="0.264" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/menu/bottomnavigationbar.xml" value="0.25" />
         <entry key="..\:/KOTLINS/HospitalBooking/app/src/main/res/menu/menu.xml" value="0.25" />

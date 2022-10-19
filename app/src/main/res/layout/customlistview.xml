@@ -59,11 +59,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
 
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="top"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="108dp"
-            android:layout_marginEnd="291dp"
+            android:layout_marginTop="89dp"
+            android:layout_marginEnd="311dp"
             android:text="Num"
             android:textColor="#673AB7"
             android:textSize="45sp"
@@ -124,18 +125,31 @@
             android:layout_height="51dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="13dp"
             tools:srcCompat="@tools:sample/avatars" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/docImg"
-        android:layout_width="71dp"
-        android:layout_height="81dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="245dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/docImg"
+            android:layout_width="73dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
 
-            </androidx.cardview.widget.CardView>
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="183dp"
+
+            />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="71dp"
+            android:layout_height="81dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="280dp"
+            app:srcCompat="@drawable/baseline_event_18" />
+
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

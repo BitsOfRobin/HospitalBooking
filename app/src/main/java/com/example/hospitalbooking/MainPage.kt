@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
-import com.example.hospitalbooking.databinding.FragmentWithSearchingBinding
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -30,7 +30,7 @@ import java.io.File
 
 
 class MainPage : AppCompatActivity() {
-    private lateinit var binding: FragmentWithSearchingBinding
+
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
     private var docDetail: String? = null
     private var fragmentInput:String?=null
@@ -49,7 +49,7 @@ class MainPage : AppCompatActivity() {
     //    private lateinit var binding:AppCompatActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentWithSearchingBinding.inflate(layoutInflater)
+
         setContentView(R.layout.activity_main_page)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -102,6 +102,17 @@ class MainPage : AppCompatActivity() {
 //        getDataDoc()
         refresh()
 //        getDataDoc()
+
+
+
+    }
+
+    private fun refreshMain(){
+
+        val refresh = Intent(this, MainPage::class.java)
+        startActivity(refresh) //Start the same Activity
+
+        finish()
     }
 
     private fun mainAc() {
@@ -233,52 +244,7 @@ class MainPage : AppCompatActivity() {
 //                Toast.makeText(this, "Enter the firebase id ${document.id.toString()} ", Toast.LENGTH_SHORT).show()
             }
 
-//            for(arr in arraylistName)
-//            {
-//
-//                if(arr.isEmpty())
-//                {
-//
-//                    arraylistName.remove(arr)
-//                }
-//
-//            }
 
-
-//                Toast.makeText(this, "Enter the firebase${docName.toString()} ",Toast.LENGTH_SHORT).show()
-//                Toast.makeText(this, "arr=$arraylistData ",Toast.LENGTH_SHORT).show()
-//
-//
-//                Toast.makeText(this, "Enter the firebase$f{arraylist[0].toString()} ",Toast.LENGTH_SHORT).show()
-//                Toast.makeText(this, "Enter the firebase data ${arraylistPro[0].toString()} ",Toast.LENGTH_SHORT).show()
-
-
-//
-//                val docArr=ArrayList<doctor>()
-//
-//
-//                for(i in arraylist.indices){
-//
-//                    val doctor=doctor(arraylist[i],arraylistPro[i], imageId[i])
-//                    docArr.add(doctor)
-//
-//
-////
-//                    Toast.makeText(this, "Enter the firebase${arraylist[i].toString()} ",Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(this, "Enter the firebase data ${arraylistPro[i].toString()} ",Toast.LENGTH_SHORT).show()
-////                    name.setText(arraylist[i])
-////                    pro.setText(arraylistPro[i])
-////                    docView.addView(name)
-////                    docView.addView(pro)
-//                }
-//                val arrAdapter =RecycleViewClass(docArr)
-//                val arrAdapter =RecycleViewClass(docArr)
-//
-//
-//
-//                docView.layoutManager=LinearLayoutManager(this)
-//                docView.adapter=arrAdapter
-//
 //                val doc= listOf(arraylist)
             var imageArr = ArrayList<Bitmap>()
 //            var images= intArrayOf()
@@ -286,156 +252,39 @@ class MainPage : AppCompatActivity() {
             var arrBitMap = ArrayList<Bitmap>()
             val file = File.createTempFile("img", "jpg")
 
-//            for(i in arraylistData.indices)
-//            {
-//
-//                val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
-////            val fireb=FirebaseStorage.getInstance().getReference("/Img")
-//                val localfile= File.createTempFile("tempImage","jpg")
-//                var bitmap:Bitmap
-//                fireb.getFile(localfile).addOnSuccessListener {
-////                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
-////                imageArr.add(bitmap)
-//                    bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
-////                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
-////                val x: Int = bitmap.width
-////                val y: Int = bitmap.height
-////                val intArray = IntArray(x * y)
-////                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
-//
-////                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
-////                imageArr.add(bitmap)
-//                    val img=findViewById<ImageView>(R.id.imageView)
-//
-//                        modalList.add(ModalFormMain(arraylistData[i],bitmap))
-//
-//
-//
-//
-//                            arrBitMap.add(bitmap)
-////                    modalList.add(docModal(arraylist[i],))
-//
-//                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
-//
-//                }.addOnFailureListener{
-//
-//                    Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
-//                }
-//
-////                dt++
-//            }
 
 
-//            var images= intArrayOf()
-//            for( i in imageArr)
-//            {
-//                images= intArrayOf()
-//
-//
-//            }
 
-//            var images= 0
-//            var images=intArrayOf(R.drawable.dt1,R.drawable.dt2)
-//            for(i in arraylist.indices)
-//            {
-//
-////                val image: MutableList<Int> = ArrayList(imageArr.size)
-////                images=imageArr[i].toString().toInt()
-////                modalList.add(Modal(arraylistName[i],arraylistTime[i],arraylistPro[i],images[i]))
-//                modalList.add(ModalFormMain(arraylist[i],arrBitMap[i]))
-//
-//            }
-            //                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-
-
-//
-//            var customAdapter= CustomAdapter(modalList, this)
-//
-//
-//
-//            docView.adapter = customAdapter
-//
-//
-//            docView.setOnItemClickListener { adapterView, view, i, l ->
-//                val tempListViewClickedValue = arraylistName[i].toString()
-////                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-//                val intent= Intent(this,AppointmentSelect::class.java)
-//                intent.putExtra("DoctorName", tempListViewClickedValue)
-//                startActivity(intent)
-////                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-//
-//
-//
-//            }
-//
-//
-//            var user=" "
-//            val userGoogle = Firebase.auth.currentUser
-//            userGoogle.let {
-//                // Name, email address, and profile photo Url
-////                    val name = user.displayName
-//                if (userGoogle != null) {
-//                    user = userGoogle.displayName.toString()
-//
-//                } else {
-//
-//                    val intent = Intent(this, UserLogin::class.java)
-////            intent.putExtra("DoctorName", tempListViewClickedValue)
-//                    startActivity(intent)
-//                }
-//
-//            }
-//
-//            if(user=="ZHONG LEAN LOW")
-//            {
-//
-//                docView.setOnItemClickListener { adapterView, view, i, l ->
-//                    val tempListViewClickedValue = arraylistName[i].toString()
-////                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-//                    val intent= Intent(this,CalendarTimePicker::class.java)
-//                    intent.putExtra("DoctorName", tempListViewClickedValue)
-//                    startActivity(intent)
-////                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-//
-//
-//
-//                }
-//
-//            }
-
-
-//                docView.layoutManager=LinearLayoutManager(this)
-//                docView.adapter=MyAdapter(this, docArr)
-//
-//                val adapter=MyAdapter(this,docArr)
-//                binding.listViewDoc.adapter=adapter
-////
-//                binding.listView.adapter=MyAdapter(this,docArr)
-//                binding.apply {
-//                    listViewDoc.apply {
-//                        adapter=MyAdapter(this,docArr)
-//
-//
-//
-//
-//                    }
-//
-//
-//                }
-//                val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, arraylist)
-////                docView.adapter = adapter
-//                txt.text = arraylist[0].toString()
 
 
 //
             val cache=MyCache()
+            var check=0
+
+                for(i in arraylistName.indices){
+
+                    if(cache.retrieveBitmapFromCache(arraylistName[i])==null){
+
+
+                       check++
 
 
 
-                if(cache.retrieveBitmapFromCache(arraylistName[0])==null){
+                    }
+
+                }
+
+
+
+
+                if(check==arraylistName.size){
 
 
                         getImg()
+                    retrieveCache()
+//                    refreshMain()
+//                    retrieveCache()
+
 
 
                 }
@@ -444,6 +293,13 @@ class MainPage : AppCompatActivity() {
 
                     retrieveCache()
                 }
+
+                if(arraylistName.size>modalList.size){
+                    refreshMain()
+                    retrieveCache()
+
+                }
+
 
 
         }
@@ -459,6 +315,8 @@ class MainPage : AppCompatActivity() {
             ?.addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
             }
+
+
 //        getImg()
 
 //        getImg()
@@ -534,6 +392,10 @@ class MainPage : AppCompatActivity() {
         }
 
 
+
+
+
+
     }
 
 
@@ -546,18 +408,19 @@ class MainPage : AppCompatActivity() {
         val extractName = ArrayList<String>()
          val cache=MyCache()
          val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+         var times=0
 //        extractName.clear()
 //        modalList.clear()
 //        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
-        if (modalList.size > arraylistData.size) {
-//            for(i in arraylistData.size..modalList.size)
-//            {
-//                modalList.clear()
-
-//            }
-
-
-        } else {
+//        if (modalList.size > arraylistData.size) {
+////            for(i in arraylistData.size..modalList.size)
+////            {
+////                modalList.clear()
+//
+////            }
+//
+//
+//        } else {
 //            var i=0
             count = arraylistName.size
 //             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
@@ -566,7 +429,7 @@ class MainPage : AppCompatActivity() {
                 val fireb = Firebase.storage.reference.child("Img/${arraylistName.get(i)}.jpg")
 //            val fireb=FirebaseStorage.getInstance().getReference("/Img")
                 val localfile = File.createTempFile("tempImage", "jpg")
-                var bitmap: Bitmap
+
 
                 swipe.isRefreshing=true
 //                swipe.setOnRefreshListener {
@@ -584,155 +447,52 @@ class MainPage : AppCompatActivity() {
                 fireb.getFile(localfile).addOnCompleteListener {
 //                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
 //                imageArr.add(bitmap)
-                    bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-//                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
-//                val x: Int = bitmap.width
-//                val y: Int = bitmap.height
-//                val intArray = IntArray(x * y)
-//                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
+                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
 
-//                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
-//                imageArr.add(bitmap)
 
                     val img = findViewById<ImageView>(R.id.imageView)
 
 
                     cache.saveBitmapToCahche(arraylistName[i],bitmap)
                     arrBitMap.add(bitmap)
-//                    if(name.isNotEmpty())
-//                    {
-//
-//                        for(i in arraylistName.indices)
-//                        {
-//                            if(arraylistName[i].equals(name,true))
-//                            {
-//                    var time = arraylistTime[i] + "\n" + arraylistTime2[i]
+
+                    var time = arraylistTime[i] + "\n" + arraylistTime2[i]
 //                    if (modalList.isEmpty()) {
-//                        modalList.add(
-//                            ModalFormMain(
-//                                arraylistPro[i],
-//                                bitmap,
-//                                arraylistName[i],
-//                                time
-//                            )
-//                        )
-//
-//                    } else {
-//                        for (m in modalList.indices) {
-//                            if(!extractName.contains((modalList.elementAt(m).docName))||extractName.isEmpty()){
-//                                    extractName.add(modalList.elementAt(m).docName.toString())
-//                                }
-//
-//
-//
-//                        }
-//                        if (!extractName.contains(arraylistName[i])||extractName.isEmpty()) {
-//                            modalList.add(
-//                                ModalFormMain(
-//                                    arraylistPro[i],
-//                                    bitmap,
-//                                    arraylistName[i],
-//                                    time
-//                                )
-//                            )
-//
-//                        }
-//
-//
-//                    }
+                        modalList.add(
+                            ModalFormMain(
+                                arraylistPro[i],
+                                bitmap,
+                                arraylistName[i],
+                                time
+                            )
+                        )
 
-
-//                            }
-
-//                        }
-
-//                    }
-
-
-//                    Toast.makeText(this,"name=$modalList",Toast.LENGTH_SHORT).show()
+                    times++
+                    Toast.makeText(this,"name=$times",Toast.LENGTH_SHORT).show()
 
 //                    count=0
 
 //                    modalList.add(docModal(arraylist[i],))
 
-//                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"success to retrieve iamge $bitmap",Toast.LENGTH_SHORT).show()
 
                 }.addOnFailureListener {
 
 
-//                    refresh()
-//                    ++call
-//                    if(modalList.size!=arraylistName.size){
-//
-////                        retrieveImg(extractName)
-//                    }
+
                     Toast.makeText(this, "${arraylistName }failed to retrieve iamge$extractName", Toast.LENGTH_SHORT).show()
                 }
 
 //                dt++
             }
 
-            for (i in arraylistName.indices) {
-                val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
-                var time = arraylistTime[i] + "\n" + arraylistTime2[i]
-                if (modalList.isEmpty()) {
-                    bitmap?.let {
-                        ModalFormMain(
-                            arraylistPro[i],
-                            it,
-                            arraylistName[i],
-                            time
-                        )
-                    }?.let {
-                        modalList.add(
-                            it
-                        )
-                    }
-
-                } else {
-                    for (m in modalList.indices) {
-                        if(!extractName.contains((modalList.elementAt(m).docName))||extractName.isEmpty()){
-                            extractName.add(modalList.elementAt(m).docName.toString())
-                        }
-
-
-
-                    }
-                    if (!extractName.contains(arraylistName[i])||extractName.isEmpty()) {
-                        bitmap?.let {
-                            ModalFormMain(
-                                arraylistPro[i],
-                                it,
-                                arraylistName[i],
-                                time
-                            )
-                        }?.let {
-                            modalList.add(
-                                it
-                            )
-                        }
-
-                    }
-
-
-                }
-
-
-            }
 
 
 
 
-//            val customAdapter= CustomAdapter(modalList, this)
-//
-//
-//
-//            docView.adapter = customAdapter
-//
-//            searchDoc(customAdapter)
 
 
-        }
+//        }
 
          val customAdapter = CustomAdapter(modalList, this)
 
@@ -741,52 +501,9 @@ class MainPage : AppCompatActivity() {
         docView.adapter = customAdapter
 
         searchDoc(customAdapter)
+
          swipe.isRefreshing=false
 //        if(call!=0){
-//
-//            getImg()
-//        }
-//
-//        for(i in arraylistData.indices)
-//        {
-//
-//            val fireb= Firebase.storage.reference.child("Img/dt$i.jpg")
-////            val fireb=FirebaseStorage.getInstance().getReference("/Img")
-//            val localfile= File.createTempFile("tempImage","jpg")
-//            var bitmap:Bitmap
-//            fireb.getFile(localfile).addOnSuccessListener {
-////                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
-////                imageArr.add(bitmap)
-//                bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
-////                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
-////                val x: Int = bitmap.width
-////                val y: Int = bitmap.height
-////                val intArray = IntArray(x * y)
-////                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
-//
-////                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
-////                imageArr.add(bitmap)
-//                val img=findViewById<ImageView>(R.id.imageView)
-//
-//                modalList.add(ModalFormMain(arraylistData[i],bitmap))
-//
-//
-//
-//
-//                arrBitMap.add(bitmap)
-////                    modalList.add(docModal(arraylist[i],))
-//
-//                Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
-//
-//            }.addOnFailureListener{
-//
-//                Toast.makeText(this,"failed to retrieve iamge",Toast.LENGTH_SHORT).show()
-//            }
-//
-////                dt++
-//        }
-
-//        Toast.makeText(this,"img=$modalList",Toast.LENGTH_SHORT).show()
 
     }
 
@@ -811,7 +528,7 @@ class MainPage : AppCompatActivity() {
                     )
                 }
 
-
+//            Toast.makeText(this,"b$bitmap", Toast.LENGTH_SHORT ).show()
 
         }
 
@@ -824,6 +541,7 @@ class MainPage : AppCompatActivity() {
 //
 //            searchDoc(customAdapter)
 
+//            Toast.makeText(this,"$modalList", Toast.LENGTH_SHORT ).show()
 
 
 
