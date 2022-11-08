@@ -45,15 +45,30 @@ class PatientPrescription : AppCompatActivity() {
 
         var dosText1=0
         var dosText2=0
-
+        var truth:Boolean=true
+        var truth2:Boolean=true
         submit.setOnClickListener {
             val medText=med1.text.toString()
             val medText2=med2.text.toString()
             try {
                 dosText1 = dos1.text.toString().toInt()
-                dosText2 = dos2.text.toString().toInt()
+               truth=true
             } catch (NumberFormatException: IllegalArgumentException) {
+                truth=false
+                Toast.makeText(
+                    this,
+                    "NON integer inputs for dosage",
+                    Toast.LENGTH_SHORT
+                ).show()
 
+            }
+
+            try {
+
+                dosText2 = dos2.text.toString().toInt()
+                truth2=true
+            } catch (NumberFormatException: IllegalArgumentException) {
+                truth2=false
                 Toast.makeText(
                     this,
                     "NON integer inputs for dosage",
@@ -66,9 +81,7 @@ class PatientPrescription : AppCompatActivity() {
 
 
 
-
-
-            if (isLetters(medText)&&medText!=" "&&medText!="" || isLetters(medText2)&&medText2!=" "&&medText2!="" ) {
+            if (truth&&isLetters(medText)&&medText.isNotEmpty()&&!medText.contains("Choose",true) || truth2&&isLetters(medText2)&&medText2.isNotEmpty()) {
 
                     mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
@@ -136,7 +149,7 @@ class PatientPrescription : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.matches("^[a-zA-Z ]*$".toRegex())
+        return string.matches("^[a-zA-Z0123456789 ]*$".toRegex())
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }

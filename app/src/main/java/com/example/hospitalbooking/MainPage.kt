@@ -277,7 +277,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-                if(check==arraylistName.size){
+                if(check>0){
 
 
                         getImg()
@@ -299,6 +299,9 @@ class MainPage : AppCompatActivity() {
                     retrieveCache()
 
                 }
+
+
+
 
 
 
@@ -498,7 +501,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        docView.adapter = customAdapter
+//        docView.adapter = customAdapter
 
         searchDoc(customAdapter)
 
@@ -508,7 +511,8 @@ class MainPage : AppCompatActivity() {
     }
 
     private fun retrieveCache(){
-
+        val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        swipe.isRefreshing=true
         val docView=findViewById<GridView>(R.id.gridView)
         val cache=MyCache()
         for (i in arraylistName.indices) {
@@ -548,11 +552,13 @@ class MainPage : AppCompatActivity() {
     val customAdapter = CustomAdapter(modalList, this)
 
 
+    if(modalList.size==arraylistName.size){
+        docView.adapter = customAdapter
+    }
 
-    docView.adapter = customAdapter
 
     searchDoc(customAdapter)
-
+    swipe.isRefreshing=false
     }
 
 
@@ -977,6 +983,17 @@ class MainPage : AppCompatActivity() {
                         }
 
 //                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+                    val fireb = Firebase.storage.reference.child("Img/${modalList.get(i).docName}.jpg")
+                    fireb.delete().addOnSuccessListener {
+                        Toast.makeText(
+                            this,
+                            "Successfully delete images${modalList.get(i).docName}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.addOnFailureListener {
+
+                    }
+
 
 
                 }
@@ -988,17 +1005,6 @@ class MainPage : AppCompatActivity() {
                     ).show()
                 }
 
-
-                val fireb = Firebase.storage.reference.child("Img/${modalList.get(i).docName}.jpg")
-                fireb.delete().addOnSuccessListener {
-                    Toast.makeText(
-                        this,
-                        "Successfully delete images${modalList.get(i).docName}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }.addOnFailureListener {
-
-                }
 
 
 
