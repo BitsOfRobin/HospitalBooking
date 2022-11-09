@@ -9,44 +9,96 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
-        android:layout_width="324dp"
-        android:layout_height="591dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
+        app:layout_constraintHorizontal_bias="0.643"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242"
+        app:layout_constraintVertical_bias="0.664"
         tools:visibility="visible">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentList"
+            >
 
-        <ListView
-            android:id="@+id/listDocAppoint"
-            android:layout_width="318dp"
-            android:layout_height="523dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
 
-            android:background="@color/white"
+            <ListView
+                android:id="@+id/listDocAppoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/customlistview">
 
-            />
+
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/PastList"
+
+            >
+            <ListView
+                android:id="@+id/listPastAppoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/customlistview"
+                >
+
+
+            </ListView>
+
+        </LinearLayout>
+
+
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <Button
-        android:id="@+id/btnNext"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/appointmentLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next to Filter Appointment"
-        android:backgroundTint="#D74A4DE8"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/swipeRefresh"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swipeRefresh"
-        tools:ignore="NotSibling"
-        />
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/currentAppoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Appointment" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/PastAppoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Past Appointment" />
 
 
+    </com.google.android.material.tabs.TabLayout>
 
+    <!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/viewpager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="509dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/swipeRefresh" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

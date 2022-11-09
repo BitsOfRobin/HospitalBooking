@@ -2,8 +2,11 @@ package com.example.hospitalbooking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import androidx.core.widget.addTextChangedListener
 import com.google.firebase.firestore.FirebaseFirestore
 
 class PatientPrescription : AppCompatActivity() {
@@ -36,25 +39,46 @@ class PatientPrescription : AppCompatActivity() {
             "$name ",
             Toast.LENGTH_SHORT
         ).show()
-        val med1=findViewById<EditText>(R.id.med1)
+//        val med1=findViewById<EditText>(R.id.med1)
         val med2=findViewById<EditText>(R.id.med2)
         val dos1=findViewById<EditText>(R.id.dos1)
         val dos2=findViewById<EditText>(R.id.dos2)
         val submit=findViewById<Button>(R.id.submitBtn)
 
-
+        val medi1=findViewById<EditText>(R.id.medi1)
         var dosText1=0
         var dosText2=0
         var truth:Boolean=true
         var truth2:Boolean=true
         submit.setOnClickListener {
-            val medText=med1.text.toString()
-            val medText2=med2.text.toString()
+            val medText=medi1.text.toString().replace(" ","")
+            val medText2=med2.text.toString().replace(" ","")
             try {
                 dosText1 = dos1.text.toString().toInt()
                truth=true
+                dos1.error="Completed"
+
             } catch (NumberFormatException: IllegalArgumentException) {
                 truth=false
+
+                dos1.addTextChangedListener(object:TextWatcher{
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        dos1.error="NON integer inputs for dosage"
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+
+
+                } )
+
+
+
                 Toast.makeText(
                     this,
                     "NON integer inputs for dosage",
@@ -67,8 +91,29 @@ class PatientPrescription : AppCompatActivity() {
 
                 dosText2 = dos2.text.toString().toInt()
                 truth2=true
+                dos2.error="Completed"
+
             } catch (NumberFormatException: IllegalArgumentException) {
                 truth2=false
+              dos2.addTextChangedListener(object : TextWatcher {
+                  override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                  }
+
+                  override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                      dos2.error="NON integer inputs for dosage"
+                  }
+
+                  override fun afterTextChanged(p0: Editable?) {
+
+                  }
+              })
+
+
+
+
+
+
                 Toast.makeText(
                     this,
                     "NON integer inputs for dosage",
@@ -79,9 +124,70 @@ class PatientPrescription : AppCompatActivity() {
 
 
 
+            medi1.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if(p0.toString().isEmpty()|| p0.toString().contains("Choose",true)||p0.toString().isBlank()){
+                        medi1.error = "Empty inputs are detected and accept no space "
+
+                    }
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(p0.toString().isEmpty() || p0.toString().contains("Choose",true)||p0.toString().isBlank()){
+                        medi1.error = "Empty inputs are detected and accept no space "
+
+                    }
+                    else{
+
+                        medi1.error="Completed"
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+            }
+
+            )
+
+
+
+            med2.addTextChangedListener(object:TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(p0.toString().isEmpty()||p0.toString().isBlank() ){
+                        med2.error = "Empty inputs are detected and accept no space "
+
+                    }
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(p0.toString().isEmpty()||p0.toString().isBlank()){
+                        med2.error = "Empty inputs are detected and accept no space "
+
+                    }
+                    else{
+
+                        med2.error="Completed"
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+
+            })
+
+
+
 
 
             if (truth&&isLetters(medText)&&medText.isNotEmpty()&&!medText.contains("Choose",true) || truth2&&isLetters(medText2)&&medText2.isNotEmpty()) {
+
 
                     mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
@@ -149,7 +255,7 @@ class PatientPrescription : AppCompatActivity() {
 
 
     private fun isLetters(string: String): Boolean {
-        return string.matches("^[a-zA-Z0123456789 ]*$".toRegex())
+        return string.matches("^[a-zA-Z0-9 ]*$".toRegex())
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
@@ -164,6 +270,7 @@ class PatientPrescription : AppCompatActivity() {
              ?.whereEqualTo("user", "$userName")?.get()?.addOnSuccessListener {
                  for (document in it) {
                      medi = document.get("userMedicine").toString()
+
                      arrMedi.add(medi)
 
 
@@ -184,7 +291,7 @@ class PatientPrescription : AppCompatActivity() {
          val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
          spin.adapter = arr
 
-         val med1=findViewById<EditText>(R.id.med1)
+         val med1=findViewById<EditText>(R.id.medi1)
          val med2=findViewById<EditText>(R.id.med2)
          val med3=findViewById<TextView>(R.id.textView7)
          spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

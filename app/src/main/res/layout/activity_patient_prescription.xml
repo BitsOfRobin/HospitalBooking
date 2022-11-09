@@ -7,37 +7,74 @@
     tools:context=".PatientPrescription">
 
 
-    <EditText
-        android:id="@+id/med1"
-        android:layout_width="wrap_content"
+<!--    <EditText-->
+<!--        android:id="@+id/med1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="82dp"-->
+<!--        android:layout_marginEnd="29dp"-->
+<!--        android:alpha="0.4"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPersonName"-->
+
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="26dp" />-->
+
+
+    <!--    <EditText-->
+<!--        android:id="@+id/dos1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="167dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:alpha="0.4"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="number"-->
+<!--        android:text="XX mg"-->
+<!--        android:textStyle="italic"-->
+<!--        tools:layout_editor_absoluteX="101dp"-->
+<!--        tools:layout_editor_absoluteY="114dp" />-->
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/medi1"
+        android:layout_width="284dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="29dp"
-        android:alpha="0.4"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginEnd="3dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:textSize="17dp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="26dp" />
-
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/dos1"
-        android:layout_width="wrap_content"
+        android:layout_width="284dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="167dp"
-        android:layout_marginEnd="34dp"
-        android:alpha="0.4"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="17dp"
         android:ems="10"
-        android:inputType="number"
-        android:text="XX mg"
-        android:textStyle="italic"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="114dp" />
+        android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:textSize="17dp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/submitBtn"
@@ -58,12 +95,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="469dp"
+        android:layout_marginTop="479dp"
         android:text="Dosage"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="127dp"
-        android:textStyle="bold"/>
+        tools:layout_editor_absoluteY="127dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -78,36 +115,75 @@
         tools:layout_editor_absoluteY="313dp"
         android:textStyle="bold"/>
 
-    <EditText
+
+    <!--    -->
+<!--    <EditText-->
+<!--        android:id="@+id/med2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginEnd="23dp"-->
+<!--        android:layout_marginBottom="304dp"-->
+<!--        android:alpha="0.4"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPersonName"-->
+
+<!--        tools:layout_editor_absoluteX="107dp"-->
+<!--        tools:layout_editor_absoluteY="238dp" />-->
+
+
+    <!--    <EditText-->
+<!--        android:id="@+id/dos2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginStart="131dp"-->
+<!--        android:layout_marginTop="456dp"-->
+<!--        android:alpha="0.4"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="number"-->
+<!--        android:text="XX mg"-->
+<!--        android:textStyle="italic"-->
+<!--        tools:layout_editor_absoluteX="104dp"-->
+<!--        tools:layout_editor_absoluteY="302dp" />-->
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/med2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="304dp"
-        android:alpha="0.4"
-        android:ems="10"
-        android:inputType="textPersonName"
-
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="238dp" />
-
-    <EditText
-        android:id="@+id/dos2"
-        android:layout_width="wrap_content"
+        android:layout_width="284dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="456dp"
-        android:alpha="0.4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="405dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:inputType="number"
-        android:text="XX mg"
-        android:textStyle="italic"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="302dp" />
+        android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:textSize="17dp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/dos2"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="469dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:maxLength="100"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:textSize="17dp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView2"
@@ -140,8 +216,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginBottom="304dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="292dp"
         android:text="Medicine 2"
         android:textSize="20sp"
         android:textStyle="bold" />

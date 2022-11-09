@@ -12,13 +12,17 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -36,6 +40,8 @@ class DoctorAppointment : AppCompatActivity() {
     private var arrayDel = ArrayList<String>()
     private val CHANNEL_ID="channel_id_example_01"
     private  val notificationId=101
+
+
     //    private lateinit var binding: ActivityMainBinding
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +58,20 @@ class DoctorAppointment : AppCompatActivity() {
         refresh()
         createNoti()
 
+
+
+//        val tabLayout=findViewById<TabLayout>(R.id.appointmentLayout)
+
+
+
+//        val viewPager=findViewById<ViewPager>(R.id.viewpager)
+//        tabLayout.setupWithViewPager(viewPager)
+//        val vpAdapter=VPadapter(supportFragmentManager,FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+//        val currentAppoint=CurrentAppointFragment()
+//        val PastAppoint=PastAppoinntFragment()
+//        vpAdapter.addFragment(currentAppoint,"Current Appointment")
+//        vpAdapter.addFragment(PastAppoint,"Past Appointment")
+//        viewPager.adapter=vpAdapter
 
     }
     override fun onSupportNavigateUp(): Boolean {
@@ -164,6 +184,7 @@ class DoctorAppointment : AppCompatActivity() {
         val arraylistUser = ArrayList<String>()
         var arraylistDocName= ArrayList<String>()
         val arraylistAppointment = ArrayList<AppointmentDetail>()
+        val arraylistPastAppointment = ArrayList<AppointmentDetail>()
         var user=" "
         var doc=" "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
@@ -256,8 +277,53 @@ class DoctorAppointment : AppCompatActivity() {
                 {
                     arraylist.add("User:$user\nAppointed Doctor:$docName\nAppointment Detail:$doc\n\n")
 
-                    arraylistAppointment.add(AppointmentDetail(user,docName,doc))
-                    arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
+                    var dateInString = doc
+                    dateInString.replace(" ", "-")
+
+
+                    if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
+                        dateInString = "0$dateInString"
+
+                    }
+                    else
+                    {
+
+                        dateInString=dateInString
+                    }
+                    val calendarDate = Calendar.getInstance().time
+
+
+
+
+                    val formatter = SimpleDateFormat("dd-MMM-yyyy")
+                    val date = formatter.parse(dateInString.replace(" ","-"))
+                    if (calendarDate.before(date)){
+
+                        arraylistAppointment.add(AppointmentDetail(user,docName,doc))
+                        arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
+                    }
+
+                    else{
+
+                        arraylistPastAppointment.add(AppointmentDetail(user,docName,doc))
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//                    arraylistAppointment.add(AppointmentDetail(user,docName,doc))
+//                    arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
                 }
 
 
@@ -290,16 +356,86 @@ class DoctorAppointment : AppCompatActivity() {
 
 
             val arr=listCustomAdapter(this,arraylistAppointment)
+            val arrPast=listCustomAdapter(this,arraylistPastAppointment)
 
+            Toast.makeText(this,"$arraylistPastAppointment",Toast.LENGTH_SHORT).show()
 
 
 
 //            val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
-            docView.adapter = arr
+//            docView.adapter = arr
+
+            val linearCurrent=findViewById<LinearLayout>(R.id.currentList)
+            val linearPast=findViewById<LinearLayout>(R.id.PastList)
+//            linearCurrent.visibility =View.GONE
+
+            val tabCurrent=findViewById<TabLayout>(R.id.currentAppoint)
+            val tabLayout=findViewById<TabLayout>(R.id.appointmentLayout)
+
+            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
+
+            val tabPast=findViewById<TabLayout>(R.id.PastAppoint)
+
+            tabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab != null) {
+                        if(tab.position==0){
+                            linearPast.visibility =View.GONE
+                            docView.adapter = arr
+                            linearCurrent.visibility =View.VISIBLE
+
+                        }
+                        else if(tab.position==1){
+                            linearCurrent.visibility =View.GONE
+                            docView.adapter=arrPast
+                            linearCurrent.visibility =View.VISIBLE
+                        }
+
+                    }
 
 
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    if (tab != null) {
+                        if(tab.position==0){
+                            linearPast.visibility =View.GONE
+                            docView.adapter = arr
+                            linearCurrent.visibility =View.VISIBLE
+
+                        }
+                        else if(tab.position==1){
+                            linearCurrent.visibility =View.GONE
+                            docView.adapter=arrPast
+                            linearCurrent.visibility =View.VISIBLE
+                        }
+
+                    }
+                }
 
 
+            } )
+//            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
+//            tabPast.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
+//                override fun onTabSelected(tab: TabLayout.Tab?) {
+//                    docViewPast.adapter=arrPast
+//                    linearPast.visibility =View.VISIBLE
+//                }
+//
+//                override fun onTabUnselected(tab: TabLayout.Tab?) {
+//
+//                }
+//
+//                override fun onTabReselected(tab: TabLayout.Tab?) {
+//                    docViewPast.adapter=arrPast
+//                    linearPast.visibility =View.VISIBLE
+//                }
+//
+//
+//            })
 
 
 
@@ -371,18 +507,18 @@ class DoctorAppointment : AppCompatActivity() {
 //            }
 
 
-        val btn=findViewById<Button>(R.id.btnNext)
-
-        btn.setOnClickListener() {
-//            val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-            val intent= Intent(this,FilterAppointment::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-            btn.context.startActivity(intent)
-//            Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-
-
-
-        }
+//        val btn=findViewById<Button>(R.id.btnNext)
+//
+//        btn.setOnClickListener() {
+////            val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+//            val intent= Intent(this,FilterAppointment::class.java)
+////            intent.putExtra("DoctorName", tempListViewClickedValue)
+//            btn.context.startActivity(intent)
+////            Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+//
+//
+//
+//        }
 
 
 
