@@ -8,7 +8,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,9 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -32,12 +29,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
 class DoctorAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     private var userNum:Int=0
     private var docDetail:String?=null
     private var arrayDel = ArrayList<String>()
+    private var arrayDelPast = ArrayList<String>()
     private val CHANNEL_ID="channel_id_example_01"
     private  val notificationId=101
 
@@ -54,7 +51,31 @@ class DoctorAppointment : AppCompatActivity() {
 
 //        writeUser()
         readUser()
-        deleteUser()
+//        deleteUser()
+//        deleteUserPast()
+
+        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        docView.setOnScrollListener(object :  AbsListView.OnScrollListener {
+            override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
+
+            }
+
+            override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
+                val topRowVerticalPosition =
+                    if (p0 == null || p0.getChildCount() === 0) 0 else p0.getChildAt(
+                        0
+                    ).getTop()
+                swipe.isEnabled = topRowVerticalPosition >= 0
+            }
+
+        }
+            
+        )
+
+
+
+
         refresh()
         createNoti()
 
@@ -306,6 +327,7 @@ class DoctorAppointment : AppCompatActivity() {
                     else{
 
                         arraylistPastAppointment.add(AppointmentDetail(user,docName,doc))
+                        arrayDelPast.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
 
                     }
 
@@ -381,14 +403,34 @@ class DoctorAppointment : AppCompatActivity() {
                     if (tab != null) {
                         if(tab.position==0){
                             linearPast.visibility =View.GONE
+                            arr.notifyDataSetChanged()
+                            docView.adapter = arr
+
+                            linearCurrent.visibility =View.VISIBLE
+                            linearCurrent.visibility =View.GONE
+                            deleteUser()
+                            arr.notifyDataSetChanged()
                             docView.adapter = arr
                             linearCurrent.visibility =View.VISIBLE
+
+
 
                         }
                         else if(tab.position==1){
                             linearCurrent.visibility =View.GONE
+                            arrPast.notifyDataSetChanged()
                             docView.adapter=arrPast
+
                             linearCurrent.visibility =View.VISIBLE
+                            deleteUserPast()
+                            linearCurrent.visibility =View.GONE
+
+                            arrPast.notifyDataSetChanged()
+                            docView.adapter=arrPast
+
+                            linearCurrent.visibility =View.VISIBLE
+
+
                         }
 
                     }
@@ -397,23 +439,57 @@ class DoctorAppointment : AppCompatActivity() {
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                    linearPast.visibility =View.GONE
+                    arr.notifyDataSetChanged()
+                    docView.adapter = arr
+
+                    linearCurrent.visibility =View.VISIBLE
+                    linearCurrent.visibility =View.GONE
+                    deleteUser()
+                    arr.notifyDataSetChanged()
+                    docView.adapter = arr
+                    linearCurrent.visibility =View.VISIBLE
+
+
+
+
+
+
+
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
                     if (tab != null) {
                         if(tab.position==0){
                             linearPast.visibility =View.GONE
+                            arr.notifyDataSetChanged()
+                            docView.adapter = arr
+
+                            linearCurrent.visibility =View.VISIBLE
+                            linearCurrent.visibility =View.GONE
+                            deleteUser()
+                            arr.notifyDataSetChanged()
                             docView.adapter = arr
                             linearCurrent.visibility =View.VISIBLE
 
                         }
                         else if(tab.position==1){
                             linearCurrent.visibility =View.GONE
+                            arrPast.notifyDataSetChanged()
                             docView.adapter=arrPast
                             linearCurrent.visibility =View.VISIBLE
+                            deleteUserPast()
+                            linearCurrent.visibility =View.GONE
+                            arrPast.notifyDataSetChanged()
+                            docView.adapter=arrPast
+                            linearCurrent.visibility =View.VISIBLE
+
+
                         }
 
                     }
+
                 }
 
 
@@ -531,6 +607,7 @@ class DoctorAppointment : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun deleteUser(){
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
@@ -648,6 +725,126 @@ class DoctorAppointment : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
+    private fun deleteUserPast(){
+
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+        val docView=findViewById<ListView>(R.id.listDocAppoint)
+        val userGoogle = Firebase.auth.currentUser
+        var user=" "
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+            } else {
+
+                user = " NOne"
+            }
+        }
+        docView.setOnItemClickListener { adapterView, view, i, l ->
+
+
+////           mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")
+//            val updates = hashMapOf<String,FieldValue>(
+//            "user" to FieldValue.delete(),
+//            "doctorAppoint" to FieldValue.delete()
+//            )
+//
+//            mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")?.update(updates as Map<String, Any>)?.addOnCompleteListener {
+//
+//
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+//
+//
+//            }
+
+//            mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")?.delete()?.addOnSuccessListener {
+//
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+//
+//            }
+            Toast.makeText(this, "Success ${arrayDelPast.elementAt(i)}delete the user ", Toast.LENGTH_SHORT).show()
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Delete Appointment Alert")
+            builder.setMessage("Are you sure to cancel this appointment?")
+
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT).show()
+
+
+
+                val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDelPast.elementAt(i)}")
+
+// Remove the 'capital' field from the document
+                val updates = hashMapOf<String, Any>(
+                    "user" to FieldValue.delete(),
+                    "doctorAppoint" to FieldValue.delete(),
+                    "docName" to FieldValue.delete()
+                )
+
+                docRef.update(updates).addOnCompleteListener {
+
+                    Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
+
+                }
+
+                docRef.collection("userAppointment").document("${arrayDelPast.elementAt(i)}")
+                    .delete()
+                    .addOnSuccessListener {  Toast.makeText( this,"${arrayDelPast.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
+                    .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
+
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+
+
+
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT).show()
+            }
+
+
+            builder.show()
+
+
+//            val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+//
+//// Remove the 'capital' field from the document
+//            val updates = hashMapOf<String, Any>(
+//                "user" to FieldValue.delete(),
+//                "doctorAppoint" to FieldValue.delete(),
+//                "docName" to FieldValue.delete()
+//            )
+//
+//            docRef.update(updates).addOnCompleteListener {
+//
+//                Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
+//
+//            }
+//
+//            docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+//                .delete()
+//                .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
+//                .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
+//
+////                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+
+        }
+
+
+    }
+
+
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun refresh()
     {
         val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
@@ -655,6 +852,8 @@ class DoctorAppointment : AppCompatActivity() {
         swipe.setOnRefreshListener {
 
             readUser()
+
+
             Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
             swipe.isRefreshing=false
 

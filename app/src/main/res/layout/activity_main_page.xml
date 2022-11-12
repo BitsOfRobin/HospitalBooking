@@ -12,25 +12,25 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="101dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="-3dp"
+        android:layout_marginBottom="79dp"
+        android:textColor="@color/black"
+
         android:visibility="visible"
+        app:civ_border_width="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.321"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.664"
-        tools:visibility="visible"
-        android:layout_alignParentStart="true"
-        app:civ_border_width="5dp"
-        android:textColor="@color/black"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="1dp">
+        tools:visibility="visible">
 
         <GridView
             android:id="@+id/gridView"
@@ -38,10 +38,10 @@
             android:layout_height="wrap_content"
             android:background="#ECD285"
             android:backgroundTint="@color/white"
-
-            tools:listitem="@layout/row_items"
             android:textColor="@color/black"
+            android:visibility="visible"
             app:civ_border_width="5dp"
+            tools:listitem="@layout/row_items"
 
             >
 
@@ -49,6 +49,7 @@
         </GridView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,15 +62,14 @@
             android:layout_height="wrap_content"
 
 
-            android:background="#85B6B2"
-                />
+            android:background="#85B6B2" />
 
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/naviBtm"
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="73dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
@@ -89,13 +89,36 @@
 <!--        app:menu="@menu/bottomnavigationbar"/>-->
 
 
-    <fragment
+<!--    <fragment-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:name="com.example.hospitalbooking.FragmentWithSearching"-->
+<!--        ></fragment>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/sortByName"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+
+
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginStart="29dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="121dp"-->
+<!--        android:layout_marginBottom="4dp"-->
+<!--        android:text="Sort By Name" />-->
+
+    <ToggleButton
+        android:id="@+id/sortByName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.hospitalbooking.FragmentWithSearching"
-        ></fragment>
-
-
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="56dp"
+        android:textOn="Sort by Name"
+        android:textOff="Sort by Specialist" />
 
 
 </RelativeLayout>

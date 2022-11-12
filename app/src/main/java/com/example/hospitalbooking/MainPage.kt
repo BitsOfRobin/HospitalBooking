@@ -27,6 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
+import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 
 class MainPage : AppCompatActivity() {
@@ -296,6 +299,7 @@ class MainPage : AppCompatActivity() {
 
                 if(arraylistName.size>modalList.size){
                     refreshMain()
+
                     retrieveCache()
 
                 }
@@ -470,14 +474,19 @@ class MainPage : AppCompatActivity() {
                             )
                         )
 
+
+
+
+
+
                     times++
-                    Toast.makeText(this,"name=$times",Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this,"name=$times",Toast.LENGTH_SHORT).show()
 
 //                    count=0
 
 //                    modalList.add(docModal(arraylist[i],))
 
-                    Toast.makeText(this,"success to retrieve iamge $bitmap",Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this,"success to retrieve iamge $bitmap",Toast.LENGTH_SHORT).show()
 
                 }.addOnFailureListener {
 
@@ -544,20 +553,92 @@ class MainPage : AppCompatActivity() {
 //            docView.adapter = customAdapter
 //
 //            searchDoc(customAdapter)
+//        if(modalList.isNotEmpty()) {
+//            Collections.sort(modalList, object :
+//
+//
+//                java.util.Comparator<ModalFormMain> {
+//                override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
+//                    var num = 0
+//
+//                    if (p0 != null) {
+//                        if (p1 != null) {
+//                            num = p0.pro.toString() compareTo (p1.pro.toString())
+//                        }
+//                    }
+//
+//                    return num
+//                }
+//
+//
+//            })
+//
+//        }
 
-//            Toast.makeText(this,"$modalList", Toast.LENGTH_SHORT ).show()
+
+
+        sortByPro()
+     val btnSort=findViewById<ToggleButton>(R.id.sortByName)
+
+     btnSort.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+         if(modalList.isNotEmpty()) {
+
+
+             if(isChecked) {
+                 Collections.sort(modalList, object :
+
+
+                     java.util.Comparator<ModalFormMain> {
+                     override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
+                         var num = 0
+
+                         if (p0 != null) {
+                             if (p1 != null) {
+                                 num = p0.docName.toString() compareTo (p1.docName.toString())
+                             }
+                         }
+
+                         return num
+                     }
+
+
+                 })
+             }
+
+             else{
+
+                 sortByPro()
+
+             }
+
+
+
+         }
+
+
+        Toast.makeText(this,"${modalList.get(1).docName} ",Toast.LENGTH_SHORT).show()
+
+
+     }
+
+
 
 
 
     val customAdapter = CustomAdapter(modalList, this)
+        customAdapter.notifyDataSetChanged()
 
-
-    if(modalList.size==arraylistName.size){
         docView.adapter = customAdapter
-    }
+//        customAdapter.notifyDataSetChanged()
+//    if(modalList.size==arraylistName.size){
+//        docView.adapter = customAdapter
+//        customAdapter.notifyDataSetChanged()
+//    }
 
 
     searchDoc(customAdapter)
+
     swipe.isRefreshing=false
     }
 
@@ -1251,57 +1332,36 @@ class MainPage : AppCompatActivity() {
 
     }
 
-//
-//    private fun searchView() {
-//
-//        val customAdapter = CustomAdapter(modalList, this)
-//
-//        val docView= findViewById<GridView>(R.id.gridView)
-//        docView.adapter = customAdapter
-//
-//
-//        val temp = ArrayList<String>()
-//        val searchView = findViewById<SearchView>(R.id.searchDoc)
-//        searchView.queryHint = "search Doctor Professional"
-//
-//        val proAdapter: ArrayAdapter<String> =
-//            ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
-//
-//        temp.clear()
-//
-//        if (this.fragmentInput != null) {
-//            for (i in arraylistPro.indices) {
-//                if (arraylistPro[i].contains(this.fragmentInput!!, true)) {
-//                    temp.add(arraylistName[i])
-//
-//                }
-//
-//            }
-//            if (temp.isNotEmpty()) {
-//                dataChanged(temp)
-//            } else {
-//                showMsg()
-//
-//            }
-//
-//
-//        } else {
-//            docView.adapter = customAdapter
-//
-//        }
-//
-//        Toast.makeText(this, "$fragmentInput", Toast.LENGTH_SHORT).show()
-//
-//    }
-//
-//    fun captureInput(p0:String){
-//
-//        fragmentInput=p0
-//
-//
-//    }
 
 
+
+
+    private fun sortByPro(){
+
+
+        if(modalList.isNotEmpty()) {
+            Collections.sort(modalList, object :
+
+
+                java.util.Comparator<ModalFormMain> {
+                override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
+                    var num = 0
+
+                    if (p0 != null) {
+                        if (p1 != null) {
+                            num = p0.pro.toString() compareTo (p1.pro.toString())
+                        }
+                    }
+
+                    return num
+                }
+
+
+            })
+
+        }
+
+    }
 
 
 
