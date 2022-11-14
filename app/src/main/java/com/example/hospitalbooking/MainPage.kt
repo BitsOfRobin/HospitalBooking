@@ -629,7 +629,17 @@ class MainPage : AppCompatActivity() {
     val customAdapter = CustomAdapter(modalList, this)
         customAdapter.notifyDataSetChanged()
 
-        docView.adapter = customAdapter
+
+        if(modalList.size==arraylistName.size){
+
+            docView.adapter = customAdapter
+            swipe.isRefreshing=false
+
+        }
+
+
+
+
 //        customAdapter.notifyDataSetChanged()
 //    if(modalList.size==arraylistName.size){
 //        docView.adapter = customAdapter
@@ -639,7 +649,7 @@ class MainPage : AppCompatActivity() {
 
     searchDoc(customAdapter)
 
-    swipe.isRefreshing=false
+
     }
 
 

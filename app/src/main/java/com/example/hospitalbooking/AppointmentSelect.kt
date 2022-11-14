@@ -1,5 +1,6 @@
 package com.example.hospitalbooking
 
+import MyCache
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -108,6 +109,9 @@ class AppointmentSelect : AppCompatActivity() {
         arraylistTime.clear()
         val tempHolder = intent.getStringExtra("DoctorName")
         val docSpin = findViewById<Spinner>(R.id.spinDocAppoint)
+        val img=findViewById<ImageView>(R.id.imageSelect)
+        val cache=MyCache()
+        img.setImageBitmap(cache.retrieveBitmapFromCache(tempHolder.toString()))
         docName = tempHolder.toString()
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 

@@ -12,6 +12,7 @@ import java.util.ArrayList
 
 class PrescriptionDisplay : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+    private var arraylistDocName = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prescription_display)
@@ -19,6 +20,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Prescription")
         showPrescription()
+//        getRating()
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -31,7 +33,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         val arraylistPres = ArrayList<Prescription>()
         val arraylistPro = ArrayList<String>()
         val arraylistUser = ArrayList<String>()
-        var arraylistDocName = ArrayList<String>()
+
         val arrayForSearch = ArrayList<String>()
         val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = " "
@@ -134,6 +136,63 @@ class PrescriptionDisplay : AppCompatActivity() {
 
         }
     }
+
+
+
+
+//    private fun getRating( ){
+//
+//        val rating=findViewById<RatingBar>(R.id.ratingBarInput)
+//
+//
+//        val docList = findViewById<ListView>(R.id.presList)
+//        var rate:Float= 0F
+//
+//
+//        docList.setOnItemClickListener { adapterView, view, i, l ->
+//
+//            rate= rating.numStars.toFloat()
+//
+//
+//
+//        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+//
+//
+//
+//
+//
+//
+//
+//            val ratingStar= hashMapOf(
+//                "ratingStart" to rate,
+//
+//
+//
+//
+//            )
+////        val  doc =doctor?.uid
+//
+////
+//            mFirebaseDatabaseInstance?.collection("doctor")?.document(arraylistDocName[i])?.set(ratingStar)
+//                ?.addOnSuccessListener {
+//
+//
+//            Toast.makeText(this,"Successfully rate  doctor ",Toast.LENGTH_SHORT).show()
+//
+//                }
+//                ?.addOnFailureListener {
+//
+//                    Toast.makeText(this, "Failed to rate doctor", Toast.LENGTH_SHORT).show()
+//                }
+//
+//        }
+////        userNum+=1
+//
+//
+//
+//
+//
+//    }
 
 
 

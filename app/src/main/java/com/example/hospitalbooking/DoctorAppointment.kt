@@ -8,10 +8,12 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -37,6 +39,8 @@ class DoctorAppointment : AppCompatActivity() {
     private var arrayDelPast = ArrayList<String>()
     private val CHANNEL_ID="channel_id_example_01"
     private  val notificationId=101
+    private val arraylistAppointment = ArrayList<AppointmentDetail>()
+    private val arraylistPastAppointment = ArrayList<AppointmentDetail>()
 
 
     //    private lateinit var binding: ActivityMainBinding
@@ -204,10 +208,13 @@ class DoctorAppointment : AppCompatActivity() {
         val arraylistPro = ArrayList<String>()
         val arraylistUser = ArrayList<String>()
         var arraylistDocName= ArrayList<String>()
-        val arraylistAppointment = ArrayList<AppointmentDetail>()
-        val arraylistPastAppointment = ArrayList<AppointmentDetail>()
+
         var user=" "
         var doc=" "
+        arraylistPastAppointment.clear()
+        arraylistAppointment.clear()
+        arrayDelPast.clear()
+        arrayDel.clear()
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.listDocAppoint)
         val userGoogle = Firebase.auth.currentUser
@@ -402,33 +409,35 @@ class DoctorAppointment : AppCompatActivity() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab != null) {
                         if(tab.position==0){
-                            linearPast.visibility =View.GONE
-                            arr.notifyDataSetChanged()
-                            docView.adapter = arr
-
-                            linearCurrent.visibility =View.VISIBLE
                             linearCurrent.visibility =View.GONE
-                            deleteUser()
-                            arr.notifyDataSetChanged()
+//                            arr.notifyDataSetChanged()
                             docView.adapter = arr
-                            linearCurrent.visibility =View.VISIBLE
 
+                            linearCurrent.visibility =View.VISIBLE
+//                            linearCurrent.visibility =View.GONE
+                            deleteUser()
+//                            arr.notifyDataSetChanged()
+//                            docView.adapter = arr
+//                            linearCurrent.visibility =View.VISIBLE
+//
 
 
                         }
                         else if(tab.position==1){
                             linearCurrent.visibility =View.GONE
-                            arrPast.notifyDataSetChanged()
+//                            arrPast.notifyDataSetChanged()
                             docView.adapter=arrPast
 
                             linearCurrent.visibility =View.VISIBLE
                             deleteUserPast()
-                            linearCurrent.visibility =View.GONE
+//                            linearCurrent.visibility =View.GONE
 
-                            arrPast.notifyDataSetChanged()
-                            docView.adapter=arrPast
+//                            arrPast.notifyDataSetChanged()
+//                            docView.adapter=arrPast
 
-                            linearCurrent.visibility =View.VISIBLE
+//                            linearCurrent.visibility =View.VISIBLE
+
+
 
 
                         }
@@ -440,17 +449,16 @@ class DoctorAppointment : AppCompatActivity() {
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
 
-                    linearPast.visibility =View.GONE
-                    arr.notifyDataSetChanged()
-                    docView.adapter = arr
-
-                    linearCurrent.visibility =View.VISIBLE
                     linearCurrent.visibility =View.GONE
-                    deleteUser()
-                    arr.notifyDataSetChanged()
+//                    arr.notifyDataSetChanged()
                     docView.adapter = arr
-                    linearCurrent.visibility =View.VISIBLE
 
+                    linearCurrent.visibility =View.VISIBLE
+//                    linearCurrent.visibility =View.GONE
+                    deleteUser()
+//                    arr.notifyDataSetChanged()
+//                    docView.adapter = arr
+//                    linearCurrent.visibility =View.VISIBLE
 
 
 
@@ -462,28 +470,30 @@ class DoctorAppointment : AppCompatActivity() {
                 override fun onTabReselected(tab: TabLayout.Tab?) {
                     if (tab != null) {
                         if(tab.position==0){
-                            linearPast.visibility =View.GONE
-                            arr.notifyDataSetChanged()
+                            linearCurrent.visibility =View.GONE
+//                            arr.notifyDataSetChanged()
                             docView.adapter = arr
 
                             linearCurrent.visibility =View.VISIBLE
-                            linearCurrent.visibility =View.GONE
+//                            linearCurrent.visibility =View.GONE
                             deleteUser()
-                            arr.notifyDataSetChanged()
-                            docView.adapter = arr
-                            linearCurrent.visibility =View.VISIBLE
+//                            arr.notifyDataSetChanged()
+//                            docView.adapter = arr
+//                            linearCurrent.visibility =View.VISIBLE
+
 
                         }
                         else if(tab.position==1){
                             linearCurrent.visibility =View.GONE
-                            arrPast.notifyDataSetChanged()
+//                            arrPast.notifyDataSetChanged()
                             docView.adapter=arrPast
                             linearCurrent.visibility =View.VISIBLE
                             deleteUserPast()
-                            linearCurrent.visibility =View.GONE
-                            arrPast.notifyDataSetChanged()
-                            docView.adapter=arrPast
-                            linearCurrent.visibility =View.VISIBLE
+//                            linearCurrent.visibility =View.GONE
+//                            arrPast.notifyDataSetChanged()
+//                            docView.adapter=arrPast
+//                            linearCurrent.visibility =View.VISIBLE
+
 
 
                         }
@@ -682,7 +692,8 @@ class DoctorAppointment : AppCompatActivity() {
 //                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
 
 
-
+                arraylistAppointment.removeAt(i)
+                refreshAppoint()
 
             }
 
@@ -797,9 +808,9 @@ class DoctorAppointment : AppCompatActivity() {
                     .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
 
 //                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+                arraylistPastAppointment.removeAt(i)
 
-
-
+                refreshAppoint()
 
             }
 
@@ -838,6 +849,9 @@ class DoctorAppointment : AppCompatActivity() {
         }
 
 
+
+
+
     }
 
 
@@ -850,6 +864,9 @@ class DoctorAppointment : AppCompatActivity() {
         val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
 
         swipe.setOnRefreshListener {
+
+            val linearCurrent=findViewById<LinearLayout>(R.id.currentList)
+            linearCurrent.visibility=View.GONE
 
             readUser()
 
@@ -902,6 +919,18 @@ class DoctorAppointment : AppCompatActivity() {
         }
 
     }
+
+
+
+
+    private fun refreshAppoint(){
+
+        val refresh = Intent(this,DoctorAppointment::class.java)
+        startActivity(refresh) //Start the same Activity
+
+        finish()
+    }
+
 
 
 

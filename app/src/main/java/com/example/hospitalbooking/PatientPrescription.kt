@@ -29,9 +29,9 @@ class PatientPrescription : AppCompatActivity() {
     private fun setPrescription() {
 
         val userName = intent.getStringExtra("userName")
-        var equal=0
-        equal= userName?.indexOf("r=")!!
-        val name=  userName.substring(equal+2,userName.length-1)
+        var equal = 0
+        equal = userName?.indexOf("r=")!!
+        val name = userName.substring(equal + 2, userName.length - 1)
 
         retrieveRegMedicine(name)
         Toast.makeText(
@@ -40,139 +40,114 @@ class PatientPrescription : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 //        val med1=findViewById<EditText>(R.id.med1)
-        val med2=findViewById<EditText>(R.id.med2)
-        val dos1=findViewById<EditText>(R.id.dos1)
-        val dos2=findViewById<EditText>(R.id.dos2)
-        val submit=findViewById<Button>(R.id.submitBtn)
+        val med2 = findViewById<EditText>(R.id.med2)
+        val dos1 = findViewById<EditText>(R.id.dos1)
+        val dos2 = findViewById<EditText>(R.id.dos2)
+        val submit = findViewById<Button>(R.id.submitBtn)
 
-        val medi1=findViewById<EditText>(R.id.medi1)
-        var dosText1=0
-        var dosText2=0
-        var truth:Boolean=true
-        var truth2:Boolean=true
-        submit.setOnClickListener {
-            val medText=medi1.text.toString().replace(" ","")
-            val medText2=med2.text.toString().replace(" ","")
-            try {
-                dosText1 = dos1.text.toString().toInt()
-               truth=true
-                dos1.error="Completed"
+        val medi1 = findViewById<EditText>(R.id.medi1)
+        var dosText1 = 0
+        var dosText2 = 0
+        var truth: Boolean = true
+        var truth2: Boolean = true
 
-            } catch (NumberFormatException: IllegalArgumentException) {
-                truth=false
-
-                dos1.addTextChangedListener(object:TextWatcher{
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                    }
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        dos1.error="NON integer inputs for dosage"
-                    }
-
-                    override fun afterTextChanged(p0: Editable?) {
-
-                    }
+        var medText = medi1.text.toString().replace(" ", "")
+        var medText2 = med2.text.toString().replace(" ", "")
 
 
-                } )
+        medi1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (!isLetters(p0.toString()) && p0.toString().isEmpty() || p0.toString()
+                        .contains("Choose", true) || p0.toString().isBlank()
+                ) {
+                    medi1.error = "Empty inputs are detected and accept no space "
 
+                }
+            }
 
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                Toast.makeText(
-                    this,
-                    "NON integer inputs for dosage",
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (!isLetters(p0.toString()) && p0.toString().isEmpty() || p0.toString()
+                        .contains("Choose", true) || p0.toString().isBlank()
+                ) {
+                    medi1.error = "Empty inputs are detected and accept no space "
+
+                } else {
+                    medText = p0.toString()
+                    medi1.error = "Completed"
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
 
             }
 
-            try {
+        }
 
-                dosText2 = dos2.text.toString().toInt()
-                truth2=true
-                dos2.error="Completed"
-
-            } catch (NumberFormatException: IllegalArgumentException) {
-                truth2=false
-              dos2.addTextChangedListener(object : TextWatcher {
-                  override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                  }
-
-                  override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                      dos2.error="NON integer inputs for dosage"
-                  }
-
-                  override fun afterTextChanged(p0: Editable?) {
-
-                  }
-              })
+        )
 
 
 
+        med2.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
+                if (isLetters(p0.toString()) && p0.toString().isEmpty() || p0.toString()
+                        .isBlank()
+                ) {
+                    med2.error = "Empty inputs are detected and accept no space "
 
+                }
+            }
 
-                Toast.makeText(
-                    this,
-                    "NON integer inputs for dosage",
-                    Toast.LENGTH_SHORT
-                ).show()
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                if (isLetters(p0.toString()) && p0.toString().isEmpty() || p0.toString()
+                        .isBlank()
+                ) {
+                    med2.error = "Empty inputs are detected and accept no space "
+
+                } else {
+                    medText2 = p0.toString()
+                    med2.error = "Completed"
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
 
             }
 
 
+        })
 
-            medi1.addTextChangedListener(object : TextWatcher{
+
+
+
+        if (dos1.text.toString().isBlank() || dos1.text.toString().isEmpty()) {
+
+            dos1.error = "No Input"
+        }
+            dos1.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if(p0.toString().isEmpty()|| p0.toString().contains("Choose",true)||p0.toString().isBlank()){
-                        medi1.error = "Empty inputs are detected and accept no space "
-
-                    }
+                    dos1.error = "Accept Only Integer"
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    dos1.error = "NON integer inputs for dosage"
 
-                    if(p0.toString().isEmpty() || p0.toString().contains("Choose",true)||p0.toString().isBlank()){
-                        medi1.error = "Empty inputs are detected and accept no space "
+
+
+                    try {
+                        dosText1 = dos1.text.toString().toInt()
+                        truth = true
+                        dos1.error = "Completed"
+
+                    } catch (NumberFormatException: IllegalArgumentException) {
+                        truth = false
+                        dos1.error = "NON integer inputs for dosage"
+
 
                     }
-                    else{
 
-                        medi1.error="Completed"
-                    }
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-            }
-
-            )
-
-
-
-            med2.addTextChangedListener(object:TextWatcher{
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                    if(p0.toString().isEmpty()||p0.toString().isBlank() ){
-                        med2.error = "Empty inputs are detected and accept no space "
-
-                    }
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                    if(p0.toString().isEmpty()||p0.toString().isBlank()){
-                        med2.error = "Empty inputs are detected and accept no space "
-
-                    }
-                    else{
-
-                        med2.error="Completed"
-                    }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
@@ -185,34 +160,76 @@ class PatientPrescription : AppCompatActivity() {
 
 
 
+        if (dos2.text.toString().isBlank() || dos2.text.toString().isEmpty()) {
 
-            if (truth&&isLetters(medText)&&medText.isNotEmpty()&&!medText.contains("Choose",true) || truth2&&isLetters(medText2)&&medText2.isNotEmpty()) {
-
-
-                    mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
-
-                    val medicine = hashMapOf(
-                        "medicine1" to medText,
-                        "medicine2" to medText2,
-                        "dosage1" to dosText1,
-                        "dosage2" to dosText2
+            dos2.error = "No Input"
+        }
 
 
-                    )
+            dos2.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    dos2.error = "Accept Only Integer"
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    dos2.error = "NON integer inputs for dosage"
+
+                    if (p0.toString().isBlank() || p0.toString().isEmpty()) {
+
+                        dos2.error = "No Input"
+                    } else {
+                        try {
+
+                            dosText2 = dos2.text.toString().toInt()
+                            truth2 = true
+                            dos2.error = "Completed"
+
+                        } catch (NumberFormatException: IllegalArgumentException) {
+                            dos2.error = "NON integer inputs for dosage"
+
+                            truth2 = false
+                        }
+                    }
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+
+
+        submit.setOnClickListener {
+
+
+//            if (truth&&isLetters(medText)&&medText.isNotEmpty()&&!medText.contains("Choose patient",true) || truth2&&isLetters(medText2)&&medText2.isNotEmpty()) {
+
+
+            mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+
+            val medicine = hashMapOf(
+                "medicine1" to medText,
+                "medicine2" to medText2,
+                "dosage1" to dosText1,
+                "dosage2" to dosText2
+
+
+            )
 
 
 //        val  doc =doctor?.uid
 
 //
-                    if (userName != null) {
-                        mFirebaseDatabaseInstance?.collection("userAppointment")
-                            ?.document("$userName")?.update(
-                            medicine as Map<String, Any>
-                        )?.addOnSuccessListener {
+            if ( (medText.isNotBlank()&&medText.isNotEmpty() &&  medText2.isNotBlank()&&medText2.isNotEmpty()) &&
+                dosText1!=0  ) {
+                mFirebaseDatabaseInstance?.collection("userAppointment")
+                    ?.document("$userName")?.update(
+                        medicine as Map<String, Any>
+                    )?.addOnSuccessListener {
 
 
-                            Toast.makeText(this, "Successfully added medicine ", Toast.LENGTH_SHORT)
-                                .show()
+                        Toast.makeText(this, "Successfully added medicine ", Toast.LENGTH_SHORT)
+                            .show()
 
 
 //                                val start=userName.indexOf("user=")
@@ -224,33 +241,28 @@ class PatientPrescription : AppCompatActivity() {
 //                                intent.putExtra("userName", name)
 //                                startActivity(intent)
 
-                        }
-                            ?.addOnFailureListener {
-
-                                Toast.makeText(this, "Failed to add user", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
                     }
+                    ?.addOnFailureListener {
+
+                        Toast.makeText(this, "Failed to add user", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            } else {
+
+                Toast.makeText(
+                    this,
+                    "Empty inputs are detected for dosage",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
 
 
-                } else {
-
-                    Toast.makeText(
-                        this,
-                        "Empty inputs are detected and accept no space",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-
+//        }
+//        }
 
 
         }
-
-
-
-
-
     }
 
 

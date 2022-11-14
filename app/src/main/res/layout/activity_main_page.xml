@@ -117,8 +117,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="49dp"
         android:layout_marginTop="56dp"
-        android:textOn="Sort by Name"
-        android:textOff="Sort by Specialist" />
+        android:textOn="Sort by Specialist"
+        android:textOff="Sort by Name" />
 
 
 </RelativeLayout>
