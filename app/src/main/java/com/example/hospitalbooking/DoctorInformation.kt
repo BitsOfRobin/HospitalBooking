@@ -60,6 +60,7 @@ class DoctorInformation : AppCompatActivity() {
 
             val dtpro=docPro.text
             val pro=dtpro.toString()
+            val rateFrequency=0.0
 //        pro=pro.replace(" ","")
             val letter:Boolean=isLetters(pro)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
@@ -69,7 +70,8 @@ class DoctorInformation : AppCompatActivity() {
                 val doc= hashMapOf(
 
                     "name" to doctorName,
-                    "pro" to pro
+                    "pro" to pro,
+                    "rateFrequency" to rateFrequency
 
 
 

@@ -108,7 +108,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                     var doctime=doc
                     val index=doc.indexOf(",")
                     doctime=doctime.substring(0,index)+"\n"+doctime.substring(index,doctime.length)
-                    arraylist.add(Prescription(user,docName,doctime))
+                    arraylist.add(Prescription(user,docName,doctime,0F))
 
                     arrayForSearch.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
                     arraylistAppointment.add(AppointmentDetail(user, docName, doc))
@@ -144,7 +144,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                             {
                                 if(arraylistUser[i].contains(p0,true))
                                 {
-                                    tempList.add(Prescription(arraylistUser[i],arraylistDocName[i],appointment[i]))
+                                    tempList.add(Prescription(arraylistUser[i],arraylistDocName[i],appointment[i],0F))
 
                                 }
 

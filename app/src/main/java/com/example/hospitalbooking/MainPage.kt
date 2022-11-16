@@ -8,7 +8,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +22,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -28,8 +31,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 
 
 class MainPage : AppCompatActivity() {
@@ -864,6 +865,17 @@ class MainPage : AppCompatActivity() {
             tvTime?.text = itemModel[position].time
             tvPro?.text = itemModel[position].pro
 
+//
+//            val yellow = ForegroundColorSpan(Color.YELLOW)
+//            val spannableString = SpannableString(itemModel[position].pro)
+//
+//
+//
+//            spannableString.setSpan(yellow,
+//                0, itemModel[position].pro.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+
 
 //            itemModel[position].image?.let { imageView?.setImageBitmap(it) }
 
@@ -878,50 +890,12 @@ class MainPage : AppCompatActivity() {
                 .load(bit)
                 .into(imageView)
 
-//            val fire= Firebase.storage.reference.child("Img/$name.jpg")
-//                    Glide.with(context)
-//                        .load(fire)
-//                        .into(imageView)
-
-//            if(count!=itemModel.size)
-//            {
-////                try{
-
-////                    Toast.makeText(context,"image saved",Toast.LENGTH_SHORT).show()
-//
-//
-//
-//
-//
-//
-//          fire.downloadUrl
-//                .addOnSuccessListener(OnSuccessListener<Any> { uri -> // Got the download URL for 'users/me/profile.png'
-//                    // Pass it to Picasso to download, show in ImageView and caching
-//                    Picasso.with(context).load(uri.toString()).into(imageView)
-//
-//                    Toast.makeText(context,"image saved",Toast.LENGTH_SHORT).show()
-//                }).addOnFailureListener(OnFailureListener {
-//                  Toast.makeText(context,"image failed to save ",Toast.LENGTH_SHORT).show()
-//                })
-//
-
-//                catch (e:NullPointerException){
-//                    Toast.makeText(context,"image not found",Toast.LENGTH_SHORT).show()
-//                }
-
-
-//            }
-
-//            else{
-//                itemModel[position].image?.let { imageView?.setImageBitmap(it) }
-//                Toast.makeText(context,"fully retrieved",Toast.LENGTH_SHORT).show()
-//
-//            }
-//
-
 
             return view!!
         }
+
+
+
 
 
     }
@@ -1103,51 +1077,7 @@ class MainPage : AppCompatActivity() {
                 true
             }
 
-//        { adapterView, view, i, l ->
 
-
-////           mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")
-//            val updates = hashMapOf<String,FieldValue>(
-//            "user" to FieldValue.delete(),
-//            "doctorAppoint" to FieldValue.delete()
-//            )
-//
-//            mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")?.update(updates as Map<String, Any>)?.addOnCompleteListener {
-//
-//
-//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
-//
-//
-//            }
-
-//            mFirebaseDatabaseInstance?.collection("user")?.document("user$userNum")?.delete()?.addOnSuccessListener {
-//
-//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
-//
-//            }
-
-
-//            val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDel.elementAt(i)}")
-//
-//// Remove the 'capital' field from the document
-//            val updates = hashMapOf<String, Any>(
-//                "user" to FieldValue.delete(),
-//                "doctorAppoint" to FieldValue.delete(),
-//                "docName" to FieldValue.delete()
-//            )
-//
-//            docRef.update(updates).addOnCompleteListener {
-//
-//                Toast.makeText(this, "Success delete the user ", Toast.LENGTH_SHORT).show()
-//
-//            }
-//
-//            docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
-//                .delete()
-//                .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
-//                .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
-//
-////                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
 
 
     }
@@ -1206,6 +1136,7 @@ class MainPage : AppCompatActivity() {
                                 if (arraylistPro[i].contains(p0, true)) {
                                     temp.add(arraylistName[i])
 
+
                                 }
 
                             }
@@ -1232,43 +1163,26 @@ class MainPage : AppCompatActivity() {
     }
 
 
-//   private fun matchSearch(temp: ArrayList<String>, searchView: SearchView)
-//   {
-//
-//       val adapter=ArrayAdapter(this, android.R.layout.simple_list_item_1,temp)
-//       searchView.adapter
-//
-//   }
-//    private fun suggestion()
-////    {
-////
-////        val searchView = findViewById<SearchView>(R.id.searchDoc)
-////
-////    searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
-////        override fun onSuggestionSelect(position: Int): Boolean {
-////            return true
-////        }
-////
-////        override fun onSuggestionClick(position: Int): Boolean {
-////            val cursor: Cursor = searchView.suggestionsAdapter.cursor
-////            cursor.moveToPosition(position)
-////            var suggestion=""
-////            for (i in arraylistPro.indices) {
-////                if (arraylistPro[i].equals(cursor.getString(position), true)) {
-////                    suggestion=arraylistPro[i].toString()
-////                }
-////
-////            }
-////
-//////                        val suggestion: String =
-//////                            cursor.getString(2) //2 is the index of col containing suggestion name.
-////            searchView.setQuery(suggestion, true) //setting suggestion
-////            return true
-////        }
-////    })
-////    }
-//
+    private fun setColorText(position: Int) {
 
+        val docPro=findViewById<TextView>(R.id.docPro)
+
+
+        val yellow = ForegroundColorSpan(Color.YELLOW)
+        val spannableString = SpannableString(arraylistPro[position])
+
+
+
+        spannableString.setSpan(yellow,
+            0, arraylistPro[position].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        val num=arraylistPro[position].length
+
+        Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
+
+
+        docPro.text = spannableString.toString()
+
+    }
     private fun showMsg() {
 
 
@@ -1320,7 +1234,7 @@ class MainPage : AppCompatActivity() {
 
                 }
 
-
+//                setColorText(i)
 
             }
 

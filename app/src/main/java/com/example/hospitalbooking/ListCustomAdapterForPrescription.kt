@@ -4,6 +4,7 @@ import MyCache
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.GnssAntennaInfo
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -30,8 +32,12 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
 
     override fun getItemId(p0: Int): Long {
         return p0.toLong()
+
+
+
     }
 
+    @androidx.annotation.RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
@@ -55,10 +61,18 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
 //        viewHolder.txtDoc.text=prescription.doc.toString()
         viewHolder.txtMedi.text=prescription.medicine.toString()
 
-
-
-
-
+//        viewHolder.ratingBar.tag = p0;
+//
+//        viewHolder.ratingBar.setOnRatingBarChangeListener { ratingBar, fl, boolean ->
+//
+//            viewHolder.ratingBar=ratingBar
+//            val pres:Prescription= getItem(p0) as Prescription
+//            pres.setRatingStar(fl)
+//
+//
+//
+//        }
+//
 
 
 
@@ -111,6 +125,7 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         lateinit var txtMedi: TextView
         lateinit var ivImage: ImageView
         lateinit var ivImage2: ImageView
+        lateinit var ratingBar: RatingBar
 
         init {
             this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
@@ -118,6 +133,7 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
             this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
             this.ivImage= row.findViewById(R.id.userImg) as ImageView
             this.ivImage2= row.findViewById(R.id.imageView3) as ImageView
+//            this.ratingBar= row.findViewById(R.id.ratingBarInput) as RatingBar
 
         }
 

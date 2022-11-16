@@ -1,14 +1,15 @@
 package com.example.hospitalbooking
 
 import android.content.ContentValues
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
+import android.widget.ListView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import java.util.ArrayList
 
 class PrescriptionDisplay : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -20,7 +21,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Prescription")
         showPrescription()
-//        getRating()
+
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -44,7 +45,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         var dos2=" "
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
-        val docView = findViewById<ListView>(R.id.presList)
+        val docView = findViewById<ListView>(R.id.presListCheck)
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
             // Name, email address, and profile photo Url
@@ -115,7 +116,7 @@ class PrescriptionDisplay : AppCompatActivity() {
                 if (docName.contains("Dr")) {
 //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
                     val medi= "$medicine1 \n $dos1 mg \n $medicine2 \n$dos2 mg\n"
-                        arraylistPres.add(Prescription(user,docName,medi))
+                        arraylistPres.add(Prescription(user,docName,medi,0F))
 
 
                 }
@@ -134,24 +135,51 @@ class PrescriptionDisplay : AppCompatActivity() {
 
             docView.adapter = arr
 
+//            var rating=0.0
+            docView.setOnItemClickListener { adapterView, view, i, l ->
+
+
+
+
+
+                val intent= Intent(this,PopUpWindow::class.java)
+                intent.putExtra("docName", arraylistDocName[i])
+//                intent.putExtra("rating",rating)
+
+//                val extras = Bundle()
+//                extras.putDouble("rating",rating)
+
+                startActivity(intent)
+
+            }
+
+
+
         }
     }
 
 
 
 
-//    private fun getRating( ){
+//
+//    private fun getRate( i:Int){
 //
 //        val rating=findViewById<RatingBar>(R.id.ratingBarInput)
 //
 //
-//        val docList = findViewById<ListView>(R.id.presList)
+//        val docList = findViewById<ListView>(R.id.presListCheck)
 //        var rate:Float= 0F
 //
 //
-//        docList.setOnItemClickListener { adapterView, view, i, l ->
 //
-//            rate= rating.numStars.toFloat()
+//
+//            rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
+//
+//                ratingBar.rating=fl
+//                rate=fl
+//
+//
+//            }
 //
 //
 //
@@ -185,7 +213,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 //                    Toast.makeText(this, "Failed to rate doctor", Toast.LENGTH_SHORT).show()
 //                }
 //
-//        }
+//
 ////        userNum+=1
 //
 //

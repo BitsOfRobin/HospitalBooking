@@ -49,37 +49,47 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.499">
 
-            <TextView
-                android:id="@+id/txtAppoint"
-                android:layout_width="wrap_content"
-                android:layout_height="43dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginEnd="53dp"
-                android:layout_toEndOf="@+id/imgAppoint"
-                android:fontFamily="serif-monospace"
-                android:text="Appointment"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtAppoint"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="33dp"
+        android:layout_toEndOf="@+id/imgAppoint"
+        android:fontFamily="serif-monospace"
+        android:text="Appointment"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userImg"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_width="82dp"
+                android:layout_height="51dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="15dp"
 
+                android:padding="5dp"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp"
+
+
+                app:civ_shadow="true"
+
+                app:civ_shadow_color="#3f51b5"
+                app:civ_shadow_radius="10dp"
                 app:srcCompat="@drawable/user" />
 
-        </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
 
 
         <TextView
@@ -133,43 +143,54 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView3"
-            android:layout_width="72dp"
-            android:layout_height="64dp"
+
+
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:layout_marginStart="35dp"
+
             android:layout_marginTop="84dp"
 
             app:civ_shadow="true"
             app:civ_shadow_color="#3f51b5"
-            app:civ_shadow_radius="10dp" />
+            app:civ_shadow_radius="10dp"
+
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp"
+
+            />
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="31dp"
+            android:layout_width="50dp"
             android:layout_height="37dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginStart="52dp"
             android:layout_marginTop="174dp"
-            app:srcCompat="@drawable/medi" />
-
-<!--            <RatingBar-->
-<!--                android:id="@+id/ratingBarInput"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:layout_marginTop="225dp"-->
-<!--                android:layout_marginEnd="9dp"-->
-<!--                android:layout_gravity="bottom"-->
-<!--                android:isIndicator="false"-->
-<!--                android:padding="5dp"-->
+            app:srcCompat="@drawable/medi"
 
 
-<!--                />-->
+
+            app:civ_shadow="true"
+            app:civ_shadow_color="#3f51b5"
+            app:civ_shadow_radius="10dp"
+
+
+            android:padding="5dp"
+
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp"
+
+            />
+
+
 
 </androidx.cardview.widget.CardView>
 </RelativeLayout>

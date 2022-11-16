@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
+            android:name=".PopUpWindow"
+            android:exported="false" />
+        <activity
             android:name=".PrescriptionDisplay"
             android:exported="false" />
         <activity

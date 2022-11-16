@@ -65,5 +65,17 @@
         android:layout_marginBottom="14dp"
         app:srcCompat="@drawable/appointment" />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageSelect"
+        android:layout_alignBottom="@+id/spinDocAppoint"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="37dp"
+        android:isIndicator="false"
+        android:numStars="5" />
+
 
 </RelativeLayout>

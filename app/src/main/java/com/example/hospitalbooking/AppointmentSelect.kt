@@ -1,7 +1,6 @@
 package com.example.hospitalbooking
 
 import MyCache
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
@@ -17,10 +16,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.channels.Channel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -125,7 +122,19 @@ class AppointmentSelect : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 val time = document.get("Time").toString()
                 val time2 = document.get("Time2").toString()
+                val rating=document.get("rating")
+                val ratingBr=findViewById<RatingBar>(R.id.ratingBar)
+                ratingBr.isClickable=false
+                if(rating!=null){
 
+
+                    retrieveStars(rating as Double,ratingBr)
+
+                }
+                else{
+                    ratingBr.visibility=View.GONE
+
+                }
                 var dateInString = time.replace(" ", "-")
 
 
@@ -340,7 +349,11 @@ class AppointmentSelect : AppCompatActivity() {
 
         }
 
-        private fun createNoti() {
+    private fun retrieveStars(rating: Double, ratingBr: RatingBar) {
+        ratingBr.rating= rating.toFloat()
+    }
+
+    private fun createNoti() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
                 val name = "Hospital Appointmnet"
@@ -562,5 +575,7 @@ class AppointmentSelect : AppCompatActivity() {
 //        val txt=findViewById<TextView>(R.id.textView)
 //        txt.text="Please select 1 item from spinner"
 //    }
+
+
 
 }
