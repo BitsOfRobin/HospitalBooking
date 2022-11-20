@@ -31,6 +31,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainPage : AppCompatActivity() {
@@ -400,7 +401,7 @@ class MainPage : AppCompatActivity() {
         }
 
 
-
+        CustomAdapter.setColorText(' '," ",-1)
 
 
 
@@ -863,7 +864,19 @@ class MainPage : AppCompatActivity() {
 
 
             tvTime?.text = itemModel[position].time
+            val str= sendResult()
+            var i= sendPosition()
             tvPro?.text = itemModel[position].pro
+            if(truth&&str.isNotEmpty()&&str.isNotBlank()&&position==i){
+//                itemModel[position].pro= str.toString()
+                tvPro?.text = str
+//                truth=false
+            }
+            else{
+                tvPro?.text = itemModel[position].pro
+
+            }
+
 
 //
 //            val yellow = ForegroundColorSpan(Color.YELLOW)
@@ -873,6 +886,13 @@ class MainPage : AppCompatActivity() {
 //
 //            spannableString.setSpan(yellow,
 //                0, itemModel[position].pro.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+
+
+
+
+
 
 
 
@@ -893,6 +913,90 @@ class MainPage : AppCompatActivity() {
 
             return view!!
         }
+
+        companion object SearchResult{
+           private var result=SpannableString("s")
+            var i=-1
+            var truth=false
+            fun  setColorText(str: Char, searchTarget:String, j:Int): SpannableString {
+
+//                val docPro=findViewById<TextView>(R.id.docPro)
+
+
+                val magenta = ForegroundColorSpan(Color.MAGENTA)
+//                val spannableString = SpannableString(str)
+                var spannableStringTgt = SpannableString(searchTarget)
+//                val str=""
+
+
+
+//        val num=arraylistPro[position].length
+
+//                Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
+
+//        val i =arraylistPro[postion].length
+
+                val positionArr=ArrayList<Int>()
+//               for( b in searchTarget){
+//                    for( a in str){
+//
+//                        if(a==b){
+//                            positon=searchTarget.indexOf(b)
+//                            positionArr.add(positon)
+//
+//
+//                        }
+//
+//                    }
+//
+//
+//                }
+
+
+                    val position = searchTarget.indexOf(str)
+//                    val positon2 = searchTarget.indexOf(str[1])
+
+
+                    spannableStringTgt.setSpan(
+                        magenta,
+                        0,
+                        position+1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+
+
+
+
+
+
+
+
+//                docPro.text = arraylistPro[position]
+                result= spannableStringTgt
+                i=j
+                truth=true
+
+                return spannableStringTgt
+            }
+
+
+            fun sendResult(): SpannableString {
+
+                return result
+            }
+
+            fun sendPosition(): Int {
+
+                return i
+            }
+
+
+        }
+
+
+
+
+
 
 
 
@@ -1098,17 +1202,23 @@ class MainPage : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 temp.clear()
-
+                var searchQuery=""
+//                val first= p0?.let { p0.toString().indexOf(it[0]) }
                 if (p0 != null) {
                     for (i in arraylistPro.indices) {
                         if (arraylistPro[i].contains(p0, true)) {
                             temp.add(arraylistName[i])
+                            searchQuery.replace("",p0)
+
+//                            CustomAdapter.setColorText(p0[0],arraylistPro[i],i)
+
+
 
                         }
 
                     }
                     if (temp.isNotEmpty()) {
-                        dataChanged(temp)
+                        dataChanged(temp,searchQuery)
                     } else {
                         showMsg()
 
@@ -1130,18 +1240,19 @@ class MainPage : AppCompatActivity() {
             override fun onQueryTextChange(p0: String?): Boolean {
 
                         temp.clear()
-
+                        var searchQuery=""
                         if (p0 != null) {
                             for (i in arraylistPro.indices) {
                                 if (arraylistPro[i].contains(p0, true)) {
                                     temp.add(arraylistName[i])
-
+                                    searchQuery=p0
+//                                    CustomAdapter.setColorText(p0[0],arraylistPro[i],i)
 
                                 }
 
                             }
                             if (temp.isNotEmpty()) {
-                                dataChanged(temp)
+                                dataChanged(temp, searchQuery)
                             } else {
                                 showMsg()
 
@@ -1162,27 +1273,42 @@ class MainPage : AppCompatActivity() {
 
     }
 
-
-    private fun setColorText(position: Int) {
-
-        val docPro=findViewById<TextView>(R.id.docPro)
-
-
-        val yellow = ForegroundColorSpan(Color.YELLOW)
-        val spannableString = SpannableString(arraylistPro[position])
-
-
-
-        spannableString.setSpan(yellow,
-            0, arraylistPro[position].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        val num=arraylistPro[position].length
-
-        Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
-
-
-        docPro.text = spannableString.toString()
-
-    }
+//
+//    fun  setColorText(str:String,start:Int,end:Int,position:Int) {
+//
+//        val docPro=findViewById<TextView>(R.id.docPro)
+//
+//
+//        val yellow = ForegroundColorSpan(Color.YELLOW)
+//        val spannableString = SpannableString(str)
+//        val str=""
+//
+//
+//        spannableString.setSpan(yellow,
+//            start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+////        val num=arraylistPro[position].length
+//
+//        Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
+//
+////        val i =arraylistPro[postion].length
+//        arraylistPro[position].forEach{ it ->
+//            for( a in spannableString){
+//
+//                if(arraylistPro[position].contains(a)){
+//                    arraylistPro[position].replace(it,a)
+//
+//
+//                }
+//
+//            }
+//
+//
+//        }
+//
+//
+//        docPro.text = arraylistPro[position]
+//
+//    }
     private fun showMsg() {
 
 
@@ -1190,7 +1316,7 @@ class MainPage : AppCompatActivity() {
     }
 
 
-    private fun dataChanged(tempName: ArrayList<String>) {
+    private fun dataChanged(tempName: ArrayList<String>, searchQuery: String) {
         val docView: GridView = findViewById<GridView>(R.id.gridView)
 
         val modalListSearch = ArrayList<ModalFormMain>()
@@ -1233,6 +1359,12 @@ class MainPage : AppCompatActivity() {
                     j++
 
                 }
+                if(searchQuery.isNotBlank()&&searchQuery.isNotEmpty()){
+                    CustomAdapter.setColorText(searchQuery[0],arraylistPro[i],i)
+
+                }
+
+
 
 //                setColorText(i)
 
@@ -1241,7 +1373,7 @@ class MainPage : AppCompatActivity() {
             val customSearch = CustomAdapter(modalListSearch, this)
 
 
-
+            customSearch.notifyDataSetChanged()
             docView.adapter = customSearch
 //                dt++
         }
@@ -1249,7 +1381,7 @@ class MainPage : AppCompatActivity() {
 
         val customSearch = CustomAdapter(modalListSearch, this)
 
-
+        customSearch.notifyDataSetChanged()
 
         docView.adapter = customSearch
 

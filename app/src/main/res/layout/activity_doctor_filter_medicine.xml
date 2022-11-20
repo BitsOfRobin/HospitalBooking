@@ -33,7 +33,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Medicine"
+
+        android:hint="Medicine"
         android:textStyle="italic"
         android:alpha="0.4"/>
 

@@ -4,20 +4,23 @@ import MyCache
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.location.GnssAntennaInfo
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private var pres:ArrayList<Prescription>):
@@ -59,7 +62,26 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         var prescription=getItem(p0) as Prescription
         viewHolder.txtName.text=prescription.user.toString()
 //        viewHolder.txtDoc.text=prescription.doc.toString()
-        viewHolder.txtMedi.text=prescription.medicine.toString()
+        val medi=prescription.medicine.toString()
+
+        var str1: SpannableString
+        var str2=SpannableString(medi)
+//        val position=ArrayList<Int>()
+        val position1=medi.indexOf("mg")
+        val position2=medi.lastIndexOf("mg")
+//        position.add(position1)
+//        position.add(position2)
+        val subStr1=medi.substring(0,position1+2)
+        val subStr2=medi.substring(position1+2,medi.length)
+        val newPositionSub=subStr2.indexOf("mg")
+            str1=setColorText(subStr1,position1-2,position1+2)
+            str2=setColorText(subStr2,newPositionSub-2,newPositionSub+2)
+
+        val str= TextUtils.concat(str1, str2);
+
+
+        viewHolder.txtMedi.text=str
+
 
 //        viewHolder.ratingBar.tag = p0;
 //
@@ -118,6 +140,28 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         return view as View
 
     }
+    private fun setColorText(str: String,start:Int,end:Int): SpannableString {
+
+//        val docPro=findViewById<TextView>(R.id.docPro)
+
+
+        val yellow = ForegroundColorSpan(Color.MAGENTA)
+        val spannableString = SpannableString(str)
+
+
+        spannableString.setSpan(yellow,
+            start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        val num=arraylistPro[position].length
+
+//        Toast.makeText(this,"$spannableString", Toast.LENGTH_SHORT).show()
+
+
+//        docPro.text = spannableString.toString()
+        return spannableString
+    }
+
+
+
 
     private  class ViewHolder(row:View?){
         lateinit var txtName: TextView
@@ -136,6 +180,18 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
 //            this.ratingBar= row.findViewById(R.id.ratingBarInput) as RatingBar
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 

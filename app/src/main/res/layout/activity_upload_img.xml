@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="(Name of Doctor)"
+        android:hint="(Name of Doctor)"
         android:alpha="0.4"
         android:textStyle="italic"/>
 

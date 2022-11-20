@@ -35,9 +35,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
             android:layout_marginBottom="5dp"
             android:background="#ECD285"
             android:padding="2dp"
@@ -50,23 +50,23 @@
             app:layout_constraintVertical_bias="0.499">
 
 
-    <TextView
-        android:id="@+id/txtAppoint"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="33dp"
-        android:layout_toEndOf="@+id/imgAppoint"
-        android:fontFamily="serif-monospace"
-        android:text="Appointment"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtAppoint"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="33dp"
+                android:layout_toEndOf="@+id/imgAppoint"
+                android:fontFamily="serif-monospace"
+                android:text="Appointment"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userImg"
@@ -89,7 +89,7 @@
                 app:civ_shadow_radius="10dp"
                 app:srcCompat="@drawable/user" />
 
-</androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
         <TextView
@@ -110,25 +110,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtMedi"
-            android:layout_width="162dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="160dp"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="serif-monospace"
-            android:text="Appointment"
-            android:textColor="#282BDC"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
         <!--        <ImageView-->
         <!--            android:id="@+id/imageView3"-->
         <!--            android:layout_width="27dp"-->
@@ -141,27 +122,46 @@
         <!--            app:srcCompat="@drawable/doctor" />-->
 
 
+        <TextView
+            android:id="@+id/txtMedi"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="177dp"
+            android:layout_marginEnd="9dp"
+            android:fontFamily="serif-monospace"
+            android:text="Appointment"
+            android:textColor="#282BDC"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView3"
 
 
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-
-            android:layout_marginTop="84dp"
-
-            app:civ_shadow="true"
-            app:civ_shadow_color="#3f51b5"
-            app:civ_shadow_radius="10dp"
-
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:padding="5dp"
+            android:layout_alignParentStart="true"
 
+            android:layout_alignParentTop="true"
+
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="84dp"
+
+            android:padding="5dp"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp"
+            app:civ_shadow="true"
+
+            app:civ_shadow_color="#3f51b5"
+            app:civ_shadow_radius="10dp"
 
             />
 
@@ -172,25 +172,22 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="174dp"
-            app:srcCompat="@drawable/medi"
-
-
-
-            app:civ_shadow="true"
-            app:civ_shadow_color="#3f51b5"
-            app:civ_shadow_radius="10dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="172dp"
 
 
             android:padding="5dp"
-
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp"
 
-            />
+
+            app:civ_shadow="true"
+
+            app:civ_shadow_color="#3f51b5"
+            app:civ_shadow_radius="10dp"
+
+            app:srcCompat="@drawable/medi" />
 
 
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

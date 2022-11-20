@@ -7,14 +7,12 @@
     tools:context=".Profile">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="378dp"
-        android:layout_height="694dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
+
+
         android:layout_centerInParent="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="5dp"
         android:background="#FFC107"
         android:padding="2dp"
         app:cardBackgroundColor="#FFC107"
@@ -96,14 +94,14 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name"
-
             android:layout_alignParentStart="true"
+
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="131dp"
             android:layout_marginBottom="230dp"
+            android:text="name"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />

@@ -2,11 +2,17 @@ package com.example.hospitalbooking
 
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -109,13 +115,15 @@ class PrescriptionDisplay : AppCompatActivity() {
 
 
                 arraylistUser.add(user)
+//                dos1.toColorInt()
 //                if (user == null) {
 //                    arraylist.add("No records found")
 //
 //                } else {
+
                 if (docName.contains("Dr")) {
 //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
-                    val medi= "$medicine1 \n $dos1 mg \n $medicine2 \n$dos2 mg\n"
+                    val medi= "$medicine1\n$dos1 mg \n\n$medicine2\n$dos2 mg\n\n"
                         arraylistPres.add(Prescription(user,docName,medi,0F))
 
 
@@ -157,7 +165,26 @@ class PrescriptionDisplay : AppCompatActivity() {
 
         }
     }
-
+//    private fun setColorText(str: String): SpannableString {
+//
+//        val docPro=findViewById<TextView>(R.id.docPro)
+//
+//
+//        val yellow = ForegroundColorSpan(Color.YELLOW)
+//        val spannableString = SpannableString(str)
+//
+//
+//
+//        spannableString.setSpan(yellow,
+//            0, str.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+////        val num=arraylistPro[position].length
+//
+//        Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
+//
+//        return spannableString
+////        docPro.text = spannableString.toString()
+//
+//    }
 
 
 

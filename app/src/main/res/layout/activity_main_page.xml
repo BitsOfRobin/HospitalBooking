@@ -17,11 +17,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="4dp"
+
         android:layout_marginTop="100dp"
         android:layout_marginEnd="-3dp"
         android:layout_marginBottom="79dp"
         android:textColor="@color/black"
-
         android:visibility="visible"
         app:civ_border_width="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,10 +59,9 @@
         <android.widget.SearchView
             android:id="@+id/searchDoc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-
-            android:background="#85B6B2" />
+            android:layout_height="54dp"
+            android:background="@drawable/bg_white_rounded"
+            android:submitBackground="@drawable/bg_white_rounded" />
 
     </LinearLayout>
 
@@ -115,10 +114,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="56dp"
-        android:textOn="Sort by Specialist"
-        android:textOff="Sort by Name" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="49dp"
+
+        android:textOff="Sort by Name"
+        android:textOn="Sort by Specialist" />
 
 
 </RelativeLayout>
