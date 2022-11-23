@@ -6,8 +6,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 class PatientPrescription : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -32,8 +33,16 @@ class PatientPrescription : AppCompatActivity() {
         var equal = 0
         equal = userName?.indexOf("r=")!!
         val name = userName.substring(equal + 2, userName.length - 1)
-
-        retrieveRegMedicine(name)
+        val userGoogle = Firebase.auth.currentUser
+        val nurseName= userGoogle?.displayName
+        val arr=retrieveRegMedicine(name)
+        val arrNurse=retrieveRegMedicine(nurseName)
+        val spin = findViewById<Spinner>(R.id.spinnerMedi)
+        val spinNurse = findViewById<Spinner>(R.id.spinnerMediNurse)
+        arr.add(0,"Choose patient Medicine")
+        setSpinner(arr,spin)
+        arrNurse.add(0,"Choose Nurse Medicine")
+        setSpinner(arrNurse,spinNurse)
         Toast.makeText(
             this,
             "$name ",
@@ -272,11 +281,11 @@ class PatientPrescription : AppCompatActivity() {
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
 
-     private fun retrieveRegMedicine(userName: String?) {
+     private fun retrieveRegMedicine(userName: String?): ArrayList<String> {
          var medi = ""
          val spin = findViewById<Spinner>(R.id.spinnerMedi)
          val arrMedi = ArrayList<String>()
-         arrMedi.add(0,"Choose patient medicine")
+
          mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
          mFirebaseDatabaseInstance?.collection("medicine")
              ?.whereEqualTo("user", "$userName")?.get()?.addOnSuccessListener {
@@ -300,43 +309,108 @@ class PatientPrescription : AppCompatActivity() {
                      Toast.LENGTH_SHORT
                  ).show()
              }
-         val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
-         spin.adapter = arr
-
-         val med1=findViewById<EditText>(R.id.medi1)
-         val med2=findViewById<EditText>(R.id.med2)
-         val med3=findViewById<TextView>(R.id.textView7)
-         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
 
-                 if(med1.text.isEmpty()){
-
-                     med1.setText(arrMedi[p2])
-                 }
-                 else if(med2.text.isEmpty())
-                 {
-                     med2.setText(arrMedi[p2])
-
-                 }
+         return arrMedi
 
 
-                 else if(med1.text.isNotEmpty() && med2.text.isNotEmpty() ){
-
-                     med1.setText(arrMedi[p2])
-                 }
-
-
-
-
-             }
-
-             override fun onNothingSelected(p0: AdapterView<*>?) {
-                 TODO("Not yet implemented")
-             }
-
-
-         }
      }
+
+    private fun setSpinner(arrMedi:ArrayList<String>,spin:Spinner) {
+//        val arrMedi = ArrayList<String>()
+//        arrMedi.add(0,"Choose patient medicine")
+        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
+
+
+        spin.adapter = arr
+
+        val med1=findViewById<EditText>(R.id.medi1)
+        val med2=findViewById<EditText>(R.id.med2)
+        val med3=findViewById<TextView>(R.id.textView7)
+        spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+
+                if(med1.text.isEmpty()&&p2>0){
+
+                    med1.setText(arrMedi[p2])
+                }
+                else if(med2.text.isEmpty()&&p2>0)
+                {
+                    med2.setText(arrMedi[p2])
+
+                }
+
+
+                else if(med1.text.isNotEmpty() && med2.text.isNotEmpty()&&p2>0 ){
+
+                    med1.setText("")
+                    med2.setText("")
+//                    med1.setText(arrMedi[p2])
+                }
+
+
+
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+
+        }
+
+
+
+    }
+
+
+//    private fun setSpinnerNurse(arrMedi:ArrayList<String>) {
+//        arrMedi.add(0,"Choose medicine found by Nurse")
+////        val arrMedi = ArrayList<String>()
+//        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
+//        val spin = findViewById<Spinner>(R.id.spinnerMediNurse)
+//
+//        spin.adapter = arr
+//
+//        val med1=findViewById<EditText>(R.id.medi1)
+//        val med2=findViewById<EditText>(R.id.med2)
+//        val med3=findViewById<TextView>(R.id.textView7)
+//        spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//
+//
+//                if(med1.text.isEmpty()&&p2>0){
+//
+//                    med1.setText(arrMedi[p2])
+//                }
+//                else if(med2.text.isEmpty()&&p2>0)
+//                {
+//                    med2.setText(arrMedi[p2])
+//
+//                }
+//
+//
+//                else if(med1.text.isNotEmpty() && med2.text.isNotEmpty() &&p2>0){
+//
+//                    med1.setText(arrMedi[p2])
+//                }
+//
+//
+//
+//
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//
+//        }
+//
+//
+//
+//    }
 
 }

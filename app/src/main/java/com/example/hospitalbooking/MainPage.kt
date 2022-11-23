@@ -548,34 +548,6 @@ class MainPage : AppCompatActivity() {
         }
 
 
-//            val customAdapter= CustomAdapter(modalList, this)
-//
-//
-//
-//            docView.adapter = customAdapter
-//
-//            searchDoc(customAdapter)
-//        if(modalList.isNotEmpty()) {
-//            Collections.sort(modalList, object :
-//
-//
-//                java.util.Comparator<ModalFormMain> {
-//                override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
-//                    var num = 0
-//
-//                    if (p0 != null) {
-//                        if (p1 != null) {
-//                            num = p0.pro.toString() compareTo (p1.pro.toString())
-//                        }
-//                    }
-//
-//                    return num
-//                }
-//
-//
-//            })
-//
-//        }
 
 
 
@@ -1162,6 +1134,12 @@ class MainPage : AppCompatActivity() {
                     }.addOnFailureListener {
 
                     }
+
+                    modalList.removeAt(i)
+                    val arr=CustomAdapter(modalList,this)
+                    arr.notifyDataSetChanged()
+                    docView.adapter=arr
+
 
 
 

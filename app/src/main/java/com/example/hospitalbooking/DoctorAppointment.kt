@@ -693,7 +693,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 
                 arraylistAppointment.removeAt(i)
-                refreshAppoint()
+                val arr=listCustomAdapter(this,arraylistAppointment)
+                arr.notifyDataSetChanged()
+                docView.adapter=arr
+//                refreshAppoint()
 
             }
 
@@ -809,8 +812,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 //                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
                 arraylistPastAppointment.removeAt(i)
-
-                refreshAppoint()
+                val arrPast=listCustomAdapter(this,arraylistPastAppointment)
+                arrPast.notifyDataSetChanged()
+                docView.adapter=arrPast
+//                refreshAppoint()
 
             }
 
