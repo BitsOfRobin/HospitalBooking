@@ -271,7 +271,7 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
 
             }
             else{
-                viewHolder.txtMedi.text="Appointment is not conducted yet"
+                viewHolder.txtMedi.text="Appointment is not conducted yet"+"\n"+prescription.medicine.toString()
                 viewHolder.txtMedi.setTextColor(Color.parseColor("#FFE91E63"))
 
             }

@@ -23,4 +23,16 @@ class ModalFormMain {
 
 
     }
+
+
+    @JvmName("getPro1")
+    private fun getPro(): String? {
+        this.pro=pro
+        return pro
+
+    }
+
+
+
+
 }

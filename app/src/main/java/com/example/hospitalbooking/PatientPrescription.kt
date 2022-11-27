@@ -1,5 +1,6 @@
 package com.example.hospitalbooking
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -269,6 +270,13 @@ class PatientPrescription : AppCompatActivity() {
 
 //        }
 //        }
+
+
+            val intent = Intent(this, PrescriptionDisplay::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+            startActivity(intent)
+
+
 
 
         }

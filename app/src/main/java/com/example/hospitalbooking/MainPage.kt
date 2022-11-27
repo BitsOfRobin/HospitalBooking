@@ -3,6 +3,7 @@ package com.example.hospitalbooking
 
 
 import MyCache
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -15,14 +16,18 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -31,14 +36,16 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class MainPage : AppCompatActivity() {
-
+    private lateinit var toggle:ActionBarDrawerToggle
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
     private var docDetail: String? = null
     private var fragmentInput:String?=null
+    var str=SpannableString("s")
     //    private lateinit var binding: ActivityMainBinding
     private var modalList = ArrayList<ModalFormMain>()
     var images = intArrayOf(R.drawable.dt1, R.drawable.dt2, R.drawable.dt3)
@@ -102,9 +109,13 @@ class MainPage : AppCompatActivity() {
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 //        setDoctor()
+
+
         getDataDoc()
+        showNavBar()
 //        getDataDoc()
 //        getDataDoc()
+
         refresh()
 //        getDataDoc()
 
@@ -401,7 +412,7 @@ class MainPage : AppCompatActivity() {
         }
 
 
-        CustomAdapter.setColorText(' '," ",-1)
+
 
 
 
@@ -786,7 +797,11 @@ class MainPage : AppCompatActivity() {
 
 
     class CustomAdapter(var itemModel: ArrayList<ModalFormMain>, var context: Context) :
-        BaseAdapter() {
+        BaseAdapter(), Filterable{
+        var searchString=""
+        var pos=0
+
+//        lateinit var viewHolder:ViewHolder
         override fun getCount(): Int {
 
             return itemModel.size
@@ -801,15 +816,23 @@ class MainPage : AppCompatActivity() {
             return p0.toLong()
         }
 
-          var layoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var arrFilter=ArrayList<String>()
+        var queryText=""
+
+
+
+        var layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
 
             var view = view
             if (view == null) {
+
+
                 view = layoutInflater.inflate(R.layout.row_items, viewGroup, false)
             }
+//            viewHolder= ViewHolder(view)
+
             val tvImageName = view?.findViewById<TextView>(R.id.imageName)
             val tvTime = view?.findViewById<TextView>(R.id.docPro)
             val tvPro = view?.findViewById<TextView>(R.id.docTime)
@@ -836,31 +859,52 @@ class MainPage : AppCompatActivity() {
 
 
             tvTime?.text = itemModel[position].time
-            val str= sendResult()
-            var i= sendPosition()
-            tvPro?.text = itemModel[position].pro
-            if(truth&&str.isNotEmpty()&&str.isNotBlank()&&position==i){
-//                itemModel[position].pro= str.toString()
+//            val str= sendResult()
+//            var i= sendPosition()
+            val pro=itemModel[position].pro
+            tvPro?.text = pro
+
+            if(pro.toString().contains(searchString,true)&&searchString.isNotBlank()
+                &&searchString.isNotEmpty()){
+
+                val str=setColorText(searchString,position)
+
                 tvPro?.text = str
-//                truth=false
-            }
-            else{
-                tvPro?.text = itemModel[position].pro
 
             }
 
 
-//
-//            val yellow = ForegroundColorSpan(Color.YELLOW)
-//            val spannableString = SpannableString(itemModel[position].pro)
-//
-//
-//
-//            spannableString.setSpan(yellow,
-//                0, itemModel[position].pro.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
+//            if(truth&&str.isNotEmpty()&&str.isNotBlank()&&position==i){
+////                itemModel[position].pro= str.toString()
+//                tvPro?.text = str
+////                truth=false
+//            }
+//            else{
+//                tvPro?.text = itemModel[position].pro
+//
+//            }
+//            val pro=itemModel[position].pro
+//            for( filResult in arrFilter){
+//                if(pro==filResult){
+//
+//                    val colorText= setColorText(pro)
+//                    tvPro?.text =colorText
+//
+//
+//                }
+//
+//
+//
+//            }
 
+//            if(searchString.isNotBlank()&&searchString.isNotEmpty()){
+//                val colorText= setColorText(searchString,pos)
+//
+//                tvPro?.text =colorText
+//
+//            }
 
 
 
@@ -886,66 +930,74 @@ class MainPage : AppCompatActivity() {
             return view!!
         }
 
-        companion object SearchResult{
-           private var result=SpannableString("s")
+
+         var result=SpannableString("s")
             var i=-1
             var truth=false
-            fun  setColorText(str: Char, searchTarget:String, j:Int): SpannableString {
 
+            private lateinit var proView:TextView
+            @SuppressLint("ResourceType")
+           fun  setColorText(searchTarget: String, position: Int): SpannableString {
+//                searchString=searchTarget
+//                pos=position
+//                val spannableStringSearch = SpannableString(itemModel[position].pro.toString())
 //                val docPro=findViewById<TextView>(R.id.docPro)
+//                if (searchString.isNotEmpty()&&searchString.isNotBlank()) {
+//                    val magenta = ForegroundColorSpan(Color.MAGENTA)
+//                    val pattern: Pattern = Pattern.compile(searchString, Pattern.CASE_INSENSITIVE)
+//                    val matcher: Matcher = pattern.matcher(itemModel[position].pro.toString())
+//                    while (matcher.find()) {
+//                        spannableStringSearch.setSpan(
+//                           magenta,
+//                            0,,
+//                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//                        )
+//                    }
+//                }
+
+
+//                tvPro.text=spannableStringSearch
+
+//                return spannableStringSearch
+
+
+
 
 
                 val magenta = ForegroundColorSpan(Color.MAGENTA)
 //                val spannableString = SpannableString(str)
-                var spannableStringTgt = SpannableString(searchTarget)
+                val pro=itemModel[position].pro.toString()
+                val spannableStringTgt = SpannableString(pro)
 //                val str=""
 
 
 
-//        val num=arraylistPro[position].length
-
-//                Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
-
-//        val i =arraylistPro[postion].length
-
-                val positionArr=ArrayList<Int>()
-//               for( b in searchTarget){
-//                    for( a in str){
-//
-//                        if(a==b){
-//                            positon=searchTarget.indexOf(b)
-//                            positionArr.add(positon)
-//
-//
-//                        }
-//
-//                    }
-//
-//
-//                }
 
 
-                    val position = searchTarget.indexOf(str)
+                    val chr=searchTarget[0]
+                    val pos= pro.indexOf(chr,0,true)
+                    val end =pos+queryText.length
+
 //                    val positon2 = searchTarget.indexOf(str[1])
 
 
                     spannableStringTgt.setSpan(
                         magenta,
                         0,
-                        position+1,
+                        pos+1,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
 
+//                val tvPro = viewHolder.findViewById<TextView>(R.id.docTime)
 
-
-
+//                viewHolder.txtDoc.text=spannableStringTgt
 
 
 
 
 //                docPro.text = arraylistPro[position]
                 result= spannableStringTgt
-                i=j
+
                 truth=true
 
                 return spannableStringTgt
@@ -962,19 +1014,79 @@ class MainPage : AppCompatActivity() {
                 return i
             }
 
+//            fun getViewHolder(view:ViewHolder) {
+//
+//                viewHolder=view
+//
+//            }
+
+
+
+
+        private val filter = object : Filter() {
+            override fun performFiltering(p0: CharSequence?): FilterResults {
+                queryText= p0.toString()
+                searchString=p0.toString()
+
+                val arrPro=ArrayList<String>()
+                for(modal in itemModel){
+                    val pro=modal.pro.toString()
+                    if(pro.contains(searchString,true)){
+
+                        arrPro.add(pro)
+
+                    }
+
+                }
+
+
+                val filterResult=FilterResults()
+                filterResult.count=arrPro.size
+                filterResult.values=arrPro
+                return filterResult
+
+
+
+            }
+
+            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+                val proFilter=p1.toString()
+                if(p1!=null&&p1.count>0){
+
+
+
+                        arrFilter.add(p1.values.toString())
+
+                        notifyDataSetChanged()
+
+
+                }
+
+            }
 
         }
 
+        override fun getFilter(): Filter {
+
+            return  filter
+        }
 
 
+        fun getSearch(s:String) {
 
 
+            searchString=s
+
+        }
+
+        fun getSpan(): SpannableString{
 
 
-
-
+            return result
+        }
 
     }
+
 
 
     private fun refresh() {
@@ -1175,6 +1287,8 @@ class MainPage : AppCompatActivity() {
         val searchView = findViewById<SearchView>(R.id.searchDoc)
         searchView.queryHint = "search Doctor Professional"
 
+        val custom=CustomAdapter(modalList,this)
+
         val proAdapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -1187,6 +1301,10 @@ class MainPage : AppCompatActivity() {
                         if (arraylistPro[i].contains(p0, true)) {
                             temp.add(arraylistName[i])
                             searchQuery.replace("",p0)
+                            custom.filter.filter(p0)
+                            customAdapter.getSearch(p0)
+//                             str= customAdapter.getSpan()
+
 
 //                            CustomAdapter.setColorText(p0[0],arraylistPro[i],i)
 
@@ -1224,6 +1342,10 @@ class MainPage : AppCompatActivity() {
                                 if (arraylistPro[i].contains(p0, true)) {
                                     temp.add(arraylistName[i])
                                     searchQuery=p0
+                                    custom.filter.filter(p0)
+                                    customAdapter.getSearch(p0)
+//                                    str= customAdapter.getSpan()
+
 //                                    CustomAdapter.setColorText(p0[0],arraylistPro[i],i)
 
                                 }
@@ -1296,7 +1418,7 @@ class MainPage : AppCompatActivity() {
 
     private fun dataChanged(tempName: ArrayList<String>, searchQuery: String) {
         val docView: GridView = findViewById<GridView>(R.id.gridView)
-
+        Toast.makeText(this,"$str",Toast.LENGTH_SHORT).show()
         val modalListSearch = ArrayList<ModalFormMain>()
         modalListSearch.clear()
         var j = 0
@@ -1337,11 +1459,13 @@ class MainPage : AppCompatActivity() {
                     j++
 
                 }
+
                 if(searchQuery.isNotBlank()&&searchQuery.isNotEmpty()){
-                    CustomAdapter.setColorText(searchQuery[0],arraylistPro[i],i)
 
+                    val custom=CustomAdapter(modalList,this)
+                    custom.filter.filter(searchQuery)
+                    custom.setColorText(searchQuery,i)
                 }
-
 
 
 //                setColorText(i)
@@ -1363,7 +1487,10 @@ class MainPage : AppCompatActivity() {
 
         docView.adapter = customSearch
 
-
+//        val custom=CustomAdapter(modalList,this)
+//        custom.filter.filter(searchQuery)
+//        custom.notifyDataSetChanged()
+//        docView.adapter=custom
     }
 
 
@@ -1398,6 +1525,87 @@ class MainPage : AppCompatActivity() {
     }
 
 
+    private fun showNavBar(){
+
+
+        val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val nav_view=findViewById<NavigationView>(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        nav_view.setNavigationItemSelectedListener {
+
+            when(it.itemId){
+
+                R.id.nav_BookAppoint-> {
+                    val intent = Intent(this, MainPage::class.java)
+                    startActivity(intent)
+
+                }
+
+
+
+
+                R.id.nav_Pres-> {
+                    val intent = Intent(this, PrescriptionDisplay::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_home-> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_profile-> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_viewAppoint-> {
+                    val intent = Intent(this,DoctorAppointment::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_medicineRecord-> {
+                    val  intent = Intent(this,MedicineRecord::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_OCR-> {
+                    val intent = Intent(this,UserMedicine::class.java)
+                    startActivity(intent)
+                }
+
+
+
+
+
+            }
+
+
+            true
+
+        }
+
+
+
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
 
 
 

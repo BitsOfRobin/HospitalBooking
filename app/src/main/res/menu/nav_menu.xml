@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+    <item
+        android:id="@+id/nav_OCR"
+        android:title="medicine OCR"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+    <item
+        android:id="@+id/nav_BookAppoint"
+        android:title="Book Appointment"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+    <item
+        android:id="@+id/nav_medicineRecord"
+        android:title="medicine Record "
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+
+    <item
+        android:id="@+id/nav_viewAppoint"
+        android:title="Appointment Made"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+
+    <item
+        android:id="@+id/nav_Pres"
+        android:title="Prescription"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+
+</menu>

@@ -8,7 +8,11 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -26,6 +30,7 @@ class MedicineViewCustomer : AppCompatActivity() {
     private var userNum:Int=0
     private var docDetail:String?=null
     private lateinit var ImageUri: Uri
+    private lateinit var toggle:ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medicine_view_customer)
@@ -33,7 +38,7 @@ class MedicineViewCustomer : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Patient Medicine Info")
         readMedi()
-
+        showNavBar()
 
     }
 
@@ -216,5 +221,86 @@ class MedicineViewCustomer : AppCompatActivity() {
 
 
 
+    private fun showNavBar(){
+
+
+        val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val nav_view=findViewById<NavigationView>(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        nav_view.setNavigationItemSelectedListener {
+
+            when(it.itemId){
+
+                R.id.nav_BookAppoint-> {
+                    val intent = Intent(this, MainPage::class.java)
+                    startActivity(intent)
+
+                }
+
+
+
+
+                R.id.nav_Pres-> {
+                    val intent = Intent(this, PrescriptionDisplay::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_home-> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_profile-> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_viewAppoint-> {
+                    val intent = Intent(this,DoctorAppointment::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_medicineRecord-> {
+                    val  intent = Intent(this,MedicineRecord::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_OCR-> {
+                    val intent = Intent(this,UserMedicine::class.java)
+                    startActivity(intent)
+                }
+
+
+
+
+
+            }
+
+
+            true
+
+        }
+
+
+
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
 
 }

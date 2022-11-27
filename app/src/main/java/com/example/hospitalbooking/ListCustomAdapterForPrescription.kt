@@ -123,8 +123,32 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         val firebaseAuth= FirebaseAuth.getInstance()
         val firebaseUser=firebaseAuth.currentUser
         val image= firebaseUser?.photoUrl
+        var userG=""
+        var email=""
+        firebaseUser.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (firebaseUser != null) {
+                userG = firebaseUser.displayName.toString()
+                email=firebaseUser.email.toString()
+
+            }
+
+            else {
+//
+                userG = " NOne"
+            }
+
+        }
+
+        if(!email.contains("@student.tar",true)){
+
+
+            Picasso.get().load(image).into(viewHolder.ivImage);
+        }
+
 //        val bitmap = BitmapFactory.decodeFile(image!!.path)
-        Picasso.get().load(image).into(viewHolder.ivImage);
+
         val cache=MyCache()
 //        Glide.with(context)
 //            .load(cache.retrieveBitmapFromCache("a"))
