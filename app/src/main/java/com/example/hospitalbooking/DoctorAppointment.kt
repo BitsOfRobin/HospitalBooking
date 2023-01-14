@@ -112,19 +112,11 @@ class DoctorAppointment : AppCompatActivity() {
     private fun timeToNoti(time:String)
     {
 
-        var dateInString = time
-        dateInString.replace(" ", "-")
+
+        val dateInString=time.replace(" ", "-")
+        Toast.makeText(this,"$time",Toast.LENGTH_SHORT).show()
 
 
-        if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
-            dateInString = "0$dateInString"
-
-        }
-        else
-        {
-
-            dateInString=dateInString
-        }
         val calendarDate = Calendar.getInstance().time
 
 
@@ -138,11 +130,30 @@ class DoctorAppointment : AppCompatActivity() {
 //        destFormat.format(convertedDate)
 
 
-        val formatter = SimpleDateFormat("dd-MMM-yyyy")
-        val date = formatter.parse(dateInString.replace(" ","-"))
+        val formatter = SimpleDateFormat("dd-MMM-yyyy,HH:mm:ss")
+
+
+        val detect=dateInString.indexOf(",")
+        val sub1=dateInString.substring(0,detect)
+        val sub2=dateInString.substring(detect+2,dateInString.length)
+        var properDate= "$sub1,$sub2"
+
+
+
+//        if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
+//            properDate = "0$properDate"
+//
+//        }
+        val date = formatter.parse(properDate)
+
+
+
+
+
+
         if (calendarDate.before(date)){
 
-            sendNotifi(time)
+            sendNotifi(properDate)
             }
 
         }
@@ -283,7 +294,13 @@ class DoctorAppointment : AppCompatActivity() {
 
 
                  doc=document.get("doctorAppoint").toString()
-                timeToNoti(doc)
+
+                if(doc!=" "){
+
+
+                    timeToNoti(doc)
+                }
+
 //                var dateInString = "2020-05-02"
 //                var simpleFormat =  DateTimeFormatter.ISO_DATE;
 //                var convertedDate = LocalDate.parse(dateInString, simpleFormat)
@@ -310,26 +327,35 @@ class DoctorAppointment : AppCompatActivity() {
                 {
                     arraylist.add("User:$user\nAppointed Doctor:$docName\nAppointment Detail:$doc\n\n")
 
-                    var dateInString = doc
-                    dateInString.replace(" ", "-")
+//                    var dateInString = doc
+                    var dateInString=doc.replace(" ", "-")
 
 
-                    if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
-                        dateInString = "0$dateInString"
+//                    if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().toInt()<0) {
+//                        dateInString = "0$dateInString"
+//
+//                    }
 
-                    }
-                    else
-                    {
-
-                        dateInString=dateInString
-                    }
                     val calendarDate = Calendar.getInstance().time
+                    val detect=dateInString.indexOf(",")
+                    val sub1=dateInString.substring(0,detect)
+                    val sub2=dateInString.substring(detect+2,dateInString.length)
+                     dateInString= "$sub1,$sub2"
 
 
 
 
-                    val formatter = SimpleDateFormat("dd-MMM-yyyy")
-                    val date = formatter.parse(dateInString.replace(" ","-"))
+                    val formatter = SimpleDateFormat("dd-MMM-yyyy,HH:mm:ss")
+                    val date = formatter.parse(dateInString)
+
+
+
+
+
+
+
+
+
                     if (calendarDate.before(date)){
 
                         arraylistAppointment.add(AppointmentDetail(user,docName,doc))
@@ -689,7 +715,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                 }
 
-                docRef.collection("userAppointment").document("${arrayDel.elementAt(i)}")
+                docRef
                     .delete()
                     .addOnSuccessListener {  Toast.makeText( this,"${arrayDel.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
                     .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }
@@ -810,7 +836,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                 }
 
-                docRef.collection("userAppointment").document("${arrayDelPast.elementAt(i)}")
+                docRef
                     .delete()
                     .addOnSuccessListener {  Toast.makeText( this,"${arrayDelPast.elementAt(i)} successfully deleted!",Toast.LENGTH_SHORT).show() }
                     .addOnFailureListener {  Toast.makeText( this,"Error deleting document",Toast.LENGTH_SHORT).show() }

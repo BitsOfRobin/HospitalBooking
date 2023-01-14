@@ -80,7 +80,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
                 getDateTimeCalendar()
                 DatePickerDialog(this, this, year, month, day).show()
-
+//                updateDoc()
 
             }
 

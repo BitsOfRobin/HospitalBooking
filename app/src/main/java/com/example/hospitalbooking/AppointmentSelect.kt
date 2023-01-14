@@ -1,13 +1,13 @@
 package com.example.hospitalbooking
 
 import MyCache
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -24,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AppointmentSelect : AppCompatActivity() {
     //    private var arraylistTime = ArrayList<String>()
@@ -106,6 +106,7 @@ class AppointmentSelect : AppCompatActivity() {
     }
 
 
+
     private fun appointSelect() {
         var arraylistTime = ArrayList<String>()
         arraylistTime.clear()
@@ -141,10 +142,13 @@ class AppointmentSelect : AppCompatActivity() {
 
                 }
                 var dateInString = time.replace(" ", "-")
-
-
-                if (dateInString[0].toString().toInt() < 10) {
-                    dateInString = "0$dateInString"
+                val detect=dateInString.indexOf(",")
+                val sub1=dateInString.substring(0,detect)
+                val sub2=dateInString.substring(detect+2,dateInString.length)
+                var properDate= "$sub1,$sub2"
+                Toast.makeText(this,"p$properDate",Toast.LENGTH_SHORT).show()
+                if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
+                    properDate = "0$properDate"
 
                 }
                 val calendarDate = Calendar.getInstance().time
@@ -152,8 +156,9 @@ class AppointmentSelect : AppCompatActivity() {
 
 
 
-                val formatter = SimpleDateFormat("dd-MMM-yyyy")
-                val date = formatter.parse(dateInString)
+                val formatter = SimpleDateFormat("dd-MMM-yyyy,HH:mm:ss")
+
+                val date = formatter.parse(properDate)
                 if (calendarDate.before(date) ) {
                     arraylistTime.add(time)
                 }
@@ -165,10 +170,14 @@ class AppointmentSelect : AppCompatActivity() {
 
 
                 var dateInString2 = time2.replace(" ", "-")
+                val detect2=dateInString2.indexOf(",")
 
+                val sub1T=dateInString2.substring(0,detect2)
+                val sub2T=dateInString2.substring(detect2+2,dateInString2.length)
+                var properDate2= "$sub1T,$sub2T"
 
-                if (dateInString2[0].toString().toInt() < 10) {
-                    dateInString2 = "0$dateInString2"
+                if (properDate2[0].toString().toInt() < 10) {
+                    properDate2 = "0$properDate2"
 
                 }
 //                val calendarDate2 = Calendar.getInstance().time
@@ -177,7 +186,7 @@ class AppointmentSelect : AppCompatActivity() {
 
 
 //                val formatter = SimpleDateFormat("dd-MMM-yyyy")
-                val date2 = formatter.parse(dateInString2)
+                val date2 = formatter.parse(properDate2)
                 if (calendarDate.before(date2) ) {
                     arraylistTime.add(time2)
                 }
@@ -187,6 +196,9 @@ class AppointmentSelect : AppCompatActivity() {
                     arraylistTime.add("appointment past")
                 }
 
+
+                Toast.makeText(this,"$date2",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"c$calendarDate",Toast.LENGTH_SHORT).show()
 
 //                    if (time.contains("0") || time2.contains("0")) {
 //

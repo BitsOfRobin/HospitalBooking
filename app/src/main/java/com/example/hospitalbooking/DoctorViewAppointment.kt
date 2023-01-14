@@ -86,7 +86,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                 arraylistPro.add(document.id.toString())
 
                 var docName = document.get("docName").toString()
-                if (docName != null) {
+                if (docName != "null") {
                     arraylistDocName.add(docName)
 
                 }
@@ -95,14 +95,21 @@ class DoctorViewAppointment : AppCompatActivity() {
 
                 doc = document.get("doctorAppoint").toString()
                 user=document.get("user").toString()
+                if(doc!="null") {
+                    appointment.add(doc)
 
-                appointment.add(doc)
-                arraylistUser.add(user)
+                }
+
+                if(user!="null"){
+
+                    arraylistUser.add(user)
+                }
+
 //                if (user == null) {
 //                    arraylist.add("No records found")
 //
 //                } else {
-                if(docName.contains("Dr"))
+                if(docName.contains("Dr")&&doc!="null"&&user!="null")
                 {
 //                    arraylist.add("User:$user\nAppointed Doctor:$docName\nAppointment Detail:$doc\n\n")
                     var doctime=doc
@@ -188,6 +195,10 @@ class DoctorViewAppointment : AppCompatActivity() {
         }
 
 
+
+
+
+
     }
 
 private  fun dataChanged(arraylist:ArrayList<Prescription>)
@@ -234,21 +245,27 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
             }
 
             var prescription=getItem(p0) as Prescription
-            viewHolder.txtName.text=prescription.user.toString()
+            var userName=prescription.user.toString()
+            if(userName!="null"){
+
+                viewHolder.txtName.text=prescription.user.toString()
+            }
+
 //            viewHolder.txtMedi.text=prescription.medicine.toString()
 
 
 
 
+            var dateInString = prescription.medicine.toString()
 
-            var dateInString = prescription.medicine.toString().replace(" ", "-")
+            if(dateInString!="null"&&dateInString.isNotEmpty()&&dateInString.isNotBlank()){
+                dateInString = dateInString.replace(" ", "-")
 
+                if (dateInString[0].toString()!="n"&&dateInString[0].toString().toInt() < 10) {
+                    dateInString = "0$dateInString"
 
-            if (dateInString[0].toString().toInt() < 10) {
-                dateInString = "0$dateInString"
-
-            }
-            val calendarDate = Calendar.getInstance().time
+                }
+                val calendarDate = Calendar.getInstance().time
 
 
 //        val utc = TimeZone.getTimeZone("UTC")
@@ -261,20 +278,55 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
 //        destFormat.format(convertedDate)
 
 
-            val formatter = SimpleDateFormat("dd-MMM-yyyy")
-            val date = formatter.parse(dateInString)
-            if (calendarDate.after(date) ) {
+                val formatter = SimpleDateFormat("dd-MMM-yyyy")
+                val date = formatter.parse(dateInString)
+                if (calendarDate.after(date) ) {
 
-                viewHolder.txtMedi.text=prescription.medicine.toString()
-                viewHolder.txtMedi.setTextColor(Color.parseColor("#282BDC"))
+                    viewHolder.txtMedi.text=prescription.medicine.toString()
+                    viewHolder.txtMedi.setTextColor(Color.parseColor("#282BDC"))
 
 
+                }
+                else{
+                    viewHolder.txtMedi.text=prescription.medicine.toString()
+                    viewHolder.txtMedi.setTextColor(Color.parseColor("#FFE91E63"))
+
+                }
             }
-            else{
-                viewHolder.txtMedi.text="Appointment is not conducted yet"+"\n"+prescription.medicine.toString()
-                viewHolder.txtMedi.setTextColor(Color.parseColor("#FFE91E63"))
 
-            }
+
+//
+//            if (dateInString[0].toString()!="n"&&dateInString[0].toString().toInt() < 10) {
+//                dateInString = "0$dateInString"
+//
+//            }
+//            val calendarDate = Calendar.getInstance().time
+//
+//
+////        val utc = TimeZone.getTimeZone("UTC")
+////        val sourceFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")
+////        val destFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm aa")
+////        sourceFormat.timeZone =utc
+//
+////
+////        val convertedDate = sourceFormat.parse(dateInString)
+////        destFormat.format(convertedDate)
+//
+//
+//            val formatter = SimpleDateFormat("dd-MMM-yyyy")
+//            val date = formatter.parse(dateInString)
+//            if (calendarDate.after(date) ) {
+//
+//                viewHolder.txtMedi.text=prescription.medicine.toString()
+//                viewHolder.txtMedi.setTextColor(Color.parseColor("#282BDC"))
+//
+//
+//            }
+//            else{
+//                viewHolder.txtMedi.text=prescription.medicine.toString()
+//                viewHolder.txtMedi.setTextColor(Color.parseColor("#FFE91E63"))
+//
+//            }
 
 
 
@@ -282,7 +334,7 @@ private  fun dataChanged(arraylist:ArrayList<Prescription>)
 
             var CheckName=prescription.doc.toString()
             var docName=pres[p0].doc.toString()
-            if (CheckName != null) {
+            if (CheckName != "null") {
                 if(CheckName.length>10) {
                     var index=CheckName.indexOf(" ",5,true)
                     CheckName=CheckName.substring(0,index)+"\n"+CheckName.substring(index,CheckName.length)

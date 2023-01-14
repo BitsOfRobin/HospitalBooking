@@ -12,47 +12,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="-3dp"
-        android:layout_marginBottom="79dp"
-        android:textColor="@color/black"
-        android:visibility="visible"
-        app:civ_border_width="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664"
-        tools:visibility="visible">
-
-        <GridView
-            android:id="@+id/gridView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ECD285"
-            android:backgroundTint="@color/white"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+
+            android:layout_centerInParent="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="-3dp"
+            android:layout_marginBottom="79dp"
             android:textColor="@color/black"
             android:visibility="visible"
             app:civ_border_width="5dp"
-            tools:listitem="@layout/row_items"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.321"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.664"
+            tools:visibility="visible">
 
-            >
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ECD285"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:visibility="visible"
+                app:civ_border_width="5dp"
+                tools:listitem="@layout/row_items"
+
+                >
 
 
-        </GridView>
+            </GridView>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -112,19 +112,27 @@
 <!--        android:layout_marginBottom="4dp"-->
 <!--        android:text="Sort By Name" />-->
 
-    <ToggleButton
-        android:id="@+id/sortByName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="49dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:orientation="vertical">
 
-        android:textOff="Sort by Name"
-        android:textOn="Sort by Specialist" />
+            <ToggleButton
+                android:id="@+id/sortByName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="49dp"
 
+                android:background="@drawable/toggle_rounded"
+                android:textColor="@color/black"
+                android:textOff="Sort by Name"
+                android:textOn="Sort by Specialist" />
+        </LinearLayout>
     </RelativeLayout>
 
 

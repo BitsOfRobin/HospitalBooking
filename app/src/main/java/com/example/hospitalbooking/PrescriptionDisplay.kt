@@ -169,7 +169,7 @@ class PrescriptionDisplay : AppCompatActivity() {
     //
     //                } else {
 
-                if (docName.contains("Dr")) {
+                if (docName.contains("Dr")&&medicine1!="null") {
     //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
                     val medi = "$medicine1\n$dos1 mg \n\n$medicine2\n$dos2 mg\n\n"
                     arraylistPres.add(Prescription(user, docName, medi, 0F))
@@ -495,7 +495,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 
 
 
-
+//            Toast.makeText(this,"$arraylistUser",Toast.LENGTH_SHORT).show()
             docView.adapter = arr
             searchUser(arr)
 
@@ -594,7 +594,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 
         val docView = findViewById<ListView>(R.id.presListCheck)
         val arr = ListCustomAdapterForPrescription(this, arraylist)
-        Toast.makeText(this,"$arraylist",Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"$arraylist",Toast.LENGTH_SHORT).show()
 
         docView.adapter = arr
     }

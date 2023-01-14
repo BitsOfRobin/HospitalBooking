@@ -240,7 +240,9 @@ class PatientPrescription : AppCompatActivity() {
 
                         Toast.makeText(this, "Successfully added medicine ", Toast.LENGTH_SHORT)
                             .show()
-
+                        val intent = Intent(this, PrescriptionDisplay::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+                        startActivity(intent)
 
 //                                val start=userName.indexOf("user=")
 //                               val end=userName.indexOf("}")
@@ -272,9 +274,7 @@ class PatientPrescription : AppCompatActivity() {
 //        }
 
 
-            val intent = Intent(this, PrescriptionDisplay::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-            startActivity(intent)
+
 
 
 

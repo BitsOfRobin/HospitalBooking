@@ -60,18 +60,21 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         dateInString.replace(" ", "-")
 
 
-            if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
-                dateInString = "0$dateInString"
-
-            }
-        else
-            {
-
-                dateInString=dateInString
-            }
+//            if (dateInString[0].toString().toInt() < 10&&dateInString[1].toString().contains(" ")) {
+//                dateInString = "0$dateInString"
+//
+//            }
+//        else
+//            {
+//
+//                dateInString=dateInString
+//            }
             val calendarDate = Calendar.getInstance().time
 
-
+        val detect=dateInString.indexOf(",")
+        val sub1=dateInString.substring(0,detect)
+        val sub2=dateInString.substring(detect+2,dateInString.length)
+        dateInString= "$sub1,$sub2"
 //        val utc = TimeZone.getTimeZone("UTC")
 //        val sourceFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")
 //        val destFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm aa")
@@ -82,7 +85,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 //        destFormat.format(convertedDate)
         val docName=appointmentDetail[p0].docName
         viewHolder.txtNum.text =(p0+1).toString()
-            val formatter = SimpleDateFormat("dd-MMM-yyyy")
+            val formatter = SimpleDateFormat("dd-MMM-yyyy,HH:mm:ss")
             val date = formatter.parse(dateInString.replace(" ","-"))
             if (calendarDate.after(date) ) {
                 viewHolder.txtWarn.setTextColor(Color.parseColor("#FFE91E63"))

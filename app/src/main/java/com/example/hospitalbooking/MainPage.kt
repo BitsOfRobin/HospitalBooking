@@ -36,8 +36,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 
 
 class MainPage : AppCompatActivity() {
@@ -478,14 +477,14 @@ class MainPage : AppCompatActivity() {
 
                     var time = arraylistTime[i] + "\n" + arraylistTime2[i]
 //                    if (modalList.isEmpty()) {
-                        modalList.add(
-                            ModalFormMain(
-                                arraylistPro[i],
-                                bitmap,
-                                arraylistName[i],
-                                time
-                            )
-                        )
+//                        modalList.add(
+//                            ModalFormMain(
+//                                arraylistPro[i],
+//                                bitmap,
+//                                arraylistName[i],
+//                                time
+//                            )
+//                        )
 
 
 
@@ -1203,22 +1202,23 @@ class MainPage : AppCompatActivity() {
 
                     val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
                         .document("${modalList.get(i).docName}")
+//
+//// Remove the 'capital' field from the document
+//                    val updates = hashMapOf<String, Any>(
+//                        "name" to FieldValue.delete(),
+//                        "pro" to FieldValue.delete(),
+//                        "Time" to FieldValue.delete(),
+//                        "Time2" to FieldValue.delete()
+//                    )
 
-// Remove the 'capital' field from the document
-                    val updates = hashMapOf<String, Any>(
-                        "name" to FieldValue.delete(),
-                        "pro" to FieldValue.delete(),
-                        "time" to FieldValue.delete()
-                    )
+//                    docRef.update(updates).addOnCompleteListener {
+//
+//                        Toast.makeText(this, "Success delete the doctor ", Toast.LENGTH_SHORT)
+//                            .show()
+//
+//                    }
 
-                    docRef.update(updates).addOnCompleteListener {
-
-                        Toast.makeText(this, "Success delete the doctor ", Toast.LENGTH_SHORT)
-                            .show()
-
-                    }
-
-                    docRef.collection("userAppointment").document("${modalList.get(i).docName}")
+                    docRef
                         .delete()
                         .addOnSuccessListener {
                             Toast.makeText(
@@ -1316,7 +1316,11 @@ class MainPage : AppCompatActivity() {
                     if (temp.isNotEmpty()) {
                         dataChanged(temp,searchQuery)
                     } else {
-                        showMsg()
+
+
+
+
+                        showMsg(docView)
 
                     }
 
@@ -1354,7 +1358,7 @@ class MainPage : AppCompatActivity() {
                             if (temp.isNotEmpty()) {
                                 dataChanged(temp, searchQuery)
                             } else {
-                                showMsg()
+                                showMsg(docView)
 
                             }
 
@@ -1409,9 +1413,14 @@ class MainPage : AppCompatActivity() {
 //        docPro.text = arraylistPro[position]
 //
 //    }
-    private fun showMsg() {
+    private fun showMsg(docView: GridView) {
 
+    val arr=ArrayList<String>()
+    arr.add("Doctor is not found")
+    val arrayAdapter = ArrayAdapter(this,
+        android.R.layout.select_dialog_item,arr)
 
+    docView.adapter=arrayAdapter
         Toast.makeText(this, "Doctor is not found", Toast.LENGTH_SHORT).show()
     }
 

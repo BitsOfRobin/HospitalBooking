@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="(Doctor Professional)"
+        android:hint="(Doctor Professional)"
         android:textStyle="italic"
         android:alpha="0.4"/>
 
