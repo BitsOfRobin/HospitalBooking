@@ -147,10 +147,10 @@ class AppointmentSelect : AppCompatActivity() {
                 val sub2=dateInString.substring(detect+2,dateInString.length)
                 var properDate= "$sub1,$sub2"
                 Toast.makeText(this,"p$properDate",Toast.LENGTH_SHORT).show()
-                if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
-                    properDate = "0$properDate"
-
-                }
+//                if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
+//                    properDate = "0$properDate"
+//
+//                }
                 val calendarDate = Calendar.getInstance().time
 
 
