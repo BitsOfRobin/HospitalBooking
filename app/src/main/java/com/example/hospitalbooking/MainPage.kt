@@ -30,7 +30,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -156,6 +155,7 @@ class MainPage : AppCompatActivity() {
 //        var modalList=ArrayList<ModalFormMain>()
         val docView = findViewById<GridView>(R.id.gridView)
         val doctor = FirebaseAuth.getInstance().currentUser
+
         docDetail = doctor?.uid
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
@@ -1283,9 +1283,42 @@ class MainPage : AppCompatActivity() {
         docView.adapter = customAdapter
 
 //        searchView()
+
         val temp = ArrayList<String>()
         val searchView = findViewById<SearchView>(R.id.searchDoc)
         searchView.queryHint = "search Doctor Professional"
+
+        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
+        autoCompleteTextView.setAdapter(adapter)
+        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+            val selectedItem = parent.getItemAtPosition(position) as String
+
+
+
+//            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
+//
+//
+//                searchView.setQuery(null,true)
+//            }
+//            else{
+
+                searchView.setQuery(selectedItem, true)
+//            }
+
+
+
+
+
+        }
+
+
+
+
+
+
+
 
         val custom=CustomAdapter(modalList,this)
 
@@ -1340,6 +1373,7 @@ class MainPage : AppCompatActivity() {
             override fun onQueryTextChange(p0: String?): Boolean {
 
                         temp.clear()
+
                         var searchQuery=""
                         if (p0 != null) {
                             for (i in arraylistPro.indices) {
@@ -1367,6 +1401,14 @@ class MainPage : AppCompatActivity() {
                             docView.adapter = customAdapter
 
                         }
+                if (p0 != null) {
+                    showSuggestion(p0,adapter)
+                }
+
+
+
+
+
 
                 return false
             }
@@ -1376,6 +1418,9 @@ class MainPage : AppCompatActivity() {
 
 
     }
+
+
+
 
 //
 //    fun  setColorText(str:String,start:Int,end:Int,position:Int) {
@@ -1413,6 +1458,21 @@ class MainPage : AppCompatActivity() {
 //        docPro.text = arraylistPro[position]
 //
 //    }
+
+    private fun showSuggestion(query: String, adapter: ArrayAdapter<String>){
+
+
+        val suggestions = arraylistPro.filter { it.contains(query) }
+        adapter.clear()
+        adapter.addAll(suggestions)
+        adapter.notifyDataSetChanged()
+
+
+
+    }
+
+
+
     private fun showMsg(docView: GridView) {
 
     val arr=ArrayList<String>()

@@ -304,11 +304,11 @@ class PatientPrescription : AppCompatActivity() {
 
 
                  }
-                 Toast.makeText(
-                     this,
-                     "$userName Success $arrMedi",
-                     Toast.LENGTH_SHORT
-                 ).show()
+//                 Toast.makeText(
+//                     this,
+//                     "$userName Success $arrMedi",
+//                     Toast.LENGTH_SHORT
+//                 ).show()
              }?.addOnFailureListener {
 
                  Toast.makeText(

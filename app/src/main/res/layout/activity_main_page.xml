@@ -45,6 +45,7 @@
                 android:textColor="@color/black"
                 android:visibility="visible"
                 app:civ_border_width="5dp"
+
                 tools:listitem="@layout/row_items"
 
                 >
@@ -66,6 +67,19 @@
             android:layout_height="54dp"
             android:background="@drawable/bg_white_rounded"
             android:submitBackground="@drawable/bg_white_rounded" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:background="@drawable/toggle_rounded"
+            android:textColor="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="9dp"
+            android:hint="Enter your query for suggestion" />
+
 
     </LinearLayout>
 
@@ -115,19 +129,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="7dp"
             android:orientation="vertical">
 
             <ToggleButton
                 android:id="@+id/sortByName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="right"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="49dp"
-
                 android:background="@drawable/toggle_rounded"
                 android:textColor="@color/black"
                 android:textOff="Sort by Name"

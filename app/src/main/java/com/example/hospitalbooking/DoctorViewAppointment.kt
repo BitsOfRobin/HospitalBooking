@@ -137,6 +137,16 @@ class DoctorViewAppointment : AppCompatActivity() {
             val searchView=findViewById<SearchView>(R.id.searchDoc)
             searchView.queryHint="search User"
 
+            val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
+
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistUser)
+            autoCompleteTextView.setAdapter(adapter)
+            autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+                val selectedItem = parent.getItemAtPosition(position) as String
+                searchView.setQuery(selectedItem, true)
+            }
+
+
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     return false
@@ -172,7 +182,9 @@ class DoctorViewAppointment : AppCompatActivity() {
                         }
                     }
 
-
+                    if (p0 != null) {
+                        showSuggestion(p0,adapter)
+                    }
                     return false
                 }
 
@@ -201,7 +213,23 @@ class DoctorViewAppointment : AppCompatActivity() {
 
     }
 
-private  fun dataChanged(arraylist:ArrayList<Prescription>)
+
+
+    private fun showSuggestion(query: String, adapter: ArrayAdapter<String>){
+
+
+        val suggestions = arraylistUser.filter { it.contains(query) }
+        adapter.clear()
+        adapter.addAll(suggestions)
+        adapter.notifyDataSetChanged()
+
+
+
+    }
+
+
+
+    private  fun dataChanged(arraylist:ArrayList<Prescription>)
 {
 
     val docView = findViewById<ListView>(R.id.listDocAppoint)
