@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -374,51 +375,6 @@ class PatientPrescription : AppCompatActivity() {
     }
 
 
-//    private fun setSpinnerNurse(arrMedi:ArrayList<String>) {
-//        arrMedi.add(0,"Choose medicine found by Nurse")
-////        val arrMedi = ArrayList<String>()
-//        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arrMedi)
-//        val spin = findViewById<Spinner>(R.id.spinnerMediNurse)
-//
-//        spin.adapter = arr
-//
-//        val med1=findViewById<EditText>(R.id.medi1)
-//        val med2=findViewById<EditText>(R.id.med2)
-//        val med3=findViewById<TextView>(R.id.textView7)
-//        spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//
-//
-//                if(med1.text.isEmpty()&&p2>0){
-//
-//                    med1.setText(arrMedi[p2])
-//                }
-//                else if(med2.text.isEmpty()&&p2>0)
-//                {
-//                    med2.setText(arrMedi[p2])
-//
-//                }
-//
-//
-//                else if(med1.text.isNotEmpty() && med2.text.isNotEmpty() &&p2>0){
-//
-//                    med1.setText(arrMedi[p2])
-//                }
-//
-//
-//
-//
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//
-//
-//        }
-//
-//
-//
-//    }
+
 
 }
