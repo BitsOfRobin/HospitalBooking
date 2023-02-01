@@ -30,7 +30,7 @@
         app:layout_constraintVertical_bias="0.506">
 
 
-        z<de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
             android:layout_width="66dp"
             android:layout_height="66dp"

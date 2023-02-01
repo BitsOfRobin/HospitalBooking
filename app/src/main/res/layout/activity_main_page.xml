@@ -70,7 +70,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/autocomplete_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:completionThreshold="1"
             android:background="@drawable/toggle_rounded"
@@ -78,7 +78,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="9dp"
             android:layout_marginEnd="9dp"
-            android:hint="Enter your query for suggestion" />
+            android:padding="4dp"
+            android:hint="Enter  for suggestion" />
 
 
     </LinearLayout>
@@ -146,6 +147,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="49dp"
                 android:background="@drawable/toggle_rounded"
+                android:padding="5dp"
+
                 android:textColor="@color/black"
                 android:textOff="Sort by Name"
                 android:textOn="Sort by Specialist" />
