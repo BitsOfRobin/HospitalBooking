@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,27 +7,15 @@
     >
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="73dp"
-        android:layout_height="105dp"
+    <LinearLayout
 
-        android:foregroundGravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:background="#FFC107"
 
-        app:cardBackgroundColor="#FFC107"
-        app:cardCornerRadius="4dp"
-
-        android:layout_marginTop="5dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintVertical_bias="0.506">
+        app:cardCornerRadius="14dp">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -43,15 +31,15 @@
             android:id="@+id/imageName"
             android:layout_width="69dp"
             android:layout_height="30dp"
-            android:layout_gravity="bottom"
+
 
             android:layout_marginTop="8dp"
-            android:textAlignment="center"
+
             android:textColor="#DA0B0A0A"
             android:textSize="10sp"
 
 
             android:textStyle="bold" />
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

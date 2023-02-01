@@ -12,16 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="3dp"
 
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="35dp"
         android:background="@color/white"
         android:textColor="@color/black"
         app:civ_border_width="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/list_view_prescription"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,6 +36,7 @@
             android:id="@+id/searchDoc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:background="@drawable/bg_white_rounded"
             android:submitBackground="@drawable/bg_white_rounded"
 
@@ -46,6 +50,7 @@
             android:completionThreshold="1"
             android:background="@drawable/toggle_rounded"
             android:textColor="@color/black"
+            android:layout_margin="10dp"
             android:hint="Enter your query for suggestion" />
     </LinearLayout>
 <!--    <androidx.fragment.app.FragmentContainerView-->

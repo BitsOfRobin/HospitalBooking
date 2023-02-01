@@ -9,46 +9,42 @@ tools:context=".MainActivity"
     android:id="@+id/drawerLayout">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+       >
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
-        android:layout_width="377dp"
-        android:layout_height="677dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="visible"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242"
+        android:background="#ECD285"
         tools:visibility="visible">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:padding="2dp"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="80dp"-->
+<!--                    android:layout_margin="2dp"-->
+<!--                    android:layout_marginStart="5dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginEnd="5dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:padding="2dp"-->
+<!--                    app:cardBackgroundColor="#fff"-->
+<!--                    app:cardCornerRadius="4dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
 
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.499"
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintVertical_bias="0.499"-->
 
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
 
-                    >
+<!--                    >-->
 
                     <GridView
                         android:id="@+id/gridView"
@@ -56,15 +52,13 @@ tools:context=".MainActivity"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:numColumns="3"
 
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-    </androidx.cardview.widget.CardView>
+
+                        android:numColumns="3"
+                        tools:listitem="@layout/welcomepagegridview"
+
+                        />
+<!--    </androidx.cardview.widget.CardView>-->
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>

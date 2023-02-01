@@ -1,5 +1,6 @@
 package com.example.hospitalbooking
 
+import MyCache
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -56,6 +57,14 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val btnup1 = findViewById<Button>(R.id.btnup1)
         val btnup2 = findViewById<Button>(R.id.btnup2)
 
+
+        val doctorName = intent.getStringExtra("DoctorName")
+
+        val cache=MyCache()
+        val img= doctorName?.let { cache.retrieveBitmapFromCache(it) }
+        val docImg=findViewById<ImageView>(R.id.docImg)
+        docImg.setImageBitmap(img)
+
         var loginUser=" "
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
@@ -74,7 +83,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         if(loginUser.contains("@student.tarc")) {
 
-
+            val tvTime = findViewById<TextView>(R.id.tv_textTime)
 
             btnTime.setOnClickListener {
 
@@ -82,13 +91,16 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 DatePickerDialog(this, this, year, month, day).show()
 //                updateDoc()
 
+
+                tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
             }
 
             btnup1.setOnClickListener {
                 updateDoc()
+                tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
 
             }
-
+            val endTime = findViewById<TextView>(R.id.EndTime)
 
 
             btnEndTime.setOnClickListener {
@@ -96,9 +108,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 DatePickerDialog(this, this, year, month, day).show()
 
 
+
+
+                endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
             }
 
         btnup2.setOnClickListener {
+            endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
             setEndTime()
         }
 
@@ -121,10 +137,10 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
         savedHour = p1
         savedMinute = p2
-        val tvTime = findViewById<TextView>(R.id.tv_textTime)
-        val endTime = findViewById<TextView>(R.id.EndTime)
-        tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
-        endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+//        val tvTime = findViewById<TextView>(R.id.tv_textTime)
+//        val endTime = findViewById<TextView>(R.id.EndTime)
+//        tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+//        endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
 
 
 

@@ -264,7 +264,7 @@ class PatientPrescription : AppCompatActivity() {
 
                 Toast.makeText(
                     this,
-                    "Empty inputs are detected for dosage",
+                    "Empty inputs are detected for dosage or medicine",
                     Toast.LENGTH_SHORT
                 ).show()
 
