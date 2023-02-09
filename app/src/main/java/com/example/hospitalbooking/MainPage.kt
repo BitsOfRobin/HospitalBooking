@@ -150,49 +150,18 @@ class MainPage : AppCompatActivity() {
     }
 
     private fun getDataDoc() {
-//        modalList.clear()
-//        arraylistData.clear()
-//        var modalList=ArrayList<ModalFormMain>()
+
         val docView = findViewById<GridView>(R.id.gridView)
         val doctor = FirebaseAuth.getInstance().currentUser
 
         docDetail = doctor?.uid
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
-//        val arraylistName= ArrayList<String>()
-//        val arraylistTime= ArrayList<String>()
-//        val arraylistPro= ArrayList<String>()
-//        val arraylistData= ArrayList<String>()
 
-//        val docView=findViewById<RecyclerView>(R.id.Rview)
-//        val docView=findViewById<GridView>(R.id.gridView)
-//        val txt=findViewById<TextView>(R.id.txtV)
-//        val name=findViewById<TextView>(R.id.txtName)
-//        val pro=findViewById<TextView>(R.id.txtPro)
         val docRef = mFirebaseDatabaseInstance?.collection("doctor")
         docRef?.get()?.addOnSuccessListener {
 
 
-////                val doc=it.toString()
-//            val result:StringBuffer= StringBuffer()
-//            val result2:StringBuffer= StringBuffer()
-//
-
-
-//                for(doc in it.documents ){
-////
-
-//                    result.append(doc?.get("name")).append(" ")
-//                        result2.append(doc.get("pro")).append("\n\n")
-//
-//                    arraylist.add(result.toString())
-//                    arraylistPro.add(result2.toString())
-//
-//
-//
-//
-//                    Toast.makeText(this, "Enter the firebase${it.documents.toString()} ",Toast.LENGTH_SHORT).show()
-////                    Toast.makeText(this, "Enter the firebase data ${doc.toString()} ",Toast.LENGTH_SHORT).show()
 
 
 //                }
@@ -212,12 +181,7 @@ class MainPage : AppCompatActivity() {
 //                arraylistTime.add(date.toString())
                 val name = document.get("name").toString()
                 val pro = document.get("pro").toString()
-//                var dateFormat=date.toString()
-//                val list=dateFormat.split("G")
-//                var dateTime=list[0]+"\nG"+list[1]
-//                var dateFormat2=date2.toString()
-//                val list2=dateFormat2.split("G")
-//                var dateTime2=list2[0]+"\nG"+list2[1]
+
 
 
                 if (name.contains("Dr")) {
@@ -323,13 +287,7 @@ class MainPage : AppCompatActivity() {
 
         }
 
-//        docRef?.get()?.addOnSuccessListener { documents ->
-//            Log.d(ContentValues.TAG, "${documents.id}=>${documents.data}")
-//            arrlist.add(documents.toString())
-//            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_2, arrlist)
-//            list.adapter=adapter
-//            txt.text=arrlist.toString()
-//        }
+
 
             ?.addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
@@ -1327,6 +1285,7 @@ class MainPage : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 temp.clear()
+
                 var searchQuery=""
 //                val first= p0?.let { p0.toString().indexOf(it[0]) }
                 if (p0 != null) {
@@ -1359,6 +1318,7 @@ class MainPage : AppCompatActivity() {
 
 
                 } else {
+//                    showMsg(docView)
                     docView.adapter = customAdapter
 
                 }

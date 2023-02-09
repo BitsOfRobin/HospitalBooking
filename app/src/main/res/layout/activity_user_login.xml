@@ -7,9 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".UserLogin"
     android:id="@+id/drawerLayout">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFC107">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iconIv"
         android:layout_width="match_parent"
@@ -17,10 +19,8 @@
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:src='@drawable/google'
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075" />
+        android:layout_marginTop="100dp"
+             />
 
     <TextView
         android:id="@+id/captionIv"
@@ -31,23 +31,15 @@
         android:text="welcome to Google SignIn"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iconIv"
-        app:layout_constraintVertical_bias="0.152" />
+        android:layout_gravity="center_horizontal"
+        />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googleSignInBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/captionIv"
-        app:layout_constraintVertical_bias="0.216"
+     android:layout_gravity="center_horizontal"
+
         />
 
 
@@ -129,7 +121,7 @@
 <!--        app:layout_constraintHorizontal_bias="0.592"-->
 <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

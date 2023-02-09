@@ -55,7 +55,10 @@ class PatientPrescription : AppCompatActivity() {
         val dos1 = findViewById<EditText>(R.id.dos1)
         val dos2 = findViewById<EditText>(R.id.dos2)
         val submit = findViewById<Button>(R.id.submitBtn)
-
+        val errMed1=findViewById<TextView>(R.id.errMed1)
+        val errMed2=findViewById<TextView>(R.id.errMed2)
+        val errDos1=findViewById<TextView>(R.id.errDos1)
+        val errDos2=findViewById<TextView>(R.id.errDos2)
         val medi1 = findViewById<EditText>(R.id.medi1)
         var dosText1 = 0
         var dosText2 = 0
@@ -72,7 +75,7 @@ class PatientPrescription : AppCompatActivity() {
                         .contains("Choose", true) || p0.toString().isBlank()
                 ) {
                     medi1.error = "Empty inputs are detected and accept no space "
-
+                    errMed1.text = "Empty inputs are detected and accept no space "
                 }
             }
 
@@ -82,10 +85,11 @@ class PatientPrescription : AppCompatActivity() {
                         .contains("Choose", true) || p0.toString().isBlank()
                 ) {
                     medi1.error = "Empty inputs are detected and accept no space "
-
+                    errMed1.text = "Empty inputs are detected and accept no space "
                 } else {
                     medText = p0.toString()
                     medi1.error = "Completed"
+                    errMed1.text=""
                 }
             }
 
@@ -106,7 +110,7 @@ class PatientPrescription : AppCompatActivity() {
                         .isBlank()
                 ) {
                     med2.error = "Empty inputs are detected and accept no space "
-
+                    errMed2.text = "Empty inputs are detected and accept no space "
                 }
             }
 
@@ -116,11 +120,13 @@ class PatientPrescription : AppCompatActivity() {
                         .isBlank()
                 ) {
                     med2.error = "Empty inputs are detected and accept no space "
-
+                    errMed2.text = "Empty inputs are detected and accept no space "
                 } else {
                     medText2 = p0.toString()
                     med2.error = "Completed"
+                    errMed2.text=""
                 }
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -140,22 +146,24 @@ class PatientPrescription : AppCompatActivity() {
             dos1.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     dos1.error = "Accept Only Integer"
+
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     dos1.error = "NON integer inputs for dosage"
-
+                    errDos1.text = "NON integer inputs for dosage"
 
 
                     try {
                         dosText1 = dos1.text.toString().toInt()
                         truth = true
                         dos1.error = "Completed"
+                        errDos1.text=""
 
                     } catch (NumberFormatException: IllegalArgumentException) {
                         truth = false
                         dos1.error = "NON integer inputs for dosage"
-
+                        errDos1.text = "NON integer inputs for dosage"
 
                     }
 
@@ -185,7 +193,7 @@ class PatientPrescription : AppCompatActivity() {
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     dos2.error = "NON integer inputs for dosage"
-
+                    errDos2.text = "NON integer inputs for dosage"
                     if (p0.toString().isBlank() || p0.toString().isEmpty()) {
 
                         dos2.error = "No Input"
@@ -195,10 +203,10 @@ class PatientPrescription : AppCompatActivity() {
                             dosText2 = dos2.text.toString().toInt()
                             truth2 = true
                             dos2.error = "Completed"
-
+                            errDos2.text=""
                         } catch (NumberFormatException: IllegalArgumentException) {
                             dos2.error = "NON integer inputs for dosage"
-
+                            errDos2.text = "NON integer inputs for dosage"
                             truth2 = false
                         }
                     }
@@ -227,10 +235,44 @@ class PatientPrescription : AppCompatActivity() {
 
             )
 
+            if(medText.isBlank()&&medText.isEmpty()){
 
-//        val  doc =doctor?.uid
+                errMed1.text = "Empty inputs are detected and accept no space "
 
-//
+            }
+            else{
+                errMed1.text = ""
+
+            }
+            if(medText2.isBlank()&&medText2.isEmpty()){
+
+                errMed2.text = "Empty inputs are detected and accept no space "
+
+            }
+
+            else{
+
+                errMed2.text = ""
+
+            }
+            try {
+                dosText1 = dos1.text.toString().toInt()
+                truth = true
+                dos1.error = "Completed"
+                errDos1.text=""
+
+            } catch (NumberFormatException: IllegalArgumentException) {
+                truth = false
+                dos1.error = "NON integer inputs for dosage"
+                errDos1.text = "NON integer inputs for dosage"
+
+            }
+
+
+
+
+
+
             if ( (medText.isNotBlank()&&medText.isNotEmpty() &&  medText2.isNotBlank()&&medText2.isNotEmpty()) &&
                 dosText1!=0  ) {
                 mFirebaseDatabaseInstance?.collection("userAppointment")
@@ -267,6 +309,14 @@ class PatientPrescription : AppCompatActivity() {
                     "Empty inputs are detected for dosage or medicine",
                     Toast.LENGTH_SHORT
                 ).show()
+
+
+
+
+
+
+
+
 
             }
 
@@ -335,7 +385,7 @@ class PatientPrescription : AppCompatActivity() {
 
         val med1=findViewById<EditText>(R.id.medi1)
         val med2=findViewById<EditText>(R.id.med2)
-        val med3=findViewById<TextView>(R.id.textView7)
+//        val med3=findViewById<TextView>(R.id.textView7)
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 

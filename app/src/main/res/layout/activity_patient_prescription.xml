@@ -1,57 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     tools:context=".PatientPrescription">
-
-
-<!--    <EditText-->
-<!--        android:id="@+id/med1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="82dp"-->
-<!--        android:layout_marginEnd="29dp"-->
-<!--        android:alpha="0.4"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:layout_editor_absoluteY="26dp" />-->
-
-
-    <!--    <EditText-->
-<!--        android:id="@+id/dos1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="167dp"-->
-<!--        android:layout_marginEnd="34dp"-->
-<!--        android:alpha="0.4"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="number"-->
-<!--        android:text="XX mg"-->
-<!--        android:textStyle="italic"-->
-<!--        tools:layout_editor_absoluteX="101dp"-->
-<!--        tools:layout_editor_absoluteY="114dp" />-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/medi1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="97dp"
-        android:layout_marginEnd="89dp"
+
+
         android:hint="Medicine 1"
         android:inputType="textMultiLine"
         android:maxLength="100"
@@ -60,51 +26,22 @@
         android:textSize="17dp"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
+    <TextView
+        android:id="@+id/errMed1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#F44336"
 
-    <!--    -->
-<!--    <EditText-->
-<!--        android:id="@+id/med2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginEnd="23dp"-->
-<!--        android:layout_marginBottom="304dp"-->
-<!--        android:alpha="0.4"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
+      />
 
-<!--        tools:layout_editor_absoluteX="107dp"-->
-<!--        tools:layout_editor_absoluteY="238dp" />-->
-
-
-    <!--    <EditText-->
-<!--        android:id="@+id/dos2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginStart="131dp"-->
-<!--        android:layout_marginTop="456dp"-->
-<!--        android:alpha="0.4"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="number"-->
-<!--        android:text="XX mg"-->
-<!--        android:textStyle="italic"-->
-<!--        tools:layout_editor_absoluteX="104dp"-->
-<!--        tools:layout_editor_absoluteY="302dp" />-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/dos1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="171dp"
-
-        android:layout_marginEnd="96dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:hint="Dosage 1"
         android:inputType="textMultiLine"
         android:maxLength="100"
@@ -112,56 +49,24 @@
         android:textSize="17dp"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/submitBtn"
-        android:layout_width="wrap_content"
+
+
+    <TextView
+        android:id="@+id/errDos1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#F44336"
+        />
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="141dp"
-        android:layout_marginBottom="58dp"
-        android:text="Submit" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView4"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-
-
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:layout_marginStart="21dp"-->
-<!--        android:text="Dosage"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:layout_editor_absoluteY="127dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView5"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_marginStart="23dp"-->
-<!--        android:layout_marginTop="177dp"-->
-
-<!--        android:text="Dosage"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        tools:layout_editor_absoluteY="313dp" />-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/med2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="251dp"
-        android:layout_marginEnd="85dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
         android:ems="10"
         android:hint="Medicine 2"
         android:inputType="textMultiLine"
@@ -171,18 +76,21 @@
         android:textSize="17dp"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
+    <TextView
+        android:id="@+id/errMed2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#F44336"
+        />
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/dos2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
 
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="317dp"
-        android:layout_marginEnd="78dp"
         android:hint="dosage 2"
         android:inputType="textMultiLine"
         android:maxLength="100"
@@ -191,54 +99,36 @@
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="275dp"
+        android:id="@+id/errDos2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#F44336"
+        android:layout_gravity="center_vertical"/>
 
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="19dp"
-        android:text="Patient Prescription"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView3"-->
-<!--        android:layout_width="wrap_content"-->
+    <!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="275dp"-->
 <!--        android:layout_height="wrap_content"-->
 
-
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_marginStart="15dp"-->
-<!--        android:layout_marginTop="106dp"-->
-<!--        android:text="Medicine 1"-->
-<!--        android:textSize="20sp"-->
+<!--        android:layout_marginStart="48dp"-->
+<!--        android:layout_marginTop="19dp"-->
+<!--        android:text="Patient Prescription"-->
+<!--        android:textSize="25sp"-->
 <!--        android:textStyle="bold" />-->
 
 <!--    <TextView-->
-<!--        android:id="@+id/textView6"-->
+<!--        android:id="@+id/textView7"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
 
-<!--        android:layout_alignParentStart="true"-->
-
-
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="276dp"-->
-<!--        android:text="Medicine 2"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold" />-->
-
+<!--        />-->
     <Spinner
         android:id="@+id/spinnerMedi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="210dp"
+        android:layout_margin="10dp"
         android:visibility="visible"
         tools:visibility="visible" />
 
@@ -246,22 +136,22 @@
         android:id="@+id/spinnerMediNurse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="150dp"
+        android:layout_margin="10dp"
         android:visibility="visible"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="116dp"
-        android:layout_marginBottom="367dp"
-        />
-</RelativeLayout>
+        android:background="@drawable/bg_white_rounded"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:text="Submit" />
+
+
+
+
+
+
+</LinearLayout>
