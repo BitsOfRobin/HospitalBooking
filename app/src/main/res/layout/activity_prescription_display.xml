@@ -6,39 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".PrescriptionDisplay"
     android:id="@+id/drawerLayout">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/presListCheck"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent">
 
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="3dp"
-        android:background="@color/white"
-
-       />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="vertical">
-
-        <SearchView
-            android:id="@+id/searchUser"
+        <ListView
+            android:id="@+id/presListCheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_white_rounded"
-            android:submitBackground="@drawable/bg_white_rounded"
+
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="3dp"
+            android:background="@color/white"
 
             />
-    </LinearLayout>
-</RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/searchUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_rounded"
+                android:submitBackground="@drawable/bg_white_rounded"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

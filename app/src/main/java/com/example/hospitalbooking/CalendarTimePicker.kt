@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -96,8 +97,17 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             }
 
             btnup1.setOnClickListener {
-                updateDoc()
-                tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+
+                if (!validateDateTime(realDate)) {
+                    tvTime.text = "The Selected Date is passed today Date"
+
+                } else {
+                    updateDoc()
+                    tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+                }
+
+
+
 
             }
             val endTime = findViewById<TextView>(R.id.EndTime)
@@ -114,8 +124,17 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             }
 
         btnup2.setOnClickListener {
-            endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
-            setEndTime()
+
+            if (!validateDateTime(realDate)) {
+                endTime.text = "The Selected Date is passed today Date"
+
+            } else {
+                endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+                setEndTime()
+            }
+
+
+
         }
 
         }
@@ -186,6 +205,18 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
     }
+
+
+    fun validateDateTime(dateTime: String): Boolean {
+        val now = Calendar.getInstance().time
+
+        val formatter = SimpleDateFormat("dd MMM yyyy,HH:mm:ss")
+
+        val dateTime = formatter.parse(realDate)
+        return dateTime.after(now)
+    }
+
+
 
 
     private fun updateDoc()

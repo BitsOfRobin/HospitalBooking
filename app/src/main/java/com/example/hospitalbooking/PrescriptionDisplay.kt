@@ -2,14 +2,18 @@ package com.example.hospitalbooking
 
 import android.content.ContentValues
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ListView
+import android.widget.RatingBar
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -24,6 +28,7 @@ class PrescriptionDisplay : AppCompatActivity() {
     private var arraylistDocNameForSearch = ArrayList<String>()
     private var arraylistUser=ArrayList<String>()
     private var arraylistMedi=ArrayList<String>()
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prescription_display)
@@ -79,6 +84,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun showPrescription() {
         val searchUser=findViewById<SearchView>(R.id.searchUser)
         searchUser.visibility=View.GONE
@@ -200,22 +206,77 @@ class PrescriptionDisplay : AppCompatActivity() {
 
 
 //            var rating=0.0
-            docView.setOnItemClickListener { adapterView, view, i, l ->
+            docView.setOnItemClickListener { adapterView, view2, i, l ->
+
+                val builder = AlertDialog.Builder(this)
+
+                val inflater = layoutInflater
+                val view:View = inflater.inflate(R.layout.rating_dialog, null)
+
+                val ratingBar = view.findViewById<RatingBar>(R.id.ratingBarInput)
+
+                builder.setView(view)
+
+                builder.setPositiveButton("Submit") { dialog, which ->
+                    val rating = ratingBar.rating
+
+                    getRate(arraylistDocName[i],rating)
+                }
+
+                builder.setNegativeButton("Cancel") { dialog, which ->
+
+                    Toast.makeText(this,"Thanks",Toast.LENGTH_SHORT).show()
+                }
+                val dialog = builder.create()
+                dialog.show()
+
+//                ratingDialog(i)
 
 
 
 
 
-                val intent= Intent(this,PopUpWindow::class.java)
-                intent.putExtra("docName", arraylistDocName[i])
+//                val intent= Intent(this,PopUpWindow::class.java)
+//                intent.putExtra("docName", arraylistDocName[i])
 //                intent.putExtra("rating",rating)
 
 //                val extras = Bundle()
 //                extras.putDouble("rating",rating)
 
-                startActivity(intent)
+//                startActivity(intent)
 
             }
+
+
+
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun ratingDialog(i: Int) {
+
+        val builder = AlertDialog.Builder(this)
+
+        val inflater = layoutInflater
+        val view = inflater.inflate(R.layout.rating_dialog, null)
+
+        val ratingBar = view.findViewById<RatingBar>(R.id.ratingBarInput)
+
+        builder.setView(view)
+
+        builder.setPositiveButton("Submit") { dialog, which ->
+            val rating = ratingBar.rating
+            val dialog = builder.create()
+            dialog.show()
+            getRate(arraylistDocName[i],rating)
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, which ->
+
+            Toast.makeText(this,"Thanks",Toast.LENGTH_SHORT).show()
+        }
+
+
 
 
 
@@ -599,12 +660,71 @@ class PrescriptionDisplay : AppCompatActivity() {
         docView.adapter = arr
     }
 
-//    private fun isLetters(string: String): Boolean {
-//        return string.matches("^[a-zA-Z0-9 ]*$".toRegex())
-//
-////        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
-//    }
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun getRate(docName:String,rate:Float){
+//        val docName = intent.getStringExtra("docName")
+        val rating=findViewById<RatingBar>(R.id.ratingBarInput)
+
+        val extras = intent.extras
+//        rateStar = extras!!.getDouble("rating")
+
+        val docList = findViewById<ListView>(R.id.presListCheck)
+
+
+
+
+//        rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
+//
+//            ratingBar.rating=fl
+//            rate= ratingBar.numStars.toFloat()
+//
+//
+//        }
+//        rate=   rating.rating
+        Toast.makeText(this,"$rate",Toast.LENGTH_SHORT).show()
+//        val calRating=calStar(docName.toString(),rate,docName.toString())
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+
+
+
+
+
+
+
+        val ratingStar= hashMapOf(
+            "ratingStar" to rate.toInt(),
+            "name" to docName
+
+
+
+
+        )
+//        val  doc =doctor?.uid
+
+//
+        mFirebaseDatabaseInstance?.collection("doctor")?.document(docName.toString())?.update("rating",rate)
+            ?.addOnSuccessListener {
+
+
+                Toast.makeText(this,"Successfully rate  doctor ", Toast.LENGTH_SHORT).show()
+
+            }
+            ?.addOnFailureListener {
+
+                Toast.makeText(this, "Failed to rate doctor", Toast.LENGTH_SHORT).show()
+            }
+
+
+//        userNum+=1
+
+
+
+
+
+
+    }
 
 
 
