@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="16dp"
+
     tools:context=".UserMedicine"
+
     android:id="@+id/drawerLayout">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,20 +36,29 @@
         android:scaleType="fitCenter"
         />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="32dp"
-        android:id="@+id/btnRet"
-        android:text="Select Medicine Image"
-        />
-    <Button
+        <Button
+            android:id="@+id/btnRet"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_white_rounded"
+            android:text="Select Medicine Image" />
+
+        <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="Recognise Medicine"
+            android:background="@drawable/bg_white_rounded"
         android:id="@+id/uploadImageBtn"
         />
 
+        <TextView
+            android:text="Medicine Name "
+            android:textSize="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
     <TextView
         android:id="@+id/medName"
         android:layout_width="match_parent"
@@ -55,7 +69,7 @@
         android:text="Medicine Name" />
 
     </LinearLayout>
-
+    </ScrollView>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -67,4 +81,6 @@
         >
 
     </com.google.android.material.navigation.NavigationView>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

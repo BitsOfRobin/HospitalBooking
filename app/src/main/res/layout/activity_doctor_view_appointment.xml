@@ -36,7 +36,7 @@
             android:id="@+id/searchDoc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:textColorHint="@color/black"
             android:background="@drawable/bg_white_rounded"
             android:submitBackground="@drawable/bg_white_rounded"
 
@@ -51,6 +51,7 @@
             android:background="@drawable/toggle_rounded"
             android:textColor="@color/black"
             android:layout_margin="10dp"
+            android:textColorHint="@color/black"
             android:hint="Enter your query for suggestion" />
     </LinearLayout>
 <!--    <androidx.fragment.app.FragmentContainerView-->

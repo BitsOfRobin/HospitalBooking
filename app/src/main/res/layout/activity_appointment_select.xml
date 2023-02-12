@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
     tools:context=".AppointmentSelect">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,19 +42,18 @@
 
 
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
         tools:visibility="visible" />
 
     <TextView
+        android:layout_margin="20dp"
         android:id="@+id/txtV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
 
 
-        app:layout_constraintTop_toBottomOf="@+id/spinDocAppoint" />
+
+       />
 
     <Button
         android:id="@+id/btn"
@@ -65,10 +66,7 @@
         android:text="Next "
         android:background="@drawable/bg_white_rounded"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtV" />
+         />
 
 
 
@@ -76,6 +74,7 @@
 
 
 </LinearLayout>
+</ScrollView>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -87,4 +86,7 @@
         >
 
     </com.google.android.material.navigation.NavigationView>
+
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
