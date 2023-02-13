@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 
 class PatientPrescription : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+    private val docAppoint=ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient_prescription)
@@ -21,7 +22,10 @@ class PatientPrescription : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Patient Prescription")
         setPrescription()
+
     }
+
+
 
 
     override fun onSupportNavigateUp(): Boolean {
@@ -51,17 +55,31 @@ class PatientPrescription : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
 //        val med1=findViewById<EditText>(R.id.med1)
+        val medi1 = findViewById<EditText>(R.id.medi1)
         val med2 = findViewById<EditText>(R.id.med2)
         val dos1 = findViewById<EditText>(R.id.dos1)
         val dos2 = findViewById<EditText>(R.id.dos2)
+        val pricePerDos1 = findViewById<EditText>(R.id.pricePerMed1)
+        val pricePerDos2 = findViewById<EditText>(R.id.pricePerMed2)
         val submit = findViewById<Button>(R.id.submitBtn)
         val errMed1=findViewById<TextView>(R.id.errMed1)
         val errMed2=findViewById<TextView>(R.id.errMed2)
         val errDos1=findViewById<TextView>(R.id.errDos1)
         val errDos2=findViewById<TextView>(R.id.errDos2)
-        val medi1 = findViewById<EditText>(R.id.medi1)
-        var dosText1 = 0
-        var dosText2 = 0
+        val errPriceMed1=findViewById<TextView>(R.id.errPriceMed1)
+        val errPriceMed2=findViewById<TextView>(R.id.errPriceMed2)
+
+        val priceMed1=findViewById<TextView>(R.id.priceDos1)
+        val priceMed2=findViewById<TextView>(R.id.priceDos2)
+        val totalPriceMed=findViewById<TextView>(R.id.totalPrice)
+
+        var dosText1 = 0.0
+        var dosText2 = 0.0
+        var priceDosText1 = 0.0
+        var priceDosText2 = 0.0
+        var price1=0.0
+        var price2=0.0
+        var totalPrice=0.0
         var truth: Boolean = true
         var truth2: Boolean = true
 
@@ -145,25 +163,25 @@ class PatientPrescription : AppCompatActivity() {
         }
             dos1.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    dos1.error = "Accept Only Integer"
+                    dos1.error = "Accept Only Decimal"
 
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    dos1.error = "NON integer inputs for dosage"
-                    errDos1.text = "NON integer inputs for dosage"
+                    dos1.error = "NON Decimal inputs for dosage"
+                    errDos1.text = "NON Decimal inputs for dosage"
 
 
                     try {
-                        dosText1 = dos1.text.toString().toInt()
+                        dosText1 = dos1.text.toString().toDouble()
                         truth = true
                         dos1.error = "Completed"
                         errDos1.text=""
 
                     } catch (NumberFormatException: IllegalArgumentException) {
                         truth = false
-                        dos1.error = "NON integer inputs for dosage"
-                        errDos1.text = "NON integer inputs for dosage"
+                        dos1.error = "NON Decimal inputs for dosage"
+                        errDos1.text = "NON Decimal inputs for dosage"
 
                     }
 
@@ -187,26 +205,26 @@ class PatientPrescription : AppCompatActivity() {
 
             dos2.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    dos2.error = "Accept Only Integer"
+                    dos2.error = "Accept Only Decimal"
 
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    dos2.error = "NON integer inputs for dosage"
-                    errDos2.text = "NON integer inputs for dosage"
+                    dos2.error = "NON Decimal inputs for dosage"
+                    errDos2.text = "NON Decimal inputs for dosage"
                     if (p0.toString().isBlank() || p0.toString().isEmpty()) {
 
                         dos2.error = "No Input"
                     } else {
                         try {
 
-                            dosText2 = dos2.text.toString().toInt()
+                            dosText2 = dos2.text.toString().toDouble()
                             truth2 = true
                             dos2.error = "Completed"
                             errDos2.text=""
                         } catch (NumberFormatException: IllegalArgumentException) {
-                            dos2.error = "NON integer inputs for dosage"
-                            errDos2.text = "NON integer inputs for dosage"
+                            dos2.error = "NON Decimal inputs for dosage"
+                            errDos2.text = "NON Decimal inputs for dosage"
                             truth2 = false
                         }
                     }
@@ -218,6 +236,98 @@ class PatientPrescription : AppCompatActivity() {
             })
 
 
+
+        if ( pricePerDos1.text.toString().isBlank() ||  pricePerDos1.text.toString().isEmpty()) {
+
+            pricePerDos1.error = "No Input"
+        }
+        pricePerDos1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                pricePerDos1.error = "Accept Only Decimal"
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                pricePerDos1.error = "NON Decimal inputs for dosage"
+                errPriceMed1.text = "NON Decimal inputs for dosage"
+
+
+                try {
+                   priceDosText1 =pricePerDos1.text.toString().toDouble()
+                    truth = true
+                    pricePerDos1.error = "Completed"
+                    errPriceMed1.text=""
+                    price1=(dosText1*priceDosText1)
+                    priceMed1.text= price1.toString()
+
+
+                } catch (NumberFormatException: IllegalArgumentException) {
+                    truth = false
+                    pricePerDos1.error = "NON Decimal inputs for dosage"
+                   errPriceMed1.text = "NON Decimal inputs for dosage"
+
+                }
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+
+        })
+
+
+
+
+        if (pricePerDos2.text.toString().isBlank() || pricePerDos2.text.toString().isEmpty()) {
+
+            pricePerDos2.error = "No Input"
+        }
+
+
+        pricePerDos2.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                pricePerDos2.error = "Accept Only Decimal"
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                pricePerDos2.error = "NON Decimal inputs for dosage"
+                errPriceMed2.text = "NON Decimal inputs for dosage"
+                if (p0.toString().isBlank() || p0.toString().isEmpty()) {
+
+                    pricePerDos2.error = "No Input"
+                } else {
+                    try {
+
+                        priceDosText2 = pricePerDos2.text.toString().toDouble()
+                        truth2 = true
+                        pricePerDos2.error = "Completed"
+                        errPriceMed2.text=""
+
+                        price2=(dosText2*priceDosText2)
+                        priceMed2.text= price2.toString()
+                        totalPrice=price1+price2
+                        totalPriceMed.text=totalPrice.toString()
+                    } catch (NumberFormatException: IllegalArgumentException) {
+                        pricePerDos2.error = "NON Decimal inputs for dosage"
+                        errPriceMed2.text = "NON Decimal inputs for dosage"
+                        truth2 = false
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        })
+         price1=(dosText1*priceDosText1)
+        priceMed1.text= price1.toString()
+       price2=(dosText2*priceDosText2)
+        priceMed2.text= price2.toString()
+        totalPrice=price1+price2
+        totalPriceMed.text=totalPrice.toString()
         submit.setOnClickListener {
 
 
@@ -230,7 +340,10 @@ class PatientPrescription : AppCompatActivity() {
                 "medicine1" to medText,
                 "medicine2" to medText2,
                 "dosage1" to dosText1,
-                "dosage2" to dosText2
+                "dosage2" to dosText2,
+                "priceMed1" to price1,
+                "priceMed2" to price2,
+                "totalPriceMed" to totalPrice
 
 
             )
@@ -256,25 +369,36 @@ class PatientPrescription : AppCompatActivity() {
 
             }
             try {
-                dosText1 = dos1.text.toString().toInt()
+                dosText1 = dos1.text.toString().toDouble()
                 truth = true
                 dos1.error = "Completed"
                 errDos1.text=""
 
             } catch (NumberFormatException: IllegalArgumentException) {
                 truth = false
-                dos1.error = "NON integer inputs for dosage"
-                errDos1.text = "NON integer inputs for dosage"
+                dos1.error = "NON Decimal inputs for dosage"
+                errDos1.text = "NON Decimal inputs for dosage"
+
+            }
+
+            try {
+                priceDosText1 = pricePerDos1.text.toString().toDouble()
+                truth = true
+                pricePerDos1.error = "Completed"
+              errPriceMed1.text=""
+
+            } catch (NumberFormatException: IllegalArgumentException) {
+                truth = false
+                pricePerDos1.error = "NON Decimal inputs for dosage"
+                errPriceMed1.text = "NON Decimal inputs for dosage"
 
             }
 
 
 
 
-
-
             if ( (medText.isNotBlank()&&medText.isNotEmpty() &&  medText2.isNotBlank()&&medText2.isNotEmpty()) &&
-                dosText1!=0  ) {
+                dosText1!=0.0  && priceDosText1!=0.0) {
                 mFirebaseDatabaseInstance?.collection("userAppointment")
                     ?.document("$userName")?.update(
                         medicine as Map<String, Any>

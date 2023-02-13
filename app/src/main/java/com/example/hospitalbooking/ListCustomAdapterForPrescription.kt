@@ -63,6 +63,7 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         viewHolder.txtName.text=prescription.user.toString()
 //        viewHolder.txtDoc.text=prescription.doc.toString()
         val medi=prescription.medicine.toString()
+        val mediStr=prescription.medicine.toString()
 
         var str1: SpannableString
         var str2=SpannableString(medi)
@@ -78,7 +79,8 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
             str2=setColorText(subStr2,newPositionSub-2,newPositionSub+2)
 
         val str= TextUtils.concat(str1, str2);
-
+//        val priceStr=medi.substring(newPositionSub+2,mediStr.length)
+//        val fullStr=TextUtils.concat(str, priceStr);
 
         viewHolder.txtMedi.text=str
 

@@ -24,6 +24,7 @@ import kotlin.collections.ArrayList
 class DoctorViewAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     private var fragmentInput:String?=null
+    private var tempList=ArrayList<Prescription>()
     val arraylist = ArrayList<Prescription>()
     val arraySearchUser = ArrayList<Prescription>()
     val arraylistPro = ArrayList<String>()
@@ -133,7 +134,7 @@ class DoctorViewAppointment : AppCompatActivity() {
 //            fragmentSearchPatient(arr)
             docView.adapter = arr
 
-            var tempList=ArrayList<Prescription>()
+
             val searchView=findViewById<SearchView>(R.id.searchDoc)
             searchView.queryHint="search User"
 
@@ -168,7 +169,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                             }
 
 
-                                dataChanged(tempList)
+                                dataChanged()
 
 
 
@@ -197,8 +198,36 @@ class DoctorViewAppointment : AppCompatActivity() {
             docView.setOnItemClickListener { adapterView, view, i, l ->
 
                 val intent= Intent(this,PatientPrescription::class.java)
-                intent.putExtra("userName", arrayForSearch[i])
-                startActivity(intent)
+
+                var doctorAppointment=" "
+                if(tempList.isNotEmpty()){
+                    for(k in arrayForSearch.indices){
+
+                        if(arrayForSearch[k].contains(tempList.get(i).user.toString())
+                            &&arrayForSearch[k].contains(tempList.get(i).doc.toString())){
+
+                            doctorAppointment=arrayForSearch[k].toString()
+                        }
+
+
+
+                    }
+
+
+                    intent.putExtra("userName", doctorAppointment)
+//                intent.putExtra("doctorAppoint",appointment[i])
+                    startActivity(intent)
+                }
+                else{
+
+                    intent.putExtra("userName", arrayForSearch[i])
+//                intent.putExtra("doctorAppoint",appointment[i])
+                    startActivity(intent)
+
+                }
+
+
+
 
 
 
@@ -229,11 +258,11 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
 
-    private  fun dataChanged(arraylist:ArrayList<Prescription>)
+    private  fun dataChanged()
 {
 
     val docView = findViewById<ListView>(R.id.listDocAppoint)
-    var arr = ListCustomAdapterForPrescription(this,arraylist)
+    val arr = ListCustomAdapterForPrescription(this,tempList)
 
     docView.adapter = arr
 }

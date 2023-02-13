@@ -42,6 +42,7 @@ class MainPage : AppCompatActivity() {
     private lateinit var toggle:ActionBarDrawerToggle
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
     private var docDetail: String? = null
+     private val modalListSearch = ArrayList<ModalFormMain>()
     private var fragmentInput:String?=null
     var str=SpannableString("s")
     //    private lateinit var binding: ActivityMainBinding
@@ -346,11 +347,29 @@ class MainPage : AppCompatActivity() {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
 
-                val name = modalList.get(i).docName.toString()
-                val time = modalList.get(i).time.toString()
+                var name = " "
+//                val time = modalList.get(i).time.toString()
 //            val time = arraylistTime[i].toString()
 
-                if (time.contains('0')) {
+
+                name = if(modalListSearch.isNotEmpty()){
+
+                    modalListSearch.get(i).docName.toString()
+
+                } else{
+
+
+                    modalList.get(i).docName.toString()
+                }
+
+
+
+
+
+
+
+
+
 //                    writeUser(time,name,user)
                     val intent = Intent(this, AppointmentSelect::class.java)
                     intent.putExtra("DoctorName", name)
@@ -358,7 +377,7 @@ class MainPage : AppCompatActivity() {
 //                    Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
 //                    Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
 
-                }
+
 
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
 
@@ -1448,7 +1467,7 @@ class MainPage : AppCompatActivity() {
     private fun dataChanged(tempName: ArrayList<String>, searchQuery: String) {
         val docView: GridView = findViewById<GridView>(R.id.gridView)
         Toast.makeText(this,"$str",Toast.LENGTH_SHORT).show()
-        val modalListSearch = ArrayList<ModalFormMain>()
+
         modalListSearch.clear()
         var j = 0
 //        Toast.makeText(this,"$count",Toast.LENGTH_SHORT).show()

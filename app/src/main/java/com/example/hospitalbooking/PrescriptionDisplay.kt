@@ -102,6 +102,10 @@ class PrescriptionDisplay : AppCompatActivity() {
         var medicine2 = " "
         var dos1=" "
         var dos2=" "
+        var pricePerdos1=" "
+        var pricePerdos2=" "
+        var totalPrice=" "
+
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.presListCheck)
@@ -160,6 +164,10 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 dos1 = document.get("dosage1").toString()
                 dos2 = document.get("dosage2").toString()
+                pricePerdos1= document.get("priceMed1").toString()
+                pricePerdos2= document.get("priceMed2").toString()
+                totalPrice= document.get("totalPriceMed").toString()
+
 
                 user = document.get("user").toString()
 
@@ -177,7 +185,11 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 if (docName.contains("Dr")&&medicine1!="null") {
     //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
-                    val medi = "$medicine1\n$dos1 mg \n\n$medicine2\n$dos2 mg\n\n"
+                    val medi = "$medicine1\n$dos1 mg \n\n" +
+                            "RM $pricePerdos1 \n\n" +
+                            "$medicine2\n$dos2 mg\n\n"+
+                            "RM $pricePerdos2 \n\n" +
+                                    "Total= RM $totalPrice \n\n"
                     arraylistPres.add(Prescription(user, docName, medi, 0F))
 //                    arraylistMedi.add(medi)
 

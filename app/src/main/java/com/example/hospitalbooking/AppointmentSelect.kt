@@ -441,7 +441,7 @@ class AppointmentSelect : AppCompatActivity() {
             }
 //        val loginUser=readUser()
             val user = hashMapOf(
-                "doctorAppoint" to appointTime,
+                "doctorAppoint" to docName+appointTime,
                 "user" to loginUser,
                 "docName" to docName
 
