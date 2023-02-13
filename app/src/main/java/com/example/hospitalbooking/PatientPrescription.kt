@@ -308,6 +308,7 @@ class PatientPrescription : AppCompatActivity() {
 
                         price2=(dosText2*priceDosText2)
                         priceMed2.text= price2.toString()
+
                         totalPrice=price1+price2
                         totalPriceMed.text=totalPrice.toString()
                     } catch (NumberFormatException: IllegalArgumentException) {
@@ -326,7 +327,14 @@ class PatientPrescription : AppCompatActivity() {
         priceMed1.text= price1.toString()
        price2=(dosText2*priceDosText2)
         priceMed2.text= price2.toString()
-        totalPrice=price1+price2
+        totalPrice = if(price2!=0.0||price2.isNaN()){
+
+            price1+price2
+        } else{
+            price1
+
+        }
+
         totalPriceMed.text=totalPrice.toString()
         submit.setOnClickListener {
 
