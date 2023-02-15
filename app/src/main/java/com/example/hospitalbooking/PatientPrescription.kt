@@ -85,8 +85,9 @@ class PatientPrescription : AppCompatActivity() {
 
         var medText = medi1.text.toString().replace(" ", "")
         var medText2 = med2.text.toString().replace(" ", "")
-
-
+        priceMed1.text="RM*******"
+        priceMed2.text="RM*******"
+        totalPriceMed.text="RM*******"
         medi1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!isLetters(p0.toString()) && p0.toString().isEmpty() || p0.toString()
@@ -258,7 +259,7 @@ class PatientPrescription : AppCompatActivity() {
                     pricePerDos1.error = "Completed"
                     errPriceMed1.text=""
                     price1=(dosText1*priceDosText1)
-                    priceMed1.text= price1.toString()
+                    priceMed1.text= "RM"+price1.toString()
 
 
                 } catch (NumberFormatException: IllegalArgumentException) {
@@ -307,10 +308,10 @@ class PatientPrescription : AppCompatActivity() {
                         errPriceMed2.text=""
 
                         price2=(dosText2*priceDosText2)
-                        priceMed2.text= price2.toString()
+                        priceMed2.text="RM"+ price2.toString()
 
                         totalPrice=price1+price2
-                        totalPriceMed.text=totalPrice.toString()
+                        totalPriceMed.text="RM"+totalPrice.toString()
                     } catch (NumberFormatException: IllegalArgumentException) {
                         pricePerDos2.error = "NON Decimal inputs for dosage"
                         errPriceMed2.text = "NON Decimal inputs for dosage"
@@ -324,18 +325,18 @@ class PatientPrescription : AppCompatActivity() {
             }
         })
          price1=(dosText1*priceDosText1)
-        priceMed1.text= price1.toString()
+        priceMed1.text= "RM"+price1.toString()
        price2=(dosText2*priceDosText2)
-        priceMed2.text= price2.toString()
+        priceMed2.text= "RM"+price2.toString()
         totalPrice = if(price2!=0.0||price2.isNaN()){
 
-            price1+price2
+            +price1+price2
         } else{
             price1
 
         }
 
-        totalPriceMed.text=totalPrice.toString()
+        totalPriceMed.text="RM"+totalPrice.toString()
         submit.setOnClickListener {
 
 

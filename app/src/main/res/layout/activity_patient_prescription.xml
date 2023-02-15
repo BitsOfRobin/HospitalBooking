@@ -125,7 +125,11 @@
             android:textColor="#9C27B0"
             android:textSize="30dp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
 
+            android:background="#ECD285"/>
         <TextView
             android:text="Medicine 2 "
             android:textSize="30dp"
@@ -253,7 +257,11 @@
             android:text=" Price Medicine 2"
             android:textColor="#9C27B0"
             android:textSize="30dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
 
+            android:background="#ECD285"/>
         <TextView
             android:id="@+id/totalPrice"
             android:layout_width="match_parent"
@@ -264,7 +272,11 @@
             android:textSize="30dp" />
 
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
 
+            android:background="#ECD285"/>
 
 
 
