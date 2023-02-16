@@ -325,9 +325,9 @@ class PatientPrescription : AppCompatActivity() {
             }
         })
          price1=(dosText1*priceDosText1)
-        priceMed1.text= "RM"+price1.toString()
+        priceMed1.text= "Subtotal: RM"+price1.toString()
        price2=(dosText2*priceDosText2)
-        priceMed2.text= "RM"+price2.toString()
+        priceMed2.text= "Subtotal: RM"+price2.toString()
         totalPrice = if(price2!=0.0||price2.isNaN()){
 
             +price1+price2
@@ -336,7 +336,7 @@ class PatientPrescription : AppCompatActivity() {
 
         }
 
-        totalPriceMed.text="RM"+totalPrice.toString()
+        totalPriceMed.text="Total: RM"+totalPrice.toString()
         submit.setOnClickListener {
 
 
