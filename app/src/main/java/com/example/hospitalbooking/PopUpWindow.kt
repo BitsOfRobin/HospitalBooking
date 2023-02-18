@@ -12,6 +12,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -195,17 +201,17 @@ class PopUpWindow : AppCompatActivity() {
 
                 }
                 R.id.nav_viewAppoint-> {
-                    val intent = Intent(this,DoctorAppointment::class.java)
+                    val intent = Intent(this, DoctorAppointment::class.java)
                     startActivity(intent)
 
                 }
                 R.id.nav_medicineRecord-> {
-                    val  intent = Intent(this,MedicineRecord::class.java)
+                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
                 R.id.nav_OCR-> {
-                    val intent = Intent(this,UserMedicine::class.java)
+                    val intent = Intent(this, UserMedicine::class.java)
                     startActivity(intent)
                 }
 

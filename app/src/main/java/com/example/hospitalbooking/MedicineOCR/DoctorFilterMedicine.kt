@@ -1,8 +1,9 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.MedicineOCR
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase

@@ -13,31 +13,31 @@
             android:name=".PopUpWindow"
             android:exported="false" />
         <activity
-            android:name=".PrescriptionDisplay"
+            android:name=".PrescriptionControl.PrescriptionDisplay"
             android:exported="false" />
         <activity
-            android:name=".PatientPrescription"
+            android:name=".PrescriptionControl.PatientPrescription"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewAppointment"
+            android:name=".AdminManagementOnAppointment.DoctorViewAppointment"
             android:exported="false" />
         <activity
-            android:name=".DoctorFilterMedicine"
+            android:name=".MedicineOCR.DoctorFilterMedicine"
             android:exported="false" />
         <activity
             android:name=".MedicineListView"
             android:exported="false" />
         <activity
-            android:name=".MedicineRecord"
+            android:name=".MedicineOCR.MedicineRecord"
             android:exported="false" />
         <activity
-            android:name=".DoctorInformation"
+            android:name=".DoctorInformationManagement.DoctorInformation"
             android:exported="false" />
         <activity
-            android:name=".UploadImg"
+            android:name=".DoctorInformationManagement.UploadImg"
             android:exported="false" />
         <activity
-            android:name=".CalendarTimePicker"
+            android:name=".AdminManagementOnAppointment.CalendarTimePicker"
             android:exported="false" />
         <activity
             android:name=".CalendarTimePocker"
@@ -46,28 +46,28 @@
             android:name=".FilterAppointment"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name=".GoogleLogInForAdminAndUser.Profile"
             android:exported="false" />
         <activity
-            android:name=".UserLogin"
+            android:name=".GoogleLogInForAdminAndUser.UserLogin"
             android:exported="false" />
         <activity
             android:name=".UserRegister"
             android:exported="false" />
         <activity
-            android:name=".MedicineViewCustomer"
+            android:name=".DoctorInformationManagement.MedicineViewCustomer"
             android:exported="false" />
         <activity
-            android:name=".MainPage"
+            android:name=".BookingAppointment.MainPage"
             android:exported="false" />
         <activity
-            android:name=".DoctorAppointment"
+            android:name=".UserAppointmentManagement.DoctorAppointment"
             android:exported="false" />
         <activity
-            android:name=".UserMedicine"
+            android:name=".MedicineOCR.UserMedicine"
             android:exported="false" />
         <activity
-            android:name=".AppointmentSelect"
+            android:name=".BookingAppointment.AppointmentSelect"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

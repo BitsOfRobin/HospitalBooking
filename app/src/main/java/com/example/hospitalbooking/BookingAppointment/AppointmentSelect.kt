@@ -1,7 +1,6 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.BookingAppointment
 
-import MyCache
-import android.annotation.SuppressLint
+import com.example.hospitalbooking.KotlinClass.MyCache
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
@@ -19,6 +18,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.hospitalbooking.*
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.UserLogin
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -113,7 +119,7 @@ class AppointmentSelect : AppCompatActivity() {
         val tempHolder = intent.getStringExtra("DoctorName")
         val docSpin = findViewById<Spinner>(R.id.spinDocAppoint)
         val img=findViewById<ImageView>(R.id.imageSelect)
-        val cache=MyCache()
+        val cache= MyCache()
         img.setImageBitmap(cache.retrieveBitmapFromCache(tempHolder.toString()))
         docName = tempHolder.toString()
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
@@ -600,7 +606,7 @@ class AppointmentSelect : AppCompatActivity() {
 
         val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
         val nav_view=findViewById<NavigationView>(R.id.nav_view)
-        toggle= ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -610,7 +616,7 @@ class AppointmentSelect : AppCompatActivity() {
 
             when(it.itemId){
 
-                R.id.nav_BookAppoint-> {
+                R.id.nav_BookAppoint -> {
                     val intent = Intent(this, MainPage::class.java)
                     startActivity(intent)
 
@@ -619,33 +625,33 @@ class AppointmentSelect : AppCompatActivity() {
 
 
 
-                R.id.nav_Pres-> {
+                R.id.nav_Pres -> {
                     val intent = Intent(this, PrescriptionDisplay::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_home-> {
+                R.id.nav_home -> {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_profile-> {
+                R.id.nav_profile -> {
                     val intent = Intent(this, Profile::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_viewAppoint-> {
-                    val intent = Intent(this,DoctorAppointment::class.java)
+                R.id.nav_viewAppoint -> {
+                    val intent = Intent(this, DoctorAppointment::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_medicineRecord-> {
-                    val  intent = Intent(this,MedicineRecord::class.java)
+                R.id.nav_medicineRecord -> {
+                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_OCR-> {
-                    val intent = Intent(this,UserMedicine::class.java)
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
                     startActivity(intent)
                 }
 

@@ -1,4 +1,4 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.GoogleLogInForAdminAndUser
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.example.hospitalbooking.*
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,7 +26,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import java.lang.Exception
 
 class UserLogin : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -234,7 +238,7 @@ private companion object{
 
         val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
         val nav_view=findViewById<NavigationView>(R.id.nav_view)
-        toggle= ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -244,7 +248,7 @@ private companion object{
 
             when(it.itemId){
 
-                R.id.nav_BookAppoint-> {
+                R.id.nav_BookAppoint -> {
                     val intent = Intent(this, MainPage::class.java)
                     startActivity(intent)
 
@@ -253,33 +257,33 @@ private companion object{
 
 
 
-                R.id.nav_Pres-> {
+                R.id.nav_Pres -> {
                     val intent = Intent(this, PrescriptionDisplay::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_home-> {
+                R.id.nav_home -> {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_profile-> {
+                R.id.nav_profile -> {
                     val intent = Intent(this, Profile::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_viewAppoint-> {
-                    val intent = Intent(this,DoctorAppointment::class.java)
+                R.id.nav_viewAppoint -> {
+                    val intent = Intent(this, DoctorAppointment::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_medicineRecord-> {
-                    val  intent = Intent(this,MedicineRecord::class.java)
+                R.id.nav_medicineRecord -> {
+                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_OCR-> {
-                    val intent = Intent(this,UserMedicine::class.java)
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
                     startActivity(intent)
                 }
 

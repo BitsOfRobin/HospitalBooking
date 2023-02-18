@@ -1,3 +1,5 @@
+package com.example.hospitalbooking.KotlinClass
+
 import android.graphics.Bitmap
 import androidx.collection.LruCache
 
@@ -21,7 +23,7 @@ class MyCache() {
     fun saveBitmapToCahche(key: String, bitmap: Bitmap) {
 
         try {
-            MyCache.instance.lru.put(key, bitmap)
+            instance.lru.put(key, bitmap)
         } catch (e: Exception) {
         }
 
@@ -30,7 +32,7 @@ class MyCache() {
     fun retrieveBitmapFromCache(key: String): Bitmap? {
 
         try {
-            return MyCache.instance.lru.get(key) as Bitmap?
+            return instance.lru.get(key) as Bitmap?
         } catch (e: Exception) {
         }
 

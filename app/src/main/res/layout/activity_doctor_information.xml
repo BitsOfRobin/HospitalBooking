@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".DoctorInformation">
+    tools:context=".DoctorInformationManagement.DoctorInformation">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

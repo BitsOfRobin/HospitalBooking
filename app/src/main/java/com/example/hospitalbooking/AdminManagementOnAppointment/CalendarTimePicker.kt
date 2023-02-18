@@ -1,6 +1,6 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.AdminManagementOnAppointment
 
-import MyCache
+import com.example.hospitalbooking.KotlinClass.MyCache
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -8,13 +8,12 @@ import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
@@ -61,7 +60,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         val doctorName = intent.getStringExtra("DoctorName")
 
-        val cache=MyCache()
+        val cache= MyCache()
         val img= doctorName?.let { cache.retrieveBitmapFromCache(it) }
         val docImg=findViewById<ImageView>(R.id.docImg)
         docImg.setImageBitmap(img)

@@ -1,4 +1,4 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.DoctorInformationManagement
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.example.hospitalbooking.R
 import com.google.firebase.storage.FirebaseStorage
 
 class UploadImg : AppCompatActivity() {
@@ -63,7 +64,7 @@ class UploadImg : AppCompatActivity() {
                 firebaseImg.setImageURI(null)
                 if(progressDialog.isShowing)progressDialog.dismiss()
                 Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
-                val intent= Intent(this,DoctorInformation::class.java)
+                val intent= Intent(this, DoctorInformation::class.java)
                 intent.putExtra("DoctorName", docName)
                 startActivity(intent)
 

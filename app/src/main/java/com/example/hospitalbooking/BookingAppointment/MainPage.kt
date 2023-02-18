@@ -1,8 +1,8 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.BookingAppointment
 
 
 
-import MyCache
+import com.example.hospitalbooking.KotlinClass.MyCache
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
@@ -26,6 +26,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
+import com.example.hospitalbooking.*
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.UserLogin
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.AdminManagementOnAppointment.CalendarTimePicker
+import com.example.hospitalbooking.KotlinClass.ModalFormMain
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -238,7 +247,7 @@ class MainPage : AppCompatActivity() {
 
 
 //
-            val cache=MyCache()
+            val cache= MyCache()
             var check=0
 
                 for(i in arraylistName.indices){
@@ -402,7 +411,7 @@ class MainPage : AppCompatActivity() {
         val docView = findViewById<GridView>(R.id.gridView)
         var detect = 0
         val extractName = ArrayList<String>()
-         val cache=MyCache()
+         val cache= MyCache()
          val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
          var times=0
 //        extractName.clear()
@@ -512,7 +521,7 @@ class MainPage : AppCompatActivity() {
         val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
         swipe.isRefreshing=true
         val docView=findViewById<GridView>(R.id.gridView)
-        val cache=MyCache()
+        val cache= MyCache()
         for (i in arraylistName.indices) {
             val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
             var time = arraylistTime[i] + "\n" + arraylistTime2[i]
@@ -711,7 +720,7 @@ class MainPage : AppCompatActivity() {
 //                    count=0
                         arrBitMap.add(bitmap)
 //                    modalList.add(docModal(arraylist[i],))
-                        val cache=MyCache()
+                        val cache= MyCache()
                         cache.saveBitmapToCahche(arraylistName[i],bitmap)
 //                    Toast.makeText(this,"success to retrieve iamge",Toast.LENGTH_SHORT).show()
 
@@ -895,7 +904,7 @@ class MainPage : AppCompatActivity() {
 //                .load(itemModel[position].image)
 //                .into(imageView)
             val doc=itemModel[position].docName.toString()
-            val cache=MyCache()
+            val cache= MyCache()
             val bit: Bitmap? =cache.retrieveBitmapFromCache(doc)
             itemModel[position].image=bit
             with(context)
@@ -1225,7 +1234,7 @@ class MainPage : AppCompatActivity() {
                     }
 
                     modalList.removeAt(i)
-                    val arr=CustomAdapter(modalList,this)
+                    val arr= CustomAdapter(modalList,this)
                     arr.notifyDataSetChanged()
                     docView.adapter=arr
 
@@ -1297,7 +1306,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        val custom=CustomAdapter(modalList,this)
+        val custom= CustomAdapter(modalList,this)
 
         val proAdapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
@@ -1454,13 +1463,13 @@ class MainPage : AppCompatActivity() {
 
     private fun showMsg(docView: GridView) {
 
-    val arr=ArrayList<String>()
-    arr.add("Doctor is not found")
-    val arrayAdapter = ArrayAdapter(this,
-        android.R.layout.select_dialog_item,arr)
+        val arr=ArrayList<String>()
+        arr.add("Doctor is not found")
+        val arrayAdapter = ArrayAdapter(this,
+            android.R.layout.select_dialog_item,arr)
 
-    docView.adapter=arrayAdapter
-        Toast.makeText(this, "Doctor is not found", Toast.LENGTH_SHORT).show()
+        docView.adapter=arrayAdapter
+            Toast.makeText(this, "Doctor is not found", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -1481,7 +1490,7 @@ class MainPage : AppCompatActivity() {
 //                fireb.getFile(localfile).addOnCompleteListener{
 //
 //                    bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                    val cache=MyCache()
+                    val cache= MyCache()
                     val bitmap: Bitmap? =cache.retrieveBitmapFromCache(tempName[j])
                     val time = arraylistTime[i] + "\n" + arraylistTime2[i]
                 bitmap?.let {
@@ -1510,7 +1519,7 @@ class MainPage : AppCompatActivity() {
 
                 if(searchQuery.isNotBlank()&&searchQuery.isNotEmpty()){
 
-                    val custom=CustomAdapter(modalList,this)
+                    val custom= CustomAdapter(modalList,this)
                     custom.filter.filter(searchQuery)
                     custom.setColorText(searchQuery,i)
                 }
@@ -1578,7 +1587,7 @@ class MainPage : AppCompatActivity() {
 
         val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
         val nav_view=findViewById<NavigationView>(R.id.nav_view)
-        toggle= ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -1588,7 +1597,7 @@ class MainPage : AppCompatActivity() {
 
             when(it.itemId){
 
-                R.id.nav_BookAppoint-> {
+                R.id.nav_BookAppoint -> {
                     val intent = Intent(this, MainPage::class.java)
                     startActivity(intent)
 
@@ -1597,33 +1606,33 @@ class MainPage : AppCompatActivity() {
 
 
 
-                R.id.nav_Pres-> {
+                R.id.nav_Pres -> {
                     val intent = Intent(this, PrescriptionDisplay::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_home-> {
+                R.id.nav_home -> {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_profile-> {
+                R.id.nav_profile -> {
                     val intent = Intent(this, Profile::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_viewAppoint-> {
-                    val intent = Intent(this,DoctorAppointment::class.java)
+                R.id.nav_viewAppoint -> {
+                    val intent = Intent(this, DoctorAppointment::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_medicineRecord-> {
-                    val  intent = Intent(this,MedicineRecord::class.java)
+                R.id.nav_medicineRecord -> {
+                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_OCR-> {
-                    val intent = Intent(this,UserMedicine::class.java)
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
                     startActivity(intent)
                 }
 

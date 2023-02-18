@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="16dp"
-    tools:context=".MedicineViewCustomer">
+    tools:context=".DoctorInformationManagement.MedicineViewCustomer">
 
     <TextView
         android:layout_width="wrap_content"

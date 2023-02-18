@@ -1,6 +1,6 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.Adapter
 
-import MyCache
+import com.example.hospitalbooking.KotlinClass.MyCache
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
@@ -12,9 +12,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
+import com.example.hospitalbooking.KotlinClass.AppointmentDetail
+import com.example.hospitalbooking.R
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -38,12 +39,12 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var view:View
-        var viewHolder:ViewHolder
+        var viewHolder: ViewHolder
         if(p1==null)
         {
             var layout=LayoutInflater.from(context)
             view=layout.inflate(R.layout.customlistview,p2,false)
-            viewHolder=ViewHolder(view)
+            viewHolder= ViewHolder(view)
             view.tag=viewHolder
         }
 
@@ -112,7 +113,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         val firebaseUser=firebaseAuth.currentUser
         val image= firebaseUser?.photoUrl
         Picasso.get().load(image).into(viewHolder.ivImage);
-        val cache=MyCache()
+        val cache= MyCache()
         val bit: Bitmap? =cache.retrieveBitmapFromCache(docName)
         Glide.with(context)
             .load(bit)

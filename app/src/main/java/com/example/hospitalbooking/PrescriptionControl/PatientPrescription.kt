@@ -1,4 +1,4 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.PrescriptionControl
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
+import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase

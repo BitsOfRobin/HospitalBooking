@@ -1,11 +1,9 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.Adapter
 
-import MyCache
+import com.example.hospitalbooking.KotlinClass.MyCache
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.location.GnssAntennaInfo
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.text.SpannableString
@@ -17,6 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.example.hospitalbooking.KotlinClass.Prescription
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.R
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -45,12 +46,12 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var view:View
-        var viewHolder:ViewHolder
+        var viewHolder: ViewHolder
         if(p1==null)
         {
             var layout= LayoutInflater.from(context)
             view=layout.inflate(R.layout.list_view_prescription,p2,false)
-            viewHolder=ViewHolder(view)
+            viewHolder= ViewHolder(view)
             view.tag=viewHolder
         }
 
@@ -151,11 +152,11 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
 
 //        val bitmap = BitmapFactory.decodeFile(image!!.path)
 
-        val cache=MyCache()
+        val cache= MyCache()
 //        Glide.with(context)
 //            .load(cache.retrieveBitmapFromCache("a"))
 //            .into(viewHolder.ivImage2)
-//        val cache=MyCache()
+//        val cache=com.example.hospitalbooking.KotlinClass.MyCache()
 //        cache.saveBitmapToCahche(firebaseUser.toString(),bitmap)
 //        cache.retrieveBitmapFromCache(firebaseUser.toString())
 //        Picasso.get().load(image).into(viewHolder.ivImage);

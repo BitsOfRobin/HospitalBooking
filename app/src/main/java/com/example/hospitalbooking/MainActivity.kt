@@ -1,6 +1,6 @@
 package com.example.hospitalbooking
 
-import MyCache
+import com.example.hospitalbooking.KotlinClass.MyCache
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -17,8 +17,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.DoctorInformationManagement.UploadImg
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.UserLogin
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
+import com.example.hospitalbooking.AdminManagementOnAppointment.DoctorViewAppointment
+import com.example.hospitalbooking.MedicineOCR.DoctorFilterMedicine
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase

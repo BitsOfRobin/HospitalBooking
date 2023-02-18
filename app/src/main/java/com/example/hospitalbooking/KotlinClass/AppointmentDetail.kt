@@ -1,4 +1,4 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.KotlinClass
 
 import android.graphics.Bitmap
 

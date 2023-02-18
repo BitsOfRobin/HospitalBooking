@@ -1,4 +1,4 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.UserAppointmentManagement
 
 
 
@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -24,6 +23,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.hospitalbooking.*
+import com.example.hospitalbooking.Adapter.listCustomAdapter
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
+import com.example.hospitalbooking.KotlinClass.AppointmentDetail
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -274,8 +281,8 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-            val arr=listCustomAdapter(this,arraylistAppointment)
-            val arrPast=listCustomAdapter(this,arraylistPastAppointment)
+            val arr= listCustomAdapter(this,arraylistAppointment)
+            val arrPast= listCustomAdapter(this,arraylistPastAppointment)
 
 
 
@@ -472,7 +479,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
                 arraylistAppointment.removeAt(i)
-                val arr=listCustomAdapter(this,arraylistAppointment)
+                val arr= listCustomAdapter(this,arraylistAppointment)
                 arr.notifyDataSetChanged()
                 docView.adapter=arr
 //                refreshAppoint()
@@ -553,7 +560,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 //                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
                 arraylistPastAppointment.removeAt(i)
-                val arrPast=listCustomAdapter(this,arraylistPastAppointment)
+                val arrPast= listCustomAdapter(this,arraylistPastAppointment)
                 arrPast.notifyDataSetChanged()
                 docView.adapter=arrPast
 //                refreshAppoint()
@@ -650,7 +657,7 @@ class DoctorAppointment : AppCompatActivity() {
 
         val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
         val nav_view=findViewById<NavigationView>(R.id.nav_view)
-        toggle= ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -660,7 +667,7 @@ class DoctorAppointment : AppCompatActivity() {
 
             when(it.itemId){
 
-                R.id.nav_BookAppoint-> {
+                R.id.nav_BookAppoint -> {
                     val intent = Intent(this, MainPage::class.java)
                     startActivity(intent)
 
@@ -669,33 +676,33 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-                R.id.nav_Pres-> {
+                R.id.nav_Pres -> {
                     val intent = Intent(this, PrescriptionDisplay::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_home-> {
+                R.id.nav_home -> {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_profile-> {
+                R.id.nav_profile -> {
                     val intent = Intent(this, Profile::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_viewAppoint-> {
-                    val intent = Intent(this,DoctorAppointment::class.java)
+                R.id.nav_viewAppoint -> {
+                    val intent = Intent(this, DoctorAppointment::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_medicineRecord-> {
-                    val  intent = Intent(this,MedicineRecord::class.java)
+                R.id.nav_medicineRecord -> {
+                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
-                R.id.nav_OCR-> {
-                    val intent = Intent(this,UserMedicine::class.java)
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
                     startActivity(intent)
                 }
 

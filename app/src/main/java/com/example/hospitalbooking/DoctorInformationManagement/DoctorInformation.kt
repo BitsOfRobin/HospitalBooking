@@ -1,4 +1,4 @@
-package com.example.hospitalbooking
+package com.example.hospitalbooking.DoctorInformationManagement
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -93,7 +95,7 @@ class DoctorInformation : AppCompatActivity() {
                         Toast.makeText(this,"Failed to add doctor", Toast.LENGTH_SHORT).show()
                     }
 
-                val intent= Intent(this,MainPage::class.java)
+                val intent= Intent(this, MainPage::class.java)
                 intent.putExtra("DoctorName", docName)
                 startActivity(intent)
 

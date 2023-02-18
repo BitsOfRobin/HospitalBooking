@@ -1,6 +1,5 @@
 package com.example.hospitalbooking
 
-import android.app.SearchManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -8,6 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import com.example.hospitalbooking.AdminManagementOnAppointment.DoctorViewAppointment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +39,7 @@ class ViewPatientFragment :  Fragment(R.layout.fragment_view_patient){
 
         val temp = ArrayList<String>()
 //        var mainPage:MainPage=MainPage()
-        val doctorViewAppoint=DoctorViewAppointment()
+        val doctorViewAppoint= DoctorViewAppointment()
 //        mainPage.getDataDoc()
 //        val getData=mainPage.getDataDoc()
         menuitem=menu.findItem(R.id.app_bar_search)
