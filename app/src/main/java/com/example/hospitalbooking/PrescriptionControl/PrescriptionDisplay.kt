@@ -488,6 +488,9 @@ class PrescriptionDisplay : AppCompatActivity() {
         var medicine2 = ""
         var dos1=""
         var dos2=""
+        var pricePerdos1=" "
+        var pricePerdos2=" "
+        var totalPrice=" "
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.presListCheck)
@@ -548,6 +551,12 @@ class PrescriptionDisplay : AppCompatActivity() {
                 dos2 = document.get("dosage2").toString()
 
                 user = document.get("user").toString()
+                pricePerdos1= document.get("priceMed1").toString()
+                pricePerdos2= document.get("priceMed2").toString()
+                totalPrice= document.get("totalPriceMed").toString()
+
+
+
                 if ( user.isNotBlank() &&  user.isNotEmpty()&&user!="null") {
                     arraylistUser.add(user)
                 }
@@ -563,7 +572,16 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 if (docName.contains("Dr")) {
 //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
-                    val medi = "$medicine1\n$dos1 mg \n\n$medicine2\n$dos2 mg\n\n"
+//                    val medi = "$medicine1\n$dos1 mg \n\n$medicine2\n$dos2 mg\n\n"
+
+
+                    val medi = "$medicine1\n$dos1 mg \n\n" +
+                            "RM $pricePerdos1 \n\n" +
+                            "$medicine2\n$dos2 mg\n\n"+
+                            "RM $pricePerdos2 \n\n" +
+                            "Total= RM $totalPrice \n\n"
+
+
                     arraylistPres.add(Prescription(user, docName, medi, 0F))
                     arraylistMedi.add(medi)
 //                    Toast.makeText(this,"$medi",Toast.LENGTH_SHORT).show()
