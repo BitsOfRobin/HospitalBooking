@@ -359,7 +359,7 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-            Toast.makeText(this,"T2$arraylistName",Toast.LENGTH_SHORT).show()
+
 
             var check=0
             for(i in arraylistName.indices){
@@ -408,7 +408,7 @@ class MainActivity : AppCompatActivity() {
     private fun getImg() {
 
         val arrBitMap = ArrayList<Bitmap>()
-        Toast.makeText(this,"M2$arraylistName",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Loaded Successfully from Cloud Storage",Toast.LENGTH_SHORT).show()
 
         val extractName = ArrayList<String>()
         val cache = MyCache()

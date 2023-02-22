@@ -43,7 +43,7 @@ class DoctorInformation : AppCompatActivity() {
 //                imageArr.add(bitmap)
             bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
             val imgDoct = findViewById<ImageView>(R.id.ImgMed)
-                imgDoct.setImageBitmap(bitmap)
+            imgDoct.setImageBitmap(bitmap)
 
         }
 
@@ -62,7 +62,7 @@ class DoctorInformation : AppCompatActivity() {
 
             val dtpro=docPro.text
             val pro=dtpro.toString()
-            val rateFrequency=0.0
+            val rateFrequency=0.0F
 //        pro=pro.replace(" ","")
             val letter:Boolean=isLetters(pro)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()

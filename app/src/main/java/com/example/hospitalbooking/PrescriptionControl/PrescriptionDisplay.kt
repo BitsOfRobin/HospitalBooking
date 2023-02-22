@@ -226,6 +226,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         }
 
 
+
 //            var rating=0.0
             docView.setOnItemClickListener { adapterView, view2, i, l ->
 
@@ -240,8 +241,8 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 builder.setPositiveButton("Submit") { dialog, which ->
                     val rating = ratingBar.rating
-
-                    getRate(arraylistDocName[i],rating)
+                    calStar(rating,arraylistDocName[i])
+//                    getRate(arraylistDocName[i],rating)
                 }
 
                 builder.setNegativeButton("Cancel") { dialog, which ->
@@ -725,17 +726,17 @@ class PrescriptionDisplay : AppCompatActivity() {
 //        val  doc =doctor?.uid
 
 //
-        mFirebaseDatabaseInstance?.collection("doctor")?.document(docName.toString())?.update("rating",rate)
-            ?.addOnSuccessListener {
-
-
-                Toast.makeText(this,"Successfully rate  doctor ", Toast.LENGTH_SHORT).show()
-
-            }
-            ?.addOnFailureListener {
-
-                Toast.makeText(this, "Failed to rate doctor", Toast.LENGTH_SHORT).show()
-            }
+//        mFirebaseDatabaseInstance?.collection("doctor")?.document(docName.toString())?.update("rating",rate)
+//            ?.addOnSuccessListener {
+//
+//
+//                Toast.makeText(this,"Successfully rate  doctor ", Toast.LENGTH_SHORT).show()
+//
+//            }
+//            ?.addOnFailureListener {
+//
+//                Toast.makeText(this, "Failed to rate doctor", Toast.LENGTH_SHORT).show()
+//            }
 
 
 //        userNum+=1
@@ -746,6 +747,81 @@ class PrescriptionDisplay : AppCompatActivity() {
 
 
     }
+
+    private fun calStar( rate: Float,docName:String) {
+
+        var rateStar= 0.0
+        var rateFrequency= 0.0
+        mFirebaseDatabaseInstance?.collection("doctor")?.whereEqualTo("name", docName)?.get()
+            ?.addOnSuccessListener {
+
+
+                for (document in it) {
+
+                    rateStar = document.get("rating") as Double
+                    rateFrequency = document.get("rateFrequency") as Double
+
+
+
+                }
+
+
+            } ?.addOnFailureListener {
+
+                Toast.makeText(this, "Failed to retrieve rate frequency", Toast.LENGTH_SHORT).show()
+            }
+        var rateFrequencyUpdate=rateFrequency.toInt()
+        rateFrequency++
+
+        rateFrequency=rateFrequencyUpdate.toDouble()
+        val res=rateStar + rate
+
+
+
+
+        updateRating(docName,res,rateFrequency)
+
+
+
+
+
+    }
+
+
+    private fun updateRating(docName:String,res:Double,rateFrequency:Double){
+
+        val ratingUpdate= hashMapOf(
+            "rating" to res,
+
+            "rateFrequency" to rateFrequency
+
+
+
+
+        )
+
+        val docRefUpdateRating=   mFirebaseDatabaseInstance?.collection("doctor")?.document(docName)
+
+
+        docRefUpdateRating?.update(ratingUpdate as Map<String, Any>)
+            ?.addOnSuccessListener {
+
+
+                Toast.makeText(this,"Successfully update rating ", Toast.LENGTH_SHORT).show()
+
+            }
+            ?.addOnFailureListener {
+
+                Toast.makeText(this, "Failed to update rating", Toast.LENGTH_SHORT).show()
+            }
+
+//        1*a+2*b+3*c+4*d+5*e/(5*#R)
+
+
+        Toast.makeText(this,"total rating is $res",Toast.LENGTH_SHORT).show()
+    }
+
+
 
 
 

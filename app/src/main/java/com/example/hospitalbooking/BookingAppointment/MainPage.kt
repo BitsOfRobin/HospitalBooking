@@ -524,20 +524,20 @@ class MainPage : AppCompatActivity() {
         val cache= MyCache()
         for (i in arraylistName.indices) {
             val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
-            var time = arraylistTime[i] + "\n" + arraylistTime2[i]
+                var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
 
-                bitmap?.let {
-                    ModalFormMain(
-                        arraylistPro[i],
-                        it,
-                        arraylistName[i],
-                        time
-                    )
-                }?.let {
-                    modalList.add(
-                        it
-                    )
-                }
+                    bitmap?.let {
+                        ModalFormMain(
+                            arraylistPro[i],
+                            it,
+                            arraylistName[i],
+                            time
+                        )
+                    }?.let {
+                        modalList.add(
+                            it
+                        )
+                    }
 
 //            Toast.makeText(this,"b$bitmap", Toast.LENGTH_SHORT ).show()
 
@@ -1203,13 +1203,13 @@ class MainPage : AppCompatActivity() {
 //                            .show()
 //
 //                    }
-
+                    val deleteDoc=modalList.get(i).docName
                     docRef
                         .delete()
                         .addOnSuccessListener {
                             Toast.makeText(
                                 this,
-                                "${modalList.get(i).docName}\" successfully deleted!",
+                                "${deleteDoc}\" successfully deleted!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -1221,12 +1221,13 @@ class MainPage : AppCompatActivity() {
                             ).show()
                         }
 
-//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+
+
                     val fireb = Firebase.storage.reference.child("Img/${modalList.get(i).docName}.jpg")
                     fireb.delete().addOnSuccessListener {
                         Toast.makeText(
                             this,
-                            "Successfully delete images${modalList.get(i).docName}",
+                            "Successfully delete images${deleteDoc}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }.addOnFailureListener {
@@ -1279,19 +1280,19 @@ class MainPage : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
         autoCompleteTextView.setAdapter(adapter)
         autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-            val selectedItem = parent.getItemAtPosition(position) as String
+                val selectedItem = parent.getItemAtPosition(position) as String
 
 
 
-//            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
-//
-//
-//                searchView.setQuery(null,true)
-//            }
-//            else{
+    //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
+    //
+    //
+    //                searchView.setQuery(null,true)
+    //            }
+    //            else{
 
-                searchView.setQuery(selectedItem, true)
-//            }
+                    searchView.setQuery(selectedItem, true)
+    //            }
 
 
 

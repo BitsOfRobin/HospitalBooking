@@ -135,12 +135,13 @@ class AppointmentSelect : AppCompatActivity() {
                 val time = document.get("Time").toString()
                 val time2 = document.get("Time2").toString()
                 val rating=document.get("rating")
+                val rateFrequency=document.get("rateFrequency")
                 val ratingBr=findViewById<RatingBar>(R.id.ratingBar)
                 ratingBr.isClickable=false
                 if(rating!=null){
 
 
-                    retrieveStars(rating as Double,ratingBr)
+                    retrieveStars(rating as Double,ratingBr,rateFrequency as Double)
 
                 }
                 else{
@@ -152,7 +153,7 @@ class AppointmentSelect : AppCompatActivity() {
                 val sub1=dateInString.substring(0,detect)
                 val sub2=dateInString.substring(detect+2,dateInString.length)
                 var properDate= "$sub1,$sub2"
-                Toast.makeText(this,"p$properDate",Toast.LENGTH_SHORT).show()
+
 //                if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
 //                    properDate = "0$properDate"
 //
@@ -203,28 +204,7 @@ class AppointmentSelect : AppCompatActivity() {
                 }
 
 
-                Toast.makeText(this,"$date2",Toast.LENGTH_SHORT).show()
-                Toast.makeText(this,"c$calendarDate",Toast.LENGTH_SHORT).show()
 
-//                    if (time.contains("0") || time2.contains("0")) {
-//
-//                    arraylistTime.add(time2)
-//
-//                }
-//
-
-
-
-
-
-//                var time2 = document.get("Time2") as com.google.firebase.Timestamp
-//                val date2 = time2.toDate()
-//
-////                if(calendarDate.before(date2))
-////                {
-//                arraylistTime.add(date2.toString())
-
-//                }
 
 
             }
@@ -237,16 +217,7 @@ class AppointmentSelect : AppCompatActivity() {
 
 //        arraylistTime= arrayListOf(arraylistTime.toString())
         arraylistTime.add(0, "Choose Your Appointment")
-//        Toast.makeText(this, "arraTime=$arraylistTime", Toast.LENGTH_SHORT).show()
-//        for(i in arraylistTime.indices)
-//        {
-//            if(arraylistTime[i].isEmpty())
-//            {
-//                arraylistTime.remove(arraylistTime[i])
-//            }
-//
-//        }
-//        Toast.makeText(this, "arraTime2=$arraylistTime", Toast.LENGTH_SHORT).show()
+
         val arr = ArrayAdapter(this, android.R.layout.simple_list_item_checked, arraylistTime)
         docSpin.adapter = arr
 
@@ -254,10 +225,7 @@ class AppointmentSelect : AppCompatActivity() {
 
         val txt = findViewById<TextView>(R.id.txtV)
         var checkBtn: Boolean = true
-//            val str=docSpin.selectedItem.toString()
-//            val str=arraylistTime[i].toString()
-//        val str=docSpin.selectedIte()
-//        btn.isClickable=false
+
 
         var deleteTime = 0
         docSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -297,60 +265,6 @@ class AppointmentSelect : AppCompatActivity() {
                     val user = validAppoint()
                     val checkUser = checkAppoint(appointedTime, tempHolder.toString(), user)
 
-//                    val truth: Boolean = checkUser==user||checkUser==" "
-////                    var invalid=checkUser[0]+"*****"
-//
-//
-//                                if (truth) {
-//                                    val builder = AlertDialog.Builder(this)
-//                                    builder.setTitle("Confirm Appointment")
-//                                    builder.setMessage("Are you sure to appoint the Doctor?")
-//
-//
-//                                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-//                                        Toast.makeText(
-//                                            applicationContext,
-//                                            android.R.string.yes, Toast.LENGTH_SHORT
-//                                        ).show()
-//
-//                                        writeUser(appointedTime)
-//                                        val intent = Intent(this, DoctorAppointment::class.java)
-//                                        arraylistTime.remove(arraylistTime[deleteTime])
-//            //                intent.putExtra("DoctorName", nameNtime)
-//                                        startActivity(intent)
-//
-//
-//
-//                                    }
-//
-//                                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
-//                                        Toast.makeText(
-//                                            applicationContext,
-//                                            android.R.string.no, Toast.LENGTH_SHORT
-//                                        ).show()
-//                                    }
-//
-//                                    builder.show()
-//                                    true
-//
-//
-//                                    sendNotifi()
-//                                }
-//
-//
-//                            else{
-//
-//
-//                                        Toast.makeText(
-//                                            this,
-//                                            "The appointment is booked by other user,$checkUser ",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//
-//
-////
-//
-//                                }
 
 
                 }
@@ -372,8 +286,8 @@ class AppointmentSelect : AppCompatActivity() {
 
         }
 
-    private fun retrieveStars(rating: Double, ratingBr: RatingBar) {
-        ratingBr.rating= rating.toFloat()
+    private fun retrieveStars(rating: Double, ratingBr: RatingBar, rateFrequency: Double) {
+        ratingBr.rating= (rating/rateFrequency).toFloat()
     }
 
     private fun createNoti() {
@@ -412,17 +326,12 @@ class AppointmentSelect : AppCompatActivity() {
 
         private fun writeUser(appointTime: String) {
 
-//        val tempHolder = intent.getStringExtra("DoctorName")
-//        Toast.makeText(this, "Enter the firebase${tempHolder.toString()} ", Toast.LENGTH_SHORT).show()
+
             mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
             val arraylist = ArrayList<String>()
             val arraylistPro = ArrayList<String>()
-            //        val docView=findViewById<RecyclerView>(R.id.Rview)
-//        val docView=findViewById<ListView>(R.id.Rview)
-            //        val txt=findViewById<TextView>(R.id.txtV)
-            //        val name=findViewById<TextView>(R.id.txtName)
-            //        val pro=findViewById<TextView>(R.id.txtPro)
+
 
             var loginUser = " "
             val userGoogle = Firebase.auth.currentUser
@@ -435,19 +344,11 @@ class AppointmentSelect : AppCompatActivity() {
 
                     loginUser = " NOne"
                 }
-//                    val photoUrl = user.photoUrl
-//
-//                    // Check if user's email is verified
-//                    val emailVerified = user.isEmailVerified
-//
-//                    // The user's ID, unique to the Firebase project. Do NOT use this value to
-//                    // authenticate with your backend server, if you have one. Use
-//                    // FirebaseUser.getToken() instead.
-//                    val uid = user.uid
+
             }
 //        val loginUser=readUser()
             val user = hashMapOf(
-                "doctorAppoint" to docName+appointTime,
+                "doctorAppoint" to appointTime,
                 "user" to loginUser,
                 "docName" to docName
 
@@ -491,8 +392,7 @@ class AppointmentSelect : AppCompatActivity() {
                     val user = document.get("user").toString()
                     appointmentList.add(appointment)
                     userList.add(user)
-//                    Toast.makeText(this,"ap1=$appointmentList",Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(this,"ap2=$userList",Toast.LENGTH_SHORT).show()
+
 
                 }
 
@@ -501,8 +401,7 @@ class AppointmentSelect : AppCompatActivity() {
                     if (appointmentList[i].contains(time)) {
 
                         checkUser=userList[i]
-//                        Toast.makeText(this,userList.elementAt(i).toString(),Toast.LENGTH_SHORT).show()
-//                        Toast.makeText(this,"iscurrent$checkUser",Toast.LENGTH_SHORT).show()
+
 
                     }
 
@@ -589,15 +488,7 @@ class AppointmentSelect : AppCompatActivity() {
             return checkUser
         }
 
-//    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//        val txt=findViewById<TextView>(R.id.textView)
-//            txt.text=arraylistTime[p2].toString()
-//    }
-//
-//    override fun onNothingSelected(p0: AdapterView<*>?) {
-//        val txt=findViewById<TextView>(R.id.textView)
-//        txt.text="Please select 1 item from spinner"
-//    }
+
 
 
 
