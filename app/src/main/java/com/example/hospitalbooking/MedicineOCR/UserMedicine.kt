@@ -49,7 +49,23 @@ class UserMedicine : AppCompatActivity() {
 
         uploadImgBtn.setOnClickListener {
 //
-            uploadImage()
+
+
+            try{
+                uploadImage()
+            }
+
+
+            catch (e:UninitializedPropertyAccessException){
+                Toast.makeText(this,"You did not attach any photo for medicine OCR",Toast.LENGTH_SHORT).show()
+
+            }
+
+
+
+
+
+//            uploadImage()
         }
     }
 

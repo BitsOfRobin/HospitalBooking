@@ -28,8 +28,16 @@ class UploadImg : AppCompatActivity() {
 
         uploadImgBtn.setOnClickListener {
 
+                    try{
+                        uploadImage()
+                    }
 
-                    uploadImage()
+
+                    catch (e:UninitializedPropertyAccessException){
+                            Toast.makeText(this,"You did not attach any photo",Toast.LENGTH_SHORT).show()
+
+                    }
+
 
         }
 
@@ -59,6 +67,7 @@ class UploadImg : AppCompatActivity() {
             progressDialog.setMessage("Uploading File....")
             progressDialog.setCancelable(false)
             progressDialog.show()
+            if(progressDialog.isShowing)progressDialog.dismiss()
             val storageReference=FirebaseStorage.getInstance().getReference("Img/$docName.jpg")
             storageReference.putFile(ImageUri).addOnCompleteListener {
                 firebaseImg.setImageURI(null)
