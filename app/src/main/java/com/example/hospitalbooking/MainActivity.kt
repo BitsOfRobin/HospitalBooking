@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.io.File
 
 import kotlin.collections.ArrayList
@@ -64,7 +66,22 @@ class MainActivity : AppCompatActivity() {
         userOrAdmin()
         refresh()
         getDocInfo()
+
 //        getImg()
+    }
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
     }
 
 
@@ -79,6 +96,7 @@ class MainActivity : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 loginUser = userGoogle.email.toString()
+                naviImg(userGoogle!!.photoUrl,loginUser)
             } else {
 
                 loginUser = " NOne"

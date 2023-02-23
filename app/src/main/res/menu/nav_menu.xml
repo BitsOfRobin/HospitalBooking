@@ -6,44 +6,46 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/fui_ic_googleg_color_24dp"
+
         />
 
     <item
         android:id="@+id/nav_OCR"
         android:title="medicine OCR"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/baseline_event_18"
+
         />
     <item
         android:id="@+id/nav_profile"
         android:title="Profile"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/baseline_medication_liquid_20"
         />
 
     <item
         android:id="@+id/nav_BookAppoint"
         android:title="Book Appointment"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/baseline_event_20"
         />
 
     <item
         android:id="@+id/nav_medicineRecord"
         android:title="medicine Record "
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/baseline_event_18"
         />
 
 
     <item
         android:id="@+id/nav_viewAppoint"
         android:title="Appointment Made"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/baseline_event_18"
         />
 
 
     <item
         android:id="@+id/nav_Pres"
         android:title="Prescription"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/baseline_badge_20"
         />
 
 
