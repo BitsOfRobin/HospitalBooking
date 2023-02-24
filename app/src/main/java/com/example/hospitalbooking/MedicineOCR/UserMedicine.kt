@@ -308,7 +308,7 @@ class UserMedicine : AppCompatActivity() {
 
         val arraylist= ArrayList<String>()
         val arraylistPro= ArrayList<String>()
-
+        val newMediTxt=mediText.replace("/","")
         var loginUser=" "
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
@@ -326,7 +326,7 @@ class UserMedicine : AppCompatActivity() {
         }
 //        val loginUser=readUser()
         val user= hashMapOf(
-            "userMedicine" to mediText,
+            "userMedicine" to newMediTxt,
             "user" to loginUser,
 
 
