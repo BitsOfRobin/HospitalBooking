@@ -1282,19 +1282,19 @@ class MainPage : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
         autoCompleteTextView.setAdapter(adapter)
         autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-                val selectedItem = parent.getItemAtPosition(position) as String
+                        val selectedItem = parent.getItemAtPosition(position) as String
 
 
 
-    //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
-    //
-    //
-    //                searchView.setQuery(null,true)
-    //            }
-    //            else{
+            //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
+            //
+            //
+            //                searchView.setQuery(null,true)
+            //            }
+            //            else{
 
-                    searchView.setQuery(selectedItem, true)
-    //            }
+                            searchView.setQuery(selectedItem, true)
+            //            }
 
 
 
@@ -1472,7 +1472,7 @@ class MainPage : AppCompatActivity() {
             android.R.layout.select_dialog_item,arr)
 
         docView.adapter=arrayAdapter
-            Toast.makeText(this, "Doctor is not found", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Doctor is not found", Toast.LENGTH_SHORT).show()
     }
 
 

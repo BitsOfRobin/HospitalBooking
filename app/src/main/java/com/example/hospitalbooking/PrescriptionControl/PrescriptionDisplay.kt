@@ -114,6 +114,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         var pricePerdos1=" "
         var pricePerdos2=" "
         var totalPrice=" "
+        var paymentStatus=" "
 
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
@@ -179,6 +180,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 
 
                 user = document.get("user").toString()
+                paymentStatus= document.get("paymentStatus").toString()
 
 
 
@@ -192,7 +194,7 @@ class PrescriptionDisplay : AppCompatActivity() {
     //
     //                } else {
 
-                if (docName.contains("Dr")&&medicine1!="null") {
+                if (docName.contains("Dr")&&medicine1!="null"&&paymentStatus=="unpaid") {
     //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
                     val medi = "$medicine1\n$dos1 mg \n\n" +
                             "RM $pricePerdos1 \n\n" +

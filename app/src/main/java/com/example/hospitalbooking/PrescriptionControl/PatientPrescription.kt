@@ -356,7 +356,8 @@ class PatientPrescription : AppCompatActivity() {
                 "dosage2" to dosText2,
                 "priceMed1" to price1,
                 "priceMed2" to price2,
-                "totalPriceMed" to totalPrice
+                "totalPriceMed" to totalPrice,
+                "paymentStatus" to "unpaid"
 
 
             )
