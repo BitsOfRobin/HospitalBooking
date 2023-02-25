@@ -1,12 +1,15 @@
 package com.example.hospitalbooking.MedicineOCR
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.example.hospitalbooking.R
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class DoctorFilterMedicine : AppCompatActivity() {
 
@@ -37,6 +40,7 @@ class DoctorFilterMedicine : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 loginUser = userGoogle.displayName.toString()
+
             }
 
             else{
@@ -58,9 +62,9 @@ class DoctorFilterMedicine : AppCompatActivity() {
           var medicine=userMedicine.text.toString()
           var dbMedicine=" "
           var dbMedicine2=" "
-          var user=" "
+              var user=" "
 
-            if(isLetters(medicine)&&medicine!=""&&medicine!=" ") {
+                if(isLetters(medicine)&&medicine!=""&&medicine!=" ") {
 
                 Toast.makeText(this, medicine, Toast.LENGTH_SHORT).show()
                 val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")

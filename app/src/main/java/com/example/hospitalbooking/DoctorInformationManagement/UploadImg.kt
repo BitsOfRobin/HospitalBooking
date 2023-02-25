@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.example.hospitalbooking.R
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 class UploadImg : AppCompatActivity() {
     private lateinit var ImageUri: Uri
@@ -129,4 +131,26 @@ class UploadImg : AppCompatActivity() {
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
     }
+
+
+
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
+    }
+
+
+
+
+
 }

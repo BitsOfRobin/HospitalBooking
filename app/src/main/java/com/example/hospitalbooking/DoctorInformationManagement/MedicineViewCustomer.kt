@@ -26,6 +26,7 @@ import com.google.firebase.storage.ktx.storage
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.IOException
 import java.util.ArrayList
@@ -62,6 +63,8 @@ class MedicineViewCustomer : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 loginUser = userGoogle.displayName.toString()
+                naviImg(userGoogle!!.photoUrl,loginUser)
+
             }
 
             else{
@@ -114,8 +117,8 @@ class MedicineViewCustomer : AppCompatActivity() {
 //        image = InputImage.fromFilePath(this,ImageUri)
         try {
 //            image = InputImage.fromFilePath(this,ImageUri)
-            val result = recognizer.process(image)
-                result.addOnSuccessListener {
+                val result = recognizer.process(image)
+                    result.addOnSuccessListener {
                 // Task completed successfully
                     resultText = it.text.replace("\n"," ")
 
@@ -307,5 +310,17 @@ class MedicineViewCustomer : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
 
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
+    }
 }

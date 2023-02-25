@@ -1,13 +1,12 @@
 package com.example.hospitalbooking.MedicineOCR
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,6 +21,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class MedicineRecord : AppCompatActivity() {
     private lateinit var toggle:ActionBarDrawerToggle
@@ -54,6 +54,7 @@ class MedicineRecord : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 loginUser = userGoogle.displayName.toString()
+                naviImg(userGoogle!!.photoUrl,loginUser)
             }
 
             else{
@@ -210,6 +211,21 @@ class MedicineRecord : AppCompatActivity() {
 
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
     }
 
 }

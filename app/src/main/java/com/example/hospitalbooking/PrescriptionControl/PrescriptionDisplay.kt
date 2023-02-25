@@ -2,15 +2,13 @@ package com.example.hospitalbooking.PrescriptionControl
 
 import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.ListView
-import android.widget.RatingBar
-import android.widget.SearchView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -29,6 +27,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class PrescriptionDisplay : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -57,6 +56,7 @@ class PrescriptionDisplay : AppCompatActivity() {
             if (userGoogle != null) {
                 userG = userGoogle.displayName.toString()
                 email=userGoogle.email.toString()
+                naviImg(userGoogle!!.photoUrl,userG)
 
             }
 
@@ -841,6 +841,18 @@ class PrescriptionDisplay : AppCompatActivity() {
 
 
 
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
 
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
+    }
 
 }

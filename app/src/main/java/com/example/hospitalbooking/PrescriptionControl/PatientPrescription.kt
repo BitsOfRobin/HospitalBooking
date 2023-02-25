@@ -1,6 +1,7 @@
 package com.example.hospitalbooking.PrescriptionControl
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -8,9 +9,11 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import com.example.hospitalbooking.R
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class PatientPrescription : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
@@ -41,6 +44,7 @@ class PatientPrescription : AppCompatActivity() {
         val name = userName.substring(equal + 2, userName.length - 1)
         val userGoogle = Firebase.auth.currentUser
         val nurseName= userGoogle?.displayName
+
         val arr=retrieveRegMedicine(name)
         val arrNurse=retrieveRegMedicine(nurseName)
         val spin = findViewById<Spinner>(R.id.spinnerMedi)
@@ -557,7 +561,19 @@ class PatientPrescription : AppCompatActivity() {
 
     }
 
-
+//    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+//
+//        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+//        val headerView = navigationView.getHeaderView(0)
+//        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+//        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+//        Picasso.get().load(photoUrl).into(headerImage);
+//        headerTxtView.text=loginUser
+//
+//
+//
+//
+//    }
 
 
 }

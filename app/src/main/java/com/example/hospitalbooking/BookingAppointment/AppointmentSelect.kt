@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -97,6 +99,7 @@ class AppointmentSelect : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 user = userGoogle.displayName.toString()
+                naviImg(userGoogle.photoUrl,user)
                 appointSelect()
             } else {
 
@@ -573,4 +576,23 @@ class AppointmentSelect : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
+    }
+
+
+
+
 }

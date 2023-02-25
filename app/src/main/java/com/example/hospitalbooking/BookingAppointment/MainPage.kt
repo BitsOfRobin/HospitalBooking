@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -42,6 +43,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -322,7 +324,7 @@ class MainPage : AppCompatActivity() {
             if (userGoogle != null) {
                 user = userGoogle.displayName.toString()
                 userEmail = userGoogle.email.toString()
-
+                naviImg(userGoogle!!.photoUrl,user)
             } else {
 
                 val intent = Intent(this, UserLogin::class.java)
@@ -524,17 +526,17 @@ class MainPage : AppCompatActivity() {
         val cache= MyCache()
         for (i in arraylistName.indices) {
             val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
-                var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
+                    var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
 
-                    bitmap?.let {
-                        ModalFormMain(
-                            arraylistPro[i],
-                            it,
-                            arraylistName[i],
-                            time
-                        )
-                    }?.let {
-                        modalList.add(
+                        bitmap?.let {
+                            ModalFormMain(
+                                arraylistPro[i],
+                                it,
+                                arraylistName[i],
+                                time
+                            )
+                        }?.let {
+                            modalList.add(
                             it
                         )
                     }
@@ -1663,6 +1665,23 @@ class MainPage : AppCompatActivity() {
 
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
     }
 
 

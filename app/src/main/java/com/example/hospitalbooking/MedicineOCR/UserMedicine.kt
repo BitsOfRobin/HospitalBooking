@@ -21,6 +21,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.squareup.picasso.Picasso
 import java.io.IOException
 
 
@@ -92,6 +93,7 @@ class UserMedicine : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 user = userGoogle.displayName.toString()
+                naviImg(userGoogle!!.photoUrl,user)
             } else {
 
                 user = " NOne"
@@ -445,5 +447,21 @@ class UserMedicine : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
+    }
+
 
 }
