@@ -123,7 +123,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                     var doctime=doc
                     val index=doc.indexOf(",")
                     doctime=doctime.substring(0,index)+"\n"+doctime.substring(index,doctime.length)
-                    arraylist.add(Prescription(user,docName,doctime,0F))
+                    arraylist.add(Prescription(user,docName,doctime,0F,"",""))
 
                     arrayForSearch.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
                     arraylistAppointment.add(AppointmentDetail(user, docName, doc))
@@ -169,7 +169,8 @@ class DoctorViewAppointment : AppCompatActivity() {
                             {
                                 if(arraylistUser[i].contains(p0,true))
                                 {
-                                    tempList.add(Prescription(arraylistUser[i],arraylistDocName[i],appointment[i],0F))
+                                    tempList.add(Prescription(arraylistUser[i],arraylistDocName[i],appointment[i],
+                                        0F,"",""))
 
                                 }
 
@@ -441,7 +442,7 @@ class DoctorViewAppointment : AppCompatActivity() {
         lateinit var ivImage2:ImageView
 
             init {
-                this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
+                this.txtName=row?.findViewById(R.id.txtUser) as TextView
                 this.txtDoc= row.findViewById(R.id.txtDoc) as TextView
                 this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
 //            this.ivImage=row?.findViewById(R.id.imgAppoint) as ImageView

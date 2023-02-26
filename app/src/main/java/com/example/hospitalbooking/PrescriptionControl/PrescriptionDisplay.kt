@@ -18,7 +18,6 @@ import com.example.hospitalbooking.*
 import com.example.hospitalbooking.Adapter.ListCustomAdapterForPrescription
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
-import com.example.hospitalbooking.KotlinClass.AppointmentDetail
 import com.example.hospitalbooking.KotlinClass.Prescription
 import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
@@ -36,6 +35,8 @@ class PrescriptionDisplay : AppCompatActivity() {
     private var arraylistDocNameForSearch = ArrayList<String>()
     private var arraylistUser=ArrayList<String>()
     private var arraylistMedi=ArrayList<String>()
+    private var arraylistPaymentStatus=ArrayList<String>()
+    private var arraylistAppointmentTime=ArrayList<String>()
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +105,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 //        val arraylistUser = ArrayList<String>()
 
         val arrayForSearch = ArrayList<String>()
-        val arraylistAppointment = ArrayList<AppointmentDetail>()
+//        val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = " "
         var userG = " "
         var medicine1 = " "
@@ -115,6 +116,7 @@ class PrescriptionDisplay : AppCompatActivity() {
         var pricePerdos2=" "
         var totalPrice=" "
         var paymentStatus=" "
+        var appointment=" "
 
 
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
@@ -181,8 +183,9 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 user = document.get("user").toString()
                 paymentStatus= document.get("paymentStatus").toString()
-
-
+                appointment= document.get("doctorAppoint").toString()
+                val str=appointment.replace("\n","")
+                var formatAppointment=formatAppointStr(str)
 
 
 
@@ -201,7 +204,7 @@ class PrescriptionDisplay : AppCompatActivity() {
                             "$medicine2\n$dos2 mg\n\n"+
                             "RM $pricePerdos2 \n\n" +
                                     "Total= RM $totalPrice \n\n"
-                    arraylistPres.add(Prescription(user, docName, medi, 0F))
+                    arraylistPres.add(Prescription(user, docName, medi, 0F,paymentStatus, formatAppointment))
 //                    arraylistMedi.add(medi)
 
 
@@ -272,6 +275,17 @@ class PrescriptionDisplay : AppCompatActivity() {
             }
 
 
+
+
+    }
+
+    private fun formatAppointStr(appointment: String): String {
+
+        val position = appointment.indexOf(",")
+
+        val subStr1 = appointment.substring(0, position)
+        val subStr2 = appointment.substring(position, appointment.length)
+        return subStr1 + "\n" + subStr2
 
 
     }
@@ -483,7 +497,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 //        val arraylistUser = ArrayList<String>()
 
         val arrayForSearch = ArrayList<String>()
-        val arraylistAppointment = ArrayList<AppointmentDetail>()
+//        val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = ""
         var userG = ""
         var medicine1 = ""
@@ -493,7 +507,8 @@ class PrescriptionDisplay : AppCompatActivity() {
         var pricePerdos1=" "
         var pricePerdos2=" "
         var totalPrice=" "
-
+        var paymentStatus=" "
+        var appointment=" "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.presListCheck)
         val userGoogle = Firebase.auth.currentUser
@@ -557,8 +572,14 @@ class PrescriptionDisplay : AppCompatActivity() {
                 pricePerdos2= document.get("priceMed2").toString()
                 totalPrice= document.get("totalPriceMed").toString()
 
+                paymentStatus= document.get("paymentStatus").toString()
+                appointment= document.get("doctorAppoint").toString()
+                val str=appointment.replace("\n","")
+                var formatAppointment=formatAppointStr(str)
 
+                arraylistAppointmentTime.add(formatAppointment)
 
+                arraylistPaymentStatus.add(paymentStatus)
                 if ( user.isNotBlank() &&  user.isNotEmpty()&&user!="null") {
                     arraylistUser.add(user)
                 }
@@ -584,7 +605,7 @@ class PrescriptionDisplay : AppCompatActivity() {
                             "Total= RM $totalPrice \n\n"
 
 
-                    arraylistPres.add(Prescription(user, docName, medi, 0F))
+                    arraylistPres.add(Prescription(user, docName, medi, 0F,paymentStatus,formatAppointment))
                     arraylistMedi.add(medi)
 //                    Toast.makeText(this,"$medi",Toast.LENGTH_SHORT).show()
                 }
@@ -654,7 +675,9 @@ class PrescriptionDisplay : AppCompatActivity() {
                         {
                             if(arraylistUser[i].contains(p0,true))
                             {
-                                tempList.add(Prescription(arraylistUser[i],arraylistDocNameForSearch[i],arraylistMedi[i],0F))
+                                tempList.add(Prescription(arraylistUser[i],arraylistDocNameForSearch[i],
+                                    arraylistMedi[i],0F,
+                                    arraylistPaymentStatus[i],arraylistAppointmentTime[i]))
 
                             }
 
