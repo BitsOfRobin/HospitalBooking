@@ -290,7 +290,8 @@ class AppointmentSelect : AppCompatActivity() {
         }
 
     private fun retrieveStars(rating: Double, ratingBr: RatingBar, rateFrequency: Double) {
-        ratingBr.rating= (rating/rateFrequency).toFloat()
+//        ratingBr.rating= (rating/rateFrequency).toFloat()
+        ratingBr.rating= rating.toFloat()
     }
 
     private fun createNoti() {

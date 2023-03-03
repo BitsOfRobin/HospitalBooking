@@ -197,7 +197,7 @@ class PrescriptionDisplay : AppCompatActivity() {
     //
     //                } else {
 
-                if (docName.contains("Dr")&&medicine1!="null"&&paymentStatus=="unpaid") {
+                if (docName.contains("Dr")&&medicine1!="null") {
     //                    arraylistPres.add("User:$user\nAppointed Doctor:$docName\n Medicine Detail:$medicine1 dosage=$dos1 ,$medicine2 dosage=$dos2\n\n")
                     val medi = "$medicine1\n$dos1 mg \n\n" +
                             "RM $pricePerdos1 \n\n" +
@@ -246,7 +246,7 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 builder.setPositiveButton("Submit") { dialog, which ->
                     val rating = ratingBar.rating
-                    calStar(rating,arraylistDocName[i])
+                    calStar(rating,arraylistPres.get(i).doc.toString())
 //                    getRate(arraylistDocName[i],rating)
                 }
 

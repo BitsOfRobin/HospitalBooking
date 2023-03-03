@@ -68,7 +68,7 @@ class MainPage : AppCompatActivity() {
     //    private val docView: GridView =findViewById<GridView>(R.id.gridView)
     private var count = 0
 
-    //    private lateinit var binding:AppCompatActivity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
