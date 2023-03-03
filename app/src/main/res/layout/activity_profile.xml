@@ -34,12 +34,12 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_color="@color/white"
             android:id="@+id/userImg"
             android:layout_width="103dp"
             android:layout_height="161dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="61dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            android:layout_margin="20dp"
+
             android:layout_gravity="center"
             app:srcCompat="@drawable/google" />
         <View
@@ -99,6 +99,7 @@
             android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/bg_white_rounded"
             android:layout_gravity="center"
             android:text="log out" />

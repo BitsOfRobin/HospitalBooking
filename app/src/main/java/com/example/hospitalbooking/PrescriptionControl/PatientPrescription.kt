@@ -314,7 +314,20 @@ class PatientPrescription : AppCompatActivity() {
                         price2=(dosText2*priceDosText2)
                         priceMed2.text="RM"+ price2.toString()
 
-                        totalPrice=price1+price2
+
+
+                        totalPrice = if(price2!=0.0){
+
+                            price1+price2
+
+                        } else{
+                            price1
+
+                        }
+
+
+
+
                         totalPriceMed.text="RM"+totalPrice.toString()
                     } catch (NumberFormatException: IllegalArgumentException) {
                         pricePerDos2.error = "NON Decimal inputs for dosage"
@@ -332,9 +345,9 @@ class PatientPrescription : AppCompatActivity() {
         priceMed1.text= "Subtotal: RM"+price1.toString()
        price2=(dosText2*priceDosText2)
         priceMed2.text= "Subtotal: RM"+price2.toString()
-        totalPrice = if(price2!=0.0||price2.isNaN()){
+        totalPrice = if(price2!=0.0){
 
-            +price1+price2
+            price1+price2
         } else{
             price1
 

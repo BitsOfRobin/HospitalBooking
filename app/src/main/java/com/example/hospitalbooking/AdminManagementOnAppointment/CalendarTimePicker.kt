@@ -89,6 +89,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
                 getDateTimeCalendar()
                 DatePickerDialog(this, this, year, month, day).show()
+
 //                updateDoc()
 
 
@@ -114,6 +115,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
             btnEndTime.setOnClickListener {
                 getDateTimeCalendar()
+
                 DatePickerDialog(this, this, year, month, day).show()
 
 
@@ -147,6 +149,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         savedYear = p1
 
         getDateTimeCalendar()
+
         TimePickerDialog(this, this, hour, minute, true).show()
 
     }
