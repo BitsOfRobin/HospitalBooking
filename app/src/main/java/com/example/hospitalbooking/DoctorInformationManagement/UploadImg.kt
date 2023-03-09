@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.widget.*
 import com.example.hospitalbooking.R
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
@@ -22,7 +24,18 @@ class UploadImg : AppCompatActivity() {
         supportActionBar!!.setTitle("Upload Image")
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
+        var dtname=""
+        val name=findViewById<TextView>(R.id.dtName)
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                dtname = userGoogle.displayName.toString()
+                name.text=dtname
+            }
 
+        }
         selectImgBtn.setOnClickListener {
             selectImage()
 
@@ -55,9 +68,20 @@ class UploadImg : AppCompatActivity() {
     private fun uploadImage() {
 
         val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
-        val name=findViewById<EditText>(R.id.dtName)
-        val dtname=name.text
-        var docName=dtname.toString()
+        val name=findViewById<TextView>(R.id.dtName)
+        val userGoogle = Firebase.auth.currentUser
+        var dtname=""
+        userGoogle.let {
+                // Name, email address, and profile photo Url
+//                    val name = user.displayName
+                if (userGoogle != null) {
+                    dtname = userGoogle.displayName.toString()
+                    name.text=dtname
+                }
+
+            }
+
+        var docName=dtname
 //        docName.replace(" ","")
 
         val letter:Boolean=isLetters(docName)

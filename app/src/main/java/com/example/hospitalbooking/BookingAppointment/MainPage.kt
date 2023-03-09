@@ -340,20 +340,41 @@ class MainPage : AppCompatActivity() {
 
 
         if (userEmail.contains("@student.tar")) {
-
+            var tempListViewClickedValue=""
+            var dtname=""
             docView.setOnItemClickListener { adapterView, view, i, l ->
-                val tempListViewClickedValue = modalList.get(i).docName.toString()
+                tempListViewClickedValue = modalList.get(i).docName.toString()
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-                val intent = Intent(this, CalendarTimePicker::class.java)
-                intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
+
+
+                val userGoogle = Firebase.auth.currentUser
+                userGoogle.let {
+                    // Name, email address, and profile photo Url
+//                    val name = user.displayName
+                    if (userGoogle != null) {
+                        dtname = userGoogle.displayName.toString()
+
+                    }
+
+                }
+                if(tempListViewClickedValue=="Dr $dtname"){
+
+                    val intent = Intent(this, CalendarTimePicker::class.java)
+                    intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
+                }
+
 //                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
 
 
             }
 
-            deleteDoc()
 
+
+
+            if(tempListViewClickedValue=="Dr $dtname") {
+                deleteDoc()
+            }
         } else {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
@@ -526,7 +547,7 @@ class MainPage : AppCompatActivity() {
         val cache= MyCache()
         for (i in arraylistName.indices) {
             val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
-                    var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
+            var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
 
                         bitmap?.let {
                             ModalFormMain(
