@@ -4,6 +4,7 @@ package com.example.hospitalbooking.BookingAppointment
 
 import com.example.hospitalbooking.KotlinClass.MyCache
 import android.annotation.SuppressLint
+import android.app.backup.BackupManager.dataChanged
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -342,26 +343,36 @@ class MainPage : AppCompatActivity() {
         if (userEmail.contains("@student.tar")) {
             var tempListViewClickedValue=""
             var dtname=""
+
+
+            val userGoogle = Firebase.auth.currentUser
+            userGoogle.let {
+                // Name, email address, and profile photo Url
+//                    val name = user.displayName
+                if (userGoogle != null) {
+                    dtname = userGoogle.displayName.toString()
+
+                }
+            }
             docView.setOnItemClickListener { adapterView, view, i, l ->
                 tempListViewClickedValue = modalList.get(i).docName.toString()
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
 
 
-                val userGoogle = Firebase.auth.currentUser
-                userGoogle.let {
-                    // Name, email address, and profile photo Url
-//                    val name = user.displayName
-                    if (userGoogle != null) {
-                        dtname = userGoogle.displayName.toString()
 
-                    }
 
-                }
+
                 if(tempListViewClickedValue=="Dr $dtname"){
 
                     val intent = Intent(this, CalendarTimePicker::class.java)
                     intent.putExtra("DoctorName", tempListViewClickedValue)
                     startActivity(intent)
+                }
+
+                else{
+
+                    Toast.makeText(this,"this is not your profile",Toast.LENGTH_LONG).show()
+
                 }
 
 //                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
@@ -372,9 +383,9 @@ class MainPage : AppCompatActivity() {
 
 
 
-            if(tempListViewClickedValue=="Dr $dtname") {
-                deleteDoc()
-            }
+
+            deleteDoc(dtname)
+
         } else {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
@@ -546,8 +557,8 @@ class MainPage : AppCompatActivity() {
         val docView=findViewById<GridView>(R.id.gridView)
         val cache= MyCache()
         for (i in arraylistName.indices) {
-            val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
-            var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
+                        val bitmap: Bitmap? =cache.retrieveBitmapFromCache(arraylistName[i])
+                        var time = arraylistTime[i] + "\n\n" + arraylistTime2[i]
 
                         bitmap?.let {
                             ModalFormMain(
@@ -1185,7 +1196,7 @@ class MainPage : AppCompatActivity() {
 
     }
 
-    private fun deleteDoc() {
+    private fun deleteDoc(dtname: String) {
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
         val docView = findViewById<GridView>(R.id.gridView)
@@ -1227,41 +1238,50 @@ class MainPage : AppCompatActivity() {
 //
 //                    }
                     val deleteDoc=modalList.get(i).docName
-                    docRef
-                        .delete()
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                this,
-                                "${deleteDoc}\" successfully deleted!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                this,
-                                "Error deleting document",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+
+                    if(deleteDoc=="Dr $dtname") {
+                                docRef
+                                    .delete()
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this,
+                                            "${deleteDoc}\" successfully deleted!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Error deleting document",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
 
 
+                                val fireb =
+                                    Firebase.storage.reference.child("Img/${modalList.get(i).docName}.jpg")
+                                fireb.delete().addOnSuccessListener {
+                                    Toast.makeText(
+                                        this,
+                                        "Successfully delete images${deleteDoc}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }.addOnFailureListener {
 
-                    val fireb = Firebase.storage.reference.child("Img/${modalList.get(i).docName}.jpg")
-                    fireb.delete().addOnSuccessListener {
-                        Toast.makeText(
-                            this,
-                            "Successfully delete images${deleteDoc}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }.addOnFailureListener {
+                                }
+
+                                modalList.removeAt(i)
+                                val arr = CustomAdapter(modalList, this)
+                                arr.notifyDataSetChanged()
+                                docView.adapter = arr
 
                     }
 
-                    modalList.removeAt(i)
-                    val arr= CustomAdapter(modalList,this)
-                    arr.notifyDataSetChanged()
-                    docView.adapter=arr
+                    else{
 
+
+                        Toast.makeText(this,"This is Not ur profile to delete",Toast.LENGTH_LONG).show()
+                    }
 
 
 
