@@ -5,7 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.*
+import com.example.hospitalbooking.KotlinClass.MyCache
 import com.example.hospitalbooking.R
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
@@ -88,6 +90,7 @@ class UploadImg : AppCompatActivity() {
 
         if(letter&&docName!=" "&&docName!="")
         {
+            val cache=MyCache()
             docName="Dr $docName"
             val progressDialog=ProgressDialog(this)
             progressDialog.setMessage("Uploading File....")
@@ -98,6 +101,8 @@ class UploadImg : AppCompatActivity() {
             storageReference.putFile(ImageUri).addOnCompleteListener {
                 firebaseImg.setImageURI(null)
                 if(progressDialog.isShowing)progressDialog.dismiss()
+                val imgBitmap= MediaStore.Images.Media.getBitmap(contentResolver, ImageUri)
+                cache.saveBitmapToCahche(docName,imgBitmap)
                 Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
                 val intent= Intent(this, DoctorInformation::class.java)
                 intent.putExtra("DoctorName", docName)
