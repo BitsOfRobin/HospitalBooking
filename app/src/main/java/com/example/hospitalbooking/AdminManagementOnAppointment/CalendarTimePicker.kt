@@ -98,13 +98,26 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
             btnup1.setOnClickListener {
 
-                if (!validateDateTime(realDate)) {
-                    tvTime.text = "The Selected Date is passed today Date"
 
-                } else {
-                    updateDoc()
-                    tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+
+                if(realDate==" "){
+
+                    Toast.makeText(this,"No Date is entered",Toast.LENGTH_LONG).show()
+                    tvTime.text="No Date is entered"
                 }
+
+                else{
+
+                    if (!validateDateTime()) {
+                        tvTime.text = "The Selected Date is passed today Date"
+
+                    } else {
+                        updateDoc()
+                        tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+                    }
+
+                }
+
 
 
 
@@ -125,14 +138,23 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             }
 
         btnup2.setOnClickListener {
+            if(realDate==" "){
 
-            if (!validateDateTime(realDate)) {
-                endTime.text = "The Selected Date is passed today Date"
-
-            } else {
-                endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
-                setEndTime()
+                Toast.makeText(this,"No Date is entered",Toast.LENGTH_LONG).show()
+                endTime.text="No Date is entered"
             }
+
+            else{
+
+                if (!validateDateTime()) {
+                    endTime.text = "The Selected Date is passed today Date"
+
+                } else {
+                    endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+                    setEndTime()
+                }
+            }
+
 
 
 
@@ -209,13 +231,15 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     }
 
 
-    fun validateDateTime(dateTime: String): Boolean {
+    private fun validateDateTime(): Boolean {
+
+
         val now = Calendar.getInstance().time
 
         val formatter = SimpleDateFormat("dd MMM yyyy,HH:mm:ss")
 
-        val dateTime = formatter.parse(realDate)
-        return dateTime.after(now)
+        val date = formatter.parse(realDate)
+        return date.after(now)
     }
 
 
