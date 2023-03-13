@@ -106,25 +106,22 @@ class MainActivity : AppCompatActivity() {
 
         if (loginUser.contains("@student.tarc")) {
             names = arrayOf(
-                "Filter Patient Medicine",
+
                 "Login",
                 "Set time for Doctors",
                 "Upload Images for Doctor",
                 "Medicine Recognition",
-                "Doctor View Appointment",
-                "Patient Prescription"
+
             )
 
 
         } else {
             names = arrayOf(
-                "Filter Patient Medicine",
+
                 "Login",
                 "Set time for Doctors",
                 "Upload Images for Doctor",
                 "Medicine Recognition",
-                "Doctor View Appointment",
-                "Patient Prescription",
                 "Book Appointment",
                 "Medicine Record",
                 "View Doctor Appointment"
@@ -147,70 +144,81 @@ class MainActivity : AppCompatActivity() {
 
         grid.setOnItemClickListener { adapterView, view, i, l ->
 
-            if (i == 0) {
-                val intent = Intent(this, DoctorFilterMedicine::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-            } else if (i == 1) {
-                val intent = Intent(this, UserLogin::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-
-
-            } else if (i == 2) {
-                val intent = Intent(this, MainPage::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-
-
-            } else if (i == 3) {
-                val intent = Intent(this, UploadImg::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-
-
-            }
-
-//            else if (i == 4) {
-//                val intent = Intent(this, UserRegister::class.java)
+//            if (i == 0) {
+//                val intent = Intent(this, DoctorFilterMedicine::class.java)
 ////            intent.putExtra("DoctorName", tempListViewClickedValue)
 //                startActivity(intent)
-//
-//
 //            }
-
-            else if (i == 4) {
-                val intent = Intent(this, UserMedicine::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-
-
-            } else if (i == 5) {
-                val intent = Intent(this, DoctorViewAppointment::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-
-            } else if (i == 6) {
-                val intent = Intent(this, PrescriptionDisplay::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
-
-            } else if (i == 7) {
-                val intent = Intent(this, MainPage::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
+            when (i) {
+                0 -> {
+                    val intent = Intent(this, UserLogin::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
 
 
-            } else if (i == 8) {
-                val intent = Intent(this, MedicineRecord::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
+                }
+                1 -> {
+                    val intent = Intent(this, MainPage::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
 
-            } else if (i == 9) {
-                val intent = Intent(this, DoctorAppointment::class.java)
-//            intent.putExtra("DoctorName", tempListViewClickedValue)
-                startActivity(intent)
 
+                }
+                2 -> {
+                    val intent = Intent(this, UploadImg::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
+
+
+                }
+
+                //            else if (i == 4) {
+                //                val intent = Intent(this, UserRegister::class.java)
+                ////            intent.putExtra("DoctorName", tempListViewClickedValue)
+                //                startActivity(intent)
+                //
+                //
+                //            }
+                3 -> {
+                    val intent = Intent(this, UserMedicine::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
+
+
+                }
+
+                //            else if (i == 5) {
+                //                val intent = Intent(this, DoctorViewAppointment::class.java)
+                ////            intent.putExtra("DoctorName", tempListViewClickedValue)
+                //                startActivity(intent)
+                //
+                //            }
+
+                //            else if (i == 6) {
+                //                val intent = Intent(this, PrescriptionDisplay::class.java)
+                ////            intent.putExtra("DoctorName", tempListViewClickedValue)
+                //                startActivity(intent)
+                //
+                //            }
+                4 -> {
+                    val intent = Intent(this, MainPage::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
+
+
+                }
+                5 -> {
+                    val intent = Intent(this, MedicineRecord::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
+
+                }
+                6 -> {
+                    val intent = Intent(this, DoctorAppointment::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                    startActivity(intent)
+
+                }
             }
 
 
@@ -447,6 +455,7 @@ class MainActivity : AppCompatActivity() {
             fireb.getFile(localfile).addOnCompleteListener {
 
                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+
 
 
 
