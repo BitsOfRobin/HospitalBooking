@@ -113,7 +113,8 @@ class MainActivity : AppCompatActivity() {
                 "Set time for Doctors",
                 "Upload Images for Doctor",
                 "Medicine Recognition",
-                "Medicine Record"
+                "Medicine Record",
+                "Doctor View Appointment"
 
             )
             for (i in names.indices) {
@@ -192,18 +193,26 @@ class MainActivity : AppCompatActivity() {
 
 
                     }
-                    5 -> {
-                        val intent = Intent(this,MainPage::class.java )
-                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
-                        startActivity(intent)
+//                    5 -> {
+//                        val intent = Intent(this,MainPage::class.java )
+//                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
+//                        startActivity(intent)
+//
+//                    }
+//                    6 -> {
+//                        val intent = Intent(this, DoctorAppointment::class.java)
+//                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
+//                        startActivity(intent)
+//
+//                    }
 
-                    }
-                    6 -> {
-                        val intent = Intent(this, DoctorAppointment::class.java)
-                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
-                        startActivity(intent)
+                    5-> {
+                            val intent = Intent(this, DoctorViewAppointment::class.java)
+                    //            intent.putExtra("DoctorName", tempListViewClickedValue)
+                            startActivity(intent)
 
-                    }
+                                }
+
                 }
 
 

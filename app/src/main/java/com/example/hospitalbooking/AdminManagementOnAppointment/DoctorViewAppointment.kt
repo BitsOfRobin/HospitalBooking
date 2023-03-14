@@ -22,7 +22,9 @@ import com.example.hospitalbooking.PrescriptionControl.PatientPrescription
 import com.example.hospitalbooking.KotlinClass.Prescription
 import com.example.hospitalbooking.R
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -69,19 +71,20 @@ class DoctorViewAppointment : AppCompatActivity() {
         var doc = " "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.listDocAppoint)
-//        val userGoogle = Firebase.auth.currentUser
-//        userGoogle.let {
-//            // Name, email address, and profile photo Url
-////                    val name = user.displayName
-//            if (userGoogle != null) {
-//                user = userGoogle.displayName.toString()
-//            } else {
-////
-//                user = " NOne"
-//            }
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+            } else {
 //
-//        }
-        val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
+                user = " NOne"
+            }
+
+        }
+        val docRef =
+            mFirebaseDatabaseInstance?.collection("userAppointment")?.whereEqualTo("docName","Dr $user")
         docRef?.get()?.addOnSuccessListener {
 
 
@@ -93,7 +96,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 arraylistPro.add(document.id.toString())
 
-                var docName = document.get("docName").toString()
+                val docName = document.get("docName").toString()
                 if (docName != "null") {
                     arraylistDocName.add(docName)
 
@@ -203,43 +206,43 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
 
-            docView.setOnItemClickListener { adapterView, view, i, l ->
-
-                val intent= Intent(this, PatientPrescription::class.java)
-
-                var doctorAppointment=" "
-                if(tempList.isNotEmpty()){
-                    for(k in arrayForSearch.indices){
-
-                        if(arrayForSearch[k].contains(tempList.get(i).user.toString())
-                            &&arrayForSearch[k].contains(tempList.get(i).doc.toString())){
-
-                            doctorAppointment=arrayForSearch[k].toString()
-                        }
-
-
-
-                    }
-
-
-                    intent.putExtra("userName", doctorAppointment)
-//                intent.putExtra("doctorAppoint",appointment[i])
-                    startActivity(intent)
-                }
-                else{
-
-                    intent.putExtra("userName", arrayForSearch[i])
-//                intent.putExtra("doctorAppoint",appointment[i])
-                    startActivity(intent)
-
-                }
-
-
-
-
-
-
-            }
+//            docView.setOnItemClickListener { adapterView, view, i, l ->
+//
+////                val intent= Intent(this, PatientPrescription::class.java)
+//
+//                var doctorAppointment=" "
+//                if(tempList.isNotEmpty()){
+//                    for(k in arrayForSearch.indices){
+//
+//                        if(arrayForSearch[k].contains(tempList.get(i).user.toString())
+//                            &&arrayForSearch[k].contains(tempList.get(i).doc.toString())){
+//
+//                            doctorAppointment=arrayForSearch[k].toString()
+//                        }
+//
+//
+//
+//                    }
+//
+//
+////                    intent.putExtra("userName", doctorAppointment)
+//////                intent.putExtra("doctorAppoint",appointment[i])
+////                    startActivity(intent)
+//                }
+//                else{
+////
+////                    intent.putExtra("userName", arrayForSearch[i])
+//////                intent.putExtra("doctorAppoint",appointment[i])
+////                    startActivity(intent)
+//
+//                }
+//
+//
+//
+//
+//
+//
+//            }
 
         }
 
