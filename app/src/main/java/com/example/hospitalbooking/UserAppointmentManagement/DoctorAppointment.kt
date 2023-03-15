@@ -385,6 +385,13 @@ class DoctorAppointment : AppCompatActivity() {
 //                            docView.adapter=arrPast
 //                            linearCurrent.visibility =View.VISIBLE
 
+                            docView.setOnItemClickListener { adapterView, view, i, l ->
+
+
+
+
+
+                            }
 
 
                         }

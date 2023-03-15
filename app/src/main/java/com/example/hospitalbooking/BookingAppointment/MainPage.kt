@@ -80,21 +80,7 @@ class MainPage : AppCompatActivity() {
 
         val docView = findViewById<GridView>(R.id.gridView)
 
-//        binding= ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//        var imageId= intArrayOf(
-//
-//            R.drawable.doc1
-//
-//        )
 
-        val fragment = FragmentWithSearching()
-//        supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.fragment,fragment)
-//            commit()
-//
-//
-//        }
 
         val drawer = findViewById<BottomNavigationView>(R.id.naviBtm)
         drawer.setOnItemReselectedListener {
@@ -111,11 +97,7 @@ class MainPage : AppCompatActivity() {
 
         }
 
-//        drawer.setOnClickListener {
-//
-//            mainAc()
-//
-//        }
+
 
 
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
@@ -143,13 +125,7 @@ class MainPage : AppCompatActivity() {
     }
 
     private fun mainAc() {
-//        val fragment=FragmentWithSearching()
-//        supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.gridView,fragment)
-//            commit()
-//
-//
-//        }
+
         val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra("DoctorName", tempListViewClickedValue)
         startActivity(intent)
@@ -307,14 +283,7 @@ class MainPage : AppCompatActivity() {
             }
 
 
-//        getImg()
 
-//        getImg()
-
-//        while(modalList.size!=arraylistName.size){
-//
-//            getImg()
-//        }
 
         var user = " "
         var userEmail = " "
@@ -342,18 +311,10 @@ class MainPage : AppCompatActivity() {
 
         if (userEmail.contains("@student.tar")) {
             var tempListViewClickedValue=""
-            var dtname=""
+            var dtname=getGoogleName()
 
 
-            val userGoogle = Firebase.auth.currentUser
-            userGoogle.let {
-                // Name, email address, and profile photo Url
-//                    val name = user.displayName
-                if (userGoogle != null) {
-                    dtname = userGoogle.displayName.toString()
 
-                }
-            }
             docView.setOnItemClickListener { adapterView, view, i, l ->
                 tempListViewClickedValue = modalList.get(i).docName.toString()
 //                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
@@ -417,12 +378,6 @@ class MainPage : AppCompatActivity() {
                     val intent = Intent(this, AppointmentSelect::class.java)
                     intent.putExtra("DoctorName", name)
                     startActivity(intent)
-//                    Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(this, "Enter the click listener$arraylistTime ", Toast.LENGTH_SHORT).show()
-
-
-
-//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
 
 
             }
@@ -448,19 +403,7 @@ class MainPage : AppCompatActivity() {
          val cache= MyCache()
          val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
          var times=0
-//        extractName.clear()
-//        modalList.clear()
-//        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
-//        if (modalList.size > arraylistData.size) {
-////            for(i in arraylistData.size..modalList.size)
-////            {
-////                modalList.clear()
-//
-////            }
-//
-//
-//        } else {
-//            var i=0
+
             count = arraylistName.size
 //             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
             for (i in arraylistName.indices) {
@@ -471,40 +414,17 @@ class MainPage : AppCompatActivity() {
 
 
                 swipe.isRefreshing=true
-//                swipe.setOnRefreshListener {
-////            txt.setText(null)
-////            arraylistDocSearch.clear()
-//
-//                    getDataDoc()
-
-//           readDoc(txt)
-//            Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
-
-//
-//                }
 
                 fireb.getFile(localfile).addOnCompleteListener {
-//                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
-//                imageArr.add(bitmap)
+
                     val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
 
 
-                    val img = findViewById<ImageView>(R.id.imageView)
+
 
 
                     cache.saveBitmapToCahche(arraylistName[i],bitmap)
                     arrBitMap.add(bitmap)
-
-                    var time = arraylistTime[i] + "\n" + arraylistTime2[i]
-//                    if (modalList.isEmpty()) {
-//                        modalList.add(
-//                            ModalFormMain(
-//                                arraylistPro[i],
-//                                bitmap,
-//                                arraylistName[i],
-//                                time
-//                            )
-//                        )
 
 
 
@@ -512,13 +432,7 @@ class MainPage : AppCompatActivity() {
 
 
                     times++
-//                    Toast.makeText(this,"name=$times",Toast.LENGTH_SHORT).show()
 
-//                    count=0
-
-//                    modalList.add(docModal(arraylist[i],))
-
-//                    Toast.makeText(this,"success to retrieve iamge $bitmap",Toast.LENGTH_SHORT).show()
 
                 }.addOnFailureListener {
 
@@ -630,7 +544,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-    val customAdapter = CustomAdapter(modalList, this)
+        val customAdapter = CustomAdapter(modalList, this)
         customAdapter.notifyDataSetChanged()
 
 
@@ -641,14 +555,6 @@ class MainPage : AppCompatActivity() {
 
         }
 
-
-
-
-//        customAdapter.notifyDataSetChanged()
-//    if(modalList.size==arraylistName.size){
-//        docView.adapter = customAdapter
-//        customAdapter.notifyDataSetChanged()
-//    }
 
 
     searchDoc(customAdapter)
@@ -665,16 +571,9 @@ class MainPage : AppCompatActivity() {
 //        count=0
         val docView = findViewById<GridView>(R.id.gridView)
         var detect = 0
-//        val extractName = ArrayList<String>()
-//        extractName.clear()
-//        modalList.clear()
-//        Toast.makeText(this,"name=$arraylistName",Toast.LENGTH_SHORT).show()
-        if (modalList.size > arraylistData.size) {
-//            for(i in arraylistData.size..modalList.size)
-//            {
-//                modalList.clear()
 
-//            }
+        if (modalList.size > arraylistData.size) {
+
 
 
         } else {
@@ -691,24 +590,12 @@ class MainPage : AppCompatActivity() {
 //                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
 //                imageArr.add(bitmap)
                         bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-//                    findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
-//                val x: Int = bitmap.width
-//                val y: Int = bitmap.height
-//                val intArray = IntArray(x * y)
-//                var imgArr=bitmap.getPixels(intArray, 0, x, 0, 0, x, y)
 
-//                val mDrawable: Drawable = BitmapDrawable(resources, bitmap)
-//                imageArr.add(bitmap)
 
                         val img = findViewById<ImageView>(R.id.imageView)
-//                    if(name.isNotEmpty())
-//                    {
-//
-//                        for(i in arraylistName.indices)
-//                        {
-//                            if(arraylistName[i].equals(name,true))
+
 //                            {
-                        var time = arraylistTime[i] + "\n" + arraylistTime2[i]
+                        val time = arraylistTime[i] + "\n" + arraylistTime2[i]
                         if (modalList.isEmpty()) {
                             modalList.add(
                                 ModalFormMain(
@@ -720,12 +607,7 @@ class MainPage : AppCompatActivity() {
                             )
 
                         } else {
-//                            for (m in modalList.indices) {
-//
-//                                extractName.add(modalList.elementAt(m).docName.toString())
-//
-//
-//                            }
+
                             if (!extractName.contains(arraylistName[i])||extractName.isEmpty()) {
                                 modalList.add(
                                     ModalFormMain(
@@ -894,49 +776,6 @@ class MainPage : AppCompatActivity() {
 
 
 
-
-//            if(truth&&str.isNotEmpty()&&str.isNotBlank()&&position==i){
-////                itemModel[position].pro= str.toString()
-//                tvPro?.text = str
-////                truth=false
-//            }
-//            else{
-//                tvPro?.text = itemModel[position].pro
-//
-//            }
-//            val pro=itemModel[position].pro
-//            for( filResult in arrFilter){
-//                if(pro==filResult){
-//
-//                    val colorText= setColorText(pro)
-//                    tvPro?.text =colorText
-//
-//
-//                }
-//
-//
-//
-//            }
-
-//            if(searchString.isNotBlank()&&searchString.isNotEmpty()){
-//                val colorText= setColorText(searchString,pos)
-//
-//                tvPro?.text =colorText
-//
-//            }
-
-
-
-
-
-
-
-
-//            itemModel[position].image?.let { imageView?.setImageBitmap(it) }
-
-//            with(context)
-//                .load(itemModel[position].image)
-//                .into(imageView)
             val doc=itemModel[position].docName.toString()
             val cache= MyCache()
             val bit: Bitmap? =cache.retrieveBitmapFromCache(doc)
@@ -957,27 +796,6 @@ class MainPage : AppCompatActivity() {
             private lateinit var proView:TextView
             @SuppressLint("ResourceType")
            fun  setColorText(searchTarget: String, position: Int): SpannableString {
-//                searchString=searchTarget
-//                pos=position
-//                val spannableStringSearch = SpannableString(itemModel[position].pro.toString())
-//                val docPro=findViewById<TextView>(R.id.docPro)
-//                if (searchString.isNotEmpty()&&searchString.isNotBlank()) {
-//                    val magenta = ForegroundColorSpan(Color.MAGENTA)
-//                    val pattern: Pattern = Pattern.compile(searchString, Pattern.CASE_INSENSITIVE)
-//                    val matcher: Matcher = pattern.matcher(itemModel[position].pro.toString())
-//                    while (matcher.find()) {
-//                        spannableStringSearch.setSpan(
-//                           magenta,
-//                            0,,
-//                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                        )
-//                    }
-//                }
-
-
-//                tvPro.text=spannableStringSearch
-
-//                return spannableStringSearch
 
 
 
@@ -1033,11 +851,7 @@ class MainPage : AppCompatActivity() {
                 return i
             }
 
-//            fun getViewHolder(view:ViewHolder) {
-//
-//                viewHolder=view
-//
-//            }
+
 
 
 
@@ -1112,22 +926,15 @@ class MainPage : AppCompatActivity() {
         val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
 
         swipe.setOnRefreshListener {
-//            txt.setText(null)
-//            arraylistDocSearch.clear()
 
             getDataDoc()
 
-//           readDoc(txt)
-//            Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
             swipe.isRefreshing = false
 
         }
 
 
-//        var arraylist = ArrayList<String>()
-//        arraylist= arrayListOf(" ")
-//        val arr = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist)
-//        docView.adapter = arr
+
     }
 
     private fun writeUser(appointTime: String, docName: String, loginUser: String) {
@@ -1138,36 +945,7 @@ class MainPage : AppCompatActivity() {
 
         val arraylist = java.util.ArrayList<String>()
         val arraylistPro = java.util.ArrayList<String>()
-        //        val docView=findViewById<RecyclerView>(R.id.Rview)
-//        val docView=findViewById<ListView>(R.id.Rview)
-        //        val txt=findViewById<TextView>(R.id.txtV)
-        //        val name=findViewById<TextView>(R.id.txtName)
-        //        val pro=findViewById<TextView>(R.id.txtPro)
 
-//        var loginUser=" "
-//        val userGoogle = Firebase.auth.currentUser
-//        userGoogle.let {
-//            // Name, email address, and profile photo Url
-////                    val name = user.displayName
-//            if (userGoogle != null) {
-//                loginUser = userGoogle.displayName.toString()
-//            }
-//
-//            else{
-//
-//                loginUser=" NOne"
-//            }
-////                    val photoUrl = user.photoUrl
-////
-////                    // Check if user's email is verified
-////                    val emailVerified = user.isEmailVerified
-////
-////                    // The user's ID, unique to the Firebase project. Do NOT use this value to
-////                    // authenticate with your backend server, if you have one. Use
-////                    // FirebaseUser.getToken() instead.
-////                    val uid = user.uid
-//        }
-//        val loginUser=readUser()
         val user = hashMapOf(
             "doctorAppoint" to appointTime,
             "user" to loginUser,
@@ -1222,21 +1000,7 @@ class MainPage : AppCompatActivity() {
 
                     val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
                         .document("${modalList.get(i).docName}")
-//
-//// Remove the 'capital' field from the document
-//                    val updates = hashMapOf<String, Any>(
-//                        "name" to FieldValue.delete(),
-//                        "pro" to FieldValue.delete(),
-//                        "Time" to FieldValue.delete(),
-//                        "Time2" to FieldValue.delete()
-//                    )
 
-//                    docRef.update(updates).addOnCompleteListener {
-//
-//                        Toast.makeText(this, "Success delete the doctor ", Toast.LENGTH_SHORT)
-//                            .show()
-//
-//                    }
                     val deleteDoc=modalList.get(i).docName
 
                     if(deleteDoc=="Dr $dtname") {
@@ -1414,9 +1178,7 @@ class MainPage : AppCompatActivity() {
                                     searchQuery=p0
                                     custom.filter.filter(p0)
                                     customAdapter.getSearch(p0)
-//                                    str= customAdapter.getSpan()
 
-//                                    CustomAdapter.setColorText(p0[0],arraylistPro[i],i)
 
                                 }
 
@@ -1454,42 +1216,6 @@ class MainPage : AppCompatActivity() {
 
 
 
-//
-//    fun  setColorText(str:String,start:Int,end:Int,position:Int) {
-//
-//        val docPro=findViewById<TextView>(R.id.docPro)
-//
-//
-//        val yellow = ForegroundColorSpan(Color.YELLOW)
-//        val spannableString = SpannableString(str)
-//        val str=""
-//
-//
-//        spannableString.setSpan(yellow,
-//            start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-////        val num=arraylistPro[position].length
-//
-//        Toast.makeText(this,"$spannableString",Toast.LENGTH_SHORT).show()
-//
-////        val i =arraylistPro[postion].length
-//        arraylistPro[position].forEach{ it ->
-//            for( a in spannableString){
-//
-//                if(arraylistPro[position].contains(a)){
-//                    arraylistPro[position].replace(it,a)
-//
-//
-//                }
-//
-//            }
-//
-//
-//        }
-//
-//
-//        docPro.text = arraylistPro[position]
-//
-//    }
 
     private fun showSuggestion(query: String, adapter: ArrayAdapter<String>){
 
@@ -1523,17 +1249,10 @@ class MainPage : AppCompatActivity() {
 
         modalListSearch.clear()
         var j = 0
-//        Toast.makeText(this,"$count",Toast.LENGTH_SHORT).show()
-//             Toast.makeText(this, "${arraylistName}",Toast.LENGTH_SHORT).show()
+
         for (i in arraylistName.indices) {
             if (arraylistName[i] == tempName[j]) {
-//                val fireb = Firebase.storage.reference.child("Img/${arraylistName.get(i)}.jpg")
-//
-//                val localfile = File.createTempFile("tempImage", "jpg")
-//                var bitmap: Bitmap
-//                fireb.getFile(localfile).addOnCompleteListener{
-//
-//                    bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+
                     val cache= MyCache()
                     val bitmap: Bitmap? =cache.retrieveBitmapFromCache(tempName[j])
                     val time = arraylistTime[i] + "\n" + arraylistTime2[i]
@@ -1551,10 +1270,7 @@ class MainPage : AppCompatActivity() {
                 }
 
 
-//                }.addOnFailureListener {
-//
-//                    Toast.makeText(this, "failed to retrieve iamge", Toast.LENGTH_SHORT).show()
-//                }
+
 
                 if (j < tempName.size - 1) {
                     j++
@@ -1588,10 +1304,7 @@ class MainPage : AppCompatActivity() {
 
         docView.adapter = customSearch
 
-//        val custom=CustomAdapter(modalList,this)
-//        custom.filter.filter(searchQuery)
-//        custom.notifyDataSetChanged()
-//        docView.adapter=custom
+
     }
 
 
@@ -1624,6 +1337,27 @@ class MainPage : AppCompatActivity() {
         }
 
     }
+
+    private fun getGoogleName(): String {
+
+
+
+        var dtname=""
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                dtname = userGoogle.displayName.toString()
+
+            }
+        }
+
+
+        return dtname
+
+    }
+
 
 
     private fun showNavBar(){
