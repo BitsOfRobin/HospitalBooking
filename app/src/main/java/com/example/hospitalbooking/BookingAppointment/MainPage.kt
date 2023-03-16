@@ -1146,18 +1146,8 @@ class MainPage : AppCompatActivity() {
                             searchQuery.replace("",p0)
                             custom.filter.filter(p0)
                             customAdapter.getSearch(p0)
-//                             str= customAdapter.getSpan()
-
-
-//                            CustomAdapter.setColorText(p0[0],arraylistPro[i],i)
-
-
 
                         }
-
-
-
-
 
                     }
 
