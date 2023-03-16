@@ -7,8 +7,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.databinding.DataBindingUtil
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.R
+import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
+import com.example.hospitalbooking.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -18,8 +21,10 @@ import java.io.File
 
 class DoctorInformation : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_doctor_information)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -73,16 +78,28 @@ class DoctorInformation : AppCompatActivity() {
             val validaHos=isLetters(hospital)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName.toString()
-
+            val errTextPro=findViewById<TextView>(R.id.errPro)
+            val errTextHos=findViewById<TextView>(R.id.errHos)
             if(!letter||pro.isEmpty()||pro.isBlank()){
 
                 Toast.makeText(this,"Profession contain non alphabet or empty",Toast.LENGTH_LONG).show()
+                errTextPro.text = "Profession contain non alphabet or empty"
 
             }
-            if(!validaHos&&hospital.isBlank()&&hospital.isEmpty()){
+
+            else{
+
+                errTextPro.text=" "
+            }
+
+            if(!validaHos||hospital.isBlank()||hospital.isEmpty()){
 
 
                 Toast.makeText(this,"Hospital contain non alphabet or empty",Toast.LENGTH_LONG).show()
+                errTextHos.text="Hospital contain non alphabet or empty"
+            }
+            else{
+                errTextHos.text=" "
 
             }
 
