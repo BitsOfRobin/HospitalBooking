@@ -55,7 +55,21 @@
         android:inputType="textPersonName"
         android:hint="(Doctor Professional)"
         android:textStyle="italic"
-        android:alpha="0.4"/>
+        />
+
+    <EditText
+        android:id="@+id/currentHospital"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="(Current Hospital)"
+        android:textStyle="italic"
+        android:layout_marginTop="5dp"
+
+        />
+
+
 
 
     <Button

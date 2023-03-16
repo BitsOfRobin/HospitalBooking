@@ -55,6 +55,7 @@ class DoctorInformation : AppCompatActivity() {
         docInfo.text=docName
 
         val docPro=findViewById<EditText>(R.id.dtPro)
+        val docHospital=findViewById<EditText>(R.id.currentHospital)
 
 
         val btn=findViewById<Button>(R.id.updateBtn)
@@ -64,19 +65,37 @@ class DoctorInformation : AppCompatActivity() {
         btn.setOnClickListener {
 
             val dtpro=docPro.text
+            val  hospital=docHospital.text.toString()
             val pro=dtpro.toString()
             val rateFrequency=0.0F
 //        pro=pro.replace(" ","")
             val letter:Boolean=isLetters(pro)
+            val validaHos=isLetters(hospital)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName.toString()
-            if(letter&&pro!=" "&&pro!="")
+
+            if(!letter||pro.isEmpty()||pro.isBlank()){
+
+                Toast.makeText(this,"Profession contain non alphabet or empty",Toast.LENGTH_LONG).show()
+
+            }
+            if(!validaHos&&hospital.isBlank()&&hospital.isEmpty()){
+
+
+                Toast.makeText(this,"Hospital contain non alphabet or empty",Toast.LENGTH_LONG).show()
+
+            }
+
+
+
+            if(letter&&pro!=" "&&pro!="" &&validaHos&&hospital.isNotBlank()&&hospital.isNotEmpty())
             {
                 val doc= hashMapOf(
 
                     "name" to doctorName,
                     "pro" to pro,
-                    "rateFrequency" to rateFrequency
+                    "rateFrequency" to rateFrequency,
+                    "hospital" to hospital
 
 
 
@@ -106,7 +125,7 @@ class DoctorInformation : AppCompatActivity() {
 
             else{
 
-                Toast.makeText(this,"Professional consists of NON alphabet",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Both Inputs consists of NON alphabet",Toast.LENGTH_SHORT).show()
 
             }
 

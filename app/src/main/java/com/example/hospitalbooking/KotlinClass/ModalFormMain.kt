@@ -9,13 +9,15 @@ class ModalFormMain {
     var image:Bitmap?=null
     var docName:String?=null
     var time:String?=null
-    constructor(pro:String,image:Bitmap,docName:String,time:String){
+    var hospital:String?=null
+    constructor(pro:String,image:Bitmap,docName:String,time:String,hospital:String){
         this.pro=pro
 
         this.image=image
 
         this.docName=docName
         this.time=time
+        this.hospital=hospital
 
 
 

@@ -65,6 +65,7 @@ class MainPage : AppCompatActivity() {
     private val arraylistTime = ArrayList<String>()
     private val arraylistTime2 = ArrayList<String>()
     private val arraylistPro = ArrayList<String>()
+    private val arraylistHospital = ArrayList<String>()
 
     //    private val docView: GridView =findViewById<GridView>(R.id.gridView)
     private var count = 0
@@ -171,12 +172,19 @@ class MainPage : AppCompatActivity() {
                 val name = document.get("name").toString()
                 val pro = document.get("pro").toString()
 
+                val hospital = document.get("hospital").toString()
 
 
+                arraylistHospital.add(hospital)
+//                Toast.makeText(this,"hos$arraylistHospital",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"hosp$hospital",Toast.LENGTH_LONG).show()
                 if (name.contains("Dr")) {
 
                     arraylistName.add(name)
-
+//                if(hospital.isNotEmpty()&&hospital.isNotBlank()){
+//
+//
+//                }
 
                     arraylistPro.add(pro)
                     if (date.contains("0")) {
@@ -479,7 +487,8 @@ class MainPage : AppCompatActivity() {
                                 arraylistPro[i],
                                 it,
                                 arraylistName[i],
-                                time
+                                time,
+                                arraylistHospital[i]
                             )
                         }?.let {
                             modalList.add(
@@ -602,7 +611,8 @@ class MainPage : AppCompatActivity() {
                                     arraylistPro[i],
                                     bitmap,
                                     arraylistName[i],
-                                    time
+                                    time,
+                                    arraylistHospital[i]
                                 )
                             )
 
@@ -614,7 +624,8 @@ class MainPage : AppCompatActivity() {
                                         arraylistPro[i],
                                         bitmap,
                                         arraylistName[i],
-                                        time
+                                        time,
+                                        arraylistHospital[i]
                                     )
                                 )
 
@@ -737,6 +748,7 @@ class MainPage : AppCompatActivity() {
             val tvImageName = view?.findViewById<TextView>(R.id.imageName)
             val tvTime = view?.findViewById<TextView>(R.id.docPro)
             val tvPro = view?.findViewById<TextView>(R.id.docTime)
+            val hospital= view?.findViewById<TextView>(R.id.docHospital)
 
             val imageView = view!!.findViewById<ImageView>(R.id.imageView)
             var CheckName = itemModel[position].docName
@@ -757,6 +769,8 @@ class MainPage : AppCompatActivity() {
             }
 
 //            tvImageName?.text=itemModel[position].docName
+
+                hospital?.text=itemModel[position].hospital
 
 
             tvTime?.text = itemModel[position].time
@@ -1079,6 +1093,7 @@ class MainPage : AppCompatActivity() {
 //        searchView()
 
         val temp = ArrayList<String>()
+        val tempHos = ArrayList<String>()
         val searchView = findViewById<SearchView>(R.id.searchDoc)
         searchView.queryHint = "search Doctor Professional"
 
@@ -1098,7 +1113,7 @@ class MainPage : AppCompatActivity() {
             //            }
             //            else{
 
-                            searchView.setQuery(selectedItem, true)
+                                searchView.setQuery(selectedItem, true)
             //            }
 
 
@@ -1121,7 +1136,7 @@ class MainPage : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 temp.clear()
-
+                tempHos.clear()
                 var searchQuery=""
 //                val first= p0?.let { p0.toString().indexOf(it[0]) }
                 if (p0 != null) {
@@ -1140,17 +1155,32 @@ class MainPage : AppCompatActivity() {
 
                         }
 
+
+
+
+
+                    }
+
+
+                    for (i in arraylistHospital.indices) {
+                        if (arraylistHospital[i].contains(p0, true)) {
+
+                            tempHos.add(arraylistName[i])
+                            searchQuery.replace("", p0)
+                        }
                     }
                     if (temp.isNotEmpty()) {
-                        dataChanged(temp,searchQuery)
+                        callForSearching(temp,searchQuery,docView)
                     } else {
 
 
 
-
-                        showMsg(docView)
+                        callForSearching(tempHos,searchQuery,docView)
 
                     }
+
+//                    callForSearching(tempHos,searchQuery,docView)
+
 
 
                 } else {
@@ -1183,12 +1213,6 @@ class MainPage : AppCompatActivity() {
                                 }
 
                             }
-                            if (temp.isNotEmpty()) {
-                                dataChanged(temp, searchQuery)
-                            } else {
-                                showMsg(docView)
-
-                            }
 
 
                         } else {
@@ -1213,6 +1237,19 @@ class MainPage : AppCompatActivity() {
 
     }
 
+
+    private fun callForSearching(temp:ArrayList<String>,searchQuery:String,docView:GridView){
+
+
+        if (temp.isNotEmpty()) {
+            dataChanged(temp, searchQuery)
+        } else {
+            showMsg(docView)
+
+        }
+
+
+    }
 
 
 
@@ -1261,7 +1298,8 @@ class MainPage : AppCompatActivity() {
                         arraylistPro[i],
                         it,
                         arraylistName[i],
-                        time
+                        time,
+                        arraylistHospital[i]
                     )
                 }?.let {
                     modalListSearch.add(
