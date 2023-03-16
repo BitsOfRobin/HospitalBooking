@@ -1095,7 +1095,7 @@ class MainPage : AppCompatActivity() {
         val temp = ArrayList<String>()
         val tempHos = ArrayList<String>()
         val searchView = findViewById<SearchView>(R.id.searchDoc)
-        searchView.queryHint = "search Doctor Professional"
+        searchView.queryHint = "search Doctor Professional/Current Hospital"
 
         val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
 
