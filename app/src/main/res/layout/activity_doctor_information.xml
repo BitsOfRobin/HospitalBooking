@@ -71,17 +71,30 @@
 
 
 
-    <EditText
-        android:id="@+id/currentHospital"
+    <AutoCompleteTextView
+        android:id="@+id/autoCurrentHospital"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="(Current Hospital)"
+        android:background="@drawable/toggle_rounded"
         android:textStyle="italic"
+        android:hint="suggestion for hospital"
         android:layout_marginTop="5dp"
 
         />
+
+
+    <EditText
+        android:id="@+id/dtHos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="(Doctor Hospital)"
+        android:textStyle="italic"
+        />
+
 
     <TextView
         android:id="@+id/errHos"

@@ -21,7 +21,7 @@ import java.io.File
 
 class DoctorInformation : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
-
+    private val arrayListHos=ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,7 +29,9 @@ class DoctorInformation : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Doctor Info")
+        getDoctorHos()
         setDocPic()
+
     }
 
 
@@ -60,7 +62,34 @@ class DoctorInformation : AppCompatActivity() {
         docInfo.text=docName
 
         val docPro=findViewById<EditText>(R.id.dtPro)
-        val docHospital=findViewById<EditText>(R.id.currentHospital)
+        val docHospital=findViewById<EditText>(R.id.dtHos)
+
+
+        val autoCompleteHospital= findViewById<AutoCompleteTextView>(R.id.autoCurrentHospital)
+        var hospital=""
+        var hospitalTxt=""
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayListHos)
+        autoCompleteHospital.setAdapter(adapter)
+
+
+
+
+
+
+
+            autoCompleteHospital.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+                hospitalTxt = parent.getItemAtPosition(position) as String
+
+                docHospital.setText(hospitalTxt)
+                hospital=hospitalTxt
+            }
+
+
+
+
+
+
+
 
 
         val btn=findViewById<Button>(R.id.updateBtn)
@@ -70,10 +99,19 @@ class DoctorInformation : AppCompatActivity() {
         btn.setOnClickListener {
 
             val dtpro=docPro.text
-            val  hospital=docHospital.text.toString()
+//            val  hospital=docHospital.text.toString()
             val pro=dtpro.toString()
             val rateFrequency=0.0F
 //        pro=pro.replace(" ","")
+
+            val hosTxt=docHospital.text.toString()
+
+            if(hosTxt.isNotEmpty()||hosTxt.isNotBlank()){
+//            docHospital.setText(hosTxt)
+                hospital=hosTxt
+
+            }
+
             val letter:Boolean=isLetters(pro)
             val validaHos=isLetters(hospital)
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
@@ -96,6 +134,7 @@ class DoctorInformation : AppCompatActivity() {
 
 
                 Toast.makeText(this,"Hospital contain non alphabet or empty",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"$hosTxt",Toast.LENGTH_LONG).show()
                 errTextHos.text="Hospital contain non alphabet or empty"
             }
             else{
@@ -140,11 +179,11 @@ class DoctorInformation : AppCompatActivity() {
 
             }
 
-            else{
-
-                Toast.makeText(this,"Both Inputs consists of NON alphabet",Toast.LENGTH_SHORT).show()
-
-            }
+//            else{
+//
+//                Toast.makeText(this,"Both Inputs consists of NON alphabet",Toast.LENGTH_SHORT).show()
+//
+//            }
 
         }
 
@@ -173,6 +212,37 @@ class DoctorInformation : AppCompatActivity() {
 
 
     }
+
+    private fun getDoctorHos(){
+
+
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+
+
+        val docRef = mFirebaseDatabaseInstance?.collection("doctor")
+        docRef?.get()?.addOnSuccessListener {
+           arrayListHos.clear()
+
+
+            for(document in it){
+
+
+                val hospital = document.get("hospital").toString()
+                arrayListHos.add(hospital)
+
+            }
+
+        }
+            ?.addOnFailureListener {
+                Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
+            }
+
+
+    }
+
+
+
+
 
 
 }

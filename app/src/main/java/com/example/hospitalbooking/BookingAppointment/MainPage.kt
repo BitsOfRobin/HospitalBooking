@@ -1113,7 +1113,7 @@ class MainPage : AppCompatActivity() {
             //            }
             //            else{
 
-                                searchView.setQuery(selectedItem, true)
+                        searchView.setQuery(selectedItem, true)
             //            }
 
 
