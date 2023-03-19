@@ -70,13 +70,6 @@ class DoctorInformation : AppCompatActivity() {
         var hospitalTxt=""
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayListHos)
         autoCompleteHospital.setAdapter(adapter)
-
-
-
-
-
-
-
             autoCompleteHospital.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
                 hospitalTxt = parent.getItemAtPosition(position) as String
 
