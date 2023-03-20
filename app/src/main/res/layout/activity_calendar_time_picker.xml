@@ -66,42 +66,42 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
 
 
-        <Button
-            android:id="@+id/btnEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+<!--&lt;!&ndash;        <Button&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/btnEnd"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
 
-            android:layout_marginStart="117dp"
-            android:layout_marginTop="60dp"
-            android:text=" Time 2" />
+<!--&lt;!&ndash;            android:layout_marginStart="117dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginTop="60dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text=" Time 2" />&ndash;&gt;-->
 
-        <Button
-            android:id="@+id/btnup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+<!--&lt;!&ndash;        <Button&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/btnup2"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
 
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="20dp"
-            android:text="update time 2" />
+<!--&lt;!&ndash;            android:layout_marginStart="110dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginTop="20dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="update time 2" />&ndash;&gt;-->
 
-        <TextView
-            android:id="@+id/EndTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/EndTime"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
 
-            android:layout_marginStart="120dp"
+<!--&lt;!&ndash;            android:layout_marginStart="120dp"&ndash;&gt;-->
 
-            android:textColor="#282BDC"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            tools:text="@tools:sample/date/ddmmyy" />
+<!--&lt;!&ndash;            android:textColor="#282BDC"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="22sp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;            tools:text="@tools:sample/date/ddmmyy" />&ndash;&gt;-->
 
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 </LinearLayout>

@@ -383,9 +383,10 @@ class MainPage : AppCompatActivity() {
 
 
 //                    writeUser(time,name,user)
-                    val intent = Intent(this, AppointmentSelect::class.java)
-                    intent.putExtra("DoctorName", name)
-                    startActivity(intent)
+//                    val intent = Intent(this, AppointmentSelect::class.java)
+                val intent = Intent(this, CalendarTimePicker::class.java)
+                intent.putExtra("DoctorName", name)
+                startActivity(intent)
 
 
             }
