@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 import kotlin.math.log
+import kotlin.math.min
 
 class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
     var day = 0
@@ -628,11 +629,35 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        val hour=calendar.get(Calendar.HOUR_OF_DAY)
 //        val minute=calendar.get(Calendar.M)
 //        val year=calendar.get(Calendar.YEAR)
+        var bufferMinute=0
+        var bufferHour=0
+        if(minute<29){
+
+            bufferMinute=minute+30
+            bufferHour=hour
+        }
+        else if(minute>29){
+
+            bufferMinute= minute-30
+            bufferHour=hour+1
+
+        }
+
+
+
+
+
+
 
 
         if (day== savedDay && month == savedMonth && year == savedYear
-            && hour== savedHour && savedMinute <minute+30
+            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
+            hour== savedHour && savedMinute<minute+30)
         ) {
+
+
+
+
 
             Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
             tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
