@@ -144,7 +144,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                     } else {
 //                        updateDoc()
 //                        tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
-                        checkAppointmentBooked()
+
                         var valid:Boolean=true
                         var check=0
                         val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss")
@@ -159,19 +159,27 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                             val hour = dateTime.hour
 //                            val minute = dateTime.minute
                             val year = dateTime.year
-                            var hourMinus=0
-                            hourMinus=hour-savedHour
-                            Toast.makeText(this,"hour$hourMinus",Toast.LENGTH_LONG).show()
+//                            var hourMinus=0
+//                            hourMinus=hour-savedHour
+//                            Toast.makeText(this,"hour$hourMinus",Toast.LENGTH_LONG).show()
+
+
+
+
+
+
                             if(year==savedYear&&month==savedMonth&&day==savedDay&&hour>=savedHour){
+//                                valid=checkAppointmentBooked(doctorAppointmentList[i])
                                 valid=timeToNotiAfter(doctorAppointmentList[i])
 
                             }
-//                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hourMinus==1){
-//                                Toast.makeText(this,"hour$hourMinus",Toast.LENGTH_LONG).show()
-//                                valid=timeToNotiBefore(doctorAppointmentList[i])
-//                            }
+                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hour<savedHour){
+                                Toast.makeText(this,"hour$hour",Toast.LENGTH_LONG).show()
+//                                valid=checkAppointmentBooked(doctorAppointmentList[i])
+                                valid=timeToNotiBefore(doctorAppointmentList[i])
+                            }
 
-
+//                            if(year==savedYear&&month==savedMonth&&day==savedDay&&(hour<=savedHour))
                             if(!valid){
 
 
@@ -321,10 +329,12 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         return date.after(now)
     }
 
-    private fun checkAppointmentBooked(){
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun checkAppointmentBooked(time:String):Boolean{
         val tvTime = findViewById<TextView>(R.id.tv_textTime)
         val loginUser=findGoogleUser()
         val doctorName = intent.getStringExtra("DoctorName").toString()
+        var valid=true
         if(savedHour in 0..9 ){
 
 
@@ -344,17 +354,19 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         else {
             appointmentStoring = ViewModelProviders.of(this)[appointmentViewModel::class.java]
+             valid=timeToNotiAfter(time)
+
            checkAppoint(realDate, doctorName, loginUser)
 //            Toast.makeText(this,"F$checkUser",Toast.LENGTH_LONG).show()
 
-            tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
+//            tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
 
-
+            return valid
 
         }
 
 
-
+        return valid
 
 
 
@@ -711,9 +723,24 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         }
 
+        if(savedHour in 0..9 ){
 
 
-        if (day== savedDay && month == savedMonth && year == savedYear
+            tvTime.text="The doctor is on the way to clinic"
+            return false
+
+        }
+        else if(savedHour==12&&minute>-1){
+
+            tvTime.text="The doctor is on lunch time"
+            return false
+        }
+        else if(savedHour >=17&&minute>-1){
+            tvTime.text="The doctor is after office hours"
+            return false
+        }
+
+        else if (day== savedDay && month == savedMonth && year == savedYear
             && (bufferHour== savedHour && savedMinute<=bufferMinute ||
                     hour== savedHour && savedMinute<minute+30)
         )
@@ -728,70 +755,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
 
-//
-//
-//
-//        if(savedHour==hourb4appointment){
-//
-//
-//            if(minute<29){
-//
-//                bufferMinuteb4=savedMinute+30
-//                bufferHourb4=hour
-//            }
-//            else if(minute>29){
-//
-//                bufferMinuteb4= savedMinute+30-60
-//                bufferHourb4=hour+1
-//
-//            }
-//
-//        }
-//
-//
-//        else if(savedHour==hour){
-//
-//
-//            if(minute<29){
-//
-//                bufferMinuteb4=savedMinute+30
-//                bufferHourb4=hour
-//            }
-//            else if(minute>29){
-//
-//                bufferMinuteb4= savedMinute+30-60
-//                bufferHourb4=hour+1
-//
-//            }
-//
-//        }
-//
-//
-//
-//
-////
-////      if (day== savedDay && month == savedMonth && year == savedYear
-////            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
-////            hour== savedHour && savedMinute<minute+30)
-////        )
-////        {
-////
-////            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
-////            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
-////
-////            return false
-////        }
-//        if (day== savedDay && month == savedMonth && year == savedYear
-//            && ( savedHour==hourb4appointment  && bufferMinuteb4<=minute+30 ||
-//                    savedHour==hour  && savedMinute>minute+30)
-//        )
-//        {
-//
-//            Toast.makeText(this,"please make appointment after 30 mins current booked ",Toast.LENGTH_LONG).show()
-//            tvTime.text="before please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
-//
-//            return false
-//        }
+
+
+
 
         return true
 
@@ -832,58 +798,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         var bufferHourb4=0
         var bufferMinuteb4=0
         var hourb4appointment=0
-        hourb4appointment=hour-1
+        hourb4appointment=hour
 //        if(minute<29){
-//
-//            bufferMinute=minute+30
-//            bufferHour=hour
-//        }
-//        else if(minute>29){
-//
-//            bufferMinute= minute-30
-//            bufferHour=hour+1
-//
-//        }
-//
-//
-//
-//        if (day== savedDay && month == savedMonth && year == savedYear
-//            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
-//                    hour== savedHour && savedMinute<minute+30)
-//        )
-//        {
-//
-//            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
-//            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
-//
-//            return false
-//        }
 
 
 
 
-
-
-
-        if(hourb4appointment==savedHour){
-
-
-            if(minute<29){
-
-                bufferMinuteb4=savedMinute+30
-                bufferHourb4=hour
-            }
-            else if(minute>29){
-
-                bufferMinuteb4= savedMinute+30-60
-                bufferHourb4=hour+1
-
-            }
-
-        }
-
-
-        else if(hour==savedHour){
+        if(hourb4appointment>=savedHour){
 
 
             if(minute<29){
@@ -900,24 +821,45 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         }
 
-
-
-
 //
-//      if (day== savedDay && month == savedMonth && year == savedYear
-//            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
-//            hour== savedHour && savedMinute<minute+30)
-//        )
-//        {
+//        else {
 //
-//            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
-//            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
 //
-//            return false
+//            if(minute<29){
+//
+//                bufferMinuteb4=savedMinute+30
+//                bufferHourb4=hour
+//            }
+//            else if(minute>29){
+//
+//                bufferMinuteb4= +(savedMinute+30-60)
+//                bufferHourb4=hour+1
+//
+//            }
+//
 //        }
-        if (  hourb4appointment==savedHour  && bufferMinuteb4<minute+30 ||
-                    hour==savedHour && savedMinute>minute+30
-        )
+
+
+
+
+        if(savedHour in 0..9 ){
+
+
+            tvTime.text="The doctor is on the way to clinic"
+
+            return false
+        }
+        else if(savedHour==12&&minute>-1){
+
+            tvTime.text="The doctor is on lunch time"
+            return false
+        }
+        else if(savedHour >=17&&minute>-1){
+            tvTime.text="The doctor is after office hours"
+            return false
+        }
+
+        else if (   bufferMinuteb4<minute+30 )
         {
 
             Toast.makeText(this,"please make appointment after 30 mins current booked ",Toast.LENGTH_LONG).show()
@@ -928,7 +870,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         else{
 
-            Toast.makeText(this,"failed to validate$hourb4appointment ",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"failed to validate hour$hourb4appointment ",Toast.LENGTH_LONG).show()
         }
 
         return true
