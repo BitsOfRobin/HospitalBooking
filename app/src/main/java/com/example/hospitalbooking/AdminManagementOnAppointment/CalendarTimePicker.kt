@@ -48,6 +48,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
     private lateinit var appointmentStoring:appointmentViewModel
     private val doctorAppointmentList = ArrayList<String>()
+    private val checkUserList = ArrayList<String>()
 
 
 
@@ -146,11 +147,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                         checkAppointmentBooked()
                         var valid:Boolean
                         var check=0
-                        for(i in doctorAppointmentList){
+                        for(i in doctorAppointmentList.indices){
 
-                            valid=timeToNoti(i)
+                            valid=timeToNoti(doctorAppointmentList[i])
                             if(!valid){
 
+
+                                hideUserName(checkUserList[i])
                                 check++
 
                             }
@@ -562,6 +565,45 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     }
 
 
+    private fun hideUserName(str:String){
+        val star=ArrayList<String>()
+        val currentUser=findGoogleUser()
+
+
+            if(currentUser!=str){
+                val len=str.length
+                for(i in 0..len)
+                {
+                    star.add(i,"*")
+
+                }
+
+
+
+                val astri=star.joinToString("")
+                val taken= str[0]+"$astri"
+                Toast.makeText(
+                    this,
+                    "The appointment is booked by other user,$taken",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            }
+        else{
+
+                Toast.makeText(
+                    this,
+                    "The appointment is booked by you already,$currentUser",
+                    Toast.LENGTH_LONG
+                ).show()
+
+
+            }
+
+
+    }
+
+
     private fun getDoctorAppointment( docName: String) {
 
 
@@ -578,7 +620,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 val appointment = document.get("doctorAppoint").toString()
                 val user = document.get("user").toString()
                 doctorAppointmentList.add(appointment)
-                userList.add(user)
+                checkUserList.add(user)
 
 
             }
