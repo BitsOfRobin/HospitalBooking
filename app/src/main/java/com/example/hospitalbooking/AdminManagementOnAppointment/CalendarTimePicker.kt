@@ -46,7 +46,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
     private lateinit var appointmentStoring:appointmentViewModel
-
+    private val doctorAppointmentList = ArrayList<String>()
 
 
 
@@ -54,12 +54,16 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_time_picker)
         pickDate()
 //        checkAppointmentBooked()
 
+        val doctorName = intent.getStringExtra("DoctorName").toString()
+
+        getDoctorAppointment(doctorName)
     }
 
     private fun getDateTimeCalendar() {
@@ -73,6 +77,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun pickDate() {
 
         val btnTime = findViewById<Button>(R.id.btn_timePicker)
@@ -138,6 +143,30 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //                        updateDoc()
 //                        tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
                         checkAppointmentBooked()
+                        var valid:Boolean
+                        var check=0
+                        for(i in doctorAppointmentList){
+
+                            valid=timeToNoti(i)
+                            if(!valid){
+
+                                check++
+
+                            }
+
+                        }
+
+                        if(check==0){
+
+                            dialogToWriteUser()
+                        }
+
+
+
+
+
+
+
                     }
 
                 }
@@ -437,7 +466,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
             for (i in appointmentList.indices) {
                 if (appointmentList[i].contains(time) ) {
-
+//                    appointmentBuffer(truth)
                     checkUser=userList[i]
 
 
@@ -457,6 +486,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
             val astri=star.joinToString("")
              truth= checkUser==currentUser||checkUser==""
+//            appointmentBuffer(truth)
 //                    var invalid=checkUser[0]+"*****"
 
 
@@ -464,7 +494,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
             Toast.makeText(this,"c$truth",Toast.LENGTH_LONG).show()
 //                dialogToWriteUser()
-                appointmentBuffer(truth)
+//                appointmentBuffer(truth)
 
 //                val builder = AlertDialog.Builder(this)
 //                builder.setTitle("Confirm Appointment")
@@ -504,7 +534,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
            else {
 
-                appointmentBuffer(truth)
+//                appointmentBuffer(truth)
 //                Toast.makeText(this,"c$truth",Toast.LENGTH_LONG).show()
                 val taken= checkUser[0]+"$astri"
                 Toast.makeText(
@@ -529,6 +559,137 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //            Toast.makeText(this,"is$checkUser",Toast.LENGTH_SHORT).show()
 
     }
+
+
+    private fun getDoctorAppointment( docName: String) {
+
+
+        val userList = ArrayList<String>()
+
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+        val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
+
+        docRef?.whereEqualTo("docName", docName)?.get()?.addOnSuccessListener {
+
+
+            for (document in it) {
+                Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                val appointment = document.get("doctorAppoint").toString()
+                val user = document.get("user").toString()
+                doctorAppointmentList.add(appointment)
+                userList.add(user)
+
+
+            }
+
+
+
+//
+
+            }
+
+
+
+            ?.addOnFailureListener {
+                Toast.makeText(this,"Failed to get appointment",Toast.LENGTH_SHORT).show()
+
+            }
+
+
+//            Toast.makeText(this,"is$checkUser",Toast.LENGTH_SHORT).show()
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun timeToNoti(time:String):Boolean
+    {
+
+
+
+//        val dateString = "23 Mar 2023, 10:05:00"
+        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss")
+        val dateTime = LocalDateTime.parse(time, formatter)
+        val day = dateTime.dayOfMonth
+        val month = dateTime.monthValue
+        val hour = dateTime.hour
+        val minute = dateTime.minute
+        val year = dateTime.year
+
+
+        val tvTime = findViewById<TextView>(R.id.tv_textTime)
+
+//        val dateString = "23 Mar 2023, 10:05:00"
+//        val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm:ss", Locale.ENGLISH)
+//        val date = dateFormat.parse(time) // parses the date string into a Date object
+//        val calendar = Calendar.getInstance() // creates a new Calendar object
+//        calendar.time = date // sets the Calendar object's time to the parsed Date object
+//        val day = calendar.get(Calendar.DAY_OF_MONTH) // retrieves the day information from the Calendar object
+//        val month = calendar.get(Calendar.MONTH) + 1
+//        val hour=calendar.get(Calendar.HOUR_OF_DAY)
+//        val minute=calendar.get(Calendar.M)
+//        val year=calendar.get(Calendar.YEAR)
+
+
+        if (day== savedDay && month == savedMonth && year == savedYear
+            && hour== savedHour && savedMinute <minute+30
+        ) {
+
+            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
+            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+
+            return false
+        }
+
+
+        return true
+//        else{
+//
+//            dialogToWriteUser()
+//
+//        }
+
+
+
+//
+//        val dateInString=time.replace(" ", "-")
+//
+//
+//
+//        val calendarDate = Calendar.getInstance().time
+//
+//
+//
+//
+//
+//        val formatter = SimpleDateFormat("dd-MMM-yyyy,HH:mm:ss")
+//
+//
+//        val detect=dateInString.indexOf(",")
+//        val sub1=dateInString.substring(0,detect)
+//        val sub2=dateInString.substring(detect+2,dateInString.length)
+//        var properDate= "$sub1,$sub2"
+//
+//
+//
+////        if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
+////            properDate = "0$properDate"
+////
+////        }
+//        val date = formatter.parse(properDate)
+//
+//        if(date)
+//
+//
+//
+//
+//        if (calendarDate.before(date)){
+//
+//
+//        }
+
+    }
+
+
 
     private fun appointmentBuffer(truth:Boolean){
 
