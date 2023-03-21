@@ -145,11 +145,33 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //                        updateDoc()
 //                        tvTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
                         checkAppointmentBooked()
-                        var valid:Boolean
+                        var valid:Boolean=true
                         var check=0
+                        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss")
+
+
+
                         for(i in doctorAppointmentList.indices){
 
-                            valid=timeToNoti(doctorAppointmentList[i])
+                            val dateTime = LocalDateTime.parse(doctorAppointmentList[i], formatter)
+                            val day = dateTime.dayOfMonth
+                            val month = dateTime.monthValue
+                            val hour = dateTime.hour
+//                            val minute = dateTime.minute
+                            val year = dateTime.year
+                            var hourMinus=0
+                            hourMinus=hour-savedHour
+                            Toast.makeText(this,"hour$hourMinus",Toast.LENGTH_LONG).show()
+                            if(year==savedYear&&month==savedMonth&&day==savedDay&&hour>=savedHour){
+                                valid=timeToNotiAfter(doctorAppointmentList[i])
+
+                            }
+//                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hourMinus==1){
+//                                Toast.makeText(this,"hour$hourMinus",Toast.LENGTH_LONG).show()
+//                                valid=timeToNotiBefore(doctorAppointmentList[i])
+//                            }
+
+
                             if(!valid){
 
 
@@ -303,7 +325,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val tvTime = findViewById<TextView>(R.id.tv_textTime)
         val loginUser=findGoogleUser()
         val doctorName = intent.getStringExtra("DoctorName").toString()
-        if(savedHour in 1..9 ){
+        if(savedHour in 0..9 ){
 
 
             tvTime.text="The doctor is on the way to clinic"
@@ -644,7 +666,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun timeToNoti(time:String):Boolean
+    private fun timeToNotiAfter(time:String):Boolean
     {
 
 
@@ -673,6 +695,10 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        val year=calendar.get(Calendar.YEAR)
         var bufferMinute=0
         var bufferHour=0
+
+        var bufferHourb4=0
+        var bufferMinuteb4=0
+        var hourb4appointment=hour-1
         if(minute<29){
 
             bufferMinute=minute+30
@@ -687,19 +713,11 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
 
-
-
-
-
-
         if (day== savedDay && month == savedMonth && year == savedYear
             && (bufferHour== savedHour && savedMinute<=bufferMinute ||
-            hour== savedHour && savedMinute<minute+30)
-        ) {
-
-
-
-
+                    hour== savedHour && savedMinute<minute+30)
+        )
+        {
 
             Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
             tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
@@ -708,55 +726,215 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         }
 
 
-        return true
-//        else{
+
+
 //
-//            dialogToWriteUser()
+//
+//
+//        if(savedHour==hourb4appointment){
+//
+//
+//            if(minute<29){
+//
+//                bufferMinuteb4=savedMinute+30
+//                bufferHourb4=hour
+//            }
+//            else if(minute>29){
+//
+//                bufferMinuteb4= savedMinute+30-60
+//                bufferHourb4=hour+1
+//
+//            }
 //
 //        }
-
-
-
-//
-//        val dateInString=time.replace(" ", "-")
 //
 //
-//
-//        val calendarDate = Calendar.getInstance().time
-//
+//        else if(savedHour==hour){
 //
 //
+//            if(minute<29){
 //
+//                bufferMinuteb4=savedMinute+30
+//                bufferHourb4=hour
+//            }
+//            else if(minute>29){
 //
-//        val formatter = SimpleDateFormat("dd-MMM-yyyy,HH:mm:ss")
+//                bufferMinuteb4= savedMinute+30-60
+//                bufferHourb4=hour+1
 //
+//            }
 //
-//        val detect=dateInString.indexOf(",")
-//        val sub1=dateInString.substring(0,detect)
-//        val sub2=dateInString.substring(detect+2,dateInString.length)
-//        var properDate= "$sub1,$sub2"
+//        }
 //
 //
 //
-////        if (properDate[0].toString().toInt() < 10&&properDate[1].toString().toInt()<0) {
-////            properDate = "0$properDate"
+//
 ////
+////      if (day== savedDay && month == savedMonth && year == savedYear
+////            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
+////            hour== savedHour && savedMinute<minute+30)
+////        )
+////        {
+////
+////            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
+////            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+////
+////            return false
 ////        }
-//        val date = formatter.parse(properDate)
+//        if (day== savedDay && month == savedMonth && year == savedYear
+//            && ( savedHour==hourb4appointment  && bufferMinuteb4<=minute+30 ||
+//                    savedHour==hour  && savedMinute>minute+30)
+//        )
+//        {
 //
-//        if(date)
+//            Toast.makeText(this,"please make appointment after 30 mins current booked ",Toast.LENGTH_LONG).show()
+//            tvTime.text="before please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
 //
-//
-//
-//
-//        if (calendarDate.before(date)){
-//
-//
+//            return false
 //        }
+
+        return true
+
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun timeToNotiBefore(time:String):Boolean
+    {
 
+
+
+//        val dateString = "23 Mar 2023, 10:05:00"
+        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss")
+        val dateTime = LocalDateTime.parse(time, formatter)
+        val day = dateTime.dayOfMonth
+        val month = dateTime.monthValue
+        val hour = dateTime.hour
+        val minute = dateTime.minute
+        val year = dateTime.year
+
+
+        val tvTime = findViewById<TextView>(R.id.tv_textTime)
+
+//        val dateString = "23 Mar 2023, 10:05:00"
+//        val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm:ss", Locale.ENGLISH)
+//        val date = dateFormat.parse(time) // parses the date string into a Date object
+//        val calendar = Calendar.getInstance() // creates a new Calendar object
+//        calendar.time = date // sets the Calendar object's time to the parsed Date object
+//        val day = calendar.get(Calendar.DAY_OF_MONTH) // retrieves the day information from the Calendar object
+//        val month = calendar.get(Calendar.MONTH) + 1
+//        val hour=calendar.get(Calendar.HOUR_OF_DAY)
+//        val minute=calendar.get(Calendar.M)
+//        val year=calendar.get(Calendar.YEAR)
+//        var bufferMinute=0
+//        var bufferHour=0
+//
+        var bufferHourb4=0
+        var bufferMinuteb4=0
+        var hourb4appointment=0
+        hourb4appointment=hour-1
+//        if(minute<29){
+//
+//            bufferMinute=minute+30
+//            bufferHour=hour
+//        }
+//        else if(minute>29){
+//
+//            bufferMinute= minute-30
+//            bufferHour=hour+1
+//
+//        }
+//
+//
+//
+//        if (day== savedDay && month == savedMonth && year == savedYear
+//            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
+//                    hour== savedHour && savedMinute<minute+30)
+//        )
+//        {
+//
+//            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
+//            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+//
+//            return false
+//        }
+
+
+
+
+
+
+
+        if(hourb4appointment==savedHour){
+
+
+            if(minute<29){
+
+                bufferMinuteb4=savedMinute+30
+                bufferHourb4=hour
+            }
+            else if(minute>29){
+
+                bufferMinuteb4= savedMinute+30-60
+                bufferHourb4=hour+1
+
+            }
+
+        }
+
+
+        else if(hour==savedHour){
+
+
+            if(minute<29){
+
+                bufferMinuteb4=savedMinute+30
+                bufferHourb4=hour
+            }
+            else if(minute>29){
+
+                bufferMinuteb4= +(savedMinute+30-60)
+                bufferHourb4=hour+1
+
+            }
+
+        }
+
+
+
+
+//
+//      if (day== savedDay && month == savedMonth && year == savedYear
+//            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
+//            hour== savedHour && savedMinute<minute+30)
+//        )
+//        {
+//
+//            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
+//            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+//
+//            return false
+//        }
+        if (  hourb4appointment==savedHour  && bufferMinuteb4<minute+30 ||
+                    hour==savedHour && savedMinute>minute+30
+        )
+        {
+
+            Toast.makeText(this,"please make appointment after 30 mins current booked ",Toast.LENGTH_LONG).show()
+            tvTime.text="before please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+
+            return false
+        }
+
+        else{
+
+            Toast.makeText(this,"failed to validate$hourb4appointment ",Toast.LENGTH_LONG).show()
+        }
+
+        return true
+
+
+    }
 
     private fun appointmentBuffer(truth:Boolean){
 
