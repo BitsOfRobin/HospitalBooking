@@ -173,11 +173,11 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                                 valid=timeToNotiAfter(doctorAppointmentList[i])
 
                             }
-                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hour<savedHour){
-                                Toast.makeText(this,"hour$hour",Toast.LENGTH_LONG).show()
-//                                valid=checkAppointmentBooked(doctorAppointmentList[i])
-                                valid=timeToNotiBefore(doctorAppointmentList[i])
-                            }
+//                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hour<savedHour){
+//                                Toast.makeText(this,"hour$hour",Toast.LENGTH_LONG).show()
+////                                valid=checkAppointmentBooked(doctorAppointmentList[i])
+//                                valid=timeToNotiBefore(doctorAppointmentList[i])
+//                            }
 
 //                            if(year==savedYear&&month==savedMonth&&day==savedDay&&(hour<=savedHour))
                             if(!valid){
@@ -604,7 +604,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val currentUser=findGoogleUser()
 
 
-            if(currentUser!=str){
+        if(currentUser!=str){
                 val len=str.length
                 for(i in 0..len)
                 {
