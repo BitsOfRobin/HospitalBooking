@@ -168,9 +168,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
 
-                            if(year==savedYear&&month==savedMonth&&day==savedDay&&hour>=savedHour){
+                            if(year==savedYear&&month==savedMonth&&day==savedDay){
 //                                valid=checkAppointmentBooked(doctorAppointmentList[i])
-                                valid=timeToNotiAfter(doctorAppointmentList[i])
+                                valid=timeToNotiAfter(doctorAppointmentList[i],checkUserList[i])
 
                             }
 //                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hour<savedHour){
@@ -183,7 +183,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                             if(!valid){
 
 
-                                hideUserName(checkUserList[i])
+
                                 check++
 
                             }
@@ -354,7 +354,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         else {
             appointmentStoring = ViewModelProviders.of(this)[appointmentViewModel::class.java]
-             valid=timeToNotiAfter(time)
+//             valid=timeToNotiAfter(time)
 
            checkAppoint(realDate, doctorName, loginUser)
 //            Toast.makeText(this,"F$checkUser",Toast.LENGTH_LONG).show()
@@ -599,7 +599,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     }
 
 
-    private fun hideUserName(str:String){
+    private fun hideUserName(str:String):String{
         val star=ArrayList<String>()
         val currentUser=findGoogleUser()
 
@@ -621,6 +621,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                     "The appointment is booked by other user,$taken",
                     Toast.LENGTH_LONG
                 ).show()
+            return taken
 
             }
         else{
@@ -630,7 +631,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                     "The appointment is booked by you already,$currentUser",
                     Toast.LENGTH_LONG
                 ).show()
-
+            return currentUser
 
             }
 
@@ -678,12 +679,16 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun timeToNotiAfter(time:String):Boolean
+    private fun timeToNotiAfter(time:String,userName:String):Boolean
     {
 
-
+        val hideName=hideUserName(userName)
 
 //        val dateString = "23 Mar 2023, 10:05:00"
+        val loginUser=findGoogleUser()
+
+
+
         val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss")
         val dateTime = LocalDateTime.parse(time, formatter)
         val day = dateTime.dayOfMonth
@@ -741,25 +746,51 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         }
 
         else if (day== savedDay && month == savedMonth && year == savedYear
-            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
-                    hour== savedHour && savedMinute<minute+30)
+        && hour== savedHour && savedMinute==minute
         )
         {
 
             Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
-            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+            tvTime.text="Appointment is already booked by other user $hideName at  $hour:$minute  $day/$month/$year"
 
             return false
         }
 
 
+        else if(savedMinute==30||savedMinute==0){
+            tvTime.text="Appointment is booked successfully at  ${savedHour}:${savedMinute}  ${savedDay}/${savedMonth}" +
+                    "/${savedYear} by $loginUser"
+            return true
+
+        }
+
+        else{
+            tvTime.text="Appointment cannot be booked   at  ${savedHour}:${savedMinute}  ${savedDay}" +
+                    "/${savedMonth}/${savedYear} as only Appointmnet start at 00 or 30"
+            return false
+        }
+
+
+
+//        else if (day== savedDay && month == savedMonth && year == savedYear
+//            && (bufferHour== savedHour && savedMinute<=bufferMinute ||
+//                    hour== savedHour && savedMinute<minute+30)
+//        )
+//        {
+//
+//            Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
+//            tvTime.text="compile please make appointment after 30 mins from $hour:$minute  $day/$month/$year"
+//
+//            return false
+//        }
 
 
 
 
 
 
-        return true
+
+//        return true
 
 
     }
