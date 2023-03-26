@@ -6,22 +6,34 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
 import com.example.hospitalbooking.KotlinClass.appointmentViewModel
+import com.example.hospitalbooking.MainActivity
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
+import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.example.hospitalbooking.R
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -44,7 +56,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     var savedMinute = 0
     var realDate=" "
 
-
+    private lateinit var toggle:ActionBarDrawerToggle
 
     private lateinit var appointmentStoring:appointmentViewModel
     private val doctorAppointmentList = ArrayList<String>()
@@ -62,9 +74,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         setContentView(R.layout.activity_calendar_time_picker)
         pickDate()
 //        checkAppointmentBooked()
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setTitle("Choose Doctor Appointment")
         val doctorName = intent.getStringExtra("DoctorName").toString()
 
+        val userName=findGoogleUser()
+        showNavBar()
         getDoctorAppointment(doctorName)
     }
 
@@ -78,7 +94,10 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun pickDate() {
 
@@ -1017,11 +1036,14 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         var loginUser = " "
         val userGoogle = Firebase.auth.currentUser
+
         userGoogle.let {
             // Name, email address, and profile photo Url
 //                    val name = user.displayName
             if (userGoogle != null) {
                 loginUser = userGoogle.displayName.toString()
+                val imgUrl=userGoogle.photoUrl
+                naviImg(imgUrl,loginUser)
             } else {
 
                 loginUser = " NOne"
@@ -1032,7 +1054,102 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         return loginUser
     }
+    private fun showNavBar(){
 
+
+        val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val nav_view=findViewById<NavigationView>(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        nav_view.setNavigationItemSelectedListener {
+
+            when(it.itemId){
+
+                R.id.nav_BookAppoint -> {
+                    val intent = Intent(this, MainPage::class.java)
+                    startActivity(intent)
+
+                }
+
+
+
+
+                R.id.nav_Pres -> {
+                    val intent = Intent(this, PrescriptionDisplay::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_profile -> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_viewAppoint -> {
+                    val intent = Intent(this, DoctorAppointment::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_medicineRecord -> {
+                    val  intent = Intent(this, MedicineRecord::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
+                    startActivity(intent)
+                }
+
+
+
+
+
+            }
+
+
+            true
+
+        }
+
+
+
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun naviImg(photoUrl: Uri?, loginUser: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
+        val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
+        Picasso.get().load(photoUrl).into(headerImage);
+        headerTxtView.text=loginUser
+
+
+
+
+    }
 
 
 }

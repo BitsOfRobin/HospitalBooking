@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         if (loginUser.contains("@student.tarc")) {
             names = arrayOf(
 
-                "Login",
+                "Login/Profile",
                 "Set time for Doctors",
                 "Upload Images for Doctor",
                 "Medicine Recognition",
@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             names = arrayOf(
 
-                "Login",
+                "Login/Profile",
                 "Set time for Doctors",
                 "Upload Images for Doctor",
                 "Medicine Recognition",

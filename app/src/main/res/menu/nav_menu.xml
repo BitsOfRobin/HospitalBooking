@@ -6,39 +6,39 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home"
-        android:icon="@drawable/fui_ic_googleg_color_24dp"
+        android:icon="@drawable/home"
 
         />
 
     <item
         android:id="@+id/nav_OCR"
         android:title="medicine OCR"
-        android:icon="@drawable/baseline_event_18"
+        android:icon="@drawable/ocr"
 
         />
     <item
         android:id="@+id/nav_profile"
         android:title="Profile"
-        android:icon="@drawable/baseline_medication_liquid_20"
+        android:icon="@drawable/pro"
         />
 
     <item
         android:id="@+id/nav_BookAppoint"
         android:title="Book Appointment"
-        android:icon="@drawable/baseline_event_20"
+        android:icon="@drawable/book"
         />
 
     <item
         android:id="@+id/nav_medicineRecord"
         android:title="medicine Record "
-        android:icon="@drawable/baseline_event_18"
+        android:icon="@drawable/medicinerecored"
         />
 
 
     <item
         android:id="@+id/nav_viewAppoint"
         android:title="Appointment Made"
-        android:icon="@drawable/baseline_event_18"
+        android:icon="@drawable/appointmentmade"
         />
 
 

@@ -10,8 +10,8 @@ import android.widget.*
 import androidx.databinding.DataBindingUtil
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.R
-import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
-import com.example.hospitalbooking.databinding.ActivityMainBinding
+//import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
+//import com.example.hospitalbooking.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
