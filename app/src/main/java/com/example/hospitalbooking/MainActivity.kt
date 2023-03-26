@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 loginUser = userGoogle.email.toString()
-                naviImg(userGoogle!!.photoUrl,loginUser)
+                naviImg(userGoogle.photoUrl,loginUser)
             } else {
 
                 loginUser = " NOne"

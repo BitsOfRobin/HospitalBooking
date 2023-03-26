@@ -333,9 +333,9 @@ class MainPage : AppCompatActivity() {
 
                 if(tempListViewClickedValue=="Dr $dtname"){
 
-                    val intent = Intent(this, CalendarTimePicker::class.java)
-                    intent.putExtra("DoctorName", tempListViewClickedValue)
-                    startActivity(intent)
+//                    val intent = Intent(this, CalendarTimePicker::class.java)
+//                    intent.putExtra("DoctorName", tempListViewClickedValue)
+//                    startActivity(intent)
                 }
 
                 else{
