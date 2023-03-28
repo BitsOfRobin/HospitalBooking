@@ -1,12 +1,21 @@
 package com.example.hospitalbooking.MedicineOCR
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
@@ -21,7 +30,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.squareup.picasso.BuildConfig
 import com.squareup.picasso.Picasso
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -140,29 +153,109 @@ class UserMedicine : AppCompatActivity() {
 
     private fun selectImage() {
 
-        val intent= Intent()
-        intent.type="image/*"
-        intent.action=Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent,100)
+
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Choose an option")
+        val options = arrayOf("Select from gallery", "Take a photo")
+        builder.setItems(options) { dialog, which ->
+            when (which) {
+                0 -> selectFromGallery()
+                1 -> takePhoto()
+            }
+        }
+        builder.show()
+
+
+
+
+//
+//        val intent= Intent()
+//        intent.type="image/*"
+//        intent.action=Intent.ACTION_GET_CONTENT
+//        startActivityForResult(intent,100)
+
+
+
+
 
 
     }
 
 
 
+
+
+
+
+    private fun takePhoto() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.CAMERA),
+                200)
+        } else {
+            // Permission is already granted, start the camera intent
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(cameraIntent, 200)
+        }
+
+
+
+
+
+    }
+
+    private fun selectFromGallery() {
+
+
+        val intent= Intent()
+        intent.type="image/*"
+        intent.action=Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(intent,100)
+
+
+
+    }
+
+
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
         if(requestCode==100&& resultCode== RESULT_OK)
         {
             ImageUri=data?.data!!
-            val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
+
             firebaseImg.setImageURI(ImageUri)
 
         }
 
+        else if (requestCode == 200 && resultCode == RESULT_OK) {
 
+            val bitmap=data?.extras?.get("data") as Bitmap
+            ImageUri=bitmapToUri(bitmap,this)
+
+
+            firebaseImg.setImageURI(ImageUri)
+
+
+            // Do something with the photo, such as display it in an ImageView
+        }
+
+
+
+    }
+
+
+    fun bitmapToUri(bitmap: Bitmap, context: Context): Uri {
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Camera Capture", null)
+        return Uri.parse(path)
     }
 
 //    private fun readMedicine() {
