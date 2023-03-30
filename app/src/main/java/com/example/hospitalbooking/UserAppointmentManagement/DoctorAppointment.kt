@@ -452,7 +452,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-            Toast.makeText(this, "Success ${arrayDel.elementAt(i)}delete the user ", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Success ${arrayDel.elementAt(i)}delete the user ", Toast.LENGTH_SHORT).show()
 
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Delete Appointment Alert")

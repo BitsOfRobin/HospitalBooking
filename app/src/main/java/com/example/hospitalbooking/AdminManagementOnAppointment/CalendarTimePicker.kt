@@ -187,11 +187,11 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
 
-                            if(year==savedYear&&month==savedMonth&&day==savedDay){
+//                            if(year==savedYear&&month==savedMonth&&day==savedDay){
 //                                valid=checkAppointmentBooked(doctorAppointmentList[i])
                                 valid=timeToNotiAfter(doctorAppointmentList[i],checkUserList[i])
 
-                            }
+//                            }
 //                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hour<savedHour){
 //                                Toast.makeText(this,"hour$hour",Toast.LENGTH_LONG).show()
 ////                                valid=checkAppointmentBooked(doctorAppointmentList[i])
@@ -701,7 +701,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     private fun timeToNotiAfter(time:String,userName:String):Boolean
     {
 
-        val hideName=hideUserName(userName)
+
 
 //        val dateString = "23 Mar 2023, 10:05:00"
         val loginUser=findGoogleUser()
@@ -768,7 +768,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         && hour== savedHour && savedMinute==minute
         )
         {
-
+            val hideName=hideUserName(userName)
             Toast.makeText(this,"please make appointment after 30 mins ",Toast.LENGTH_LONG).show()
             tvTime.text="Appointment is already booked by other user $hideName at  $hour:$minute  $day/$month/$year"
 

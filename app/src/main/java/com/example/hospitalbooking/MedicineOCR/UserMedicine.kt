@@ -251,7 +251,7 @@ class UserMedicine : AppCompatActivity() {
     }
 
 
-    fun bitmapToUri(bitmap: Bitmap, context: Context): Uri {
+    private fun bitmapToUri(bitmap: Bitmap, context: Context): Uri {
         val bytes = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Camera Capture", null)
