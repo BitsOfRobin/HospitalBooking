@@ -30,7 +30,7 @@
 
             android:id="@+id/imageName"
             android:layout_width="69dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="hi"
             android:gravity="center"
             android:layout_marginTop="8dp"

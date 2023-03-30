@@ -222,7 +222,7 @@ class MainActivity : AppCompatActivity() {
             names = arrayOf(
 
                 "Login/Profile",
-                "Set time for Doctors",
+                "View and deletion for Doctors",
                 "Upload Images for Doctor",
                 "Medicine Recognition",
                 "Medicine Record",

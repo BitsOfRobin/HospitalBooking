@@ -1095,33 +1095,34 @@ class MainPage : AppCompatActivity() {
 
         val temp = ArrayList<String>()
         val tempHos = ArrayList<String>()
+        val tempName = ArrayList<String>()
         val searchView = findViewById<SearchView>(R.id.searchDoc)
-        searchView.queryHint = "search Doctor Professional/Current Hospital"
+        searchView.queryHint = " Professional/Hospital/Doc Name"
 
-        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
-        autoCompleteTextView.setAdapter(adapter)
-        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-                        val selectedItem = parent.getItemAtPosition(position) as String
-
-
-
-            //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
-            //
-            //
-            //                searchView.setQuery(null,true)
-            //            }
-            //            else{
-
-                        searchView.setQuery(selectedItem, true)
-            //            }
-
-
-
-
-
-        }
+//        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
+//
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
+//        autoCompleteTextView.setAdapter(adapter)
+//        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+//                        val selectedItem = parent.getItemAtPosition(position) as String
+//
+//
+//
+//            //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
+//            //
+//            //
+//            //                searchView.setQuery(null,true)
+//            //            }
+//            //            else{
+//
+//                        searchView.setQuery(selectedItem, true)
+//            //            }
+//
+//
+//
+//
+//
+//        }
 
 
 
@@ -1138,6 +1139,7 @@ class MainPage : AppCompatActivity() {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 temp.clear()
                 tempHos.clear()
+                tempName.clear()
                 var searchQuery=""
 //                val first= p0?.let { p0.toString().indexOf(it[0]) }
                 if (p0 != null) {
@@ -1160,13 +1162,27 @@ class MainPage : AppCompatActivity() {
                             searchQuery.replace("", p0)
                         }
                     }
+                    for (i in arraylistName.indices) {
+                        if (arraylistName[i].contains(p0, true)) {
+
+                            tempName.add(arraylistName[i])
+                            searchQuery.replace("", p0)
+                        }
+                    }
+
                     if (temp.isNotEmpty()) {
                         callForSearching(temp,searchQuery,docView)
-                    } else {
+                    }
+                    else if(tempHos.isNotEmpty()) {
 
 
 
                         callForSearching(tempHos,searchQuery,docView)
+
+                    }
+                    else if(tempName.isNotEmpty()){
+
+                        callForSearching(tempName,searchQuery,docView)
 
                     }
 
@@ -1210,9 +1226,9 @@ class MainPage : AppCompatActivity() {
                             docView.adapter = customAdapter
 
                         }
-                if (p0 != null) {
-                    showSuggestion(p0,adapter)
-                }
+//                if (p0 != null) {
+//                    showSuggestion(p0,adapter)
+//                }
 
 
 
@@ -1277,7 +1293,7 @@ class MainPage : AppCompatActivity() {
 
         modalListSearch.clear()
         var j = 0
-
+        val size=tempName.size
         for (i in arraylistName.indices) {
             if (arraylistName[i] == tempName[j]) {
 
@@ -1301,10 +1317,10 @@ class MainPage : AppCompatActivity() {
 
 
 
-                if (j < tempName.size - 1) {
-                    j++
-
-                }
+//                if (j < tempName.size - 1) {
+//
+//
+//                }
 
                 if(searchQuery.isNotBlank()&&searchQuery.isNotEmpty()){
 
@@ -1315,6 +1331,12 @@ class MainPage : AppCompatActivity() {
 
 
 //                setColorText(i)
+
+            }
+            else{
+                if(j < size-1){
+                    j++
+                }
 
             }
 

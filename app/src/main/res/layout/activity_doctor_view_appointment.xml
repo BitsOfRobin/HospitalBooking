@@ -43,16 +43,16 @@
             />
 
 
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:completionThreshold="1"
-            android:background="@drawable/toggle_rounded"
-            android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:textColorHint="@color/black"
-            android:hint="Enter your query for suggestion" />
+<!--        <AutoCompleteTextView-->
+<!--            android:id="@+id/autocomplete_text_view"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:completionThreshold="1"-->
+<!--            android:background="@drawable/toggle_rounded"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            android:hint="Enter your query for suggestion" />-->
     </LinearLayout>
 <!--    <androidx.fragment.app.FragmentContainerView-->
 <!--        android:id="@+id/fragmentContainerView"-->
