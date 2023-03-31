@@ -26,6 +26,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
 import com.example.hospitalbooking.*
@@ -555,6 +557,7 @@ class MainPage : AppCompatActivity() {
 
 
         val customAdapter = CustomAdapter(modalList, this)
+        useViewModel(modalList)
         customAdapter.notifyDataSetChanged()
 
 
@@ -1050,9 +1053,12 @@ class MainPage : AppCompatActivity() {
                                 }
 
                                 modalList.removeAt(i)
-                                val arr = CustomAdapter(modalList, this)
-                                arr.notifyDataSetChanged()
-                                docView.adapter = arr
+                                useViewModel(modalList)
+
+
+//                                val arr = CustomAdapter(modalList, this)
+//                                arr.notifyDataSetChanged()
+//                                docView.adapter = arr
 
                     }
 
@@ -1509,6 +1515,22 @@ class MainPage : AppCompatActivity() {
 
 
     }
+
+    private fun useViewModel(arr:ArrayList<ModalFormMain>){
+        val docView=findViewById<GridView>(R.id.gridView)
+        val viewModelFactory = MainPageViewModelFactory(arr)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(MainPageViewModel::class.java)
+        viewModel.modalList.observe(this, androidx.lifecycle.Observer {modalList->
+
+                val adapter=CustomAdapter(modalList,this)
+                adapter.notifyDataSetChanged()
+                docView.adapter=adapter
+
+
+        })
+    }
+
+
 
 
 
