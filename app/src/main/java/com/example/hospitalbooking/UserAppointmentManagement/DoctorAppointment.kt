@@ -22,8 +22,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hospitalbooking.*
@@ -388,6 +386,11 @@ class DoctorAppointment : AppCompatActivity() {
 //                            docView.adapter=arrPast
 //                            linearCurrent.visibility =View.VISIBLE
 
+                            docView.setOnItemClickListener { adapterView, view, i, l ->
+
+                                    toComment(i)
+
+                            }
 
 
                         }
@@ -414,13 +417,6 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-        docView.onItemLongClickListener =
-            AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-
-
-                toComment(i)
-                true
-            }
 
 
 
@@ -439,8 +435,6 @@ class DoctorAppointment : AppCompatActivity() {
         intent.putExtra("userName", arraylistPastAppointment.get(i).userName)
 
         startActivity(intent)
-
-
 
 
 
