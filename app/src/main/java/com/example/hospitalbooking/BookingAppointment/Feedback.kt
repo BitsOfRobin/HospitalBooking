@@ -28,5 +28,4 @@ class Feedback : AppCompatActivity()  {
         val userName = intent.getStringExtra("userName")
     }
 
-
 }
