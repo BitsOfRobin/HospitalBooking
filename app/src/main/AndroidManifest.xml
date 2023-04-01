@@ -72,6 +72,12 @@
             android:name=".BookingAppointment.AppointmentSelect"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".BookingAppointment.Feedback"
+            android:exported="false" />
+        <activity
+>>>>>>> 7fff141 (I have done Feedback and Comment part.)
             android:name=".MainActivity"
             android:exported="true">
             <meta-data
