@@ -73,29 +73,29 @@ class DoctorAppointment : AppCompatActivity() {
 //        deleteUser()
 //        deleteUserPast()
 
-        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+//        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
         val docView = findViewById<ListView>(R.id.listDocAppoint)
-        docView.setOnScrollListener(object :  AbsListView.OnScrollListener {
-            override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
-
-            }
-
-            override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
-                val topRowVerticalPosition =
-                    if (p0 == null || p0.getChildCount() === 0) 0 else p0.getChildAt(
-                        0
-                    ).getTop()
-                swipe.isEnabled = topRowVerticalPosition >= 0
-            }
-
-        }
-            
-        )
-
-
+//        docView.setOnScrollListener(object :  AbsListView.OnScrollListener {
+//            override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
+//
+//            }
+//
+//            override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
+//                val topRowVerticalPosition =
+//                    if (p0 == null || p0.getChildCount() === 0) 0 else p0.getChildAt(
+//                        0
+//                    ).getTop()
+//                swipe.isEnabled = topRowVerticalPosition >= 0
+//            }
+//
+//        }
+//
+//        )
 
 
-        refresh()
+
+
+//        refresh()
         createNoti()
 
 
@@ -386,11 +386,7 @@ class DoctorAppointment : AppCompatActivity() {
 //                            docView.adapter=arrPast
 //                            linearCurrent.visibility =View.VISIBLE
 
-                            docView.setOnItemClickListener { adapterView, view, i, l ->
 
-                                    toComment(i)
-
-                            }
 
 
                         }
@@ -406,7 +402,17 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
+            docView.onItemLongClickListener =
+                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
 
+                    if(i<arrayDelPast.size){
+
+                        toComment(i)
+                    }
+
+
+                    true
+                }
 
 
 
