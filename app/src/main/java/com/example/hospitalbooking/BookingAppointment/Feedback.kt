@@ -51,7 +51,7 @@ class Feedback : AppCompatActivity()  {
         val radioGroup2 = findViewById<RadioGroup>(R.id.questionTwoRadio)
 
         var answer1 = buttonGroupSelection(radioGroup)
-        var answer2 = buttonGroupSelection(radioGroup2)
+        var answer2 = buttonGroupSelection2(radioGroup2)
 
 
 
@@ -95,8 +95,6 @@ class Feedback : AppCompatActivity()  {
             val radioButton = findViewById<RadioButton>(checkedId)
             //val selectedOption = radioButton.text.toString()
 
-
-
             when(checkedId){
                 R.id.exceptional -> {
                     answer = radioButton.text.toString()
@@ -113,7 +111,6 @@ class Feedback : AppCompatActivity()  {
                     Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
                 }
 
-
                 R.id.unsatisfactory -> {
                     answer = radioButton.text.toString()
                     Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
@@ -121,6 +118,38 @@ class Feedback : AppCompatActivity()  {
             }
         }
         return answer
+    }
+    private fun buttonGroupSelection2(radioGroup: RadioGroup): String {
+        var answer2 = ""
+
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val radioButton2 = findViewById<RadioButton>(checkedId)
+            //val selectedOption = radioButton.text.toString()
+
+            when(checkedId){
+                R.id.rude -> {
+                    answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.talkOwn -> {
+                    answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.talkLong -> {
+                    answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
+                }
+
+
+                R.id.extremeSkill -> {
+                    answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return answer2
     }
 
     private fun textComment() {
