@@ -8,7 +8,6 @@
     android:background="#ECD285"
     tools:context=".BookingAppointment.Feedback">
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
