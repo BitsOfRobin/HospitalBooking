@@ -28,12 +28,8 @@
             android:id="@+id/medi1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="20dp"
-
             android:layout_marginRight="20dp"
-
-
             android:hint="Medicine 1"
             android:inputType="textMultiLine"
             android:maxLength="100"
