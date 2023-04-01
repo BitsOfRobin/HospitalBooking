@@ -7,32 +7,51 @@
     android:layout_height="match_parent"
     tools:context=".UserAppointmentManagement.DoctorAppointment"
     android:id="@+id/drawerLayout">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.643"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664"
+
         tools:visibility="visible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:id="@+id/currentList"
             >
 
 
-            <ListView
-                android:id="@+id/listDocAppoint"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/appointmentLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/swipeRefresh"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.38"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/currentAppoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Appointment" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/PastAppoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Past Appointment" />
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <ListView
+                android:id="@+id/listDocAppoint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,30 +91,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/appointmentLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/swipeRefresh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/currentAppoint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Appointment" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/PastAppoint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Past Appointment" />
-
-
-    </com.google.android.material.tabs.TabLayout>
 
     <!--    <androidx.viewpager.widget.ViewPager-->
 <!--        android:id="@+id/viewpager"-->
@@ -104,7 +100,7 @@
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="@+id/swipeRefresh" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

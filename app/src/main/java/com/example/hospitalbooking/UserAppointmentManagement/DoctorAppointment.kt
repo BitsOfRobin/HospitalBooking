@@ -388,13 +388,6 @@ class DoctorAppointment : AppCompatActivity() {
 //                            docView.adapter=arrPast
 //                            linearCurrent.visibility =View.VISIBLE
 
-                            docView.onItemLongClickListener =
-                                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-
-
-                                    toComment(i)
-                                    true
-                            }
 
 
                         }
@@ -421,6 +414,13 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
+        docView.onItemLongClickListener =
+            AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+
+
+                toComment(i)
+                true
+            }
 
 
 
