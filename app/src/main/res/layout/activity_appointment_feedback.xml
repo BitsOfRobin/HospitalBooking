@@ -185,6 +185,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
 
+
             android:hint="Comment here."
             android:inputType="textMultiLine"
             android:maxLength="100"
