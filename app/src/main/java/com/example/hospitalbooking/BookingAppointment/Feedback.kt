@@ -142,7 +142,6 @@ class Feedback : AppCompatActivity()  {
                     Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
                 }
 
-
                 R.id.extremeSkill -> {
                     answer2 = radioButton2.text.toString()
                     Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
