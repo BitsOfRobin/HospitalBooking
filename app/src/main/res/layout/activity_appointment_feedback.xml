@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ECD285"
+    tools:context=".BookingAppointment.Feedback">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Appointment Detail"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/doctorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Doctor Name" />
+
+        <TextView
+            android:id="@+id/appointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Appointment" />
+
+        <TextView
+            android:id="@+id/patientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Patient Name" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:background="#2196F3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Appointment Rating"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/ratingComment"
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:padding="5dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:background="#2196F3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Feedback"
+            android:layout_gravity="center"
+            android:textColor="#9C27B0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/firstFeedback"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. How was your experience with wait time?" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+
+            <RadioButton
+                android:id="@+id/exceptional"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Exceptional"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/satisfactory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Satisfactory" />
+
+            <RadioButton
+                android:id="@+id/adequate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adequate" />
+
+            <RadioButton
+                android:id="@+id/unsatisfactory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unsatisfactory" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#2196F3"/>
+
+        <TextView
+            android:id="@+id/secondFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="2. How was the doctor relation with patients" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+
+            <RadioButton
+                android:id="@+id/rude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rude"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/talkOwn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Only talk to patient about doctor's own interest" />
+
+            <RadioButton
+                android:id="@+id/talkLong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Talk too long, no point" />
+
+            <RadioButton
+                android:id="@+id/extremeSkill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Extremely skilled in dealing with people" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#2196F3"/>
+
+        <TextView
+            android:id="@+id/thirdFeedback"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. Would you provide other comments about the doctor? (optional)" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/commentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+
+            android:hint="Comment here."
+            android:inputType="textMultiLine"
+            android:maxLength="100"
+            android:maxLines="3"
+            android:padding="10dp"
+            android:textSize="17dp"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/submitComment"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_rounded"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:text="Submit" />
+    </LinearLayout>
+</ScrollView>
