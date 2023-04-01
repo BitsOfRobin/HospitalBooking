@@ -22,6 +22,7 @@ class Feedback : AppCompatActivity()  {
         return super.onSupportNavigateUp()
     }
 
+
     private fun appointmentDetail() {
         val docName = intent.getStringExtra("DoctorName")
         val userAppointment = intent.getStringExtra("Appointment")
