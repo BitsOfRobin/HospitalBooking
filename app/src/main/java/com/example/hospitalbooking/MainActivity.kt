@@ -26,10 +26,7 @@ import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.example.hospitalbooking.AdminManagementOnAppointment.DoctorViewAppointment
-<<<<<<< HEAD
-=======
 import com.example.hospitalbooking.BookingAppointment.Feedback
->>>>>>> 7fff141 (I have done Feedback and Comment part.)
 import com.example.hospitalbooking.MedicineOCR.DoctorFilterMedicine
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.google.android.material.navigation.NavigationView
@@ -118,13 +115,8 @@ class MainActivity : AppCompatActivity() {
                 "Upload Images for Doctor",
                 "Medicine Recognition",
                 "Medicine Record",
-<<<<<<< HEAD
-                "Doctor View Appointment"
-=======
                 "Doctor View Appointment",
                 "Feedback"
->>>>>>> 7fff141 (I have done Feedback and Comment part.)
-
             )
             for (i in names.indices) {
 
@@ -221,16 +213,12 @@ class MainActivity : AppCompatActivity() {
                             startActivity(intent)
 
                                 }
-<<<<<<< HEAD
-=======
                     6-> {
                         val intent = Intent(this, Feedback::class.java)
                         //            intent.putExtra("DoctorName", tempListViewClickedValue)
                         startActivity(intent)
 
                     }
->>>>>>> 7fff141 (I have done Feedback and Comment part.)
-
                 }
 
 
@@ -245,13 +233,8 @@ class MainActivity : AppCompatActivity() {
                 "Medicine Recognition",
                 "Medicine Record",
                 "Book Appointment",
-<<<<<<< HEAD
-                "View Doctor Appointment"
-=======
                 "View Doctor Appointment",
                 "Feedback"
->>>>>>> 7fff141 (I have done Feedback and Comment part.)
-
             )
 
             for (i in names.indices) {
@@ -342,16 +325,12 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
 
                     }
-<<<<<<< HEAD
-=======
-
                     7 -> {
                         val intent = Intent(this, Feedback::class.java)
                         //            intent.putExtra("DoctorName", tempListViewClickedValue)
                         startActivity(intent)
 
                     }
->>>>>>> 7fff141 (I have done Feedback and Comment part.)
                 }
 
 
