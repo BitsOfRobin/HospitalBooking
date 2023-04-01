@@ -91,6 +91,7 @@
             android:text="1. How was your experience with wait time?" />
 
         <RadioGroup
+            android:id="@+id/questionOneRadio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp">
@@ -134,6 +135,7 @@
             android:text="2. How was the doctor relation with patients" />
 
         <RadioGroup
+            android:id="@+id/questionTwoRadio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp">
