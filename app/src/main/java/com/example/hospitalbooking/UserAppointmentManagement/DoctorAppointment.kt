@@ -26,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hospitalbooking.*
 import com.example.hospitalbooking.Adapter.listCustomAdapter
+import com.example.hospitalbooking.BookingAppointment.Feedback
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
 import com.example.hospitalbooking.KotlinClass.AppointmentDetail
@@ -387,9 +388,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                             docView.setOnItemClickListener { adapterView, view, i, l ->
 
-
-
-
+                                    toComment(i)
 
                             }
 
@@ -427,7 +426,21 @@ class DoctorAppointment : AppCompatActivity() {
     }
 
 
+    private fun toComment(i:Int){
 
+
+        val intent = Intent(this, Feedback::class.java)
+        intent.putExtra("DoctorName",arraylistPastAppointment.get(i).docName)
+        intent.putExtra("Appointment", arraylistPastAppointment.get(i).AppointmentDetail)
+        intent.putExtra("userName", arraylistPastAppointment.get(i).userName)
+
+        startActivity(intent)
+
+
+
+
+
+    }
 
 
 
