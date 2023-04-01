@@ -565,6 +565,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
+
                 val docRef = mFirebaseDatabaseInstance!!.collection("userAppointment").document("${arrayDelPast.elementAt(i)}")
 
 // Remove the 'capital' field from the document
