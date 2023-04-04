@@ -306,6 +306,7 @@ class MainPage : AppCompatActivity() {
             }
         }
 
+
         displayAdapter()
         doctorSearching()
 
