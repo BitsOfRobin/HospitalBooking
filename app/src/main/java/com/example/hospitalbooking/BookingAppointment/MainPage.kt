@@ -150,6 +150,28 @@ class MainPage : AppCompatActivity() {
 
 
 //
+//        mainPageViewModel.arrName.observe(this, androidx.lifecycle.Observer {
+//
+//
+//            for(i in it.indices){
+//
+//                if(cache.retrieveBitmapFromCache(it[i])==null){
+//
+//
+//                    check++
+//
+//                }
+//            }
+//
+//
+//
+//
+//
+//
+//
+//        })
+//
+//
 //        if(check>0){
 //
 //
@@ -263,9 +285,13 @@ class MainPage : AppCompatActivity() {
     private fun sorting(){
 
         val btnSort=findViewById<ToggleButton>(R.id.sortByName)
+
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+            .get(MainPageViewModel::class.java)
+
         btnSort.setOnCheckedChangeListener { compoundButton, isChecked ->
 
-            if (modalList.isNotEmpty()) {
+            if (mainPageViewModel.modalList.isNotEmpty()) {
 
 
                 if (isChecked) {
