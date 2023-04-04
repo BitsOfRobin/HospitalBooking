@@ -400,14 +400,16 @@ class MainPage : AppCompatActivity() {
 //            val time = arraylistTime[i].toString()
 
 
-                name = if(modalListSearch.isNotEmpty()){
+                mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+                    .get(MainPageViewModel::class.java)
+                name = if( mainPageViewModel.modalListSearch.isNotEmpty()){
 
-                    modalListSearch.get(i).docName.toString()
+                    mainPageViewModel.modalListSearch.get(i).docName.toString()
 
                 } else{
 
 
-                    modalList.get(i).docName.toString()
+                    mainPageViewModel.modalList.get(i).docName.toString()
                 }
 
 

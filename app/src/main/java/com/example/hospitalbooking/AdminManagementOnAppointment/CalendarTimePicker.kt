@@ -172,7 +172,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
                         for(i in doctorAppointmentList.indices){
 
+
                             val dateTime = LocalDateTime.parse(doctorAppointmentList[i], formatter)
+
                             val day = dateTime.dayOfMonth
                             val month = dateTime.monthValue
                             val hour = dateTime.hour

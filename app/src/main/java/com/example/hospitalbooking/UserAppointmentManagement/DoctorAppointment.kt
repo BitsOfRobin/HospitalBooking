@@ -299,7 +299,7 @@ class DoctorAppointment : AppCompatActivity() {
             val tabCurrent=findViewById<TabLayout>(R.id.currentAppoint)
             val tabLayout=findViewById<TabLayout>(R.id.appointmentLayout)
 
-            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
+//            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
 
             val tabPast=findViewById<TabLayout>(R.id.PastAppoint)
 
