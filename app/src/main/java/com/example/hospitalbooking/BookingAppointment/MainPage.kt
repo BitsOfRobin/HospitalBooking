@@ -197,6 +197,7 @@ class MainPage : AppCompatActivity() {
 
 
 
+
 //        getDataDoc()
         showNavBar()
 //        getDataDoc()
