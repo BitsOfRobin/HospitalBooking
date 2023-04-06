@@ -99,7 +99,7 @@ class Feedback : AppCompatActivity()  {
         )
 
         db.collection("userAppointment").document(feedback.toString()).collection("comment").document(feedbackFirebase.toString())
-            .set(feedbackFirebase)
+            .update(feedbackFirebase as Map<String, Any>)
             .addOnSuccessListener {
                 Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
             }
