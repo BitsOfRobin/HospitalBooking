@@ -4,7 +4,6 @@ package com.example.hospitalbooking.BookingAppointment
 
 import com.example.hospitalbooking.KotlinClass.MyCache
 import android.annotation.SuppressLint
-import android.app.backup.BackupManager.dataChanged
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -25,9 +24,10 @@ import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
 import com.example.hospitalbooking.*
@@ -68,7 +68,8 @@ class MainPage : AppCompatActivity() {
     private val arraylistTime2 = ArrayList<String>()
     private val arraylistPro = ArrayList<String>()
     private val arraylistHospital = ArrayList<String>()
-
+    private val arraylistEmpty = ArrayList<String>()
+    private lateinit var mainPageViewModel: MainPageViewModel
     //    private val docView: GridView =findViewById<GridView>(R.id.gridView)
     private var count = 0
 
@@ -82,7 +83,7 @@ class MainPage : AppCompatActivity() {
         supportActionBar!!.setTitle("Doctor Appointment")
 
         val docView = findViewById<GridView>(R.id.gridView)
-
+        arraylistEmpty.add("")
 
 
         val drawer = findViewById<BottomNavigationView>(R.id.naviBtm)
@@ -107,17 +108,678 @@ class MainPage : AppCompatActivity() {
 //        setDoctor()
 
 
-        getDataDoc()
+
+
+
+
+        var user = " "
+        var userEmail = " "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+                userEmail = userGoogle.email.toString()
+                naviImg(userGoogle.photoUrl,user)
+            } else {
+
+                val intent = Intent(this, UserLogin::class.java)
+//            intent.putExtra("DoctorName", tempListViewClickedValue)
+                startActivity(intent)
+            }
+
+        }
+
+
+
+
+
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+                            .get(MainPageViewModel::class.java)
+       mainPageViewModel.getDataDoc()
+//        var getCache=mainPageViewModel.retrieveCache()
+//        displayAdapter()
+        mainPageViewModel.retrieveCache()
+        displayAdapter()
+
+
+
+        val cache= MyCache()
+        var check=0
+
+
+//
+//        mainPageViewModel.arrName.observe(this, androidx.lifecycle.Observer {
+//
+//
+//            for(i in it.indices){
+//
+//                if(cache.retrieveBitmapFromCache(it[i])==null){
+//
+//
+//                    check++
+//
+//                }
+//            }
+//
+//
+//
+//
+//
+//
+//
+//        })
+//
+//
+//        if(check>0){
+//
+//
+//            mainPageViewModel.getImg()
+//            mainPageViewModel.retrieveCache()
+//            displayAdapter()
+//            refreshMain()
+//
+////                    refreshMain()
+////                    retrieveCache()
+//
+//
+//
+//        }
+//
+//        else{
+////            refreshMain()
+//          mainPageViewModel.retrieveCache()
+//            displayAdapter()
+//
+//        }
+
+
+
+
+
+
+
+//        displayDocData()
+        callViewModel(docView,userEmail)
+        sorting()
+        doctorSearching()
+//        searchDoctor()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        getDataDoc()
         showNavBar()
 //        getDataDoc()
 //        getDataDoc()
 
         refresh()
+//        refreshMain()
 //        getDataDoc()
 
 
 
     }
+
+//    private fun displayDocData(){
+//
+//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory("",-1))
+//            .get(MainPageViewModel::class.java)
+//        mainPageViewModel.getDataDoc()
+//
+//
+//        mainPageViewModel.arrName.observe(this, androidx.lifecycle.Observer {
+//
+//
+//
+//            mainPageViewModel.retrieveCache()
+//            displayAdapter()
+//
+//
+////            displayAdapter()
+//        })
+////        var getCache=mainPageViewModel.retrieveCache()
+////        displayAdapter()
+//
+//
+//
+//    }
+
+    private fun displayAdapter(){
+        val docView: GridView = findViewById<GridView>(R.id.gridView)
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+            .get(MainPageViewModel::class.java)
+//            val arrayList=ArrayList<ModalFormMain>()\
+
+//        val adapter = CustomAdapter(
+//            (mainPageViewModel.modalListLive.value as ArrayList<ModalFormMain>?
+//                ?:emptyList()) as ArrayList<ModalFormMain>,this,)
+//       docView.adapter = adapter
+
+        mainPageViewModel.modalListLive.observe(this, androidx.lifecycle.Observer {
+
+
+
+
+            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
+            customAdapter.notifyDataSetChanged()
+            docView.adapter=customAdapter
+            customAdapter.notifyDataSetChanged()
+
+        })
+
+
+    }
+    private fun sorting(){
+
+        val btnSort=findViewById<ToggleButton>(R.id.sortByName)
+
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+            .get(MainPageViewModel::class.java)
+
+        btnSort.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+            if (mainPageViewModel.modalList.isNotEmpty()) {
+
+
+                if (isChecked) {
+                    mainPageViewModel.sortByName()
+                } else {
+
+                   mainPageViewModel.sortByPro()
+
+                }
+
+
+
+            }
+        }
+
+
+        displayAdapter()
+        doctorSearching()
+
+    }
+
+
+
+    private fun doctorDel(dtname: String) {
+
+
+
+
+
+            mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+            val docView = findViewById<GridView>(R.id.gridView)
+
+
+
+
+            docView.onItemLongClickListener =
+                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+
+
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Delete Doctor Alert")
+                    builder.setMessage("Are you sure to delete Doctor?")
+
+
+                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                        Toast.makeText(
+                            applicationContext,
+                            android.R.string.yes, Toast.LENGTH_SHORT
+                        ).show()
+
+
+                        mainPageViewModel=ViewModelProvider(this, MainPageViewModelFactory(arraylistEmpty,i))
+                            .get(MainPageViewModel::class.java)
+
+                        mainPageViewModel.deletionDoctor(dtname,i)
+                        Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
+                        val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
+                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
+
+//                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
+//                            .document("${modalList.get(i).docName}")
+//
+//                        val deleteDoc=modalList.get(i).docName
+                     displayAdapter()
+
+
+                    }
+
+                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                        Toast.makeText(
+                            applicationContext,
+                            android.R.string.no, Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+
+
+
+                    builder.show()
+                    true
+                }
+
+
+
+
+        }
+
+
+    private fun callViewModel(docView: GridView, userEmail: String) {
+
+
+
+        if (userEmail.contains("@student.tar")) {
+            var tempListViewClickedValue=""
+            val dtname=getGoogleName()
+
+
+
+            docView.setOnItemClickListener { adapterView, view, i, l ->
+//                tempListViewClickedValue = modalList.get(i).docName.toString()
+//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+
+
+
+
+
+//                if(tempListViewClickedValue!="Dr $dtname"){
+//                    Toast.makeText(this,"this is not your profile",Toast.LENGTH_LONG).show()
+////                    val intent = Intent(this, CalendarTimePicker::class.java)
+////                    intent.putExtra("DoctorName", tempListViewClickedValue)
+////                    startActivity(intent)
+//                }
+
+
+
+//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+
+
+            }
+
+
+
+            doctorDel(dtname)
+            displayAdapter()
+
+
+
+        } else {
+
+            docView.setOnItemClickListener { adapterView, view, i, l ->
+
+                var name = " "
+//                val time = modalList.get(i).time.toString()
+//            val time = arraylistTime[i].toString()
+
+
+                mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+                    .get(MainPageViewModel::class.java)
+                name = if( mainPageViewModel.modalListSearch.isNotEmpty()){
+
+                    mainPageViewModel.modalListSearch.get(i).docName.toString()
+
+                } else{
+
+
+                    mainPageViewModel.modalList.get(i).docName.toString()
+                }
+
+
+
+
+
+
+
+
+
+//                    writeUser(time,name,user)
+//                    val intent = Intent(this, AppointmentSelect::class.java)
+                val intent = Intent(this, CalendarTimePicker::class.java)
+                intent.putExtra("DoctorName", name)
+                startActivity(intent)
+
+
+            }
+
+
+        }
+
+    }
+
+
+    private fun paramForSearching(){
+        val docView: GridView = findViewById<GridView>(R.id.gridView)
+
+//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+//            .get(MainPageViewModel::class.java)
+//        val arrayList=ArrayList<ModalFormMain>()
+        mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
+
+
+            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
+//            showMsg(it.get(0).toString())
+            customAdapter.notifyDataSetChanged()
+            docView.adapter=customAdapter
+            customAdapter.notifyDataSetChanged()
+
+        })
+
+    }
+
+
+//    private fun arrForSearching(arr:ArrayList<String>){
+//        val docView: GridView = findViewById<GridView>(R.id.gridView)
+//
+//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arr,-1))
+//            .get(MainPageViewModel::class.java)
+//
+//        mainPageViewModel.dataChanged(arr,"")
+//
+//        mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
+//
+//
+//            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
+//            customAdapter.notifyDataSetChanged()
+//            docView.adapter=customAdapter
+//            customAdapter.notifyDataSetChanged()
+//
+//        })
+
+//        val arrayList=ArrayList<ModalFormMain>()
+
+//        mainPageViewModel.dataChanged(arr,"")
+
+//        mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
+//
+//
+//            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
+//            customAdapter.notifyDataSetChanged()
+//            docView.adapter=customAdapter
+//            customAdapter.notifyDataSetChanged()
+//
+//        })
+
+//    }
+
+
+
+
+
+    private fun doctorSearching(){
+
+
+
+            val docView: GridView = findViewById<GridView>(R.id.gridView)
+
+
+
+//            docView.adapter = customAdapter
+
+//            paramForSearching()
+//        searchView()
+
+            val temp = ArrayList<String>()
+            val tempHos = ArrayList<String>()
+            val tempName = ArrayList<String>()
+            val searchView = findViewById<SearchView>(R.id.searchDoc)
+            searchView.queryHint = " Professional/Hospital/Doc Name"
+
+            mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+                .get(MainPageViewModel::class.java)
+//
+//            mainPageViewModel.searchQueryLiveData.observe(this, androidx.lifecycle.Observer {
+//
+//                searchView.setQuery(it,false)
+//
+//
+//            })
+
+//        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
+//
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
+//        autoCompleteTextView.setAdapter(adapter)
+//        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+//                        val selectedItem = parent.getItemAtPosition(position) as String
+//
+//
+//
+//            //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
+//            //
+//            //
+//            //                searchView.setQuery(null,true)
+//            //            }
+//            //            else{
+//
+//                        searchView.setQuery(selectedItem, true)
+//            //            }
+//
+//
+//
+//
+//
+//        }
+
+
+
+
+
+
+
+
+
+
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    temp.clear()
+                    tempHos.clear()
+                    tempName.clear()
+                    var searchQuery=""
+//                val first= p0?.let { p0.toString().indexOf(it[0]) }
+                    if (p0 != null) {
+
+
+                        searchQuery.replace("",p0,true)
+                        mainPageViewModel.getSearchQuery(p0)
+//                        showMsg(p0)
+
+                        mainPageViewModel.searchDoctor(p0)
+                        paramForSearching()
+//                        for (i in arraylistPro.indices) {
+//                            if (arraylistPro[i].contains(p0, true)) {
+//                                temp.add(arraylistName[i])
+//                                searchQuery.replace("",p0)
+//                                mainPageViewModel.searchQueryLiveData.value=searchQuery
+//
+//                            }
+//
+//                        }
+//
+//
+//                        for (i in arraylistHospital.indices) {
+//                            if (arraylistHospital[i].contains(p0, true)) {
+//
+//                                tempHos.add(arraylistName[i])
+//                                searchQuery.replace("", p0)
+//                                mainPageViewModel.searchQueryLiveData.value=searchQuery
+//                            }
+//                        }
+//                        for (i in arraylistName.indices) {
+//                            if (arraylistName[i].contains(p0, true)) {
+//
+//                                tempName.add(arraylistName[i])
+//                                searchQuery.replace("", p0)
+//                                mainPageViewModel.searchQueryLiveData.value=searchQuery
+//                            }
+//                        }
+//
+//                        if (temp.isNotEmpty()) {
+//
+//                           arrForSearching(temp)
+////                            paramForSearching()
+//                        }
+//                        else if(tempHos.isNotEmpty()) {
+//
+//                            arrForSearching(tempHos)
+////                            paramForSearching()
+//
+//
+//                        }
+//                        else if(tempName.isNotEmpty()){
+//
+//
+//                            arrForSearching(tempName)
+////                            paramForSearching()
+//                        }
+
+//                    callForSearching(tempHos,searchQuery,docView)
+
+
+
+                    } else {
+//                    showMsg(docView)
+                        displayAdapter()
+//                        paramForSearching()
+
+                    }
+
+
+
+
+                    return false
+
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+
+                    temp.clear()
+
+                    var searchQuery=""
+                    if (p0 != null) {
+                        searchQuery.replace("",p0,true)
+                        mainPageViewModel.getSearchQuery(p0)
+//                        showMsg(p0)
+
+                        mainPageViewModel.searchDoctor(p0)
+                        paramForSearching()
+                    } else {
+//                        paramForSearching()
+                        displayAdapter()
+                    }
+//                if (p0 != null) {
+//                    showSuggestion(p0,adapter)
+//                }
+
+
+
+
+
+
+                    return true
+                }
+
+
+            })
+
+
+        }
+
+
+//    private fun searchDoctor(){
+//
+//        val temp = ArrayList<String>()
+//        val tempHos = ArrayList<String>()
+//        val tempName = ArrayList<String>()
+//        temp.clear()
+//        tempHos.clear()
+//        tempName.clear()
+//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+//            .get(MainPageViewModel::class.java)
+//            mainPageViewModel.searchQueryLiveData.observe(this, androidx.lifecycle.Observer {p0->
+//
+//
+//
+//            if (p0!= null) {
+//                for (i in arraylistPro.indices) {
+//                    if (arraylistPro[i].contains(p0, true)) {
+//                        temp.add(arraylistName[i])
+//
+//                    }
+//
+//                }
+//
+//
+//                for (i in arraylistHospital.indices) {
+//                    if (arraylistHospital[i].contains(p0, true)) {
+//
+//                        tempHos.add(arraylistName[i])
+//
+//                    }
+//                }
+//                for (i in arraylistName.indices) {
+//                    if (arraylistName[i].contains(p0, true)) {
+//
+//                        tempName.add(arraylistName[i])
+//
+//                    }
+//                }
+//
+//                if (temp.isNotEmpty()) {
+//
+//                    dataChanged(temp,"")
+////                            paramForSearching()
+//                }
+//                else if(tempHos.isNotEmpty()) {
+//
+//                    dataChanged(tempHos,"")
+////                            paramForSearching()
+//
+//
+//                }
+//                else if(tempName.isNotEmpty()){
+//
+//
+//                    dataChanged(tempName,"")
+////                            paramForSearching()
+//                }
+//
+////                    callForSearching(tempHos,searchQuery,docView)
+//
+//
+//
+//            }
+//
+//
+//
+//
+//            })
+//
+//
+//
+//    }
+
+
+
+
+
+
+
 
     private fun refreshMain(){
 
@@ -463,7 +1125,7 @@ class MainPage : AppCompatActivity() {
 
 //        }
 
-         val customAdapter = CustomAdapter(modalList, this)
+         val customAdapter =CustomAdapter(modalList, this)
 
 
 
@@ -556,8 +1218,8 @@ class MainPage : AppCompatActivity() {
 
 
 
-        val customAdapter = CustomAdapter(modalList, this)
-        useViewModel(modalList)
+        val customAdapter =CustomAdapter(modalList, this)
+
         customAdapter.notifyDataSetChanged()
 
 
@@ -570,7 +1232,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-    searchDoc(customAdapter)
+        searchDoc(customAdapter)
 
 
     }
@@ -945,7 +1607,8 @@ class MainPage : AppCompatActivity() {
 
         swipe.setOnRefreshListener {
 
-            getDataDoc()
+//            getDataDoc()
+            mainPageViewModel.getDataDoc()
 
             swipe.isRefreshing = false
 
@@ -1053,7 +1716,7 @@ class MainPage : AppCompatActivity() {
                                 }
 
                                 modalList.removeAt(i)
-                                useViewModel(modalList)
+
 
 
 //                                val arr = CustomAdapter(modalList, this)
@@ -1137,7 +1800,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        val custom= CustomAdapter(modalList,this)
+        val custom= CustomAdapter(modalList, this)
 
         val proAdapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
@@ -1220,7 +1883,7 @@ class MainPage : AppCompatActivity() {
                                     temp.add(arraylistName[i])
                                     searchQuery=p0
                                     custom.filter.filter(p0)
-                                    customAdapter.getSearch(p0)
+
 
 
                                 }
@@ -1257,7 +1920,7 @@ class MainPage : AppCompatActivity() {
         if (temp.isNotEmpty()) {
             dataChanged(temp, searchQuery)
         } else {
-            showMsg(docView)
+//            showMsg(docView)
 
         }
 
@@ -1281,15 +1944,15 @@ class MainPage : AppCompatActivity() {
 
 
 
-    private fun showMsg(docView: GridView) {
+    private fun showMsg(str:String) {
 
         val arr=ArrayList<String>()
         arr.add("Doctor is not found")
-        val arrayAdapter = ArrayAdapter(this,
-            android.R.layout.select_dialog_item,arr)
-
-        docView.adapter=arrayAdapter
-        Toast.makeText(this, "Doctor is not found", Toast.LENGTH_SHORT).show()
+//        val arrayAdapter = ArrayAdapter(this,
+//            android.R.layout.select_dialog_item,arr)
+//
+//        docView.adapter=arrayAdapter
+        Toast.makeText(this, "Doctor is not found $str str", Toast.LENGTH_LONG).show()
     }
 
 
@@ -1330,7 +1993,7 @@ class MainPage : AppCompatActivity() {
 
                 if(searchQuery.isNotBlank()&&searchQuery.isNotEmpty()){
 
-                    val custom= CustomAdapter(modalList,this)
+                    val custom=CustomAdapter(modalList, this)
                     custom.filter.filter(searchQuery)
                     custom.setColorText(searchQuery,i)
                 }
@@ -1516,19 +2179,7 @@ class MainPage : AppCompatActivity() {
 
     }
 
-    private fun useViewModel(arr:ArrayList<ModalFormMain>){
-        val docView=findViewById<GridView>(R.id.gridView)
-        val viewModelFactory = MainPageViewModelFactory(arr)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(MainPageViewModel::class.java)
-        viewModel.modalList.observe(this, androidx.lifecycle.Observer {modalList->
 
-                val adapter=CustomAdapter(modalList,this)
-                adapter.notifyDataSetChanged()
-                docView.adapter=adapter
-
-
-        })
-    }
 
 
 

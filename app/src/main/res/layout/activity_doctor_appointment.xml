@@ -8,13 +8,18 @@
     tools:context=".UserAppointmentManagement.DoctorAppointment"
     android:id="@+id/drawerLayout">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:visibility="visible"
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/swipeRefresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="visible"-->
 
-        tools:visibility="visible">
+<!--        tools:visibility="visible">-->
+
+
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,10 +27,9 @@
             android:id="@+id/currentList"
             >
 
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/appointmentLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 app:layout_constraintBottom_toTopOf="@+id/swipeRefresh"
@@ -48,15 +52,16 @@
 
             </com.google.android.material.tabs.TabLayout>
 
+
             <ListView
                 android:id="@+id/listDocAppoint"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:padding="10dp"
+                android:paddingBottom="10dp"
+
                 tools:listitem="@layout/customlistview">
 
 
@@ -67,29 +72,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:id="@+id/PastList"
 
             >
-            <ListView
-                android:id="@+id/listPastAppoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="visible"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/customlistview"
-                >
+<!--            <ListView-->
+<!--                android:id="@+id/listPastAppoint"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/white"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                android:visibility="visible"-->
+
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:listitem="@layout/customlistview"-->
+<!--                >-->
 
 
-            </ListView>
+<!--            </ListView>-->
 
         </LinearLayout>
 
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
 
 

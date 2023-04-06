@@ -172,7 +172,19 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
                         for(i in doctorAppointmentList.indices){
 
-                            val dateTime = LocalDateTime.parse(doctorAppointmentList[i], formatter)
+                            var dateInString=doctorAppointmentList[i]
+
+                            if(dateInString[0].toString().toInt()<10
+                                &&dateInString[1].toString()==" "){
+
+                                dateInString="0$dateInString"
+                            }
+
+
+
+
+                            val dateTime = LocalDateTime.parse(dateInString, formatter)
+
                             val day = dateTime.dayOfMonth
                             val month = dateTime.monthValue
                             val hour = dateTime.hour
@@ -189,7 +201,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 //                            if(year==savedYear&&month==savedMonth&&day==savedDay){
 //                                valid=checkAppointmentBooked(doctorAppointmentList[i])
-                                valid=timeToNotiAfter(doctorAppointmentList[i],checkUserList[i])
+                                valid=timeToNotiAfter(dateInString,checkUserList[i])
 
 //                            }
 //                            else if(year==savedYear&&month==savedMonth&&day==savedDay&&hour<savedHour){
@@ -1118,6 +1130,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             true
 
         }
+
 
 
 

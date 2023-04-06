@@ -22,8 +22,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hospitalbooking.*
@@ -75,29 +73,29 @@ class DoctorAppointment : AppCompatActivity() {
 //        deleteUser()
 //        deleteUserPast()
 
-        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+//        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
         val docView = findViewById<ListView>(R.id.listDocAppoint)
-        docView.setOnScrollListener(object :  AbsListView.OnScrollListener {
-            override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
-
-            }
-
-            override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
-                val topRowVerticalPosition =
-                    if (p0 == null || p0.getChildCount() === 0) 0 else p0.getChildAt(
-                        0
-                    ).getTop()
-                swipe.isEnabled = topRowVerticalPosition >= 0
-            }
-
-        }
-            
-        )
-
-
+//        docView.setOnScrollListener(object :  AbsListView.OnScrollListener {
+//            override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
+//
+//            }
+//
+//            override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
+//                val topRowVerticalPosition =
+//                    if (p0 == null || p0.getChildCount() === 0) 0 else p0.getChildAt(
+//                        0
+//                    ).getTop()
+//                swipe.isEnabled = topRowVerticalPosition >= 0
+//            }
+//
+//        }
+//
+//        )
 
 
-        refresh()
+
+
+//        refresh()
         createNoti()
 
 
@@ -301,7 +299,7 @@ class DoctorAppointment : AppCompatActivity() {
             val tabCurrent=findViewById<TabLayout>(R.id.currentAppoint)
             val tabLayout=findViewById<TabLayout>(R.id.appointmentLayout)
 
-            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
+//            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
 
             val tabPast=findViewById<TabLayout>(R.id.PastAppoint)
 
@@ -390,6 +388,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
+
                         }
 
                     }
@@ -403,7 +402,17 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
+            docView.onItemLongClickListener =
+                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
 
+                    if(i<arrayDelPast.size){
+
+                        toComment(i)
+                    }
+
+
+                    true
+                }
 
 
 
@@ -414,13 +423,6 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-        docView.onItemLongClickListener =
-            AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-
-
-                toComment(i)
-                true
-            }
 
 
 
@@ -439,8 +441,6 @@ class DoctorAppointment : AppCompatActivity() {
         intent.putExtra("userName", arraylistPastAppointment.get(i).userName)
 
         startActivity(intent)
-
-
 
 
 
@@ -562,6 +562,7 @@ class DoctorAppointment : AppCompatActivity() {
             builder.setPositiveButton(android.R.string.yes) { dialog, which ->
                 Toast.makeText(applicationContext,
                     android.R.string.yes, Toast.LENGTH_SHORT).show()
+
 
 
 
