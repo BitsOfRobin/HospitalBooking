@@ -789,8 +789,8 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
         else if(savedMinute==30||savedMinute==0){
-            tvTime.text="Appointment is booked successfully at  ${savedHour}:${savedMinute}  ${savedDay}/${savedMonth}" +
-                    "/${savedYear} by $loginUser"
+//            tvTime.text="Appointment is booked successfully at  ${savedHour}:${savedMinute}  ${savedDay}/${savedMonth}" +
+//                    "/${savedYear} by $loginUser"
             return true
 
         }
@@ -1009,6 +1009,8 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     private fun dialogToWriteUser(){
 
         val builder = AlertDialog.Builder(this)
+        val tvTime=findViewById<TextView>(R.id.tv_textTime)
+        val loginUser=findGoogleUser()
         builder.setTitle("Confirm Appointment")
                 builder.setMessage("Are you sure to appoint the Doctor?")
 
@@ -1018,6 +1020,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                         applicationContext,
                         android.R.string.yes, Toast.LENGTH_SHORT
                     ).show()
+
+                    tvTime.text="Appointment is booked successfully at  ${savedHour}:${savedMinute}  ${savedDay}/${savedMonth}" +
+                            "/${savedYear} by $loginUser"
 
                     writeUser(realDate)
                     val intent = Intent(this, DoctorAppointment::class.java)
