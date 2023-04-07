@@ -5,12 +5,12 @@ import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hospitalbooking.KotlinClass.UserInput
 import com.example.hospitalbooking.R
 import com.example.hospitalbooking.databinding.ActivityAppointmentFeedbackBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 
-data class UserInput(var answer1: String? = null, var answer2: String? = null, var rating: Float? = null)
 
 class Feedback : AppCompatActivity()  {
 
@@ -39,7 +39,42 @@ class Feedback : AppCompatActivity()  {
         supportActionBar!!.setTitle("Comment Appointment")
 
         appointmentDetail()
+        appointmentComment()
 
+        binding.submitComment.setOnClickListener {
+            if (userInput.answer1 == null || userInput.answer2 == null || userInput.rating == null) {
+                Toast.makeText(this, "Please select answer for both question and provide a rating", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            else {
+                appointmentDetail()
+                appointmentComment()
+                appointmentUpdate()
+                textComment()
+            }
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    private fun appointmentDetail() {
+        docName = intent.getStringExtra("DoctorName").toString()
+        userAppointment = intent.getStringExtra("Appointment").toString()
+        userName = intent.getStringExtra("userName").toString()
+
+        val doctor = findViewById<TextView>(R.id.doctorName)
+        val appointment = findViewById<TextView>(R.id.appointment)
+        val patient = findViewById<TextView>(R.id.patientName)
+
+        doctor.text = docName
+        appointment.text = userAppointment
+        patient.text = userName
+    }
+
+    private fun appointmentComment() {
         binding.questionOneRadio.setOnCheckedChangeListener { _, checkedId ->
             val radioButton: RadioButton = findViewById(checkedId)
             when (checkedId) {
@@ -89,39 +124,8 @@ class Feedback : AppCompatActivity()  {
         binding.ratingComment.setOnRatingBarChangeListener { _, rating, _ ->
             userInput.rating = rating
         }
-
-        binding.submitComment.setOnClickListener {
-            if (userInput.answer1 == null || userInput.answer2 == null || userInput.rating == null) {
-                Toast.makeText(this, "Please select answer for both question and provide a rating", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            appointmentDetail()
-            appointmentComment()
-            textComment()
-        }
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onSupportNavigateUp()
-    }
-
-    private fun appointmentDetail() {
-        docName = intent.getStringExtra("DoctorName").toString()
-        userAppointment = intent.getStringExtra("Appointment").toString()
-        userName = intent.getStringExtra("userName").toString()
-
-        val doctor = findViewById<TextView>(R.id.doctorName)
-        val appointment = findViewById<TextView>(R.id.appointment)
-        val patient = findViewById<TextView>(R.id.patientName)
-
-        doctor.text = docName
-        appointment.text = userAppointment
-        patient.text = userName
-    }
-
-    private fun appointmentComment() {
-
+    private fun appointmentUpdate() {
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
         var commentText = comment.text.toString()
