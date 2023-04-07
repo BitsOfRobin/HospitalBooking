@@ -53,20 +53,20 @@ class Feedback : AppCompatActivity()  {
             when (checkedId) {
                 R.id.exceptional -> {
                     userInput.answer1 = "exception"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
 
                 }
                 R.id.satisfactory -> {
                     userInput.answer1 = "satisfactory"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.adequate -> {
                     userInput.answer1 = "adequate"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.unsatisfactory -> {
                     userInput.answer1 = "unsatisfactory"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -75,19 +75,19 @@ class Feedback : AppCompatActivity()  {
             when (checkedId) {
                 R.id.rude -> {
                     userInput.answer2 = "Rude"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.talkOwn -> {
                     userInput.answer2 = "Shiok Sendiri"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.talkLong -> {
                     userInput.answer2 = "Long Talk"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.extremeSkill -> {
                     userInput.answer2 = "Good Skill"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
                 }
             }
         }
