@@ -281,7 +281,27 @@ class MainPage : AppCompatActivity() {
         })
 
 
+
+
     }
+
+
+    private fun getAdapter(){
+
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+            .get(MainPageViewModel::class.java)
+
+//        mainPageViewModel.retrieveCache()
+        val adapter=CustomAdapter(mainPageViewModel.modalList,this)
+        val gridView=findViewById<GridView>(R.id.gridView)
+        adapter.notifyDataSetChanged()
+        gridView.adapter=adapter
+
+
+    }
+
+
+
     private fun sorting(){
 
         val btnSort=findViewById<ToggleButton>(R.id.sortByName)
@@ -654,6 +674,12 @@ class MainPage : AppCompatActivity() {
 
                     } else {
 //                    showMsg(docView)
+
+
+
+
+                        getAdapter()
+                        paramForSearching()
                         displayAdapter()
 //                        paramForSearching()
 
@@ -679,6 +705,8 @@ class MainPage : AppCompatActivity() {
                         mainPageViewModel.searchDoctor(p0)
                         paramForSearching()
                     } else {
+                        getAdapter()
+                        paramForSearching()
 //                        paramForSearching()
                         displayAdapter()
                     }
