@@ -22,7 +22,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hospitalbooking.*
 import com.example.hospitalbooking.Adapter.listCustomAdapter
@@ -47,6 +50,7 @@ import java.util.*
 
 class DoctorAppointment : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
+    private lateinit var doctorAppointmentViewModel:DoctorAppointmentViewModel
     private lateinit var toggle:ActionBarDrawerToggle
     private var userNum:Int=0
     private var docDetail:String?=null
@@ -69,7 +73,7 @@ class DoctorAppointment : AppCompatActivity() {
 
         showNavBar()
 //        writeUser()
-        readUser()
+//        readUser()
 //        deleteUser()
 //        deleteUserPast()
 
@@ -93,10 +97,10 @@ class DoctorAppointment : AppCompatActivity() {
 //        )
 
 
-
+        callReadUser()
 
 //        refresh()
-        createNoti()
+//        createNoti()
 
 
 
@@ -149,6 +153,278 @@ class DoctorAppointment : AppCompatActivity() {
             }
 
         }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getCurrentViewModel(){
+        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+        doctorAppointmentViewModel.arrCurrentAppoint.observe(this, androidx.lifecycle.Observer {
+
+            val arr=listCustomAdapter(this, it as ArrayList<AppointmentDetail>)
+            arr.notifyDataSetChanged()
+            docView.adapter=arr
+
+        })
+
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getPastViewModel(){
+        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+        doctorAppointmentViewModel.arrPastAppoint.observe(this, androidx.lifecycle.Observer {
+
+
+            val arr=listCustomAdapter(this, it as ArrayList<AppointmentDetail>)
+            arr.notifyDataSetChanged()
+            docView.adapter=arr
+
+
+        })
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun deleteCurrent(){
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+        val docView=findViewById<ListView>(R.id.listDocAppoint)
+        docView.setOnItemClickListener { adapterView, view, i, l ->
+
+
+
+//            Toast.makeText(this, "Success ${arrayDel.elementAt(i)}delete the user ", Toast.LENGTH_SHORT).show()
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Delete Appointment Alert")
+            builder.setMessage("Are you sure to cancel this appointment?")
+
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT).show()
+
+                doctorAppointmentViewModel.deleteUser(i)
+
+
+
+               getCurrentViewModel()
+//                refreshAppoint()
+
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT).show()
+            }
+
+
+            builder.show()
+
+
+
+
+
+        }
+
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun deletePast(){
+        val docView=findViewById<ListView>(R.id.listDocAppoint)
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+        docView.setOnItemClickListener { adapterView, view, i, l ->
+
+
+
+//            Toast.makeText(this, "Success ${doctorAppointmentViewModel.arrayDelPast.elementAt(i)}delete the user ", Toast.LENGTH_SHORT).show()
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Delete Appointment Alert")
+            builder.setMessage("Are you sure to cancel this appointment?")
+
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT).show()
+
+                doctorAppointmentViewModel.deleteUserPast(i)
+
+
+
+
+//                Toast.makeText(this, "Succes delete the user ", Toast.LENGTH_SHORT).show()
+             getPastViewModel()
+//                refreshAppoint()
+
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT).show()
+            }
+
+
+            builder.show()
+
+
+
+
+        }
+    }
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun callReadUser(){
+
+        val docView = findViewById<ListView>(R.id.listDocAppoint)
+
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+
+
+//
+//        val arr= listCustomAdapter(this,arraylistAppointment)
+//        val arrPast= listCustomAdapter(this,arraylistPastAppointment)
+
+
+
+
+
+        val linearCurrent=findViewById<LinearLayout>(R.id.currentList)
+        val linearPast=findViewById<LinearLayout>(R.id.PastList)
+//            linearCurrent.visibility =View.GONE
+
+        val tabCurrent=findViewById<TabLayout>(R.id.currentAppoint)
+        val tabLayout=findViewById<TabLayout>(R.id.appointmentLayout)
+
+//            val docViewPast=findViewById<ListView>(R.id.listPastAppoint)
+
+        val tabPast=findViewById<TabLayout>(R.id.PastAppoint)
+
+        tabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    if(tab.position==0){
+                        linearCurrent.visibility =View.GONE
+//                            arr.notifyDataSetChanged()
+                        getCurrentViewModel()
+
+                        linearCurrent.visibility =View.VISIBLE
+//                            linearCurrent.visibility =View.GONE
+                        deleteCurrent()
+//                            arr.notifyDataSetChanged()
+//                            docView.adapter = arr
+//                            linearCurrent.visibility =View.VISIBLE
+//
+
+
+                    }
+                    else if(tab.position==1){
+                        linearCurrent.visibility =View.GONE
+//                            arrPast.notifyDataSetChanged()
+                        getPastViewModel()
+
+                        linearCurrent.visibility =View.VISIBLE
+                      deletePast()
+
+
+
+                    }
+
+                }
+
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                linearCurrent.visibility =View.GONE
+//                    arr.notifyDataSetChanged()
+                getCurrentViewModel()
+
+                linearCurrent.visibility =View.VISIBLE
+//                    linearCurrent.visibility =View.GONE
+               deleteCurrent()
+//                    arr.notifyDataSetChanged()
+//                    docView.adapter = arr
+//                    linearCurrent.visibility =View.VISIBLE
+
+
+
+
+
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    if(tab.position==0){
+                        linearCurrent.visibility =View.GONE
+//                            arr.notifyDataSetChanged()
+                     getCurrentViewModel()
+
+                        linearCurrent.visibility =View.VISIBLE
+//                            linearCurrent.visibility =View.GONE
+                        deleteCurrent()
+//                            arr.notifyDataSetChanged()
+//                            docView.adapter = arr
+//                            linearCurrent.visibility =View.VISIBLE
+
+
+                    }
+                    else if(tab.position==1){
+                        linearCurrent.visibility =View.GONE
+//                            arrPast.notifyDataSetChanged()
+                      getPastViewModel()
+                        linearCurrent.visibility =View.VISIBLE
+                       deletePast()
+//                            linearCurrent.visibility =View.GONE
+//                            arrPast.notifyDataSetChanged()
+//                            docView.adapter=arrPast
+//                            linearCurrent.visibility =View.VISIBLE
+
+
+
+
+                    }
+
+                }
+
+            }
+
+
+        } )
+
+
+
+
+
+        docView.onItemLongClickListener =
+            AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+
+                if(i<doctorAppointmentViewModel.arrayDelPast.size){
+
+                    toComment(i)
+                }
+
+
+                true
+            }
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -432,13 +708,14 @@ class DoctorAppointment : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun toComment(i:Int){
 
-
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
         val intent = Intent(this, Feedback::class.java)
-        intent.putExtra("DoctorName",arraylistPastAppointment.get(i).docName)
-        intent.putExtra("Appointment", arraylistPastAppointment.get(i).AppointmentDetail)
-        intent.putExtra("userName", arraylistPastAppointment.get(i).userName)
+        intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
+        intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
+        intent.putExtra("userName", doctorAppointmentViewModel.arraylistPastAppointment.get(i).userName)
 
         startActivity(intent)
 
