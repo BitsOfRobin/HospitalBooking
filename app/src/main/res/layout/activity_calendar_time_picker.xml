@@ -37,8 +37,8 @@
             android:id="@+id/btn_timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginStart="126dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_white_rounded"
             android:layout_marginTop="31dp"
             android:text=" time 1?" />
 
@@ -46,17 +46,17 @@
             android:id="@+id/btnup1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginStart="111dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_white_rounded"
             android:layout_marginTop="17dp"
-            android:text="update time1" />
+            android:text="Book Appointment" />
 
         <TextView
             android:id="@+id/tv_textTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="133dp"
+
             android:layout_marginTop="27dp"
             android:textColor="#282BDC"
 

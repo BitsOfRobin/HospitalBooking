@@ -10,6 +10,9 @@ class Prescription {
     var medicine: String? =null
     var ratingStar:Float? =0F
 
+
+    constructor()
+
     constructor(user:String,doc:String,medicine:String,ratingStar: Float,payStatus:String,appointment:String){
         this.user=user
         this.doc=doc

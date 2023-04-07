@@ -10,6 +10,8 @@ class ModalFormMain {
     var docName:String?=null
     var time:String?=null
     var hospital:String?=null
+
+    constructor()
     constructor(pro:String,image:Bitmap,docName:String,time:String,hospital:String){
         this.pro=pro
 
