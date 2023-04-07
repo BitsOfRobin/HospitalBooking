@@ -10,7 +10,7 @@ import com.example.hospitalbooking.databinding.ActivityAppointmentFeedbackBindin
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 
-data class UserInput(var answer1: String = "", var answer2: String = "", var comment: String = "")
+data class UserInput(var answer1: String? = null, var answer2: String? = null, var rating: Float? = null)
 
 class Feedback : AppCompatActivity()  {
 
@@ -39,63 +39,63 @@ class Feedback : AppCompatActivity()  {
         supportActionBar!!.setTitle("Comment Appointment")
 
         appointmentDetail()
-        // Radio Question
-//        val radioGroup = findViewById<RadioGroup>(R.id.questionOneRadio)
-//        val radioGroup2 = findViewById<RadioGroup>(R.id.questionTwoRadio)
-//
-//        val answer1 = buttonGroupSelection(radioGroup)
-//        val answer2 = buttonGroupSelection2(radioGroup2)
-//        appointmentRating()
-//        appointmentComment()
-//        textComment()
 
         binding.questionOneRadio.setOnCheckedChangeListener { _, checkedId ->
+            val radioButton: RadioButton = findViewById(checkedId)
             when (checkedId) {
                 R.id.exceptional -> {
-                    userInput.answer1 = "exception"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer1 = radioButton.text.toString()
+                    Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
 
                 }
                 R.id.satisfactory -> {
-                    userInput.answer1 = "satisfactory"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer1 = radioButton.text.toString()
+                    Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.adequate -> {
-                    userInput.answer1 = "adequate"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer1 = radioButton.text.toString()
+                    Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.unsatisfactory -> {
-                    userInput.answer1 = "unsatisfactory"
-                    Toast.makeText(this, "${userInput.answer1} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer1 = radioButton.text.toString()
+                    Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
         binding.questionTwoRadio.setOnCheckedChangeListener { _, checkedId ->
+            val radioButton2: RadioButton = findViewById(checkedId)
+
             when (checkedId) {
                 R.id.rude -> {
-                    userInput.answer2 = "Rude"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.talkOwn -> {
-                    userInput.answer2 = "Shiok Sendiri"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.talkLong -> {
-                    userInput.answer2 = "Long Talk"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.extremeSkill -> {
-                    userInput.answer2 = "Good Skill"
-                    Toast.makeText(this, "${userInput.answer2} is selected", Toast.LENGTH_SHORT).show()
+                    userInput.answer2 = radioButton2.text.toString()
+                    Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        //val submit = findViewById<Button>(R.id.submitComment)
+        binding.ratingComment.setOnRatingBarChangeListener { _, rating, _ ->
+            userInput.rating = rating
+        }
+
         binding.submitComment.setOnClickListener {
+            if (userInput.answer1 == null || userInput.answer2 == null || userInput.rating == null) {
+                Toast.makeText(this, "Please select answer for both question and provide a rating", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             appointmentDetail()
-            appointmentRating()
             appointmentComment()
             textComment()
         }
@@ -120,18 +120,7 @@ class Feedback : AppCompatActivity()  {
         patient.text = userName
     }
 
-    private fun appointmentRating() {
-        val rating = findViewById<RatingBar>(R.id.ratingComment)
-
-        val ratingStar = rating.rating
-    }
-
     private fun appointmentComment() {
-        // Rating Star
-        val rating = findViewById<RatingBar>(R.id.ratingComment)
-        val ratingStar = rating.rating
-
-
 
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
@@ -141,12 +130,12 @@ class Feedback : AppCompatActivity()  {
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
 
         val feedbackFirebase = hashMapOf(
-            "rateStar" to ratingStar,
+            "rateStar" to userInput.rating,
             "radioAns1" to userInput.answer1,
             "radioAns2" to userInput.answer2,
             "comment" to commentText
         )
-        val docRef = db.collection("userAppointment").document(feedback.toString())
+        val docRef = db.collection("userAppointment").document(feedback)
         docRef.update(feedbackFirebase as Map<String, Any>)
             .addOnSuccessListener {
                 Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
@@ -154,107 +143,9 @@ class Feedback : AppCompatActivity()  {
             .addOnFailureListener {
                 Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
             }
-
-
-
-//        var exception = ""
-//        var satisfactory = ""
-//        var adequate = ""
-//        var unsatisfactory = ""
-
-//        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-//            val radioButton = findViewById<RadioButton>(checkedId)
-//            //val selectedOption = radioButton.text.toString()
-//
-//            when(checkedId){
-//                R.id.exceptional -> {
-//                    exception = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.satisfactory -> {
-//                    satisfactory = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.adequate -> {
-//                    adequate = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.unsatisfactory -> {
-//                    unsatisfactory = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//        }
     }
-//    private fun buttonGroupSelection(radioGroup: RadioGroup): String {
-//        var answer = ""
-//
-//        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-//            val radioButton = findViewById<RadioButton>(checkedId)
-//            //val selectedOption = radioButton.text.toString()
-//
-//            when(checkedId){
-//                R.id.exceptional -> {
-//                    answer = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.satisfactory -> {
-//                    answer = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.adequate -> {
-//                    answer = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.unsatisfactory -> {
-//                    answer = radioButton.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-//        return answer
-//    }
-//    private fun buttonGroupSelection2(radioGroup: RadioGroup): String {
-//        var answer2 = ""
-//
-//        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-//            val radioButton2 = findViewById<RadioButton>(checkedId)
-//            //val selectedOption = radioButton.text.toString()
-//
-//            when(checkedId){
-//                R.id.rude -> {
-//                    answer2 = radioButton2.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.talkOwn -> {
-//                    answer2 = radioButton2.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.talkLong -> {
-//                    answer2 = radioButton2.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                R.id.extremeSkill -> {
-//                    answer2 = radioButton2.text.toString()
-//                    Toast.makeText(this, "You selected: ${radioButton2.text.toString()}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-//        return answer2
-//    }
-//
     private fun textComment() {
         val comment = findViewById<TextView>(R.id.commentText)
-        Toast.makeText(this, "Your comment: ${comment.text.toString()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
     }
 }
