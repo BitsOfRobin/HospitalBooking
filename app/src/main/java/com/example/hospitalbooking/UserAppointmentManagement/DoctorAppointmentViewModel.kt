@@ -55,7 +55,7 @@ class DoctorAppointmentViewModel:ViewModel() {
     }
 
 
-     fun timeToNoti(time:String) :Date{
+     fun timeToNoti(time:String) {
 
 
         val dateInString=time.replace(" ", "-")
@@ -82,15 +82,15 @@ class DoctorAppointmentViewModel:ViewModel() {
 //            properDate = "0$properDate"
 //
 //        }
-        val date = formatter.parse(properDate)
-
-
-
-
-
-
-
-            return date
+//        val date = formatter.parse(properDate)
+//
+//
+//
+//
+//
+//
+//
+//            return date
 //            sendNotifi(properDate)
 
 
