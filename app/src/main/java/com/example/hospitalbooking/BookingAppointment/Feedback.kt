@@ -128,7 +128,7 @@ class Feedback : AppCompatActivity()  {
     private fun appointmentUpdate() {
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
-        var commentText = comment.text.toString()
+        val commentText = comment.text.toString()
         Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
 
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
