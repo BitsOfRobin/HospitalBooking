@@ -1,7 +1,6 @@
 package com.example.hospitalbooking.AdminManagementOnAppointment
 
 import android.app.AlertDialog
-import com.example.hospitalbooking.KotlinClass.MyCache
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
@@ -15,13 +14,10 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProviders
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
+import com.example.hospitalbooking.KotlinClass.MyCache
 import com.example.hospitalbooking.KotlinClass.appointmentViewModel
 import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.MedicineOCR.MedicineRecord
@@ -39,8 +35,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
-import kotlin.math.log
-import kotlin.math.min
 
 class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
     var day = 0
@@ -241,46 +235,29 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
             }
-//            val endTime = findViewById<TextView>(R.id.EndTime)
-//
-//
-//            btnEndTime.setOnClickListener {
-//                getDateTimeCalendar()
-//
-//                DatePickerDialog(this, this, year, month, day).show()
-//
-//
-//
-//
-//                endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
-//            }
 
-//        btnup2.setOnClickListener {
-//            if(realDate==" "){
-//
-//                Toast.makeText(this,"No Date is entered",Toast.LENGTH_LONG).show()
-//                endTime.text="No Date is entered"
-//            }
-//
-//            else{
-//
-//                if (!validateDateTime()) {
-//                    endTime.text = "The Selected Date is passed today Date"
-//
-//                } else {
-//                    endTime.text = "$savedDay-$savedMonth-$savedYear\n Hour: $savedHour Minute:$savedMinute"
-//                    setEndTime()
-//                }
-//            }
-//
-//
-//
-//
-//        }
-
-//        }
 
     }
+
+    private fun sundayValidation(date:String):Boolean{
+
+
+        val sdf = SimpleDateFormat("dd MMM yyyy, HH:mm:ss")
+        val date = sdf.parse(date)
+
+//        Toast.makeText(this,"$date",Toast.LENGTH_LONG).show()
+        if(date.toString().contains("sun",true)){
+
+            return false
+
+        }
+
+        return true
+
+
+    }
+
+
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
 
@@ -384,7 +361,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         }
 
         else {
-            appointmentStoring = ViewModelProviders.of(this)[appointmentViewModel::class.java]
+//            appointmentStoring = ViewModelProviders.of(this)[appointmentViewModel::class.java]
 //             valid=timeToNotiAfter(time)
 
            checkAppoint(realDate, doctorName, loginUser)
@@ -747,6 +724,26 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         var bufferHourb4=0
         var bufferMinuteb4=0
         var hourb4appointment=hour-1
+
+
+        val sundayOrNot=sundayValidation(time)
+
+
+
+        if(!sundayOrNot){
+
+            tvTime.text="Today is Sunday, the doctor is off duty"
+            return false
+        }
+
+
+
+
+
+
+
+
+
         if(minute<29){
 
             bufferMinute=minute+30
