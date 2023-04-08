@@ -116,7 +116,6 @@ class MainActivity : AppCompatActivity() {
                 "Medicine Recognition",
                 "Medicine Record",
                 "Doctor View Appointment",
-                "Feedback"
             )
             for (i in names.indices) {
 
@@ -213,12 +212,7 @@ class MainActivity : AppCompatActivity() {
                             startActivity(intent)
 
                                 }
-                    6-> {
-                        val intent = Intent(this, Feedback::class.java)
-                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
-                        startActivity(intent)
 
-                    }
                 }
 
 
@@ -234,7 +228,6 @@ class MainActivity : AppCompatActivity() {
                 "Medicine Record",
                 "Book Appointment",
                 "View Doctor Appointment",
-                "Feedback"
             )
 
             for (i in names.indices) {
@@ -325,12 +318,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
 
                     }
-                    7 -> {
-                        val intent = Intent(this, Feedback::class.java)
-                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
-                        startActivity(intent)
 
-                    }
                 }
 
 

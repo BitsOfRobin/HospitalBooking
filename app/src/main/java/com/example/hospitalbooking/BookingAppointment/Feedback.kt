@@ -1,11 +1,14 @@
 package com.example.hospitalbooking.BookingAppointment
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.hospitalbooking.KotlinClass.UserInput
+import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.R
 import com.example.hospitalbooking.databinding.ActivityAppointmentFeedbackBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,16 +45,52 @@ class Feedback : AppCompatActivity()  {
         appointmentComment()
 
         binding.submitComment.setOnClickListener {
-            if (userInput.answer1 == null || userInput.answer2 == null || userInput.rating == null) {
-                Toast.makeText(this, "Please select answer for both question and provide a rating", Toast.LENGTH_SHORT).show()
+            var error = false
+
+            if (userInput.answer1 == null) {
+                binding.questionOneLayout.error = "Please select an answer"
+                error = true
+            } else {
+                binding.questionOneLayout.error = null
+            }
+
+            // Check answer2
+            if (userInput.answer2 == null) {
+                binding.questionTwoLayout.error = "Please select an answer"
+                error = true
+            } else {
+                binding.questionTwoLayout.error = null
+            }
+
+            // Check rating
+            if (userInput.rating == null) {
+                binding.RateBarLayout.error = "Please provide a rating"
+                error = true
+            } else {
+                binding.RateBarLayout.error = null
+            }
+
+            if (error) {
                 return@setOnClickListener
             }
-            else {
-                appointmentDetail()
-                appointmentComment()
-                appointmentUpdate()
-                textComment()
+
+            appointmentDetail()
+            appointmentComment()
+            appointmentUpdate()
+            textComment()
+
+            val dialog = AlertDialog.Builder(this)
+                .setTitle("Thank You")
+                .setMessage("Your feedback has been submitted successfully. Press OK navigate to homepage")
+                .setPositiveButton("OK") { _, _ ->
+                    // Navigate to the page
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
             }
+                .create()
+            dialog.show()
+
         }
     }
 
@@ -78,20 +117,20 @@ class Feedback : AppCompatActivity()  {
         binding.questionOneRadio.setOnCheckedChangeListener { _, checkedId ->
             val radioButton: RadioButton = findViewById(checkedId)
             when (checkedId) {
-                R.id.exceptional -> {
+                R.id.excellent -> {
                     userInput.answer1 = radioButton.text.toString()
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
 
                 }
-                R.id.satisfactory -> {
+                R.id.good -> {
                     userInput.answer1 = radioButton.text.toString()
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
-                R.id.adequate -> {
+                R.id.fair -> {
                     userInput.answer1 = radioButton.text.toString()
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
-                R.id.unsatisfactory -> {
+                R.id.poor -> {
                     userInput.answer1 = radioButton.text.toString()
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
@@ -102,19 +141,19 @@ class Feedback : AppCompatActivity()  {
             val radioButton2: RadioButton = findViewById(checkedId)
 
             when (checkedId) {
-                R.id.rude -> {
+                R.id.excellentCommunicate -> {
                     userInput.answer2 = radioButton2.text.toString()
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
-                R.id.talkOwn -> {
+                R.id.clearCommunicate -> {
                     userInput.answer2 = radioButton2.text.toString()
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
-                R.id.talkLong -> {
+                R.id.unclearCommunicate -> {
                     userInput.answer2 = radioButton2.text.toString()
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
-                R.id.extremeSkill -> {
+                R.id.difficultCommunicate -> {
                     userInput.answer2 = radioButton2.text.toString()
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }

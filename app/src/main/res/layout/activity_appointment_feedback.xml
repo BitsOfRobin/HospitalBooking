@@ -60,6 +60,13 @@
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/RateBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Please rate at least 0.5 star">
+
         <RatingBar
             android:id="@+id/ratingComment"
             android:layout_width="255dp"
@@ -71,10 +78,11 @@
             android:stepSize="0.5"
             />
 
+        </com.google.android.material.textfield.TextInputLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="40dp"
-
             android:background="#2196F3"/>
         <TextView
             android:layout_width="wrap_content"
@@ -89,39 +97,47 @@
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. How was your experience with wait time?" />
+            android:text="1. Friendliness and professionalism of the staff" />
 
-        <RadioGroup
-            android:id="@+id/questionOneRadio"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/questionOneLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_margin="10dp"
+            android:hint="Please answer Question 1">
 
-            <RadioButton
-                android:id="@+id/exceptional"
+            <RadioGroup
+                android:id="@+id/questionOneRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Exceptional"
-                android:textSize="14sp" />
+                android:layout_marginLeft="10dp">
 
-            <RadioButton
-                android:id="@+id/satisfactory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Satisfactory" />
+                <RadioButton
+                    android:id="@+id/excellent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Excellent"
+                    android:textSize="14sp" />
 
-            <RadioButton
-                android:id="@+id/adequate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Adequate" />
+                <RadioButton
+                    android:id="@+id/good"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Good" />
 
-            <RadioButton
-                android:id="@+id/unsatisfactory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Unsatisfactory" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/fair"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fair" />
+
+                <RadioButton
+                    android:id="@+id/poor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Poor" />
+            </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
@@ -133,39 +149,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="2. How was the doctor relation with patients" />
+            android:text="2. Clarity of communication from the doctor" />
 
-        <RadioGroup
-            android:id="@+id/questionTwoRadio"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/questionTwoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_margin="10dp"
+            android:hint="Question 2">
 
-            <RadioButton
-                android:id="@+id/rude"
+            <RadioGroup
+                android:id="@+id/questionTwoRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rude"
-                android:textSize="14sp" />
+                android:layout_marginLeft="10dp">
 
-            <RadioButton
-                android:id="@+id/talkOwn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Only talk to patient about doctor's own interest" />
+                <RadioButton
+                    android:id="@+id/excellentCommunicate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The doctor communicated clearly and effectively"
+                    android:textSize="14sp" />
 
-            <RadioButton
-                android:id="@+id/talkLong"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Talk too long, no point" />
+                <RadioButton
+                    android:id="@+id/clearCommunicate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The doctor was mostly clear in their communication" />
 
-            <RadioButton
-                android:id="@+id/extremeSkill"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Extremely skilled in dealing with people" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/unclearCommunicate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The doctor's communication was somewhat unclear" />
+
+                <RadioButton
+                    android:id="@+id/difficultCommunicate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The doctor's communication was difficult to understand" />
+            </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
