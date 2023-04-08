@@ -732,7 +732,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         if(!sundayOrNot){
 
-            tvTime.text="Today is Sunday, the doctor is off duty"
+            tvTime.text="This date is Sunday, the doctor is off duty"
             return false
         }
 
