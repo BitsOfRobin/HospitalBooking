@@ -178,6 +178,7 @@ class Feedback : AppCompatActivity()  {
             "radioAns2" to userInput.answer2,
             "comment" to commentText
         )
+
         val docRef = db.collection("userAppointment").document(feedback)
         docRef.update(feedbackFirebase as Map<String, Any>)
             .addOnSuccessListener {
