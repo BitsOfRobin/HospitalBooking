@@ -444,20 +444,23 @@ class MainPage : AppCompatActivity() {
             docView.setOnItemClickListener { adapterView, view, i, l ->
 
                 var name = " "
+                var docPro = " "
 //                val time = modalList.get(i).time.toString()
 //            val time = arraylistTime[i].toString()
 
 
                 mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
                     .get(MainPageViewModel::class.java)
-                name = if( mainPageViewModel.modalListSearch.isNotEmpty()){
+               if( mainPageViewModel.modalListSearch.isNotEmpty()){
 
-                    mainPageViewModel.modalListSearch.get(i).docName.toString()
+                    name=mainPageViewModel.modalListSearch.get(i).docName.toString()
+                   docPro=mainPageViewModel.modalListSearch.get(i).pro.toString()
 
                 } else{
 
 
-                    mainPageViewModel.modalList.get(i).docName.toString()
+                    name=mainPageViewModel.modalList.get(i).docName.toString()
+                   docPro=mainPageViewModel.modalList.get(i).pro.toString()
                 }
 
 
@@ -472,6 +475,7 @@ class MainPage : AppCompatActivity() {
 //                    val intent = Intent(this, AppointmentSelect::class.java)
                 val intent = Intent(this, CalendarTimePicker::class.java)
                 intent.putExtra("DoctorName", name)
+                intent.putExtra("DoctorPro", docPro)
                 startActivity(intent)
 
 
