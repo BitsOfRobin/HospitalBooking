@@ -59,6 +59,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
     private lateinit var toggle:ActionBarDrawerToggle
 
+    //private lateinit var mapView: MapView
     private lateinit var appointmentStoring:appointmentViewModel
     private val doctorAppointmentList = ArrayList<String>()
     private val checkUserList = ArrayList<String>()
@@ -67,11 +68,25 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val doctorName = intent.getStringExtra("DoctorName").toString()
+        //val doctorSpecial = intent.getStringExtra("DoctorPro").toString()
+        //val docName = findViewById<TextView>(R.id.docNameLocation)
+        //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
 
-        val docNameLocate = intent.getStringExtra("DoctorName").toString()
-        val docProLocate = intent.getStringExtra("DoctorPro").toString()
+        //docName.setText(doctorName)
+        //docSpecialist.setText(docProLocate)
+//        val docNameLocate = intent.getStringExtra("DoctorName").toString()
+        //val docProLocate = intent.getStringExtra("DoctorPro").toString()
+        getDoctorAppointment(doctorName)
+        //mapLocationAPI(savedInstanceState, doctorName, docProLocate)
 
-        mapLocationAPI(savedInstanceState, docNameLocate, docProLocate)
+        val buttonGoogleMap = findViewById<Button>(R.id.btnup1)
+//        buttonGoogleMap.setOnClickListener {
+//            mapLocationAPI(savedInstanceState, doctorName, docProLocate)
+//        }
+//        buttonGoogleMap.setOnClickListener{
+//Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
+//        }
 
         setContentView(R.layout.activity_calendar_time_picker)
         pickDate()
@@ -79,11 +94,11 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Choose Doctor Appointment")
-        val doctorName = intent.getStringExtra("DoctorName").toString()
+
 
         val userName=findGoogleUser()
         showNavBar()
-        getDoctorAppointment(doctorName)
+
 
     }
 
@@ -1185,8 +1200,10 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                     .zoom(15f)
                     .build()
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
             }
         }
+
         builder.setView(view)
 
         builder.setPositiveButton("Submit") { dialog, which ->
@@ -1200,14 +1217,35 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         dialog.show()
     }
 
+//    override fun onResume() {
+//        super.onResume()
+//        mapView.onResume()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        mapView.onPause()
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        mapView.onDestroy()
+//    }
+//
+//    override fun onLowMemory() {
+//        super.onLowMemory()
+//        mapView.onLowMemory()
+//    }
+
+
     private fun hospitaLocation(docNameLocate : String, docProLocate : String) : String{
 
-        val docName = findViewById<TextView>(R.id.docNameLocation)
-        val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
+        //val docName = findViewById<TextView>(R.id.docNameLocation)
+        //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
 
-        docName.text = docNameLocate
-        docSpecialist.text = docProLocate
+        //docName.setText(docNameLocate)
+        //docSpecialist.setText(docProLocate)
 
         var hospitalName = ""
 
@@ -1223,7 +1261,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             }
 
         val hostName = findViewById<TextView>(R.id.appointment_details_location)
-        hostName.text = hospitalName
+        hostName.setText(hospitalName)
         // Return hospital name value
         return hospitalName
     }

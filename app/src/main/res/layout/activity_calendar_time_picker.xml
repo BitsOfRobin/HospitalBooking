@@ -29,34 +29,32 @@
             app:civ_shadow_radius="10dp"
             />
 
-        <TextView
-            android:id="@+id/doctor_details_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Doctor Details"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:id="@+id/doctor_details_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Doctor Details"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20dp"-->
+<!--            android:textStyle="bold" />-->
 
-        <TextView
-            android:id="@+id/docNameLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:text="Doctor Name"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/docNameLocation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="45dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="18dp" />-->
 
-        <TextView
-            android:id="@+id/docSpecialistLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:text="Doctor Specialist"
-            android:textSize="18dp"
-            android:textColor="@color/black"/>
+<!--        <TextView-->
+<!--            android:id="@+id/docSpecialistLocation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="45dp"-->
+<!--            android:textSize="18dp"-->
+<!--            android:textColor="@color/black"/>-->
 
         <RatingBar
             android:id="@+id/accuRate"
@@ -92,7 +90,6 @@
 
         <TextView
             android:id="@+id/appointment_details_location"
-            android:drawableLeft="@drawable/baseline_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
@@ -101,15 +98,21 @@
             android:textColor="#282BDC"
             android:textSize="18sp" />
 
+<!--        <Button-->
+<!--            android:id="@+id/btn_map"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:layout_marginHorizontal="70dp"-->
+<!--            android:textSize="14sp"-->
+<!--            android:background="@drawable/bg_white_rounded" />-->
+
+
         <Button
             android:id="@+id/btn_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginHorizontal="70dp"
-            android:textSize="14sp"
-            android:background="@drawable/bg_white_rounded"
-            android:text="View on Google Map" />
+            android:text="Button" />
 
         <Button
             android:id="@+id/btn_timePicker"
