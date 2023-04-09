@@ -8,6 +8,10 @@
     android:orientation="vertical"
     android:id="@+id/drawerLayout"
     tools:context=".AdminManagementOnAppointment.CalendarTimePicker">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -173,7 +177,7 @@
 
 <!--    </LinearLayout>-->
 
-
+</ScrollView>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
