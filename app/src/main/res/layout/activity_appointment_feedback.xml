@@ -20,6 +20,7 @@
             android:layout_margin="10dp"
             android:text="Appointment Detail"
             android:layout_gravity="center"
+            android:textSize="22dp"
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
@@ -28,27 +29,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Doctor Name" />
+            android:text="Doctor Name"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/appointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Appointment" />
+            android:text="Appointment"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/patientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Patient Name" />
-
+            android:text="Patient Name"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="40dp"
-
             android:background="#2196F3"/>
 
         <TextView
@@ -57,6 +62,7 @@
             android:layout_margin="10dp"
             android:text="Appointment Rating"
             android:layout_gravity="center"
+            android:textSize="22dp"
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
@@ -64,7 +70,6 @@
             android:id="@+id/RateBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:hint="Please rate at least 0.5 star">
 
         <RatingBar
@@ -75,8 +80,7 @@
             android:isIndicator="false"
             android:numStars="5"
             android:padding="5dp"
-            android:stepSize="0.5"
-            />
+            android:stepSize="0.5" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,11 +88,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="#2196F3"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Appointment Feedback"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:textSize="22dp"
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
@@ -97,14 +104,17 @@
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Friendliness and professionalism of the staff" />
+            android:text="1. Friendliness and professionalism of the staff"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/questionOneLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Please answer Question 1">
+            android:hint="Please answer Question 1"
+            android:textSize="17dp">
 
             <RadioGroup
                 android:id="@+id/questionOneRadio"
@@ -117,46 +127,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Excellent"
-                    android:textSize="14sp" />
+                    android:textSize="17sp" />
 
                 <RadioButton
                     android:id="@+id/good"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Good" />
+                    android:text="Good"
+                    android:textSize="17sp" />
 
                 <RadioButton
                     android:id="@+id/fair"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fair" />
+                    android:text="Fair"
+                    android:textSize="17sp" />
 
                 <RadioButton
                     android:id="@+id/poor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Poor" />
+                    android:text="Poor"
+                    android:textSize="17sp" />
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#2196F3"/>
+            android:background="#2196F3" />
 
         <TextView
             android:id="@+id/secondFeedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="2. Clarity of communication from the doctor" />
+            android:text="2. Clarity of communication from the doctor"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/questionTwoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Question 2">
+            android:hint="Question 2"
+            android:textSize="17sp" >
 
             <RadioGroup
                 android:id="@+id/questionTwoRadio"
@@ -169,25 +185,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="The doctor communicated clearly and effectively"
-                    android:textSize="14sp" />
+                    android:textSize="17sp" />
 
                 <RadioButton
                     android:id="@+id/clearCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="The doctor was mostly clear in their communication" />
+                    android:text="The doctor was mostly clear in their communication"
+                    android:textSize="17sp" />
 
                 <RadioButton
                     android:id="@+id/unclearCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="The doctor's communication was somewhat unclear" />
+                    android:text="The doctor's communication was somewhat unclear"
+                    android:textSize="17sp" />
 
                 <RadioButton
                     android:id="@+id/difficultCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="The doctor's communication was difficult to understand" />
+                    android:text="The doctor's communication was difficult to understand"
+                    android:textSize="17sp" />
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,7 +220,9 @@
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3. Would you provide other comments about the doctor? (optional)" />
+            android:text="3. Would you provide other comments about the doctor? (optional)"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/commentText"
@@ -215,7 +236,7 @@
             android:maxLength="100"
             android:maxLines="3"
             android:padding="10dp"
-            android:textSize="17dp"
+            android:textSize="17sp"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <Button

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFC107"
+    android:background="#ECD285"
     android:orientation="vertical"
     android:id="@+id/drawerLayout"
     tools:context=".AdminManagementOnAppointment.CalendarTimePicker">
@@ -14,25 +14,94 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/docImg"
-
-
             android:layout_width="200dp"
             android:layout_height="180dp"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-
             android:padding="5dp"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp"
             app:civ_shadow="true"
-
             app:civ_shadow_color="#3f51b5"
             app:civ_shadow_radius="10dp"
-
             />
+
+        <TextView
+            android:id="@+id/doctor_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doctor Details"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/docName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:text="Doctor Name"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/docSpecialist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:text="Doctor Specialist"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/comment_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comment"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/appointment_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Appointment Details"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/appointment_details_location"
+            android:drawableLeft="@drawable/baseline_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Location"
+            android:textColor="#282BDC"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="70dp"
+            android:textColor="#282BDC"
+            android:textSize="18sp"
+            android:text="Click here to view on Google Map" />
+
         <Button
             android:id="@+id/btn_timePicker"
             android:layout_width="wrap_content"
@@ -40,7 +109,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_white_rounded"
             android:layout_marginTop="31dp"
-            android:text=" time 1?" />
+            android:text="SET DATETIME" />
 
         <Button
             android:id="@+id/btnup1"
@@ -55,12 +124,9 @@
             android:id="@+id/tv_textTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:textColor="#282BDC"
-
             android:textSize="22sp"
             android:textStyle="bold"
             tools:text="@tools:sample/date/ddmmyy" />
