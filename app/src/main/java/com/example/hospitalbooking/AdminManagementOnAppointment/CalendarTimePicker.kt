@@ -251,10 +251,12 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val date = sdf.parse(date)
 
 //        Toast.makeText(this,"$date",Toast.LENGTH_LONG).show()
-        if(date.toString().contains("sun",true)){
+        if (date != null) {
+            if(date.toString().contains("sun",true)){
 
-            return false
+                return false
 
+            }
         }
 
         return true
@@ -731,15 +733,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         var hourb4appointment=hour-1
 
 
-        val sundayOrNot=sundayValidation(time)
 
-
-
-        if(!sundayOrNot){
-
-            tvTime.text="This date is Sunday, the doctor is off duty"
-            return false
-        }
 
 
 
@@ -800,6 +794,12 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         else{
             tvTime.text="Appointment cannot be booked   at  ${savedHour}:${savedMinute}  ${savedDay}" +
                     "/${savedMonth}/${savedYear} as only Appointmnet start at 00 or 30"
+
+
+
+
+
+
             return false
         }
 
@@ -1023,14 +1023,34 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                         android.R.string.yes, Toast.LENGTH_SHORT
                     ).show()
 
-                    tvTime.text="Appointment is booked successfully at  ${savedHour}:${savedMinute}  ${savedDay}/${savedMonth}" +
-                            "/${savedYear} by $loginUser"
 
-                    writeUser(realDate)
-                    val intent = Intent(this, DoctorAppointment::class.java)
+                    if(sundayValidation(realDate)){
+
+
+                        tvTime.text="Appointment is booked successfully at  ${savedHour}:${savedMinute}  ${savedDay}/${savedMonth}" +
+                                "/${savedYear} by $loginUser"
+
+
+                        writeUser(realDate)
+                        val intent = Intent(this, DoctorAppointment::class.java)
+                        startActivity(intent)
+                    }
+                    else{
+
+
+                        tvTime.text="This Date is Sunday, the doctor is off duty"
+
+                    }
+
+
+
+
+
+
+
 //                        arraylistTime.remove(arraylistTime[deleteTime])
                     //                intent.putExtra("DoctorName", nameNtime)
-                    startActivity(intent)
+
 
 
 
