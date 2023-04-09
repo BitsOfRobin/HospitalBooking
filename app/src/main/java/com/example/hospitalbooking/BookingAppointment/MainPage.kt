@@ -443,8 +443,8 @@ class MainPage : AppCompatActivity() {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
 
-                var name = " "
-                var docPro = " "
+                var name = ""
+                var docPro = ""
 //                val time = modalList.get(i).time.toString()
 //            val time = arraylistTime[i].toString()
 
