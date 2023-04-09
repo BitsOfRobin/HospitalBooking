@@ -5,11 +5,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -25,6 +27,11 @@ import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.example.hospitalbooking.R
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,15 +63,16 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     private val doctorAppointmentList = ArrayList<String>()
     private val checkUserList = ArrayList<String>()
 
-
-
-
-
-
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val docNameLocate = intent.getStringExtra("DoctorName").toString()
+        val docProLocate = intent.getStringExtra("DoctorPro").toString()
+
+        mapLocationAPI(savedInstanceState, docNameLocate, docProLocate)
+
         setContentView(R.layout.activity_calendar_time_picker)
         pickDate()
 //        checkAppointmentBooked()
@@ -76,6 +84,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val userName=findGoogleUser()
         showNavBar()
         getDoctorAppointment(doctorName)
+
     }
 
     private fun getDateTimeCalendar() {
@@ -85,8 +94,6 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         year = cal.get(Calendar.YEAR)
         hour = cal.get(Calendar.HOUR)
         minute = cal.get(Calendar.MINUTE)
-
-
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -212,31 +219,14 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                                 check++
 
                             }
-
                         }
-
                         if(check==0){
 
                             dialogToWriteUser()
                         }
-
-
-
-
-
-
-
                     }
-
                 }
-
-
-
-
-
             }
-
-
     }
 
     private fun sundayValidation(date:String):Boolean{
@@ -1160,11 +1150,81 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val headerTxtView = headerView.findViewById<TextView>(R.id.nav_header_textView)
         Picasso.get().load(photoUrl).into(headerImage);
         headerTxtView.text=loginUser
-
-
-
-
     }
 
+    private fun mapLocationAPI(savedInstanceState: Bundle?, docNameLocate : String, docProLocate : String) {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val view: View = inflater.inflate(R.layout.hopsital_location_map, null)
 
+        val mapView = view.findViewById(R.id.map_view) as MapView
+
+        // Receive parameter from the function
+        var hospitalName = hospitaLocation(docNameLocate, docProLocate)
+
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync { googleMap ->
+            // do something with the googleMap object
+            var latitude = 0.0
+            var longitude = 0.0
+
+            val geocoder = Geocoder(this)
+            val addressList = geocoder.getFromLocationName(hospitalName, 1)
+            if (addressList.isNotEmpty()) {
+                latitude = addressList[0].latitude
+                longitude = addressList[0].longitude
+
+                // add marker and move camera to the building location
+                val markerOptions = MarkerOptions()
+                markerOptions.position(LatLng(latitude, longitude))
+                markerOptions.title(hospitalName)
+                googleMap.addMarker(markerOptions)
+
+                val cameraPosition = CameraPosition.Builder()
+                    .target(LatLng(latitude, longitude))
+                    .zoom(15f)
+                    .build()
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            }
+        }
+        builder.setView(view)
+
+        builder.setPositiveButton("Submit") { dialog, which ->
+
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, which ->
+            Toast.makeText(this,"Thanks",Toast.LENGTH_SHORT).show()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun hospitaLocation(docNameLocate : String, docProLocate : String) : String{
+
+        val docName = findViewById<TextView>(R.id.docNameLocation)
+        val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+
+        docName.text = docNameLocate
+        docSpecialist.text = docProLocate
+
+        var hospitalName = ""
+
+        mFirebaseDatabaseInstance!!.collection("doctor").document(docNameLocate)
+            .get()
+            .addOnSuccessListener {
+                hospitalName = it.get("hospital").toString()
+                Toast.makeText(this, "The hospital name ${hospitalName} successfully retrieved", Toast.LENGTH_SHORT).show()
+            }
+
+            .addOnFailureListener {
+                Toast.makeText(this, "Fail to retrieve", Toast.LENGTH_SHORT).show()
+            }
+
+        val hostName = findViewById<TextView>(R.id.appointment_details_location)
+        hostName.text = hospitalName
+        // Return hospital name value
+        return hospitalName
+    }
 }
