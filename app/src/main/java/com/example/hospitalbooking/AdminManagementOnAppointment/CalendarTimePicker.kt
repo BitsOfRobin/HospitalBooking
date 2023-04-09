@@ -36,6 +36,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -69,7 +70,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val doctorName = intent.getStringExtra("DoctorName").toString()
-        //val doctorSpecial = intent.getStringExtra("DoctorPro").toString()
+        val doctorSpecial = intent.getStringExtra("DoctorPro").toString()
         //val docName = findViewById<TextView>(R.id.docNameLocation)
         //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
 
@@ -79,12 +80,32 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         //val docProLocate = intent.getStringExtra("DoctorPro").toString()
         getDoctorAppointment(doctorName)
         //mapLocationAPI(savedInstanceState, doctorName, docProLocate)
+//        val buttonGoogleMap = findViewById<Button>(R.id.btn_map)
+//        val doctorName = intent.getStringExtra("DoctorName").toString()
+//        val hospitalName=hospitaLocation(doctorName)
+//
+//            val intent=Intent(this,HospitalLocation::class.java)
+//            intent.putExtra("HospitalName",hospitalName)
+//            startActivity(intent)
 
-        val buttonGoogleMap = findViewById<Button>(R.id.btnup1)
-//        buttonGoogleMap.setOnClickListener {
-//            mapLocationAPI(savedInstanceState, doctorName, docProLocate)
+
+//        val doctorName = intent.getStringExtra("DoctorName").toString()
+//        val btn=findViewById<Button>(R.id.btn_map)
+//        btn.setOnClickListener {
+//            val hospitalName=hospitaLocation(doctorName)
+//
+//            val intent=Intent(this,HospitalLocation::class.java)
+//            intent.putExtra("HospitalName",hospitalName)
+//            startActivity(intent)
+//
 //        }
-//        buttonGoogleMap.setOnClickListener{
+
+
+
+
+//        }
+
+
 //Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
 //        }
 
@@ -163,6 +184,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
             btnup1.setOnClickListener {
 //                checkAppointmentBooked()
+
+
+
 
 
                 if(realDate==" "){
@@ -404,12 +428,14 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        val  doc =doctor?.uid
 
 //
-        mFirebaseDatabaseInstance?.collection("doctor")?.document("$doctorName").update("Time",realDate) .addOnSuccessListener {
+        mFirebaseDatabaseInstance?.collection("doctor")?.document("$doctorName")
+            ?.update("Time",realDate)
+            ?.addOnSuccessListener {
 
 
-            Toast.makeText(this,"Successfully update doctor ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Successfully update doctor ",Toast.LENGTH_SHORT).show()
 
-        }
+            }
             ?.addOnFailureListener {
 
                 Toast.makeText(this,"Failed to update doctor",Toast.LENGTH_SHORT).show()
@@ -436,12 +462,14 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
         )
-        mFirebaseDatabaseInstance?.collection("doctor")?.document("$doctorName").update("Time2",realDate) .addOnSuccessListener {
+        mFirebaseDatabaseInstance?.collection("doctor")?.document("$doctorName")
+            ?.update("Time2",realDate)
+            ?.addOnSuccessListener {
 
 
-            Toast.makeText(this,"Successfully update doctor ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Successfully update doctor ",Toast.LENGTH_SHORT).show()
 
-        }
+            }
             ?.addOnFailureListener {
 
                 Toast.makeText(this,"Failed to update doctor",Toast.LENGTH_SHORT).show()
@@ -1195,7 +1223,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val mapView = view.findViewById(R.id.map_view) as MapView
 
         // Receive parameter from the function
-        var hospitalName = hospitaLocation(docNameLocate, docProLocate)
+        var hospitalName = hospitaLocation(docNameLocate)
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync { googleMap ->
@@ -1258,7 +1286,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //    }
 
 
-    private fun hospitaLocation(docNameLocate : String, docProLocate : String) : String{
+    private fun hospitaLocation(docNameLocate : String) : String{
 
         //val docName = findViewById<TextView>(R.id.docNameLocation)
         //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
@@ -1280,8 +1308,8 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 Toast.makeText(this, "Fail to retrieve", Toast.LENGTH_SHORT).show()
             }
 
-        val hostName = findViewById<TextView>(R.id.appointment_details_location)
-        hostName.setText(hospitalName)
+//        val hostName = findViewById<TextView>(R.id.appointment_details_location)
+//        hostName.setText(hospitalName)
         // Return hospital name value
         return hospitalName
     }

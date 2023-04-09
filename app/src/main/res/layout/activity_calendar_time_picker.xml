@@ -102,29 +102,23 @@
             android:textColor="#282BDC"
             android:textSize="18sp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_map"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:layout_marginHorizontal="70dp"-->
-<!--            android:textSize="14sp"-->
-<!--            android:background="@drawable/bg_white_rounded" />-->
-
-
         <Button
             android:id="@+id/btn_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="70dp"
+            android:textSize="14sp"
+          />
+
 
         <Button
             android:id="@+id/btn_timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/bg_white_rounded"
             android:layout_marginTop="31dp"
+            android:background="@drawable/bg_white_rounded"
             android:text="SET DATETIME" />
 
         <Button
