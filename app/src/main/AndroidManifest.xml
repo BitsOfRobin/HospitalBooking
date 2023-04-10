@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hospitalbooking">
 
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
+        <activity
+            android:name=".AdminManagementOnAppointment.HospitalLocation"
+            android:exported="false" />
         <activity
             android:name=".PopUpWindow"
             android:exported="false" />
@@ -81,6 +86,11 @@
                 android:name="com.google.mlkit.vision.DEPENDENCIES"
                 android:value="ocr" />
 
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyAK5L7y0dFzGnnT_EvBZdP3xvMOuzsNrsY" />
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -88,7 +98,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 </manifest>

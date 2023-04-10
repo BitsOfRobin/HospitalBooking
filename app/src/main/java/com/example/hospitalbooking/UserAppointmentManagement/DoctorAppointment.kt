@@ -22,8 +22,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -45,6 +43,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -156,6 +156,8 @@ class DoctorAppointment : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getCurrentViewModel(){
+
+
         val docView = findViewById<ListView>(R.id.listDocAppoint)
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
         doctorAppointmentViewModel.arrCurrentAppoint.observe(this, androidx.lifecycle.Observer {
@@ -530,13 +532,13 @@ class DoctorAppointment : AppCompatActivity() {
 
                     if (calendarDate.before(date)){
 
-                        arraylistAppointment.add(AppointmentDetail(user,docName,doc))
+                        arraylistAppointment.add(AppointmentDetail(user,docName,doc,""))
                         arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
                     }
 
                     else{
 
-                        arraylistPastAppointment.add(AppointmentDetail(user,docName,doc))
+                        arraylistPastAppointment.add(AppointmentDetail(user,docName,doc,""))
                         arrayDelPast.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
 
                     }
@@ -712,16 +714,65 @@ class DoctorAppointment : AppCompatActivity() {
     private fun toComment(i:Int){
 
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
-        val intent = Intent(this, Feedback::class.java)
-        intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
-        intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
-        intent.putExtra("userName", doctorAppointmentViewModel.arraylistPastAppointment.get(i).userName)
 
-        startActivity(intent)
+        val intent = Intent(this, Feedback::class.java)
+
+        val appointedDate=convertStrToDate(doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
+
+
+        val appointedDay = appointedDate.dayOfMonth
+        val appointedMonth = appointedDate.monthValue
+        val appointedHour = appointedDate.hour
+        val appointedMinute = appointedDate.minute
+        val appointedYear = appointedDate.year
+
+
+        val currentDate = LocalDateTime.now()
+        val currentDay = currentDate.dayOfMonth
+        val currentMonth = currentDate.monthValue
+        val currentHour = currentDate.hour
+        val currentMinute = currentDate.minute
+        val currentYear = currentDate.year
+
+
+
+        if(currentYear==appointedYear&&currentMonth==appointedMonth&&
+                currentDay==appointedDay &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"){
+
+            intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
+            intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
+            intent.putExtra("userName", doctorAppointmentViewModel.arraylistPastAppointment.get(i).userName)
+
+            startActivity(intent)
+
+
+        }
+        else{
+
+            Toast.makeText(this,"You only can comment on the date of appointment",Toast.LENGTH_SHORT).show()
+        }
+
 
 
 
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun convertStrToDate(str: String): LocalDateTime {
+        var time=str
+        if(time[0].toString().toInt()<10
+            &&time[1].toString()==" "){
+
+            time="0$time"
+        }
+
+
+        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss")
+
+        return LocalDateTime.parse(time, formatter)
+
+    }
+
 
 
 

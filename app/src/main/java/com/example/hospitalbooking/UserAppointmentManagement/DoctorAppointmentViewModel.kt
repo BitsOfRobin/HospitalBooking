@@ -132,7 +132,7 @@ class DoctorAppointmentViewModel:ViewModel() {
 
         }
         val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
-        docRef.whereEqualTo("user", user).get().addOnSuccessListener {
+        docRef?.whereEqualTo("user", user)?.get()?.addOnSuccessListener {
 
 
             var docName = it.documents
@@ -144,10 +144,15 @@ class DoctorAppointmentViewModel:ViewModel() {
                 arraylistPro.add(document.id.toString())
 
 
-                var docName = document.get("docName").toString()
+                val docName = document.get("docName").toString()
                 if (docName != null) {
                     arraylistDocName.add(docName)
 
+                }
+                var commentStatus = document.get("commentStatus").toString()
+                if(commentStatus.isEmpty()){
+
+                    commentStatus="Not Comment"
                 }
 
 
@@ -191,12 +196,12 @@ class DoctorAppointmentViewModel:ViewModel() {
 
                     if (calendarDate.before(date)) {
 
-                        arraylistAppointment.add(AppointmentDetail(user, docName, doc))
+                        arraylistAppointment.add(AppointmentDetail(user, docName, doc,commentStatus))
 
                         arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
                     } else {
 
-                        arraylistPastAppointment.add(AppointmentDetail(user, docName, doc))
+                        arraylistPastAppointment.add(AppointmentDetail(user, docName, doc,commentStatus))
                         arrayDelPast.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
 
                     }
