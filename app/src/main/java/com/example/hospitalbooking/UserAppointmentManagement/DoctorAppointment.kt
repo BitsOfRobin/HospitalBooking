@@ -737,7 +737,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
         if(currentYear==appointedYear&&currentMonth==appointedMonth&&
-                currentDay==appointedDay){
+                currentDay==appointedDay &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"){
 
             intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
             intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
