@@ -717,6 +717,9 @@ class DoctorAppointment : AppCompatActivity() {
 
         val intent = Intent(this, Feedback::class.java)
 
+
+
+
         val appointedDate=convertStrToDate(doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
 
 
@@ -734,10 +737,10 @@ class DoctorAppointment : AppCompatActivity() {
         val currentMinute = currentDate.minute
         val currentYear = currentDate.year
 
-
+//                &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"
 
         if(currentYear==appointedYear&&currentMonth==appointedMonth&&
-                currentDay==appointedDay &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"){
+                currentDay==appointedDay ){
 
             intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
             intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
@@ -956,7 +959,7 @@ class DoctorAppointment : AppCompatActivity() {
             val linearCurrent=findViewById<LinearLayout>(R.id.currentList)
             linearCurrent.visibility=View.GONE
 
-            readUser()
+//            readUser()
 
 
             Toast.makeText(this, "Page is refreshed ", Toast.LENGTH_SHORT).show()
