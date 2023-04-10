@@ -22,7 +22,7 @@ class Feedback : AppCompatActivity()  {
     private val userInput = UserInput()
 
     // Create a Firestore instance
-//    private val db : FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val db : FirebaseFirestore = FirebaseFirestore.getInstance()
 
     // Appointment Detail Variable
     private lateinit var docName :String
@@ -87,7 +87,7 @@ class Feedback : AppCompatActivity()  {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-            }
+                }
                 .create()
             dialog.show()
 
@@ -165,8 +165,6 @@ class Feedback : AppCompatActivity()  {
         }
     }
     private fun appointmentUpdate() {
-        val db = FirebaseFirestore.getInstance()
-
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
         val commentText = comment.text.toString()
