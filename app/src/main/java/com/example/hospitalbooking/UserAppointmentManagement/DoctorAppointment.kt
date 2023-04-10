@@ -738,9 +738,9 @@ class DoctorAppointment : AppCompatActivity() {
         val currentYear = currentDate.year
 
 //                &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"
-
+//
         if(currentYear==appointedYear&&currentMonth==appointedMonth&&
-                currentDay==appointedDay ){
+                currentDay==appointedDay  &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"){
 
             intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
             intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)

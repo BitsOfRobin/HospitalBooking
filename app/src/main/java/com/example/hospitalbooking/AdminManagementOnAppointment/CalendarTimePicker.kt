@@ -497,7 +497,8 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val user = hashMapOf(
             "doctorAppoint" to appointTime,
             "user" to loginUser,
-            "docName" to doctorName
+            "docName" to doctorName,
+        "commentStatus" to "Not Commented"
 
 
         )
@@ -783,7 +784,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         }
 
-        if(savedHour in 0..9 ){
+        if(savedHour in 0..8 ){
 
 
             tvTime.text="The doctor is on the way to clinic"
