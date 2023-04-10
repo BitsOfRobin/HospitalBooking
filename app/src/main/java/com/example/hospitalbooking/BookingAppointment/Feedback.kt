@@ -171,12 +171,13 @@ class Feedback : AppCompatActivity()  {
         Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
 
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
-
+        val commented="commented"
         val feedbackFirebase = hashMapOf(
             "rateStar" to userInput.rating,
             "radioAns1" to userInput.answer1,
             "radioAns2" to userInput.answer2,
-            "comment" to commentText
+            "comment" to commentText,
+            "commentStatus" to commented
         )
 
         val docRef = db.collection("userAppointment").document(feedback)

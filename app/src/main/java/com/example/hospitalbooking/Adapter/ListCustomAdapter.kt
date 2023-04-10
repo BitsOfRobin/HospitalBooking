@@ -93,6 +93,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
                 viewHolder.txtName.text = appointment.userName.toString()
                 viewHolder.txtTime.text = appointment.AppointmentDetail.toString()
                 viewHolder.txtDoc.text =  appointment.docName.toString()
+                viewHolder.txtcommentStatus.text=appointment.commentStatus
                 viewHolder.txtWarn.text = "BOOKING TIME PASSED"
                 viewHolder.txtNum.setTextColor(Color.parseColor("#FFE91E63"))
 
@@ -102,7 +103,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
 
         else{
 
-
+                viewHolder.txtcommentStatus.text=appointment.commentStatus
                 viewHolder.txtName.text = appointment.userName.toString()
                 viewHolder.txtTime.text = appointment.AppointmentDetail.toString()
                 viewHolder.txtDoc.text =  appointment.docName.toString()
@@ -132,6 +133,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
         lateinit var txtNum:TextView
         lateinit var ivImage: ImageView
         lateinit var ivImage2: ImageView
+        lateinit var txtcommentStatus: TextView
 
         init {
             this.txtName=row?.findViewById(R.id.txtAppoint) as TextView
@@ -139,6 +141,7 @@ class listCustomAdapter(var context: Context, private var appointmentDetail:Arra
             this.txtTime=row?.findViewById(R.id.txtUser) as TextView
             this.txtWarn=row?.findViewById(R.id.txtWarn) as TextView
             this.txtNum=row?.findViewById(R.id.txtNum) as TextView
+            this.txtcommentStatus=row?.findViewById(R.id.commentStatus) as TextView
             this.ivImage=row?.findViewById(R.id.userImg) as ImageView
             this.ivImage2=row?.findViewById(R.id.docImg) as ImageView
 

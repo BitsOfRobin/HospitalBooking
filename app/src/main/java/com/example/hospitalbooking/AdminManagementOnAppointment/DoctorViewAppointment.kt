@@ -129,7 +129,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                     arraylist.add(Prescription(user,docName,doctime,0F,"",""))
 
                     arrayForSearch.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
-                    arraylistAppointment.add(AppointmentDetail(user, docName, doc))
+                    arraylistAppointment.add(AppointmentDetail(user, docName, doc,""))
 
                 }
 

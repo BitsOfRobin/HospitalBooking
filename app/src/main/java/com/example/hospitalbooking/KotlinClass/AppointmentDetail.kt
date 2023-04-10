@@ -2,7 +2,7 @@ package com.example.hospitalbooking.KotlinClass
 
 import android.graphics.Bitmap
 
-data class AppointmentDetail (var userName:String, var docName:String, var AppointmentDetail: String){
+data class AppointmentDetail (var userName:String, var docName:String, var AppointmentDetail: String,var commentStatus:String){
 
 
 //    private var AppointmentDetail: String?=null
