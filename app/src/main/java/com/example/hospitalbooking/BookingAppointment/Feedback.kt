@@ -12,7 +12,6 @@ import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.R
 import com.example.hospitalbooking.databinding.ActivityAppointmentFeedbackBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import org.w3c.dom.Text
 
 
@@ -23,7 +22,7 @@ class Feedback : AppCompatActivity()  {
     private val userInput = UserInput()
 
     // Create a Firestore instance
-    private val db : FirebaseFirestore = FirebaseFirestore.getInstance()
+//    private val db : FirebaseFirestore = FirebaseFirestore.getInstance()
 
     // Appointment Detail Variable
     private lateinit var docName :String
@@ -166,48 +165,28 @@ class Feedback : AppCompatActivity()  {
         }
     }
     private fun appointmentUpdate() {
+        val db = FirebaseFirestore.getInstance()
+
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
         val commentText = comment.text.toString()
         Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
 
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
-        val commented="commented"
+
         val feedbackFirebase = hashMapOf(
             "rateStar" to userInput.rating,
             "radioAns1" to userInput.answer1,
             "radioAns2" to userInput.answer2,
-            "comment" to commentText,
-            "commentStatus" to commented
+            "comment" to commentText
         )
-
         val docRef = db.collection("userAppointment").document(feedback)
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if(document.exists()){
-                    val currentData = document.data
-
-                    val newData = mutableMapOf<String, Any>()
-                    newData["rateStar"] = userInput.rating.toString()
-                    newData["radioAns1"] = userInput.answer1.toString()
-                    newData["radioAns2"] = userInput.answer2.toString()
-                    newData["comment"] = commentText
-
-                    currentData?.let {
-                        newData.putAll(it)
-                    }
-                    docRef.set(newData, SetOptions.merge())
-                        .addOnSuccessListener {
-                            Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
-                        }
-                }
-                else {
-                    Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
-                }
-
+        docRef.update(feedbackFirebase as Map<String, Any>)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Document does not exist in the system.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
             }
     }
     private fun textComment() {
