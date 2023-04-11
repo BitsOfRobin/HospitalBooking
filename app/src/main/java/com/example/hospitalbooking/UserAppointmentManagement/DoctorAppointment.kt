@@ -752,7 +752,7 @@ class DoctorAppointment : AppCompatActivity() {
         }
         else{
 
-            Toast.makeText(this,"You only can comment on the date of appointment",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"You only can comment on the date of appointment 1 time only",Toast.LENGTH_SHORT).show()
         }
 
 
