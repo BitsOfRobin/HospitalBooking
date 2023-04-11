@@ -246,7 +246,8 @@ class DoctorAppointmentViewModel:ViewModel() {
                 val updates = hashMapOf<String, Any>(
                     "user" to FieldValue.delete(),
                     "doctorAppoint" to FieldValue.delete(),
-                    "docName" to FieldValue.delete()
+                    "docName" to FieldValue.delete(),
+                    "commentStatus" to FieldValue.delete()
                 )
 
                 docRef.update(updates).addOnCompleteListener {

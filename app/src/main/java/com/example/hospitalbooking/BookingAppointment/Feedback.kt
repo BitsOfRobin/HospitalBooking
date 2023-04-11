@@ -204,7 +204,7 @@ class Feedback : AppCompatActivity()  {
 //
 //
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
-//        Toast.makeText(this, "The feedback $feedback.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "The feedback $feedback.", Toast.LENGTH_LONG).show()
         val feedbackFirebase = hashMapOf(
             "rateStar" to userInput.rating,
             "radioAns1" to userInput.answer1,

@@ -737,14 +737,26 @@ class DoctorAppointment : AppCompatActivity() {
         val currentMinute = currentDate.minute
         val currentYear = currentDate.year
 
-//                &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"
-//
-        if(currentYear==appointedYear&&currentMonth==appointedMonth&&
-                currentDay==appointedDay  &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"){
 
-            intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
-            intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
-            intent.putExtra("userName", doctorAppointmentViewModel.arraylistPastAppointment.get(i).userName)
+        intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistPastAppointment.get(i).docName)
+        intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
+        intent.putExtra("userName", doctorAppointmentViewModel.arraylistPastAppointment.get(i).userName)
+
+
+
+//
+//        intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistAppointment.get(i).docName)
+//        intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistAppointment.get(i).AppointmentDetail)
+//        intent.putExtra("userName", doctorAppointmentViewModel.arraylistAppointment.get(i).userName)
+
+//        startActivity(intent)
+//                &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"
+//&&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"
+        if(currentYear==appointedYear&&currentMonth==appointedMonth
+            &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"
+                  ){
+
+
 
             startActivity(intent)
 
@@ -752,7 +764,7 @@ class DoctorAppointment : AppCompatActivity() {
         }
         else{
 
-            Toast.makeText(this,"You only can comment on the date of appointment 1 time only",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"You only can comment on the Month of appointment 1 time only",Toast.LENGTH_LONG).show()
         }
 
 

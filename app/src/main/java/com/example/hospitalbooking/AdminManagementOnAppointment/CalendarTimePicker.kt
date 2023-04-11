@@ -494,6 +494,17 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        val docName = intent.getStringExtra("DoctorName")
 
 //        val loginUser=readUser()
+        val userAppointmentID = hashMapOf(
+            "doctorAppoint" to appointTime,
+            "user" to loginUser,
+            "docName" to doctorName,
+
+
+
+        )
+
+
+
         val user = hashMapOf(
             "doctorAppoint" to appointTime,
             "user" to loginUser,
@@ -505,7 +516,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        val  doc =doctor?.uid
 
 //
-        mFirebaseDatabaseInstance?.collection("userAppointment")?.document("$user")?.set(user)
+        mFirebaseDatabaseInstance?.collection("userAppointment")?.document("$userAppointmentID")?.set(user)
             ?.addOnSuccessListener {
 
 
