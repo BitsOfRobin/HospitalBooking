@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -751,8 +752,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 //        startActivity(intent)
 //                &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Comment"
-//&&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"
-        if(currentYear==appointedYear&&currentMonth==appointedMonth
+////&&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"
+
+
+         if(currentYear==appointedYear&&currentMonth==appointedMonth
             &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"
                   ){
 
@@ -762,9 +765,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 
         }
-        else{
+        else if(doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus!="Not Commented"){
 
-            Toast.makeText(this,"You only can comment on the Month of appointment 1 time only",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"You only can comment on the Month of appointment and after the appointment" +
+                    " date and time for  Once only",Toast.LENGTH_LONG).show()
         }
 
 
