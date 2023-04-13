@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.BookingAppointment.MainPageViewModel
+import com.example.hospitalbooking.BookingAppointment.MainPageViewModelFactory
 import com.example.hospitalbooking.R
 //import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
 //import com.example.hospitalbooking.databinding.ActivityMainBinding
@@ -77,10 +80,45 @@ class DoctorInformation : AppCompatActivity() {
                 hospital=hospitalTxt
             }
 
+        val errTextPro=findViewById<TextView>(R.id.errPro)
+        val errTextHos=findViewById<TextView>(R.id.errHos)
+        docPro.setOnFocusChangeListener { v, hasFocus ->
+
+            if (!hasFocus) {
+                val input = docPro.text.toString()
+                if (input.isNotEmpty()) {
+                    // validate input here
+                    if (!isLetters(input)) {
+                        // clear error message if input is valid
+                        errTextPro.text = "Profession contain non alphabet or empty"
+                    } else {
+                        // set error message if input is invalid
+                        errTextPro.text=" "
+                    }
+                }
+            }
+
+        }
 
 
+        docHospital.setOnFocusChangeListener { v, hasFocus ->
+
+            if (!hasFocus) {
+                val input =docHospital.text.toString()
+                if (input.isNotEmpty()) {
+                    // validate input here
+                    if (!isLetters(input)) {
+                        // clear error message if input is valid
+                        errTextHos.text="Hospital contain non alphabet or empty"
+                    } else {
+                        // set error message if input is invalid
+                        errTextHos.text=" "
+                    }
+                }
+            }
 
 
+        }
 
 
 
@@ -107,10 +145,17 @@ class DoctorInformation : AppCompatActivity() {
 
             val letter:Boolean=isLetters(pro)
             val validaHos=isLetters(hospital)
+
+
+
+
+
+
+
+
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName.toString()
-            val errTextPro=findViewById<TextView>(R.id.errPro)
-            val errTextHos=findViewById<TextView>(R.id.errHos)
+
             if(!letter||pro.isEmpty()||pro.isBlank()){
 
                 Toast.makeText(this,"Profession contain non alphabet or empty",Toast.LENGTH_LONG).show()

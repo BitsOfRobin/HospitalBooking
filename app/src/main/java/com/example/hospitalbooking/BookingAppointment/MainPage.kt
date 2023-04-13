@@ -369,7 +369,7 @@ class MainPage : AppCompatActivity() {
                         mainPageViewModel.deletionDoctor(dtname,i)
                         Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
                         val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
-                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
 
 //                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
 //                            .document("${modalList.get(i).docName}")
