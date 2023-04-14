@@ -24,10 +24,10 @@ import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide.with
 import com.example.hospitalbooking.*
@@ -39,6 +39,7 @@ import com.example.hospitalbooking.AdminManagementOnAppointment.CalendarTimePick
 import com.example.hospitalbooking.KotlinClass.ModalFormMain
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
+import com.example.hospitalbooking.databinding.ActivityMainPageBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -59,7 +60,7 @@ class MainPage : AppCompatActivity() {
      private val modalListSearch = ArrayList<ModalFormMain>()
     private var fragmentInput:String?=null
     var str=SpannableString("s")
-    //    private lateinit var binding: ActivityMainBinding
+        private lateinit var binding: ActivityMainPageBinding
     private var modalList = ArrayList<ModalFormMain>()
     var images = intArrayOf(R.drawable.dt1, R.drawable.dt2, R.drawable.dt3)
     private var arraylistName = ArrayList<String>()
@@ -76,13 +77,13 @@ class MainPage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main_page)
+        binding= ActivityMainPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Doctor Appointment")
 
-        val docView = findViewById<GridView>(R.id.gridView)
+        val docView = binding.mainPageRecycleView
         arraylistEmpty.add("")
 
 
@@ -141,7 +142,7 @@ class MainPage : AppCompatActivity() {
 //        var getCache=mainPageViewModel.retrieveCache()
 //        displayAdapter()
         mainPageViewModel.retrieveCache()
-        displayAdapter()
+        displayAdapter(userEmail)
 
 
 
@@ -201,8 +202,8 @@ class MainPage : AppCompatActivity() {
 
 
 //        displayDocData()
-        callViewModel(docView,userEmail)
-        sorting()
+//        callViewModel(docView,userEmail)
+        sorting(userEmail)
         doctorSearching()
 //        searchDoctor()
 
@@ -257,8 +258,8 @@ class MainPage : AppCompatActivity() {
 //
 //    }
 
-    private fun displayAdapter(){
-        val docView: GridView = findViewById<GridView>(R.id.gridView)
+    private fun displayAdapter(userEmail: String){
+        val docView=binding.mainPageRecycleView
         mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
             .get(MainPageViewModel::class.java)
 //            val arrayList=ArrayList<ModalFormMain>()\
@@ -267,20 +268,43 @@ class MainPage : AppCompatActivity() {
 //            (mainPageViewModel.modalListLive.value as ArrayList<ModalFormMain>?
 //                ?:emptyList()) as ArrayList<ModalFormMain>,this,)
 //       docView.adapter = adapter
+       docView.layoutManager = LinearLayoutManager(this)
 
+
+//        var customAdapter:CustomAdapterRecycleView
         mainPageViewModel.modalListLive.observe(this, androidx.lifecycle.Observer {
 
 
 
 
-            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
-            customAdapter.notifyDataSetChanged()
+            val customAdapter= CustomAdapterRecycleView(
+                it as ArrayList<ModalFormMain>, this,object : CustomAdapterRecycleView.OnItemClickListener {
+
+
+                override fun onItemClick(position: Int) {
+
+                    callViewModel(userEmail, position )
+
+                }
+            },
+                object: CustomAdapterRecycleView.OnItemLongClickListener {
+
+
+                    override fun onItemLongClick(item: Int) {
+                        val dtname=getGoogleName()
+                        longClickForDocDel(dtname,item)
+                    }
+
+
+                })
+
             docView.adapter=customAdapter
-            customAdapter.notifyDataSetChanged()
 
         })
 
 
+
+//        docView.adapter=customAdapter
 
 
     }
@@ -292,17 +316,32 @@ class MainPage : AppCompatActivity() {
             .get(MainPageViewModel::class.java)
 
 //        mainPageViewModel.retrieveCache()
-        val adapter=CustomAdapter(mainPageViewModel.modalList,this)
-        val gridView=findViewById<GridView>(R.id.gridView)
+        val adapter= CustomAdapterRecycleView(mainPageViewModel.modalList, this,object:
+            CustomAdapterRecycleView.OnItemClickListener{
+            override fun onItemClick(item: Int) {
+
+            }
+
+
+        }, object : CustomAdapterRecycleView.OnItemLongClickListener {
+            override fun onItemLongClick(item: Int) {
+
+            }
+
+
+
+
+            })
+        val docView=binding.mainPageRecycleView
         adapter.notifyDataSetChanged()
-        gridView.adapter=adapter
+       docView.adapter=adapter
 
 
     }
 
 
 
-    private fun sorting(){
+    private fun sorting(userEmail: String) {
 
         val btnSort=findViewById<ToggleButton>(R.id.sortByName)
 
@@ -328,7 +367,11 @@ class MainPage : AppCompatActivity() {
         }
 
 
-        displayAdapter()
+
+
+
+
+        displayAdapter(userEmail)
         doctorSearching()
 
     }
@@ -342,57 +385,45 @@ class MainPage : AppCompatActivity() {
 
 
             mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
-            val docView = findViewById<GridView>(R.id.gridView)
+            val docView =binding.mainPageRecycleView
+
+
+
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+            .get(MainPageViewModel::class.java)
+
+//        mainPageViewModel.retrieveCache()
+        val adapter= CustomAdapterRecycleView(mainPageViewModel.modalList, this,object:
+            CustomAdapterRecycleView.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+
+            }
+
+
+        }, object : CustomAdapterRecycleView.OnItemLongClickListener {
+            override fun onItemLongClick(position: Int) {
+                longClickForDocDel(dtname,position)
+            }
 
 
 
 
-            docView.onItemLongClickListener =
-                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+        })
+
+        adapter.notifyDataSetChanged()
+        docView.adapter=adapter
 
 
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Delete Doctor Alert")
-                    builder.setMessage("Are you sure to delete Doctor?")
-
-
-                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                        Toast.makeText(
-                            applicationContext,
-                            android.R.string.yes, Toast.LENGTH_SHORT
-                        ).show()
-
-
-                        mainPageViewModel=ViewModelProvider(this, MainPageViewModelFactory(arraylistEmpty,i))
-                            .get(MainPageViewModel::class.java)
-
-                        mainPageViewModel.deletionDoctor(dtname,i)
-                        Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
-                        val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
-//                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
-
-//                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
-//                            .document("${modalList.get(i).docName}")
 //
-//                        val deleteDoc=modalList.get(i).docName
-                     displayAdapter()
+//            docView.onItemLongClickListener =
+//                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+//
+//
+//
+//                    true
+//                }
 
 
-                    }
-
-                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                        Toast.makeText(
-                            applicationContext,
-                            android.R.string.no, Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-
-
-
-                    builder.show()
-                    true
-                }
 
 
 
@@ -400,7 +431,53 @@ class MainPage : AppCompatActivity() {
         }
 
 
-    private fun callViewModel(docView: GridView, userEmail: String) {
+    private fun longClickForDocDel(dtname: String,i:Int){
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete Doctor Alert")
+        builder.setMessage("Are you sure to delete Doctor?")
+
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
+
+
+            mainPageViewModel=ViewModelProvider(this, MainPageViewModelFactory(arraylistEmpty,i))
+                .get(MainPageViewModel::class.java)
+
+            mainPageViewModel.deletionDoctor(dtname,i)
+            Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
+            val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
+//                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
+
+//                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
+//                            .document("${modalList.get(i).docName}")
+//
+//                        val deleteDoc=modalList.get(i).docName
+//            displayAdapter()
+
+
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT
+            ).show()
+        }
+
+
+
+
+        builder.show()
+
+    }
+
+    private fun callViewModel(userEmail: String,position:Int) {
 
 
 
@@ -409,59 +486,80 @@ class MainPage : AppCompatActivity() {
             val dtname=getGoogleName()
 
 
+//
+//            docView.setOnItemClickListener { adapterView, view, i, l ->
+////                tempListViewClickedValue = modalList.get(i).docName.toString()
+////                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
+//
+//
+//
+//
+//
+////                if(tempListViewClickedValue!="Dr $dtname"){
+////                    Toast.makeText(this,"this is not your profile",Toast.LENGTH_LONG).show()
+//////                    val intent = Intent(this, CalendarTimePicker::class.java)
+//////                    intent.putExtra("DoctorName", tempListViewClickedValue)
+//////                    startActivity(intent)
+////                }
+//
+//
+//
+////                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
+//
+//
+//            }
+//
 
-            docView.setOnItemClickListener { adapterView, view, i, l ->
-//                tempListViewClickedValue = modalList.get(i).docName.toString()
-//                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
 
+//            doctorDel(dtname)
 
-
-
-
-//                if(tempListViewClickedValue!="Dr $dtname"){
-//                    Toast.makeText(this,"this is not your profile",Toast.LENGTH_LONG).show()
-////                    val intent = Intent(this, CalendarTimePicker::class.java)
-////                    intent.putExtra("DoctorName", tempListViewClickedValue)
-////                    startActivity(intent)
-//                }
-
-
-
-//                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-
-
-            }
-
-
-
-            doctorDel(dtname)
-            displayAdapter()
 
 
 
         }
         else if (userEmail.contains(".com",true))  {
 
-            docView.setOnItemClickListener { adapterView, view, i, l ->
 
-                var name = ""
-                var docPro = ""
+            mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+                .get(MainPageViewModel::class.java)
+
+
+                    var name = ""
+                    var docPro = ""
 //                val time = modalList.get(i).time.toString()
 //            val time = arraylistTime[i].toString()
 
+//
+//                mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+//                    .get(MainPageViewModel::class.java)
+                    if( mainPageViewModel.modalListSearch.isNotEmpty()){
 
-                mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
-                    .get(MainPageViewModel::class.java)
-               if( mainPageViewModel.modalListSearch.isNotEmpty()){
+                        name=mainPageViewModel.modalListSearch.get(position).docName.toString()
+                        docPro=mainPageViewModel.modalListSearch.get(position).pro.toString()
 
-                    name=mainPageViewModel.modalListSearch.get(i).docName.toString()
-                   docPro=mainPageViewModel.modalListSearch.get(i).pro.toString()
-
-                } else{
+                    } else{
 
 
-                    name=mainPageViewModel.modalList.get(i).docName.toString()
-                   docPro=mainPageViewModel.modalList.get(i).pro.toString()
+                        name=mainPageViewModel.modalList.get(position).docName.toString()
+                        docPro=mainPageViewModel.modalList.get(position).pro.toString()
+                    }
+
+
+
+
+                    toCalendarPicker(name,docPro)
+
+
+
+
+//                    writeUser(time,name,user)
+//                    val intent = Intent(this, AppointmentSelect::class.java)
+//                    val intent = Intent(this, CalendarTimePicker::class.java)
+//                    intent.putExtra("DoctorName", name)
+//                    intent.putExtra("DoctorPro", docPro)
+//                    startActivity(intent)
+
+
                 }
 
 
@@ -472,30 +570,45 @@ class MainPage : AppCompatActivity() {
 
 
 
-//                    writeUser(time,name,user)
-//                    val intent = Intent(this, AppointmentSelect::class.java)
-                val intent = Intent(this, CalendarTimePicker::class.java)
-                intent.putExtra("DoctorName", name)
-                intent.putExtra("DoctorPro", docPro)
-                startActivity(intent)
 
 
-            }
 
 
-        }
+
+
+
+
+
 
         else{
-            docView.setOnItemClickListener { adapterView, view, i, l ->
-                Toast.makeText(this, "You have not logged in", Toast.LENGTH_LONG).show()
-            }
+
+                  showErrLog()
+
+
+
+
+
+
+
         }
 
     }
 
+    private fun showErrLog(){
+
+        Toast.makeText(this,"You have not logged in",Toast.LENGTH_LONG).show()
+    }
+    private  fun toCalendarPicker(name:String,docPro:String){
+
+
+        val intent = Intent(this, CalendarTimePicker::class.java)
+        intent.putExtra("DoctorName", name)
+        intent.putExtra("DoctorPro", docPro)
+        startActivity(intent)
+    }
 
     private fun paramForSearching(){
-        val docView: GridView = findViewById<GridView>(R.id.gridView)
+        val docView=binding.mainPageRecycleView
 
 //        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
 //            .get(MainPageViewModel::class.java)
@@ -503,11 +616,25 @@ class MainPage : AppCompatActivity() {
         mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
 
 
-            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
-//            showMsg(it.get(0).toString())
-            customAdapter.notifyDataSetChanged()
-            docView.adapter=customAdapter
-            customAdapter.notifyDataSetChanged()
+            val adapter= CustomAdapterRecycleView(it as ArrayList<ModalFormMain>, this,object:
+                CustomAdapterRecycleView.OnItemClickListener{
+                override fun onItemClick(position: Int) {
+
+                }
+
+
+            }, object : CustomAdapterRecycleView.OnItemLongClickListener {
+                override fun onItemLongClick(position: Int) {
+
+                }
+
+
+
+
+            })
+            val docView=binding.mainPageRecycleView
+            adapter.notifyDataSetChanged()
+            docView.adapter=adapter
 
         })
 
@@ -556,7 +683,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-            val docView: GridView = findViewById<GridView>(R.id.gridView)
+            val docView=binding.mainPageRecycleView
 
 
 
@@ -691,7 +818,7 @@ class MainPage : AppCompatActivity() {
 
                         getAdapter()
                         paramForSearching()
-                        displayAdapter()
+//                        displayAdapter()
 //                        paramForSearching()
 
                     }
@@ -719,7 +846,7 @@ class MainPage : AppCompatActivity() {
                         getAdapter()
                         paramForSearching()
 //                        paramForSearching()
-                        displayAdapter()
+//                        displayAdapter()
                     }
 //                if (p0 != null) {
 //                    showSuggestion(p0,adapter)
@@ -1258,7 +1385,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        val customAdapter =CustomAdapter(modalList, this)
+        val customAdapter = CustomAdapter(modalList, this)
 
         customAdapter.notifyDataSetChanged()
 
@@ -1374,7 +1501,7 @@ class MainPage : AppCompatActivity() {
         }
 
 
-         val customAdapter = CustomAdapter(modalList, this)
+         val customAdapter =CustomAdapter(modalList, this)
 
 
 
@@ -1641,6 +1768,167 @@ class MainPage : AppCompatActivity() {
     }
 
 
+    class CustomAdapterRecycleView(var itemModel: ArrayList<ModalFormMain>, var context: Context,
+        private val listener: OnItemClickListener, private val longClickListener: OnItemLongClickListener
+    ) :
+        RecyclerView.Adapter<CustomAdapterRecycleView.MyViewHolder>(){
+
+
+        interface OnItemClickListener {
+            fun onItemClick(item: Int)
+        }
+
+        interface OnItemLongClickListener {
+            fun onItemLongClick(item: Int)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_items, parent, false)
+
+            return MyViewHolder(itemView)
+        }
+
+        override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+
+            val item = itemModel[position]
+
+
+//
+//
+//            var CheckName = itemModel[position].docName
+//            var name = itemModel[position].docName
+//            if (CheckName != null) {
+//                if (CheckName.length > 10) {
+//                    var index = CheckName.indexOf(" ", 5, true)
+//                    CheckName = CheckName.substring(0, index) + "\n" + CheckName.substring(
+//                        index,
+//                        CheckName.length
+//                    )
+//                    holder.tvImageName?.text = CheckName
+//
+//                } else {
+//                    holder.tvImageName?.text = CheckName
+//
+//                }
+//            }
+//
+////            tvImageName?.text=itemModel[position].docName
+//
+//            holder.hospital?.text=itemModel[position].hospital
+//
+//
+//            holder.tvTime?.text = itemModel[position].time
+////            val str= sendResult()
+////            var i= sendPosition()
+//            val pro=itemModel[position].pro
+//            holder.tvPro?.text = pro
+//
+//
+//
+//
+//            val doc=itemModel[position].docName.toString()
+//            val cache= MyCache()
+//            val bit: Bitmap? =cache.retrieveBitmapFromCache(doc)
+//            itemModel[position].image=bit
+//            with(context)
+//                .load(bit)
+//                .into(holder.imageView)
+
+
+            holder.bind(itemModel[position], listener, longClickListener,context,position)
+
+        }
+
+
+
+        override fun getItemCount(): Int {
+            return  itemModel.size
+        }
+
+
+
+        class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val tvImageName: TextView = itemView.findViewById(R.id.imageName)
+            val tvTime  :TextView = itemView.findViewById(R.id.docPro)
+            val tvPro  :TextView = itemView.findViewById(R.id.docTime)
+            val hospital: TextView =itemView.findViewById(R.id.docHospital)
+
+            val imageView:ImageView = itemView.findViewById(R.id.imageView)
+
+
+
+
+            fun bind(
+                itemModel: ModalFormMain,
+                listener: OnItemClickListener,
+                longClickListener: OnItemLongClickListener,
+                context: Context,
+                position: Int
+            ) {
+
+                var CheckName = itemModel.docName
+                var name = itemModel.docName
+                if (CheckName != null) {
+                    if (CheckName.length > 10) {
+                        var index = CheckName.indexOf(" ", 5, true)
+                        CheckName = CheckName.substring(0, index) + "\n" + CheckName.substring(
+                            index,
+                            CheckName.length
+                        )
+                        tvImageName?.text = CheckName
+
+                    } else {
+                        tvImageName?.text = CheckName
+
+                    }
+                }
+
+//            tvImageName?.text=itemModel[position].docName
+
+              hospital?.text=itemModel.hospital
+
+
+               tvTime?.text = itemModel.time
+//            val str= sendResult()
+//            var i= sendPosition()
+                val pro=itemModel.pro
+               tvPro?.text = pro
+
+
+
+
+                val doc=itemModel.docName.toString()
+                val cache= MyCache()
+                val bit: Bitmap? =cache.retrieveBitmapFromCache(doc)
+                itemModel.image=bit
+                with(context)
+                    .load(bit)
+                    .into(imageView)
+
+
+
+
+                itemView.setOnClickListener {
+                    listener.onItemClick(position)
+                }
+
+                itemView.setOnLongClickListener {
+                    longClickListener.onItemLongClick(position)
+                    true
+                }
+            }
+
+        }
+
+
+
+    }
+
+
+
+
+
 
     private fun refresh() {
         val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
@@ -1840,7 +2128,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        val custom= CustomAdapter(modalList, this)
+        val custom=CustomAdapter(modalList, this)
 
         val proAdapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
@@ -1857,7 +2145,7 @@ class MainPage : AppCompatActivity() {
                             temp.add(arraylistName[i])
                             searchQuery.replace("",p0)
                             custom.filter.filter(p0)
-                            customAdapter.getSearch(p0)
+
 
                         }
 
@@ -2031,13 +2319,6 @@ class MainPage : AppCompatActivity() {
 //
 //                }
 
-                if(searchQuery.isNotBlank()&&searchQuery.isNotEmpty()){
-
-                    val custom=CustomAdapter(modalList, this)
-                    custom.filter.filter(searchQuery)
-                    custom.setColorText(searchQuery,i)
-                }
-
 
 //                setColorText(i)
 
@@ -2058,7 +2339,7 @@ class MainPage : AppCompatActivity() {
         }
 
 
-        val customSearch = CustomAdapter(modalListSearch, this)
+        val customSearch =CustomAdapter(modalListSearch, this)
 
         customSearch.notifyDataSetChanged()
 

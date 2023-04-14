@@ -1010,6 +1010,8 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
         }
 
+      _modalList.value=modalList
+
     }
 
 
@@ -1034,6 +1036,10 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
 
         })
+
+        _modalList.value=modalList
+
+
 
     }
 

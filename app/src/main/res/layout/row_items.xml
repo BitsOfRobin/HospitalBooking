@@ -1,9 +1,9 @@
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
@@ -31,7 +31,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+
             android:background="#ECD285"
             android:orientation="horizontal"
             android:padding="2dp"
@@ -154,4 +154,4 @@
         <!--</androidx.cardview.widget.CardView>-->
 
 
-</RelativeLayout>
+</LinearLayout>
