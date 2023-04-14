@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
+            android:name=".DoctorSummarizeReport"
+            android:exported="false" />
+        <activity
+            android:name=".EditDoctorProfile"
+            android:exported="false" />
+        <activity
             android:name=".AdminManagementOnAppointment.HospitalLocation"
             android:exported="false" />
         <activity
@@ -85,11 +91,9 @@
             <meta-data
                 android:name="com.google.mlkit.vision.DEPENDENCIES"
                 android:value="ocr" />
-
             <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyAK5L7y0dFzGnnT_EvBZdP3xvMOuzsNrsY" />
-
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
