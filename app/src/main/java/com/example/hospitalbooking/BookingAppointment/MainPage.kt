@@ -404,7 +404,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        if (userEmail.contains("@student.tar")) {
+        if (userEmail.contains("@student.tar",true)) {
             var tempListViewClickedValue=""
             val dtname=getGoogleName()
 
@@ -439,7 +439,8 @@ class MainPage : AppCompatActivity() {
 
 
 
-        } else {
+        }
+        else if (userEmail.contains(".com",true))  {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
 
@@ -482,6 +483,12 @@ class MainPage : AppCompatActivity() {
             }
 
 
+        }
+
+        else{
+            docView.setOnItemClickListener { adapterView, view, i, l ->
+                Toast.makeText(this, "You have not logged in", Toast.LENGTH_LONG).show()
+            }
         }
 
     }
@@ -1013,7 +1020,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        if (userEmail.contains("@student.tar")) {
+        if (userEmail.contains("@student.tar",true)) {
             var tempListViewClickedValue=""
             var dtname=getGoogleName()
 
@@ -1051,7 +1058,8 @@ class MainPage : AppCompatActivity() {
 
             deleteDoc(dtname)
 
-        } else {
+        }
+        else if (userEmail.contains(".com",true)) {
 
             docView.setOnItemClickListener { adapterView, view, i, l ->
 
