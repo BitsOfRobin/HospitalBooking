@@ -292,7 +292,11 @@ class MainPage : AppCompatActivity() {
 
                     override fun onItemLongClick(item: Int) {
                         val dtname=getGoogleName()
-                        longClickForDocDel(dtname,item)
+
+                        if (userEmail.contains("@student.tar",true)) {
+
+                            longClickForDocDel(dtname, item)
+                        }
                     }
 
 
