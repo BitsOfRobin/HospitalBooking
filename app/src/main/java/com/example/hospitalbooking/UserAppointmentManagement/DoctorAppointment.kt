@@ -34,6 +34,8 @@ import com.example.hospitalbooking.KotlinClass.AppointmentDetail
 import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
+import com.example.hospitalbooking.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -63,10 +65,11 @@ class DoctorAppointment : AppCompatActivity() {
     private val arraylistPastAppointment = ArrayList<AppointmentDetail>()
 
 
-    //    private lateinit var binding: ActivityMainBinding
+        private lateinit var binding: ActivityDoctorAppointmentBinding
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_doctor_appointment)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -273,6 +276,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 
         }
+
+
+
+
     }
 
 
@@ -329,7 +336,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                         linearCurrent.visibility =View.VISIBLE
                       deletePast()
-
+                        navigateToComment()
 
 
                     }
@@ -381,6 +388,7 @@ class DoctorAppointment : AppCompatActivity() {
                       getPastViewModel()
                         linearCurrent.visibility =View.VISIBLE
                        deletePast()
+                        navigateToComment()
 //                            linearCurrent.visibility =View.GONE
 //                            arrPast.notifyDataSetChanged()
 //                            docView.adapter=arrPast
@@ -402,7 +410,19 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-        docView.onItemLongClickListener =
+
+
+
+
+
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun navigateToComment(){
+        val docView=findViewById<ListView>(R.id.listDocAppoint)
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+       docView.onItemLongClickListener =
             AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
 
                 if(i<doctorAppointmentViewModel.arrayDelPast.size){
@@ -413,14 +433,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                 true
             }
-
-
-
-
     }
-
-
-
 
 
 
