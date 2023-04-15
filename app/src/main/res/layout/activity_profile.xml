@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
+            android:layout_margin="20dp"
 
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-
+            android:layout_margin="20dp"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -99,7 +99,7 @@
             android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:background="@drawable/bg_white_rounded"
             android:layout_gravity="center"
             android:text="log out" />
