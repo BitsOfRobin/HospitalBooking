@@ -22,7 +22,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -35,6 +34,8 @@ import com.example.hospitalbooking.KotlinClass.AppointmentDetail
 import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
+import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
+import com.example.hospitalbooking.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -43,6 +44,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -63,10 +65,11 @@ class DoctorAppointment : AppCompatActivity() {
     private val arraylistPastAppointment = ArrayList<AppointmentDetail>()
 
 
-    //    private lateinit var binding: ActivityMainBinding
+        private lateinit var binding: ActivityDoctorAppointmentBinding
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_doctor_appointment)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -273,6 +276,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 
         }
+
+
+
+
     }
 
 
@@ -329,7 +336,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                         linearCurrent.visibility =View.VISIBLE
                       deletePast()
-
+                        navigateToComment()
 
 
                     }
@@ -381,6 +388,7 @@ class DoctorAppointment : AppCompatActivity() {
                       getPastViewModel()
                         linearCurrent.visibility =View.VISIBLE
                        deletePast()
+                        navigateToComment()
 //                            linearCurrent.visibility =View.GONE
 //                            arrPast.notifyDataSetChanged()
 //                            docView.adapter=arrPast
@@ -402,7 +410,19 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-        docView.onItemLongClickListener =
+
+
+
+
+
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun navigateToComment(){
+        val docView=findViewById<ListView>(R.id.listDocAppoint)
+        doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
+       docView.onItemLongClickListener =
             AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
 
                 if(i<doctorAppointmentViewModel.arrayDelPast.size){
@@ -413,14 +433,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                 true
             }
-
-
-
-
     }
-
-
-
 
 
 
@@ -722,8 +735,9 @@ class DoctorAppointment : AppCompatActivity() {
 
 
         val appointedDate=convertStrToDate(doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
-
-
+//        val appointCalendar=convertStrToCalendar(doctorAppointmentViewModel.arraylistPastAppointment.get(i).AppointmentDetail)
+//        val calendarFromString = Calendar.getInstance()
+//        calendarFromString.time=appointCalendar
         val appointedDay = appointedDate.dayOfMonth
         val appointedMonth = appointedDate.monthValue
         val appointedHour = appointedDate.hour
@@ -744,7 +758,7 @@ class DoctorAppointment : AppCompatActivity() {
         intent.putExtra("userName", doctorAppointmentViewModel.arraylistPastAppointment.get(i).userName)
 
 
-
+        val calendarNow = Calendar.getInstance()
 //
 //        intent.putExtra("DoctorName",doctorAppointmentViewModel.arraylistAppointment.get(i).docName)
 //        intent.putExtra("Appointment", doctorAppointmentViewModel.arraylistAppointment.get(i).AppointmentDetail)
@@ -756,6 +770,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
          if(currentYear==appointedYear&&currentMonth==appointedMonth
+
             &&doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus=="Not Commented"
                   ){
 
@@ -765,7 +780,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
         }
-        else if(doctorAppointmentViewModel.arraylistPastAppointment.get(i).commentStatus!="Not Commented"){
+        else {
 
             Toast.makeText(this,"You only can comment on the Month of appointment and after the appointment" +
                     " date and time for  Once only",Toast.LENGTH_LONG).show()
@@ -792,6 +807,20 @@ class DoctorAppointment : AppCompatActivity() {
 
     }
 
+//    private fun convertStrToCalendar(str: String):Date {
+//        var time = str
+//        if (time[0].toString().toInt() < 10
+//            && time[1].toString() == " "
+//        ) {
+//
+//            time = "0$time"
+//        }
+//
+//
+//        val dateFormat: DateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm:ss")
+//        return dateFormat.parse(time)
+//
+//    }
 
 
 

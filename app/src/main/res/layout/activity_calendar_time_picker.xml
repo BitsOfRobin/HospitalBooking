@@ -68,6 +68,7 @@
             android:isIndicator="false"
             android:numStars="5"
             android:padding="5dp"
+
             android:stepSize="0.5" />
 
         <TextView

@@ -234,8 +234,7 @@ class MainActivity : AppCompatActivity() {
             names = arrayOf(
 
                 "Login/Profile",
-                "View and deletion for Doctors",
-                "Upload Images for Doctor",
+
                 "Medicine Recognition",
                 "Medicine Record",
                 "Book Appointment",
@@ -268,20 +267,20 @@ class MainActivity : AppCompatActivity() {
 
 
                     }
-                    1 -> {
-                        val intent = Intent(this, MainPage::class.java)
-                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
-                        startActivity(intent)
-
-
-                    }
-                    2 -> {
-                        val intent = Intent(this, UploadImg::class.java)
-                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
-                        startActivity(intent)
-
-
-                    }
+//                    1 -> {
+//                        val intent = Intent(this, MainPage::class.java)
+//                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
+//                        startActivity(intent)
+//
+//
+//                    }
+//                    2 -> {
+//                        val intent = Intent(this, UploadImg::class.java)
+//                        //            intent.putExtra("DoctorName", tempListViewClickedValue)
+//                        startActivity(intent)
+//
+//
+//                    }
 
                     //            else if (i == 4) {
                     //                val intent = Intent(this, UserRegister::class.java)
@@ -290,7 +289,7 @@ class MainActivity : AppCompatActivity() {
                     //
                     //
                     //            }
-                    3 -> {
+                    1 -> {
                         val intent = Intent(this, UserMedicine::class.java)
                         //            intent.putExtra("DoctorName", tempListViewClickedValue)
                         startActivity(intent)
@@ -311,20 +310,20 @@ class MainActivity : AppCompatActivity() {
                     //                startActivity(intent)
                     //
                     //            }
-                    4 -> {
+                    2-> {
                         val intent = Intent(this, MedicineRecord::class.java)
                         //            intent.putExtra("DoctorName", tempListViewClickedValue)
                         startActivity(intent)
 
 
                     }
-                    5 -> {
+                    3 -> {
                         val intent = Intent(this,MainPage::class.java )
                         //            intent.putExtra("DoctorName", tempListViewClickedValue)
                         startActivity(intent)
 
                     }
-                    6 -> {
+                    4 -> {
                         val intent = Intent(this, DoctorAppointment::class.java)
                         //            intent.putExtra("DoctorName", tempListViewClickedValue)
                         startActivity(intent)

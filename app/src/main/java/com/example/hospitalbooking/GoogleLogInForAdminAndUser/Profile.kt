@@ -65,7 +65,7 @@ class Profile : AppCompatActivity() {
             val name=findViewById<TextView>(R.id.DisplayName)
             val userImg=findViewById<ImageView>(R.id.userImg)
 
-            etxt.text="Email:\n$email"
+            etxt.text="Email:$email"
             name.text="Name:$data\n Phone Number:$phone"
             Picasso.get().load(image).into(userImg);
 
