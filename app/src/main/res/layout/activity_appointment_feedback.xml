@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".BookingAppointment.Feedback">
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -115,7 +116,7 @@
             android:text="@string/error_msgQ1"
             android:textSize="22sp"
             android:textColor="@color/design_default_color_error"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginStart="10dp"
