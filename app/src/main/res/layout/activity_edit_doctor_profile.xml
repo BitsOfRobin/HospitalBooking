@@ -1,9 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DoctorInformationManagement.EditDoctorProfile">
+    android:background="#ECD285"
+    tools:context=".DoctorInformationManagement.EditDoctorProfile"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:text="Update Doctor Profile"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        />
+
+    <ImageView
+        android:id="@+id/ImgMed"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginVertical="30dp"
+        android:scaleType="fitCenter"
+        />
+        <TextView
+            android:text="Doctor Name "
+            android:textSize="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
+        <TextView
+            android:id="@+id/dotName"
+            android:textSize="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
+
+        <TextView
+            android:text="Doctor Profession "
+            android:textSize="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
+
+
+        <EditText
+            android:id="@+id/dtPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="(Doctor Professional)"
+            android:textStyle="italic"
+            />
+
+        <TextView
+            android:id="@+id/errPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:layout_marginBottom="10dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCurrentHospital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:background="@drawable/toggle_rounded"
+            android:textStyle="italic"
+            android:hint="suggestion for hospital"
+            android:layout_marginTop="5dp"
+
+            />
+
+
+        <EditText
+            android:id="@+id/dtHos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="(Doctor Hospital)"
+            android:textStyle="italic"
+            />
+
+        <TextView
+            android:id="@+id/errHos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:layout_marginBottom="10dp"
+
+            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnRet"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginLeft="50dp"
+                android:text="Select Image"
+                android:background="@drawable/bg_white_rounded"
+                />
+            <Button
+                android:id="@+id/updateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:text="Update Profile"
+                android:background="@drawable/bg_white_rounded"
+
+                />
+    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
 
 </LinearLayout>
+    </ScrollView>

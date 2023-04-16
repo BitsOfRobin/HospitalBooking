@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HospitalBooking">
         <activity
-            android:name=".DoctorSummarizeReport"
+            android:name=".DoctorInformationManagement.DoctorSummarizeReport"
             android:exported="false" />
         <activity
-            android:name=".EditDoctorProfile"
+            android:name=".DoctorInformationManagement.EditDoctorProfile"
             android:exported="false" />
         <activity
             android:name=".AdminManagementOnAppointment.HospitalLocation"
