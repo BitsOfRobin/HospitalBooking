@@ -53,7 +53,7 @@ class EditDoctorProfile : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        val firebaseImg= findViewById<ImageView>(R.id.firebaseImage)
+        val firebaseImg= findViewById<ImageView>(R.id.ImgMed)
         val name=findViewById<TextView>(R.id.dtName)
         val userGoogle = Firebase.auth.currentUser
         var dtname=""
