@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECD285"
     tools:context=".UserAppointmentManagement.DoctorAppointment"
     android:id="@+id/drawerLayout">
 
@@ -31,7 +32,7 @@
                 android:id="@+id/appointmentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+
                 app:layout_constraintBottom_toTopOf="@+id/swipeRefresh"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.38"

@@ -18,6 +18,8 @@ import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 
@@ -39,6 +41,22 @@ class Profile : AppCompatActivity() {
             checkUser()
 
         }
+
+        var user=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+                naviImg(userGoogle!!.photoUrl,user)
+            } else {
+
+                user = " NOne"
+            }
+
+        }
+
 
     }
 

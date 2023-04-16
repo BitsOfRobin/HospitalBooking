@@ -99,7 +99,20 @@ class DoctorAppointment : AppCompatActivity() {
 //        }
 //
 //        )
+        var user=" "
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                user = userGoogle.displayName.toString()
+                naviImg(userGoogle!!.photoUrl,user)
+            } else {
 
+                user = " NOne"
+            }
+
+        }
 
         callReadUser()
 
