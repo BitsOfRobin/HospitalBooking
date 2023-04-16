@@ -171,6 +171,7 @@ class Feedback : AppCompatActivity()  {
         binding.ratingComment.setOnRatingBarChangeListener { _, rating, _ ->
             userInput.rating = rating
             binding.RateBarLayout.error = null
+            Toast.makeText(this, "Rate ${rating} is given", Toast.LENGTH_SHORT).show()
         }
     }
     private fun appointmentUpdate() {
@@ -199,6 +200,11 @@ class Feedback : AppCompatActivity()  {
     }
     private fun textComment() {
         val comment = findViewById<TextView>(R.id.commentText)
-        Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
+        val commentText = comment.text.toString()
+        if(commentText.isNullOrEmpty()){
+            Toast.makeText(this, "No comment are given", Toast.LENGTH_SHORT).show()
+        }else {
+            Toast.makeText(this, "Your comment: ${commentText}", Toast.LENGTH_SHORT).show()
+        }
     }
 }

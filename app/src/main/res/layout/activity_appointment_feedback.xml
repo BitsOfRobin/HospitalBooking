@@ -21,7 +21,7 @@
             android:layout_margin="10dp"
             android:text="Appointment Detail"
             android:layout_gravity="center"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
@@ -30,8 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Doctor Name"
-            android:textSize="20dp"
+            android:text="@string/doctor_name"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
         <TextView
@@ -39,17 +39,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Appointment"
-            android:textSize="20dp"
+            android:text="@string/appointment"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
+
 
         <TextView
             android:id="@+id/patientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Patient Name"
-            android:textSize="20dp"
+            android:text="@string/patient_name"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
         <View
@@ -63,7 +64,7 @@
             android:layout_margin="10dp"
             android:text="Appointment Rating"
             android:layout_gravity="center"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
@@ -71,19 +72,21 @@
             android:id="@+id/question_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17dp"
             android:layout_gravity="center"
-            android:text="How satisfied are you with our service?" />
+            android:text="@string/rating_Description"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/RateBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Please rate at least 0.5 star"
+            android:hint="@string/rateRequirement"
             android:paddingTop="8dp"
-            android:text="Please select a rating"
-            android:layout_marginLeft="10dp"
-            android:textSize="17dp">
+            android:text="@string/error_msgRating"
+            android:layout_marginStart="10dp"
+            android:textSize="22sp">
 
             <RatingBar
                 android:id="@+id/ratingComment"
@@ -92,7 +95,8 @@
                 android:layout_gravity="center"
                 android:numStars="5"
                 android:padding="5dp"
-                android:stepSize="0.5" />
+                android:stepSize="0.5"
+                android:contentDescription="@string/feedback_rating" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +111,7 @@
             android:text="Appointment Feedback"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
@@ -116,8 +120,8 @@
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Friendliness and professionalism of the staff"
-            android:textSize="18dp"
+            android:text="@string/feedback_Q1"
+            android:textSize="18sp"
             android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -126,43 +130,49 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:paddingTop="8dp"
-            android:text="Please select an option"
-            android:layout_marginLeft="10dp"
-            android:textSize="17dp">
+            android:text="@string/error_msgQ1"
+            android:layout_marginStart="10dp"
+            android:textSize="17sp">
 
             <RadioGroup
                 android:id="@+id/questionOneRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp">
+                android:layout_marginStart="10dp">
 
                 <RadioButton
                     android:id="@+id/excellent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Excellent"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
+
 
                 <RadioButton
                     android:id="@+id/good"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Good"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
+
 
                 <RadioButton
                     android:id="@+id/fair"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fair"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
 
                 <RadioButton
                     android:id="@+id/poor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Poor"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,9 +186,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="2. Clarity of communication from the doctor"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:text="@string/feedback_Q2"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/questionTwoLayout"
@@ -186,43 +197,50 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:paddingTop="8dp"
-            android:text="Please select an option"
-            android:layout_marginLeft="10dp"
-            android:textSize="17dp">
+            android:text="@string/error_msgQ2"
+            android:layout_marginStart="10dp"
+            android:textSize="22sp">
 
             <RadioGroup
                 android:id="@+id/questionTwoRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp">
+                android:layout_marginStart="10dp">
 
                 <RadioButton
                     android:id="@+id/excellentCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="The doctor communicated clearly and effectively"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
+
 
                 <RadioButton
                     android:id="@+id/clearCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="The doctor was mostly clear in their communication"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
+
 
                 <RadioButton
                     android:id="@+id/unclearCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="The doctor's communication was somewhat unclear"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
+
 
                 <RadioButton
                     android:id="@+id/difficultCommunicate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="The doctor's communication was difficult to understand"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textColor="@color/black"/>
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -236,9 +254,10 @@
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3. Would you provide other comments about the doctor? (optional)"
+            android:text="@string/feedback_Q3"
             android:textSize="18sp"
             android:textColor="@color/black"/>
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/commentText"
@@ -246,13 +265,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Comment here."
+            android:hint="@string/comment_here"
             android:inputType="textMultiLine"
             android:maxLength="100"
             android:maxLines="3"
             android:padding="10dp"
             android:textSize="17sp"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+            android:textColor="#808080"/>
+
 
         <Button
             android:id="@+id/submitComment"

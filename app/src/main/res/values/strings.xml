@@ -3,4 +3,17 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="rateRequirement">Please rate at least 0.5 star</string>
+    <string name="doctor_name">Doctor Name</string>
+    <string name="appointment">Appointment</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="rating_Description">How satisfied are you with our service?</string>
+    <string name="error_msgQ2">Please select an option</string>
+    <string name="error_msgQ1">Please select an option</string>
+    <string name="error_msgRating">Please select a rating</string>
+    <string name="comment_here">Comment here.</string>
+    <string name="feedback_Q3">3. Would you provide other comments about the doctor? (optional)</string>
+    <string name="feedback_Q1">1. Friendliness and professionalism of the staff</string>
+    <string name="feedback_Q2">2. Clarity of communication from the doctor</string>
+    <string name="feedback_rating">Rate this feedback</string>
 </resources>
