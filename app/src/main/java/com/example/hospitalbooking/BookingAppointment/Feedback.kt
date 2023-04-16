@@ -19,7 +19,7 @@ class Feedback : AppCompatActivity()  {
 
     // Use View Binding to access UI elements
     private lateinit var binding : ActivityAppointmentFeedbackBinding
-    private val userInput = UserInput()
+    private lateinit var feedbackViewModel: FeedbackViewModel
 
     // Create a Firestore instance
     private val db : FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -176,7 +176,7 @@ class Feedback : AppCompatActivity()  {
         }
 
         binding.ratingComment.setOnRatingBarChangeListener { _, rating, _ ->
-            binding.ratingComment.rating
+            feedbackViewModel.onRatingBarChanged(rating)
         }
     }
     private fun appointmentUpdate() {
