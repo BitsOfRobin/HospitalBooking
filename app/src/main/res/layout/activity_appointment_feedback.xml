@@ -67,34 +67,23 @@
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/question_text"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/RateBarLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17dp"
-            android:layout_gravity="center"
-            android:text="How satisfied are you with our service?" />
+            android:hint="Please rate at least 0.5 star">
 
-        <RatingBar
-            android:id="@+id/ratingComment"
-            android:layout_width="255dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:numStars="5"
-            android:padding="5dp"
-            android:stepSize="0.5"
-            android:contentDescription="Rate this feedback"/>
+            <RatingBar
+                android:id="@+id/ratingComment"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:padding="5dp"
+                android:stepSize="0.5" />
 
-        <TextView
-            android:id="@+id/ratingError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/design_default_color_error"
-            android:visibility="gone"
-            android:paddingTop="8dp"
-            android:text="Please select a rating"
-            android:layout_marginLeft="10dp"
-            android:textSize="17dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
@@ -120,16 +109,13 @@
             android:textSize="18dp"
             android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/validation_q1_message"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/questionOneLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/design_default_color_error"
-            android:visibility="gone"
-            android:paddingTop="8dp"
-            android:text="Please select an option"
-            android:layout_marginLeft="10dp"
-            android:textSize="17dp"/>
+            android:layout_margin="10dp"
+            android:hint="Please answer Question 1"
+            android:textSize="17dp">
 
             <RadioGroup
                 android:id="@+id/questionOneRadio"
@@ -165,6 +151,7 @@
                     android:text="Poor"
                     android:textSize="17sp" />
             </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
@@ -180,16 +167,13 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/validation_q2_message"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/questionTwoLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/design_default_color_error"
-            android:visibility="gone"
-            android:paddingTop="8dp"
-            android:text="Please select an option"
-            android:layout_marginLeft="10dp"
-            android:textSize="17dp"/>
+            android:layout_margin="10dp"
+            android:hint="Question 2"
+            android:textSize="17sp" >
 
             <RadioGroup
                 android:id="@+id/questionTwoRadio"
@@ -225,6 +209,7 @@
                     android:text="The doctor's communication was difficult to understand"
                     android:textSize="17sp" />
             </RadioGroup>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"

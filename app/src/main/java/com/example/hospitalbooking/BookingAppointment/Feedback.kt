@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.hospitalbooking.KotlinClass.UserInput
 import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.R
@@ -15,11 +17,12 @@ import com.example.hospitalbooking.databinding.ActivityAppointmentFeedbackBindin
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 
+
 class Feedback : AppCompatActivity()  {
 
     // Use View Binding to access UI elements
     private lateinit var binding : ActivityAppointmentFeedbackBinding
-    private lateinit var feedbackViewModel: FeedbackViewModel
+    private val userInput = UserInput()
 
     // Create a Firestore instance
     private val db : FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -44,35 +47,34 @@ class Feedback : AppCompatActivity()  {
         appointmentDetail()
         appointmentComment()
 
+
         binding.submitComment.setOnClickListener {
             var error = false
 
-            val rating = binding.ratingComment.rating
-            if (rating == 0.0f) {
-                binding.ratingComment.requestFocus()
-                binding.ratingError.visibility = View.VISIBLE
+            if (userInput.answer1 == null) {
+                binding.questionOneLayout.error = "Please select an answer"
                 error = true
             } else {
-                binding.ratingError.visibility = View.GONE
-                Toast.makeText(this, "{Rate $rating}", Toast.LENGTH_SHORT).show()
+                binding.questionOneLayout.error = null
             }
 
-            if (binding.questionOneRadio.checkedRadioButtonId == -1){
-                // No answer selected for question 1
-                binding.validationQ1Message.visibility = View.VISIBLE
+            // Check answer2
+            if (userInput.answer2 == null) {
+                binding.questionTwoLayout.error = "Please select an answer"
                 error = true
             } else {
-                binding.validationQ1Message.visibility = View.GONE
+                binding.questionTwoLayout.error = null
             }
 
-            if (binding.questionTwoRadio.checkedRadioButtonId == -1) {
-                // No answer selected for question 2
-                binding.validationQ2Message.visibility = View.VISIBLE
+            // Check rating
+            if (userInput.rating == null) {
+                binding.RateBarLayout.error = "Please provide a rating"
                 error = true
-            }else {
-                binding.validationQ2Message.visibility = View.GONE
+            } else {
+                binding.RateBarLayout.error = null
             }
-            if (error) {
+
+            if (error){
                 return@setOnClickListener
             }
 
@@ -92,21 +94,20 @@ class Feedback : AppCompatActivity()  {
                 }
                 .create()
             dialog.show()
-        }
 
-        // Remove error message for question 1 when answer selected
-        binding.questionOneRadio.setOnCheckedChangeListener { _, _ ->
-            binding.validationQ1Message.visibility = View.GONE
         }
+//        binding.questionOneRadio.setOnCheckedChangeListener { _, _ ->
+//            binding.questionOneLayout.error = null
+//        }
+//
+//        binding.questionTwoRadio.setOnCheckedChangeListener { _, _ ->
+//            binding.questionTwoLayout.error = null
+//        }
+//
+//        binding.ratingComment.setOnRatingBarChangeListener { _, _, _ ->
+//            binding.RateBarLayout.error = null
+//        }
 
-        // Remove error message for question 2 when answer selected
-        binding.questionTwoRadio.setOnCheckedChangeListener { _, _ ->
-            binding.validationQ2Message.visibility = View.GONE
-        }
-
-        binding.ratingComment.setOnRatingBarChangeListener { _, _, _ ->
-            binding.ratingError.visibility = View.GONE
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -129,24 +130,29 @@ class Feedback : AppCompatActivity()  {
     }
 
     private fun appointmentComment() {
+
         binding.questionOneRadio.setOnCheckedChangeListener { _, checkedId ->
             val radioButton: RadioButton = findViewById(checkedId)
             when (checkedId) {
                 R.id.excellent -> {
-//                    userInput.answer1 = radioButton.text.toString()
+                    userInput.answer1 = radioButton.text.toString()
+                    binding.questionOneLayout.error = null
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
 
                 }
                 R.id.good -> {
-//                    userInput.answer1 = radioButton.text.toString()
+                    userInput.answer1 = radioButton.text.toString()
+                    binding.questionOneLayout.error = null
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.fair -> {
-//                    userInput.answer1 = radioButton.text.toString()
+                    userInput.answer1 = radioButton.text.toString()
+                    binding.questionOneLayout.error = null
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.poor -> {
-//                    userInput.answer1 = radioButton.text.toString()
+                    userInput.answer1 = radioButton.text.toString()
+                    binding.questionOneLayout.error = null
                     Toast.makeText(this, "${radioButton.text} is selected", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -157,39 +163,79 @@ class Feedback : AppCompatActivity()  {
 
             when (checkedId) {
                 R.id.excellentCommunicate -> {
-//                    userInput.answer2 = radioButton2.text.toString()
+                    userInput.answer2 = radioButton2.text.toString()
+                    binding.questionTwoLayout.error = null
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.clearCommunicate -> {
-//                    userInput.answer2 = radioButton2.text.toString()
+                    userInput.answer2 = radioButton2.text.toString()
+                    binding.questionTwoLayout.error = null
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.unclearCommunicate -> {
-//                    userInput.answer2 = radioButton2.text.toString()
+                    userInput.answer2 = radioButton2.text.toString()
+                    binding.questionTwoLayout.error = null
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
                 R.id.difficultCommunicate -> {
-//                    userInput.answer2 = radioButton2.text.toString()
+                    userInput.answer2 = radioButton2.text.toString()
+                    binding.questionTwoLayout.error = null
                     Toast.makeText(this, "${radioButton2.text} is selected", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
+
         binding.ratingComment.setOnRatingBarChangeListener { _, rating, _ ->
-            feedbackViewModel.onRatingBarChanged(rating)
+            userInput.rating = rating
+            binding.RateBarLayout.error = null
         }
     }
     private fun appointmentUpdate() {
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
         val commentText = comment.text.toString()
+//        Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
 
+//        val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
+
+//        val feedbackFirebase = mapOf(
+////            "docName" to docName,
+////            "doctorAppoint" to userAppointment,
+////            "user" to userName,
+//            "rateStar" to userInput.rating,
+//            "radioAns1" to userInput.answer1,
+//            "radioAns2" to userInput.answer2,
+//            "comment" to commentText,
+//            "commentStatus" to "commented"
+//        )
+//        val docRef = db.collection("userAppointment").document(feedback)
+//        docRef.update(feedbackFirebase as Map<String, Any>)
+//            .addOnSuccessListener {
+//                Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
+//            }
+//            .addOnFailureListener {
+//                Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
+////            }
+//
+//        db.collection("userAppointment").document(feedback).collection("comment").document(
+//            feedbackFirebase.toString()
+//        )
+//            .update(feedbackFirebase as Map<String, Any>)
+//            .addOnSuccessListener {
+//                Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
+//            }
+//            .addOnFailureListener {
+//                Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
+//            }
+//
+//
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
         Toast.makeText(this, "The feedback $feedback.", Toast.LENGTH_LONG).show()
         val feedbackFirebase = hashMapOf(
-            "rateStar" to binding.ratingComment.rating,
-            "radioAns1" to binding.questionOneRadio.checkedRadioButtonId.toString(),
-            "radioAns2" to binding.questionTwoRadio.checkedRadioButtonId.toString(),
+            "rateStar" to userInput.rating,
+            "radioAns1" to userInput.answer1,
+            "radioAns2" to userInput.answer2,
             "comment" to commentText,
             "commentStatus" to "commented"
         )
