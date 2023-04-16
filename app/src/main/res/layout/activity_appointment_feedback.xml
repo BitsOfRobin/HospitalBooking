@@ -85,12 +85,13 @@
             android:hint="@string/rateRequirement"
             android:paddingTop="8dp"
             android:text="@string/error_msgRating"
-            android:layout_marginStart="10dp"
-            android:textSize="22sp">
+            android:textSize="22sp"
+            android:textColor="@color/design_default_color_error"
+            android:layout_marginStart="10dp">
 
             <RatingBar
                 android:id="@+id/ratingComment"
-                android:layout_width="255dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:numStars="5"
@@ -131,8 +132,9 @@
             android:layout_margin="10dp"
             android:paddingTop="8dp"
             android:text="@string/error_msgQ1"
-            android:layout_marginStart="10dp"
-            android:textSize="17sp">
+            android:textSize="22sp"
+            android:textColor="@color/design_default_color_error"
+            android:layout_marginStart="10dp">
 
             <RadioGroup
                 android:id="@+id/questionOneRadio"
@@ -193,13 +195,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/questionTwoLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:paddingTop="8dp"
             android:text="@string/error_msgQ2"
-            android:layout_marginStart="10dp"
-            android:textSize="22sp">
+            android:textSize="22sp"
+            android:textColor="@color/design_default_color_error"
+            android:layout_marginStart="10dp">
 
             <RadioGroup
                 android:id="@+id/questionTwoRadio"
