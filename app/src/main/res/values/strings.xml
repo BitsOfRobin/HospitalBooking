@@ -16,4 +16,19 @@
     <string name="feedback_Q1">1. Friendliness and professionalism of the staff</string>
     <string name="feedback_Q2">2. Clarity of communication from the doctor</string>
     <string name="feedback_rating">Rate this feedback</string>
+    <string name="doctor_image">Doctor Image</string>
+    <string name="select_image">Select Doctor Image</string>
+    <string name="upload_image">Upload Doctor Image</string>
+    <string name="radioQuesOneOptionOne">Excellent</string>
+    <string name="radioQuesOneOptionTwo">Good</string>
+    <string name="radioQuesOneOptionThree">Fair</string>
+    <string name="radioQuesOneOptionFour">Poor</string>
+    <string name="radioQuesTwoOptionOne">The doctor communicated clearly and effectively</string>
+    <string name="radioQuesTwoOptionTwo">The doctor was mostly clear in their communication</string>
+    <string name="radioQuesTwoOptionThree">The doctor\'s communication was somewhat unclear</string>
+    <string name="radioQuesTwoOptionFour">The doctor\'s communication was difficult to understand</string>
+    <string name="submit_comment">Submit</string>
+    <string name="appointment_detail">Appointment Detail</string>
+    <string name="appointment_rating">Appointment Rating</string>
+    <string name="appointment_feedback">Appointment Feedback</string>
 </resources>

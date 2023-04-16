@@ -2,13 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ECD285"
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".BookingAppointment.Feedback">
-
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,77 +14,68 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:text="@string/appointment_detail"
+            style="@style/headerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Appointment Detail"
-            android:layout_gravity="center"
-            android:textSize="22sp"
-            android:textColor="#9C27B0"
-            android:textStyle="bold" />
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/doctorName"
+            android:text="@string/doctor_name"
+            style="@style/normalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/doctor_name"
-            android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:layout_margin="10dp" />
 
         <TextView
             android:id="@+id/appointment"
+            android:text="@string/appointment"
+            style="@style/normalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/appointment"
-            android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:layout_margin="10dp" />
 
 
         <TextView
             android:id="@+id/patientName"
+            android:text="@string/patient_name"
+            style="@style/normalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/patient_name"
-            android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:layout_margin="10dp" />
 
         <View
+            android:background="#2196F3"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#2196F3"/>
+            android:layout_height="40dp" />
 
         <TextView
+            android:text="@string/appointment_rating"
+            style="@style/headerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Appointment Rating"
-            android:layout_gravity="center"
-            android:textSize="22sp"
-            android:textColor="#9C27B0"
-            android:textStyle="bold" />
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/question_text"
+            android:text="@string/rating_Description"
+            style="@style/normalStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/rating_Description"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
-
+            android:layout_gravity="center" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/RateBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/rateRequirement"
-            android:paddingTop="8dp"
             android:text="@string/error_msgRating"
+            android:hint="@string/rateRequirement"
             android:textSize="22sp"
             android:textColor="@color/design_default_color_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             android:layout_marginStart="10dp">
 
             <RatingBar
@@ -98,43 +87,39 @@
                 android:padding="5dp"
                 android:stepSize="0.5"
                 android:contentDescription="@string/feedback_rating" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
+            android:background="#2196F3"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#2196F3"/>
+            android:layout_height="40dp" />
 
         <TextView
+            android:text="@string/appointment_feedback"
+            style="@style/headerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Appointment Feedback"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:textSize="22sp"
-            android:textColor="#9C27B0"
-            android:textStyle="bold" />
+            android:layout_margin="10dp" />
 
         <TextView
             android:id="@+id/firstFeedback"
+            android:text="@string/feedback_Q1"
+            style="@style/normalStyle"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/feedback_Q1"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/questionOneLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingTop="8dp"
             android:text="@string/error_msgQ1"
             android:textSize="22sp"
             android:textColor="@color/design_default_color_error"
-            android:layout_marginStart="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingTop="8dp">
 
             <RadioGroup
                 android:id="@+id/questionOneRadio"
@@ -144,64 +129,57 @@
 
                 <RadioButton
                     android:id="@+id/excellent"
+                    android:text="@string/radioQuesOneOptionOne"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Excellent"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
-
+                    android:layout_height="wrap_content" />
 
                 <RadioButton
                     android:id="@+id/good"
+                    android:text="@string/radioQuesOneOptionTwo"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Good"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
+                    android:layout_height="wrap_content" />
 
 
                 <RadioButton
                     android:id="@+id/fair"
+                    android:text="@string/radioQuesOneOptionThree"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fair"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
+                    android:layout_height="wrap_content"/>
 
                 <RadioButton
                     android:id="@+id/poor"
+                    android:text="@string/radioQuesOneOptionFour"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Poor"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
+                    android:layout_height="wrap_content" />
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
+            android:background="#2196F3"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#2196F3" />
+            android:layout_height="40dp" />
 
         <TextView
             android:id="@+id/secondFeedback"
+            android:text="@string/feedback_Q2"
+            style="@style/normalStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/feedback_Q2"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
-
+            android:layout_margin="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/questionTwoLayout"
+            android:text="@string/error_msgQ2"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="22sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:text="@string/error_msgQ2"
-            android:textSize="22sp"
-            android:textColor="@color/design_default_color_error"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="10dp"
+            android:paddingTop="8dp">
 
             <RadioGroup
                 android:id="@+id/questionTwoRadio"
@@ -211,79 +189,70 @@
 
                 <RadioButton
                     android:id="@+id/excellentCommunicate"
+                    android:text="@string/radioQuesTwoOptionOne"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="The doctor communicated clearly and effectively"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
-
+                    android:layout_height="wrap_content" />
 
                 <RadioButton
                     android:id="@+id/clearCommunicate"
+                    android:text="@string/radioQuesTwoOptionTwo"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="The doctor was mostly clear in their communication"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
-
+                    android:layout_height="wrap_content" />
 
                 <RadioButton
                     android:id="@+id/unclearCommunicate"
+                    android:text="@string/radioQuesTwoOptionThree"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="The doctor's communication was somewhat unclear"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
-
+                    android:layout_height="wrap_content" />
 
                 <RadioButton
                     android:id="@+id/difficultCommunicate"
+                    android:text="@string/radioQuesTwoOptionFour"
+                    style="@style/normalStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="The doctor's communication was difficult to understand"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
+                    android:layout_height="wrap_content"/>
             </RadioGroup>
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
+            android:background="#2196F3"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#2196F3"/>
+            android:layout_height="40dp" />
 
         <TextView
             android:id="@+id/thirdFeedback"
+            android:text="@string/feedback_Q3"
+            style="@style/normalStyle"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/feedback_Q3"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
-
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/commentText"
+            android:textColor="#808080"
+            android:textSize="18sp"
+            android:hint="@string/comment_here"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="@string/comment_here"
-            android:inputType="textMultiLine"
             android:maxLength="100"
             android:maxLines="3"
             android:padding="10dp"
-            android:textSize="17sp"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
-            android:textColor="#808080"/>
-
+            />
 
         <Button
             android:id="@+id/submitComment"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:text="@string/submit_comment"
             android:background="@drawable/bg_white_rounded"
             android:layout_margin="10dp"
-            android:layout_gravity="center"
-            android:text="Submit" />
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </ScrollView>

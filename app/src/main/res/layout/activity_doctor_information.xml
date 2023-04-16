@@ -14,17 +14,16 @@
     >
 
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textAlignment="center"
+        android:fontFamily="sans-serif"
         android:text="Upload Doctor Image"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="26dp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
