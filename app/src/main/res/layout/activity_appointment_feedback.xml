@@ -67,18 +67,29 @@
             android:textColor="#9C27B0"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/question_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_gravity="center"
+            android:text="How satisfied are you with our service?" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/RateBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Please rate at least 0.5 star">
+            android:hint="Please rate at least 0.5 star"
+            android:paddingTop="8dp"
+            android:text="Please select a rating"
+            android:layout_marginLeft="10dp"
+            android:textSize="17dp">
 
             <RatingBar
                 android:id="@+id/ratingComment"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:isIndicator="false"
                 android:numStars="5"
                 android:padding="5dp"
                 android:stepSize="0.5" />
@@ -114,7 +125,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Please answer Question 1"
+            android:paddingTop="8dp"
+            android:text="Please select an option"
+            android:layout_marginLeft="10dp"
             android:textSize="17dp">
 
             <RadioGroup
@@ -172,8 +185,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Question 2"
-            android:textSize="17sp" >
+            android:paddingTop="8dp"
+            android:text="Please select an option"
+            android:layout_marginLeft="10dp"
+            android:textSize="17dp">
 
             <RadioGroup
                 android:id="@+id/questionTwoRadio"
@@ -231,7 +246,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-
             android:hint="Comment here."
             android:inputType="textMultiLine"
             android:maxLength="100"

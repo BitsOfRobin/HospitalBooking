@@ -4,12 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.hospitalbooking.KotlinClass.UserInput
 import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.R
@@ -47,7 +44,6 @@ class Feedback : AppCompatActivity()  {
         appointmentDetail()
         appointmentComment()
 
-
         binding.submitComment.setOnClickListener {
             var error = false
 
@@ -74,7 +70,7 @@ class Feedback : AppCompatActivity()  {
                 binding.RateBarLayout.error = null
             }
 
-            if (error){
+            if (error) {
                 return@setOnClickListener
             }
 
@@ -96,18 +92,6 @@ class Feedback : AppCompatActivity()  {
             dialog.show()
 
         }
-//        binding.questionOneRadio.setOnCheckedChangeListener { _, _ ->
-//            binding.questionOneLayout.error = null
-//        }
-//
-//        binding.questionTwoRadio.setOnCheckedChangeListener { _, _ ->
-//            binding.questionTwoLayout.error = null
-//        }
-//
-//        binding.ratingComment.setOnRatingBarChangeListener { _, _, _ ->
-//            binding.RateBarLayout.error = null
-//        }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -130,7 +114,6 @@ class Feedback : AppCompatActivity()  {
     }
 
     private fun appointmentComment() {
-
         binding.questionOneRadio.setOnCheckedChangeListener { _, checkedId ->
             val radioButton: RadioButton = findViewById(checkedId)
             when (checkedId) {
@@ -185,7 +168,6 @@ class Feedback : AppCompatActivity()  {
             }
         }
 
-
         binding.ratingComment.setOnRatingBarChangeListener { _, rating, _ ->
             userInput.rating = rating
             binding.RateBarLayout.error = null
@@ -195,41 +177,7 @@ class Feedback : AppCompatActivity()  {
         // Comment
         val comment = findViewById<TextView>(R.id.commentText)
         val commentText = comment.text.toString()
-//        Toast.makeText(this, "Your comment: ${comment.text}", Toast.LENGTH_SHORT).show()
 
-//        val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
-
-//        val feedbackFirebase = mapOf(
-////            "docName" to docName,
-////            "doctorAppoint" to userAppointment,
-////            "user" to userName,
-//            "rateStar" to userInput.rating,
-//            "radioAns1" to userInput.answer1,
-//            "radioAns2" to userInput.answer2,
-//            "comment" to commentText,
-//            "commentStatus" to "commented"
-//        )
-//        val docRef = db.collection("userAppointment").document(feedback)
-//        docRef.update(feedbackFirebase as Map<String, Any>)
-//            .addOnSuccessListener {
-//                Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
-////            }
-//
-//        db.collection("userAppointment").document(feedback).collection("comment").document(
-//            feedbackFirebase.toString()
-//        )
-//            .update(feedbackFirebase as Map<String, Any>)
-//            .addOnSuccessListener {
-//                Toast.makeText(this, "Thank you for your feedback.", Toast.LENGTH_SHORT).show()
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(this, "The feedback failed to submit please try again.", Toast.LENGTH_SHORT).show()
-//            }
-//
-//
         val feedback= "{docName=$docName, doctorAppoint=$userAppointment, user=$userName}"
         Toast.makeText(this, "The feedback $feedback.", Toast.LENGTH_LONG).show()
         val feedbackFirebase = hashMapOf(
