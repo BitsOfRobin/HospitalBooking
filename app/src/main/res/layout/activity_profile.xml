@@ -44,7 +44,8 @@
             app:srcCompat="@drawable/google" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
 
         <TextView
             android:id="@+id/emailTv"
@@ -60,7 +61,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
 
 <!--        <TextView-->
 <!--            android:id="@+id/textView"-->
@@ -91,7 +93,8 @@
             android:textStyle="bold" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
         <Button
             android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
@@ -102,7 +105,8 @@
             android:text="log out" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
         <!--    </androidx.cardview.widget.CardView>-->
     </LinearLayout>
 

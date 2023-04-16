@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFC107"
+    android:background="#ECD285"
+
     tools:context=".BookingAppointment.Feedback">
 
 

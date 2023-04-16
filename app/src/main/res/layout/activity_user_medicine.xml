@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:background="#ECD285"
     tools:context=".MedicineOCR.UserMedicine"
 
     android:id="@+id/drawerLayout">
@@ -24,7 +24,7 @@
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:text="Upload Medicine Image"
-
+        android:textColor="@color/black"
         android:textSize="26dp"
         android:textStyle="bold"
         />
@@ -64,6 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="@color/black"
         android:textSize="30dp"
         android:inputType="textPersonName"
         android:text="Medicine Name" />

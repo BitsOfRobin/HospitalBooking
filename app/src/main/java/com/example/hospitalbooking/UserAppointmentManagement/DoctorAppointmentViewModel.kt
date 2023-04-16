@@ -131,13 +131,13 @@ class DoctorAppointmentViewModel:ViewModel() {
             }
 
         }
-        val docRef = mFirebaseDatabaseInstance?.collection("userAppointment")
-        docRef?.whereEqualTo("user", user)?.get()?.addOnSuccessListener {
+        val docRef = mFirebaseDatabaseInstance.collection("userAppointment")
+        docRef.whereEqualTo("user", user).get().addOnSuccessListener {
 
 
             var docName = it.documents
 
-    //                }
+            //                }
 
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
