@@ -23,7 +23,7 @@ class UploadImg : AppCompatActivity() {
         setContentView(R.layout.activity_upload_img)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle("Upload Image")
+        supportActionBar!!.setTitle("Upload Doctor Image")
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
         var dtname=""
