@@ -139,19 +139,24 @@ class EditDoctorProfile : AppCompatActivity() {
     private fun setDocPic() {
         val docName = "Dr " + getGoogleName()
 
-        val fireb = Firebase.storage.reference.child("Img/$docName.jpg")
-//            val fireb=FirebaseStorage.getInstance().getReference("/Img")
-        val localfile = File.createTempFile("tempImage", "jpg")
-        var bitmap: Bitmap
-        fireb.getFile(localfile).addOnSuccessListener {
-//                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
-//                imageArr.add(bitmap)
-            bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-            val imgDoct = findViewById<ImageView>(R.id.ImgMed)
-            imgDoct.setImageBitmap(bitmap)
+//        val fireb = Firebase.storage.reference.child("Img/$docName.jpg")
+////            val fireb=FirebaseStorage.getInstance().getReference("/Img")
+//        val localfile = File.createTempFile("tempImage", "jpg")
+//        var bitmap: Bitmap
+//        fireb.getFile(localfile).addOnSuccessListener {
+////                 bitmap=BitmapFactory.decodeFile(file.absolutePath)
+////                imageArr.add(bitmap)
+//            bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+//            val imgDoct = findViewById<ImageView>(R.id.ImgMed)
+//            imgDoct.setImageBitmap(bitmap)
+//
+//        }
 
-        }
+        val cache=MyCache()
 
+        val bitmap=cache.retrieveBitmapFromCache(docName)
+        val imgDoct = findViewById<ImageView>(R.id.ImgMed)
+        imgDoct.setImageBitmap(bitmap)
 
         val docInfo=findViewById<TextView>(R.id.dotName)
         docInfo.text=docName

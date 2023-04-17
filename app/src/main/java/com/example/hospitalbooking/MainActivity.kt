@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        if (loginUser.contains("@student.tarc")) {
+        if (loginUser.contains("@student.tarc",true)) {
             names = arrayOf(
 
                 "Login/Profile",
@@ -230,7 +230,8 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-        } else {
+        }
+        else  if (loginUser.contains(".com",true)) {
             names = arrayOf(
 
                 "Login/Profile",
@@ -335,6 +336,13 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+        }
+
+        else{
+
+
+            val intent=Intent(this,UserLogin::class.java)
+            startActivity(intent)
         }
 
 
