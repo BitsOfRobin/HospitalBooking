@@ -24,8 +24,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hospitalbooking.*
+import com.example.hospitalbooking.Adapter.CustomAdapterDocAppointment
 import com.example.hospitalbooking.Adapter.listCustomAdapter
 import com.example.hospitalbooking.BookingAppointment.Feedback
 import com.example.hospitalbooking.BookingAppointment.MainPage
@@ -65,11 +68,11 @@ class DoctorAppointment : AppCompatActivity() {
     private val arraylistPastAppointment = ArrayList<AppointmentDetail>()
 
 
-        private lateinit var binding: ActivityDoctorAppointmentBinding
+//        private lateinit var binding: ActivityDoctorAppointmentBinding
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+//        binding= ActivityDoctorAppointmentBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_doctor_appointment)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -82,7 +85,7 @@ class DoctorAppointment : AppCompatActivity() {
 //        deleteUserPast()
 
 //        val swipe=findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
-        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
 //        docView.setOnScrollListener(object :  AbsListView.OnScrollListener {
 //            override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
 //
@@ -175,25 +178,69 @@ class DoctorAppointment : AppCompatActivity() {
     private fun getCurrentViewModel(){
 
 
-        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
+        docView.layoutManager = LinearLayoutManager(this)
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
         doctorAppointmentViewModel.arrCurrentAppoint.observe(this, androidx.lifecycle.Observer {
 
-            val arr=listCustomAdapter(this, it as ArrayList<AppointmentDetail>)
+            val arr=CustomAdapterDocAppointment(this, it as ArrayList<AppointmentDetail>,
+                object : CustomAdapterDocAppointment.OnItemClickListener{
+                override fun onItemClick(position: Int) {
+                   deleteCurrent(position)
+                }
+
+
+            },object :CustomAdapterDocAppointment.OnItemLongClickListener{
+                    override fun onItemLongClick(position: Int) {
+
+                        errMsg()
+
+                    }
+
+
+                }
+
+
+            )
             arr.notifyDataSetChanged()
             docView.adapter=arr
 
         })
 
     }
+    private fun errMsg(){
+
+        Toast.makeText(this,"This appointment has not past the scheduled time to be commented",Toast.LENGTH_LONG).show()
+
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getPastViewModel(){
-        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
+        docView.layoutManager = LinearLayoutManager(this)
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
         doctorAppointmentViewModel.arrPastAppoint.observe(this, androidx.lifecycle.Observer {
 
 
-            val arr=listCustomAdapter(this, it as ArrayList<AppointmentDetail>)
+            val arr=CustomAdapterDocAppointment(this, it as ArrayList<AppointmentDetail>,
+                object : CustomAdapterDocAppointment.OnItemClickListener{
+                    override fun onItemClick(position: Int) {
+
+                        deletePast(position)
+                    }
+
+
+                },object :CustomAdapterDocAppointment.OnItemLongClickListener{
+                    override fun onItemLongClick(position: Int) {
+                            navigateToComment(position)
+                    }
+
+
+                }
+
+
+            )
             arr.notifyDataSetChanged()
             docView.adapter=arr
 
@@ -203,10 +250,10 @@ class DoctorAppointment : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun deleteCurrent(){
+    private fun deleteCurrent(i:Int){
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
-        val docView=findViewById<ListView>(R.id.listDocAppoint)
-        docView.setOnItemClickListener { adapterView, view, i, l ->
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
+
 
 
 
@@ -242,16 +289,16 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-        }
+
 
 
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun deletePast(){
-        val docView=findViewById<ListView>(R.id.listDocAppoint)
+    private fun deletePast(i:Int){
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
-        docView.setOnItemClickListener { adapterView, view, i, l ->
+
 
 
 
@@ -288,7 +335,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
 
-        }
+
 
 
 
@@ -300,7 +347,7 @@ class DoctorAppointment : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun callReadUser(){
 
-        val docView = findViewById<ListView>(R.id.listDocAppoint)
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
 
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
 
@@ -334,7 +381,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                         linearCurrent.visibility =View.VISIBLE
 //                            linearCurrent.visibility =View.GONE
-                        deleteCurrent()
+                      getCurrentViewModel()
 //                            arr.notifyDataSetChanged()
 //                            docView.adapter = arr
 //                            linearCurrent.visibility =View.VISIBLE
@@ -348,8 +395,8 @@ class DoctorAppointment : AppCompatActivity() {
                         getPastViewModel()
 
                         linearCurrent.visibility =View.VISIBLE
-                      deletePast()
-                        navigateToComment()
+                    getPastViewModel()
+
 
 
                     }
@@ -367,7 +414,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                 linearCurrent.visibility =View.VISIBLE
 //                    linearCurrent.visibility =View.GONE
-               deleteCurrent()
+               getCurrentViewModel()
 //                    arr.notifyDataSetChanged()
 //                    docView.adapter = arr
 //                    linearCurrent.visibility =View.VISIBLE
@@ -388,7 +435,7 @@ class DoctorAppointment : AppCompatActivity() {
 
                         linearCurrent.visibility =View.VISIBLE
 //                            linearCurrent.visibility =View.GONE
-                        deleteCurrent()
+                       getCurrentViewModel()
 //                            arr.notifyDataSetChanged()
 //                            docView.adapter = arr
 //                            linearCurrent.visibility =View.VISIBLE
@@ -400,8 +447,8 @@ class DoctorAppointment : AppCompatActivity() {
 //                            arrPast.notifyDataSetChanged()
                       getPastViewModel()
                         linearCurrent.visibility =View.VISIBLE
-                       deletePast()
-                        navigateToComment()
+                      getPastViewModel()
+
 //                            linearCurrent.visibility =View.GONE
 //                            arrPast.notifyDataSetChanged()
 //                            docView.adapter=arrPast
@@ -432,11 +479,10 @@ class DoctorAppointment : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun navigateToComment(){
-        val docView=findViewById<ListView>(R.id.listDocAppoint)
+    private fun navigateToComment(i:Int){
+        val docView =  findViewById<RecyclerView>(R.id.RecycleDocAppoint)
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
-       docView.onItemLongClickListener =
-            AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+
 
                 if(i<doctorAppointmentViewModel.arrayDelPast.size){
 
@@ -445,7 +491,7 @@ class DoctorAppointment : AppCompatActivity() {
 
 
                 true
-            }
+
     }
 
 
