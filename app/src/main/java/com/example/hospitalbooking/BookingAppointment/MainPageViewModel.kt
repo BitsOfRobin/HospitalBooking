@@ -81,6 +81,7 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
     val arraylistTime2 = ArrayList<String>()
     val arraylistPro = ArrayList<String>()
      val arraylistHospital = ArrayList<String>()
+     val arraylistEmpty = ArrayList<ModalFormMain>()
     init {
 
         getDataDoc()
@@ -117,8 +118,8 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
         temp.clear()
         tempHos.clear()
         tempName.clear()
-
-
+        _modalListSearch.value= listOf()
+        modalListSearch.clear()
         for (i in arraylistPro.indices) {
             if (arraylistPro[i].contains(p0, true)) {
                 temp.add(arraylistName[i])
@@ -136,6 +137,7 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
                 tempName.add(arraylistName[i])
 
             }
+
 
         }
 
@@ -543,7 +545,7 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
         _modalList.value=modalList
 
-
+        _modalListSearch.value=modalList
 
         sortByPro()
 
@@ -977,7 +979,7 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
      fun dataChanged(tempName: ArrayList<String>, searchQuery: String) {
 
 
-        modalListSearch.clear()
+
         var j = 0
         val size=tempName.size
         for (i in arraylistName.indices) {
@@ -1025,10 +1027,12 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
 //                dt++
         }
+//
+//         _modalListSearch.value=modalListSearch
 
-         _modalListSearch.value=modalListSearch
-
-
+         Thread {
+             _modalListSearch.postValue(modalListSearch)
+         }.start()
 
     }
 
@@ -1059,10 +1063,34 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
 
             })
-
+            _modalList.value=modalList
         }
 
-      _modalList.value=modalList
+//      else if(modalListSearch.isNotEmpty()){
+//
+//            Collections.sort(modalListSearch, object :
+//
+//
+//                java.util.Comparator<ModalFormMain> {
+//                override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
+//                    var num = 0
+//
+//                    if (p0 != null) {
+//                        if (p1 != null) {
+//                            num = p0.pro.toString() compareTo (p1.pro.toString())
+//                        }
+//                    }
+//
+//                    return num
+//                }
+//
+//
+//            })
+//            _modalList.value=modalListSearch
+//
+//        }
+
+
 
     }
 
@@ -1070,26 +1098,54 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
     fun sortByName(){
 
-        Collections.sort(modalList, object :
+
+        if(modalList.isNotEmpty()){
+            Collections.sort(modalList, object :
 
 
-            java.util.Comparator<ModalFormMain> {
-            override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
-                var num = 0
+                java.util.Comparator<ModalFormMain> {
+                override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
+                    var num = 0
 
-                if (p0 != null) {
-                    if (p1 != null) {
-                        num = p0.docName.toString() compareTo (p1.docName.toString())
+                    if (p0 != null) {
+                        if (p1 != null) {
+                            num = p0.docName.toString() compareTo (p1.docName.toString())
+                        }
                     }
+
+                    return num
                 }
 
-                return num
-            }
 
+            })
 
-        })
+            _modalList.value=modalList
+        }
 
-        _modalList.value=modalList
+//        else if(modalListSearch.isNotEmpty()){
+//
+//            Collections.sort(modalListSearch, object :
+//
+//
+//                java.util.Comparator<ModalFormMain> {
+//                override fun compare(p0: ModalFormMain?, p1: ModalFormMain?): Int {
+//                    var num = 0
+//
+//                    if (p0 != null) {
+//                        if (p1 != null) {
+//                            num = p0.docName.toString() compareTo (p1.docName.toString())
+//                        }
+//                    }
+//
+//                    return num
+//                }
+//
+//
+//            })
+//
+//            _modalList.value=modalListSearch
+//        }
+
 
 
 
