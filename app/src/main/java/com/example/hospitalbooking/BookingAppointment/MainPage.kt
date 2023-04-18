@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -86,7 +87,7 @@ class MainPage : AppCompatActivity() {
         val docView = binding.mainPageRecycleView
         arraylistEmpty.add("")
 
-
+        binding.sortByName.visibility=View.GONE
         val drawer = findViewById<BottomNavigationView>(R.id.naviBtm)
         drawer.setOnItemReselectedListener {
             when (it.itemId) {
@@ -263,7 +264,7 @@ class MainPage : AppCompatActivity() {
         mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
             .get(MainPageViewModel::class.java)
 //            val arrayList=ArrayList<ModalFormMain>()\
-
+//        mainPageViewModel.getDataDoc()
 //        val adapter = CustomAdapter(
 //            (mainPageViewModel.modalListLive.value as ArrayList<ModalFormMain>?
 //                ?:emptyList()) as ArrayList<ModalFormMain>,this,)
@@ -587,14 +588,32 @@ class MainPage : AppCompatActivity() {
 //                    .get(MainPageViewModel::class.java)
                     if( mainPageViewModel.modalListSearch.isNotEmpty()){
 
-                        name=mainPageViewModel.modalListSearch.get(position).docName.toString()
-                        docPro=mainPageViewModel.modalListSearch.get(position).pro.toString()
+
+                        mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
+
+                           if(it.isNotEmpty()) {
+                               val arr = it as ArrayList<ModalFormMain>
+                               name = arr.get(position).docName.toString()
+                               docPro = arr.get(position).pro.toString()
+                           }
+                        })
+
+
 
                     } else{
 
 
-                        name=mainPageViewModel.modalList.get(position).docName.toString()
-                        docPro=mainPageViewModel.modalList.get(position).pro.toString()
+
+                        mainPageViewModel.modalListLive.observe(this, androidx.lifecycle.Observer {
+
+                            if(it.isNotEmpty()) {
+                                val arr = it as ArrayList<ModalFormMain>
+
+                                name = arr.get(position).docName.toString()
+                                docPro = arr.get(position).pro.toString()
+                            }
+                        })
+
                     }
 
 
@@ -668,35 +687,35 @@ class MainPage : AppCompatActivity() {
 //        val arrayList=ArrayList<ModalFormMain>()
         mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
 
-
-            val adapter= CustomAdapterRecycleView(it as ArrayList<ModalFormMain>, this,object:
-                CustomAdapterRecycleView.OnItemClickListener{
-                override fun onItemClick(position: Int) {
-                    val gamil=getGmail()
-                    callViewModel(gamil,position)
-                }
-
-
-            }, object : CustomAdapterRecycleView.OnItemLongClickListener {
-                override fun onItemLongClick(position: Int) {
-                    val userEmail=getGmail()
-                    val dtname=getGoogleName()
-
-                    if (userEmail.contains("@student.tar",true)) {
-
-                        longClickForDocDelSearch(dtname, position)
-                    }
-
-                }
+            if(it.isNotEmpty()) {
+                val adapter =
+                    CustomAdapterRecycleView(it as ArrayList<ModalFormMain>, this, object :
+                        CustomAdapterRecycleView.OnItemClickListener {
+                        override fun onItemClick(position: Int) {
+                            val gamil = getGmail()
+                            callViewModel(gamil, position)
+                        }
 
 
+                    }, object : CustomAdapterRecycleView.OnItemLongClickListener {
+                        override fun onItemLongClick(position: Int) {
+                            val userEmail = getGmail()
+                            val dtname = getGoogleName()
+
+                            if (userEmail.contains("@student.tar", true)) {
+
+                                longClickForDocDelSearch(dtname, position)
+                            }
+
+                        }
 
 
-            })
-            val docView=binding.mainPageRecycleView
-            adapter.notifyDataSetChanged()
-            docView.adapter=adapter
+                    })
 
+                val docView = binding.mainPageRecycleView
+                adapter.notifyDataSetChanged()
+                docView.adapter = adapter
+            }
         })
 
     }
@@ -810,6 +829,7 @@ class MainPage : AppCompatActivity() {
                     tempHos.clear()
                     tempName.clear()
                     var searchQuery=""
+                    binding.sortByName.visibility=View.GONE
 //                val first= p0?.let { p0.toString().indexOf(it[0]) }
                     if (p0 != null) {
 
@@ -893,7 +913,7 @@ class MainPage : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
-
+                    binding.sortByName.visibility=View.GONE
                     temp.clear()
 
                     var searchQuery=""
@@ -909,7 +929,7 @@ class MainPage : AppCompatActivity() {
 //                        paramForSearching()
 //                        paramForSearching()
                         mainPageViewModel.getDataDoc()
-                      val gmail=getGmail()
+                        val gmail=getGmail()
                         displayAdapter(gmail)
                     }
 //                if (p0 != null) {
@@ -1356,7 +1376,7 @@ class MainPage : AppCompatActivity() {
 
 //        }
 
-         val customAdapter =CustomAdapter(modalList, this)
+         val customAdapter = CustomAdapter(modalList, this)
 
 
 
@@ -1997,11 +2017,15 @@ class MainPage : AppCompatActivity() {
     private fun refresh() {
         val swipe = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
 
+        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1)).
+        get(MainPageViewModel::class.java)
         swipe.setOnRefreshListener {
 
 //            getDataDoc()
             mainPageViewModel.getDataDoc()
-
+            val gamil=getGmail()
+            displayAdapter(gamil)
+//            binding.sortByName.visibility=View.VISIBLE
             swipe.isRefreshing = false
 
         }
