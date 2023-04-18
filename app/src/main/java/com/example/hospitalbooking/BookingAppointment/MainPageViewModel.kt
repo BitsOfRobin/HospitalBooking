@@ -137,6 +137,7 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
             }
 
+
         }
 
 

@@ -875,10 +875,10 @@ class MainPage : AppCompatActivity() {
 //                    showMsg(docView)
 
 
+                        mainPageViewModel.getDataDoc()
 
-
-                        getAdapter()
-                        paramForSearching()
+//                        getAdapter()
+//                        paramForSearching()
                          val gmail=getGmail()
                         displayAdapter(gmail)
 //                        paramForSearching()
@@ -905,9 +905,10 @@ class MainPage : AppCompatActivity() {
                         mainPageViewModel.searchDoctor(p0)
                         paramForSearching()
                     } else {
-                        getAdapter()
+//                        getAdapter()
 //                        paramForSearching()
 //                        paramForSearching()
+                        mainPageViewModel.getDataDoc()
                       val gmail=getGmail()
                         displayAdapter(gmail)
                     }
