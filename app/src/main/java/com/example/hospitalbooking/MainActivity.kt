@@ -27,6 +27,7 @@ import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.example.hospitalbooking.AdminManagementOnAppointment.DoctorViewAppointment
 import com.example.hospitalbooking.BookingAppointment.Feedback
+import com.example.hospitalbooking.DoctorInformationManagement.DoctorProfile
 import com.example.hospitalbooking.DoctorInformationManagement.DoctorSummarizeReport
 import com.example.hospitalbooking.DoctorInformationManagement.EditDoctorProfile
 import com.example.hospitalbooking.MedicineOCR.DoctorFilterMedicine
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                 "Medicine Recognition",
                 "Medicine Record",
                 "Doctor View Appointment",
-                "Edit Profile",
+                "Profile",
                 "Doctor Summarize Report"
             )
             for (i in names.indices) {
@@ -217,7 +218,7 @@ class MainActivity : AppCompatActivity() {
 
                                 }
                     6 -> {
-                        val intent = Intent(this, EditDoctorProfile::class.java)
+                        val intent = Intent(this, DoctorProfile::class.java)
                         startActivity(intent)
                     }
                     7 -> {

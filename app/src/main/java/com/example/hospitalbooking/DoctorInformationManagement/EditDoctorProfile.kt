@@ -58,18 +58,12 @@ class EditDoctorProfile : AppCompatActivity() {
         val userGoogle = Firebase.auth.currentUser
         var dtname=""
         userGoogle.let {
-            // Name, email address, and profile photo Url
-//                    val name = user.displayName
             if (userGoogle != null) {
                 dtname = userGoogle.displayName.toString()
-//                name.text=dtname
             }
-
         }
 
         var docName=dtname
-//        docName.replace(" ","")
-
         val letter:Boolean=isLetters(docName)
 
         if(letter&&docName!=" "&&docName!="")
@@ -157,6 +151,7 @@ class EditDoctorProfile : AppCompatActivity() {
         docInfo.text=docName
 
         val docPro=findViewById<EditText>(R.id.dtPro)
+
         val docHospital=findViewById<EditText>(R.id.dtHos)
 
 

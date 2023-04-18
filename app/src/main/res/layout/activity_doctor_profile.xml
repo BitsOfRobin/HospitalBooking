@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECD285"
+    tools:context=".DoctorInformationManagement.DoctorProfile"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            android:text="Doctor Profile"
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/ImgMed"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginVertical="30dp"
+            android:scaleType="fitCenter"
+            />
+
+        <TextView
+            android:text="Doctor Name "
+            android:textSize="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
+
+        <TextView
+            android:id="@+id/doc_Name"
+            android:text="@string/doctor_name"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
+
+        <TextView
+            android:text="Doctor Profession "
+            android:textSize="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
+
+        <TextView
+            android:id="@+id/doc_Pro"
+            android:text="Doctor Professional"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
+
+        <TextView
+            android:text="Working Location"
+            android:textSize="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#9C27B0"
+            />
+
+        <TextView
+            android:id="@+id/doc_Hosp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textSize="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#ECD285"/>
+
+    </LinearLayout>
+</ScrollView>
