@@ -481,6 +481,55 @@ class MainPage : AppCompatActivity() {
 
     }
 
+
+
+    private fun longClickForDocDelSearch(dtname: String,i:Int){
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete Doctor Alert")
+        builder.setMessage("Are you sure to delete Doctor?")
+
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
+
+
+            mainPageViewModel=ViewModelProvider(this, MainPageViewModelFactory(arraylistEmpty,i))
+                .get(MainPageViewModel::class.java)
+
+            mainPageViewModel.deletionDocAfterSearch(dtname,i)
+            Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
+//            val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
+//                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
+
+//                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
+//                            .document("${modalList.get(i).docName}")
+//
+//                        val deleteDoc=modalList.get(i).docName
+//            displayAdapter()
+
+
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT
+            ).show()
+        }
+
+
+
+
+        builder.show()
+
+    }
+
+
     private fun callViewModel(userEmail: String,position:Int) {
 
 
@@ -623,12 +672,20 @@ class MainPage : AppCompatActivity() {
             val adapter= CustomAdapterRecycleView(it as ArrayList<ModalFormMain>, this,object:
                 CustomAdapterRecycleView.OnItemClickListener{
                 override fun onItemClick(position: Int) {
-
+                    val gamil=getGmail()
+                    callViewModel(gamil,position)
                 }
 
 
             }, object : CustomAdapterRecycleView.OnItemLongClickListener {
                 override fun onItemLongClick(position: Int) {
+                    val userEmail=getGmail()
+                    val dtname=getGoogleName()
+
+                    if (userEmail.contains("@student.tar",true)) {
+
+                        longClickForDocDelSearch(dtname, position)
+                    }
 
                 }
 
@@ -822,7 +879,8 @@ class MainPage : AppCompatActivity() {
 
                         getAdapter()
                         paramForSearching()
-//                        displayAdapter()
+                         val gmail=getGmail()
+                        displayAdapter(gmail)
 //                        paramForSearching()
 
                     }
@@ -848,9 +906,10 @@ class MainPage : AppCompatActivity() {
                         paramForSearching()
                     } else {
                         getAdapter()
-                        paramForSearching()
 //                        paramForSearching()
-//                        displayAdapter()
+//                        paramForSearching()
+                      val gmail=getGmail()
+                        displayAdapter(gmail)
                     }
 //                if (p0 != null) {
 //                    showSuggestion(p0,adapter)
@@ -2402,7 +2461,25 @@ class MainPage : AppCompatActivity() {
         return dtname
 
     }
+    private fun getGmail(): String {
 
+
+
+        var gmail=""
+        val userGoogle = Firebase.auth.currentUser
+        userGoogle.let {
+            // Name, email address, and profile photo Url
+//                    val name = user.displayName
+            if (userGoogle != null) {
+                gmail = userGoogle.email.toString()
+
+            }
+        }
+
+
+        return gmail
+
+    }
 
 
     private fun showNavBar(){

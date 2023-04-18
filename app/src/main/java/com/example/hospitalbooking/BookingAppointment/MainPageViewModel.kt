@@ -778,6 +778,58 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
      }
 
 
+    fun deletionDocAfterSearch(dtname: String,i:Int) {
+
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+
+
+
+
+
+
+
+
+        if(i>-1) {
+
+
+
+            val deleteDoc = modalListSearch.get(i).docName
+
+            if (deleteDoc =="Dr $dtname") {
+                val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
+                    .document("${modalListSearch.get(i).docName}")
+
+                docRef
+                    .delete()
+                    .addOnSuccessListener {
+
+                    }
+                    .addOnFailureListener {
+
+                    }
+
+
+                val fireb =
+                    Firebase.storage.reference.child("Img/${modalListSearch.get(i).docName}.jpg")
+                fireb.delete().addOnSuccessListener {
+
+                }.addOnFailureListener {
+
+                }
+
+                modalListSearch.removeAt(i)
+
+                _modalList.value=modalListSearch
+//                                val arr = CustomAdapter(modalList, this)
+//                                arr.notifyDataSetChanged()
+//                                docView.adapter = arr
+
+            }
+
+
+        }
+
+    }
 
 
 
