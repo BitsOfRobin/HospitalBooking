@@ -26,11 +26,8 @@ import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.example.hospitalbooking.AdminManagementOnAppointment.DoctorViewAppointment
-import com.example.hospitalbooking.BookingAppointment.Feedback
-import com.example.hospitalbooking.DoctorInformationManagement.DoctorProfile
 import com.example.hospitalbooking.DoctorInformationManagement.DoctorSummarizeReport
 import com.example.hospitalbooking.DoctorInformationManagement.EditDoctorProfile
-import com.example.hospitalbooking.MedicineOCR.DoctorFilterMedicine
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
@@ -218,7 +215,7 @@ class MainActivity : AppCompatActivity() {
 
                                 }
                     6 -> {
-                        val intent = Intent(this, DoctorProfile::class.java)
+                        val intent = Intent(this, EditDoctorProfile::class.java)
                         startActivity(intent)
                     }
                     7 -> {

@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -40,9 +41,30 @@ class EditDoctorProfile : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle("Update Doctor Profile")
+        supportActionBar!!.setTitle("Doctor Profile")
 
+        val docJobText = findViewById<EditText>(R.id.dtPro)
+        val docLocationText = findViewById<EditText>(R.id.dtHos)
+        val firebaseImg = findViewById<ImageView>(R.id.ImgMed)
+
+        val editProfile = findViewById<Button>(R.id.edit_Btn)
+        val updateProfile = findViewById<Button>(R.id.updateBtn)
+        val autoCompleteHospital= findViewById<AutoCompleteTextView>(R.id.autoCurrentHospital)
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
+
+        editProfile.setOnClickListener {
+            // Make text fields editable
+            docJobText.isEnabled = true
+            autoCompleteHospital.isEnabled = true
+            docLocationText.isEnabled = true
+
+            // Hide the "Edit" button and show the "Update" and "Cancel" buttons
+            editProfile.visibility = View.GONE
+            updateProfile.visibility = View.VISIBLE
+            selectImgBtn.visibility = View.VISIBLE
+//            cancelButton.visibility = View.VISIBLE
+            autoCompleteHospital.visibility = View.VISIBLE
+        }
 
         selectImgBtn.setOnClickListener {
             selectImage()
@@ -50,13 +72,6 @@ class EditDoctorProfile : AppCompatActivity() {
 
         getDoctorHos()
         setDocPic()
-
-//        val dtpro=intent.getStringExtra("job_Specialist").toString()
-//        docPro.setText(dtpro)
-//        val pro=dtpro
-//        val rateFrequency=0.0F
-//        val hosTxt=intent.getStringExtra("job_Location").toString()
-//        docHospital.setText(hosTxt)
     }
 
     private fun uploadImage() {
@@ -149,9 +164,25 @@ class EditDoctorProfile : AppCompatActivity() {
 
         val docHospital=findViewById<EditText>(R.id.dtHos)
 
+        var hospital = ""
+        var doctorSpecialist = ""
+
+        // Retrieve User ID and pass to variable display the value
+        val documentRef = mFirebaseDatabaseInstance!!.collection("doctor")
+        documentRef.whereEqualTo("name", docName)
+            .get().addOnSuccessListener {
+                for(document in it){
+                    hospital = document.get("hospital").toString()
+                    doctorSpecialist = document.get("pro").toString()
+                }
+                docPro.setText(doctorSpecialist)
+                docHospital.setText(hospital)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
+            }
 
         val autoCompleteHospital= findViewById<AutoCompleteTextView>(R.id.autoCurrentHospital)
-        var hospital=""
         var hospitalTxt=""
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayListHos)
         autoCompleteHospital.setAdapter(adapter)
@@ -198,7 +229,14 @@ class EditDoctorProfile : AppCompatActivity() {
 
         val btn=findViewById<Button>(R.id.updateBtn)
         btn.setOnClickListener {
-            uploadImage()
+            try{
+                uploadImage()
+            }
+
+            catch (e:UninitializedPropertyAccessException){
+                Toast.makeText(this,"You maintain old image",Toast.LENGTH_SHORT).show()
+
+            }
 
             val dtpro=docPro.text
             val pro=dtpro.toString()
@@ -212,7 +250,7 @@ class EditDoctorProfile : AppCompatActivity() {
             val validaHos=isLetters(hospital)
 
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
-            val doctorName=docName.toString()
+            val doctorName=docName
 
             if(!letter||pro.isEmpty()||pro.isBlank()){
                 Toast.makeText(this,"Profession contain non alphabet or empty",Toast.LENGTH_LONG).show()
@@ -239,13 +277,12 @@ class EditDoctorProfile : AppCompatActivity() {
                     "hospital" to hospital
                 )
                 mFirebaseDatabaseInstance?.collection("doctor")?.document( "$doctorName")?.set(doc)?.addOnSuccessListener {
-                    Toast.makeText(this,"Successfully added doctor",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Successfully edit profile information",Toast.LENGTH_SHORT).show()
                 }
                     ?.addOnFailureListener {
-
-                        Toast.makeText(this,"Failed to add doctor", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Failed to edit profile information", Toast.LENGTH_SHORT).show()
                     }
-                val intent= Intent(this, DoctorProfile::class.java)
+                val intent= Intent(this, EditDoctorProfile::class.java)
                 startActivity(intent)
             }
         }
@@ -259,11 +296,8 @@ class EditDoctorProfile : AppCompatActivity() {
         var dtname=""
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
-            // Name, email address, and profile photo Url
-//                    val name = user.displayName
             if (userGoogle != null) {
                 dtname = userGoogle.displayName.toString()
-
             }
         }
         return dtname
