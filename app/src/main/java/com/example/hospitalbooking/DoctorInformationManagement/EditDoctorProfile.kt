@@ -50,6 +50,13 @@ class EditDoctorProfile : AppCompatActivity() {
 
         getDoctorHos()
         setDocPic()
+
+//        val dtpro=intent.getStringExtra("job_Specialist").toString()
+//        docPro.setText(dtpro)
+//        val pro=dtpro
+//        val rateFrequency=0.0F
+//        val hosTxt=intent.getStringExtra("job_Location").toString()
+//        docHospital.setText(hosTxt)
     }
 
     private fun uploadImage() {
@@ -82,11 +89,7 @@ class EditDoctorProfile : AppCompatActivity() {
                 val imgBitmap= MediaStore.Images.Media.getBitmap(contentResolver, ImageUri)
                 cache.saveBitmapToCahche(docName,imgBitmap)
                 Toast.makeText(this,"Uploaded",Toast.LENGTH_SHORT).show()
-                val intent= Intent(this, DoctorInformation::class.java)
-                intent.putExtra("DoctorName", docName)
-                startActivity(intent)
             }.addOnFailureListener{
-
                 if(progressDialog.isShowing)progressDialog.dismiss()
             }
         }
@@ -162,7 +165,6 @@ class EditDoctorProfile : AppCompatActivity() {
         val errTextPro=findViewById<TextView>(R.id.errPro)
         val errTextHos=findViewById<TextView>(R.id.errHos)
         docPro.setOnFocusChangeListener { v, hasFocus ->
-
             if (!hasFocus) {
                 val input = docPro.text.toString()
                 if (input.isNotEmpty()) {
@@ -176,12 +178,9 @@ class EditDoctorProfile : AppCompatActivity() {
                     }
                 }
             }
-
         }
 
-
         docHospital.setOnFocusChangeListener { v, hasFocus ->
-
             if (!hasFocus) {
                 val input =docHospital.text.toString()
                 if (input.isNotEmpty()) {
@@ -195,20 +194,11 @@ class EditDoctorProfile : AppCompatActivity() {
                     }
                 }
             }
-
-
         }
+
         val btn=findViewById<Button>(R.id.updateBtn)
         btn.setOnClickListener {
-
-            try{
-                uploadImage()
-            }
-
-            catch (e:UninitializedPropertyAccessException){
-                Toast.makeText(this,"You did not attach any photo",Toast.LENGTH_SHORT).show()
-
-            }
+            uploadImage()
 
             val dtpro=docPro.text
             val pro=dtpro.toString()
@@ -225,14 +215,10 @@ class EditDoctorProfile : AppCompatActivity() {
             val doctorName=docName.toString()
 
             if(!letter||pro.isEmpty()||pro.isBlank()){
-
                 Toast.makeText(this,"Profession contain non alphabet or empty",Toast.LENGTH_LONG).show()
                 errTextPro.text = "Profession contain non alphabet or empty"
-
             }
-
             else{
-
                 errTextPro.text=" "
             }
 
@@ -252,7 +238,6 @@ class EditDoctorProfile : AppCompatActivity() {
                     "rateFrequency" to rateFrequency,
                     "hospital" to hospital
                 )
-
                 mFirebaseDatabaseInstance?.collection("doctor")?.document( "$doctorName")?.set(doc)?.addOnSuccessListener {
                     Toast.makeText(this,"Successfully added doctor",Toast.LENGTH_SHORT).show()
                 }
@@ -260,9 +245,7 @@ class EditDoctorProfile : AppCompatActivity() {
 
                         Toast.makeText(this,"Failed to add doctor", Toast.LENGTH_SHORT).show()
                     }
-
-                val intent= Intent(this, MainPage::class.java)
-                intent.putExtra("DoctorName", docName)
+                val intent= Intent(this, DoctorProfile::class.java)
                 startActivity(intent)
             }
         }
@@ -287,7 +270,6 @@ class EditDoctorProfile : AppCompatActivity() {
     }
 
     private fun naviImg(photoUrl: Uri?, loginUser: String) {
-
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
         val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_image)

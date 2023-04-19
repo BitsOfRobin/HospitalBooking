@@ -31,4 +31,9 @@
     <string name="appointment_detail">Appointment Detail</string>
     <string name="appointment_rating">Appointment Rating</string>
     <string name="appointment_feedback">Appointment Feedback</string>
+    <string name="doctor_profession">Doctor Profession</string>
+    <string name="working_location">Working Location</string>
+    <string name="edit">Edit</string>
+    <string name="profile_update">Update</string>
+    <string name="hospital_suggestion">Suggestion location for hospital</string>
 </resources>
