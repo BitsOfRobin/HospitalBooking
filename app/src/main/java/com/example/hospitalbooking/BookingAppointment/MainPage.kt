@@ -87,7 +87,7 @@ class MainPage : AppCompatActivity() {
         val docView = binding.mainPageRecycleView
         arraylistEmpty.add("")
 
-        binding.sortByName.visibility=View.GONE
+//        binding.sortByName.visibility=View.GONE
         val drawer = findViewById<BottomNavigationView>(R.id.naviBtm)
         drawer.setOnItemReselectedListener {
             when (it.itemId) {
@@ -2025,7 +2025,7 @@ class MainPage : AppCompatActivity() {
             mainPageViewModel.getDataDoc()
             val gamil=getGmail()
             displayAdapter(gamil)
-//            binding.sortByName.visibility=View.VISIBLE
+            binding.sortByName.visibility=View.VISIBLE
             swipe.isRefreshing = false
 
         }
