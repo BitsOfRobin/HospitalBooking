@@ -87,7 +87,7 @@ class MainPage : AppCompatActivity() {
         val docView = binding.mainPageRecycleView
         arraylistEmpty.add("")
 
-        binding.sortByName.visibility=View.GONE
+//        binding.sortByName.visibility=View.GONE
         val drawer = findViewById<BottomNavigationView>(R.id.naviBtm)
         drawer.setOnItemReselectedListener {
             when (it.itemId) {
@@ -151,51 +151,6 @@ class MainPage : AppCompatActivity() {
         var check=0
 
 
-//
-//        mainPageViewModel.arrName.observe(this, androidx.lifecycle.Observer {
-//
-//
-//            for(i in it.indices){
-//
-//                if(cache.retrieveBitmapFromCache(it[i])==null){
-//
-//
-//                    check++
-//
-//                }
-//            }
-//
-//
-//
-//
-//
-//
-//
-//        })
-//
-//
-//        if(check>0){
-//
-//
-//            mainPageViewModel.getImg()
-//            mainPageViewModel.retrieveCache()
-//            displayAdapter()
-//            refreshMain()
-//
-////                    refreshMain()
-////                    retrieveCache()
-//
-//
-//
-//        }
-//
-//        else{
-////            refreshMain()
-//          mainPageViewModel.retrieveCache()
-//            displayAdapter()
-//
-//        }
-
 
 
 
@@ -207,16 +162,6 @@ class MainPage : AppCompatActivity() {
         sorting(userEmail)
         doctorSearching()
 //        searchDoctor()
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -235,40 +180,13 @@ class MainPage : AppCompatActivity() {
 
     }
 
-//    private fun displayDocData(){
-//
-//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory("",-1))
-//            .get(MainPageViewModel::class.java)
-//        mainPageViewModel.getDataDoc()
-//
-//
-//        mainPageViewModel.arrName.observe(this, androidx.lifecycle.Observer {
-//
-//
-//
-//            mainPageViewModel.retrieveCache()
-//            displayAdapter()
-//
-//
-////            displayAdapter()
-//        })
-////        var getCache=mainPageViewModel.retrieveCache()
-////        displayAdapter()
-//
-//
-//
-//    }
+
 
     private fun displayAdapter(userEmail: String){
         val docView=binding.mainPageRecycleView
         mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
             .get(MainPageViewModel::class.java)
-//            val arrayList=ArrayList<ModalFormMain>()\
-//        mainPageViewModel.getDataDoc()
-//        val adapter = CustomAdapter(
-//            (mainPageViewModel.modalListLive.value as ArrayList<ModalFormMain>?
-//                ?:emptyList()) as ArrayList<ModalFormMain>,this,)
-//       docView.adapter = adapter
+
        docView.layoutManager = LinearLayoutManager(this)
 
 
@@ -307,11 +225,6 @@ class MainPage : AppCompatActivity() {
 
         })
 
-
-
-//        docView.adapter=customAdapter
-
-
     }
 
 
@@ -320,7 +233,7 @@ class MainPage : AppCompatActivity() {
         mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
             .get(MainPageViewModel::class.java)
 
-//        mainPageViewModel.retrieveCache()
+
         val adapter= CustomAdapterRecycleView(mainPageViewModel.modalList, this,object:
             CustomAdapterRecycleView.OnItemClickListener{
             override fun onItemClick(item: Int) {
@@ -419,17 +332,6 @@ class MainPage : AppCompatActivity() {
         docView.adapter=adapter
 
 
-//
-//            docView.onItemLongClickListener =
-//                AdapterView.OnItemLongClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-//
-//
-//
-//                    true
-//                }
-
-
-
 
 
 
@@ -457,14 +359,6 @@ class MainPage : AppCompatActivity() {
             mainPageViewModel.deletionDoctor(dtname,i)
             Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
             val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
-//                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
-
-//                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
-//                            .document("${modalList.get(i).docName}")
-//
-//                        val deleteDoc=modalList.get(i).docName
-//            displayAdapter()
-
 
         }
 
@@ -504,14 +398,6 @@ class MainPage : AppCompatActivity() {
 
             mainPageViewModel.deletionDocAfterSearch(dtname,i)
             Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
-//            val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
-//                        Toast.makeText(this, "doctor deletion is a success",Toast.LENGTH_LONG).show()
-
-//                        val docRef = mFirebaseDatabaseInstance!!.collection("doctor")
-//                            .document("${modalList.get(i).docName}")
-//
-//                        val deleteDoc=modalList.get(i).docName
-//            displayAdapter()
 
 
         }
@@ -540,32 +426,6 @@ class MainPage : AppCompatActivity() {
             val dtname=getGoogleName()
 
 
-//
-//            docView.setOnItemClickListener { adapterView, view, i, l ->
-////                tempListViewClickedValue = modalList.get(i).docName.toString()
-////                    val tempListViewClickedValue = arraylistName[i].toString()+" "+arraylistPro[i].toString()+" " +arraylistTime[i].toString()
-//
-//
-//
-//
-//
-////                if(tempListViewClickedValue!="Dr $dtname"){
-////                    Toast.makeText(this,"this is not your profile",Toast.LENGTH_LONG).show()
-//////                    val intent = Intent(this, CalendarTimePicker::class.java)
-//////                    intent.putExtra("DoctorName", tempListViewClickedValue)
-//////                    startActivity(intent)
-////                }
-//
-//
-//
-////                Toast.makeText(this, "Enter the click listener${i.toString()} ", Toast.LENGTH_SHORT).show()
-//
-//
-//            }
-//
-
-
-//            doctorDel(dtname)
 
 
 
@@ -580,12 +440,7 @@ class MainPage : AppCompatActivity() {
 
                     var name = ""
                     var docPro = ""
-//                val time = modalList.get(i).time.toString()
-//            val time = arraylistTime[i].toString()
 
-//
-//                mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
-//                    .get(MainPageViewModel::class.java)
                     if( mainPageViewModel.modalListSearch.isNotEmpty()){
 
 
@@ -623,31 +478,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-
-//                    writeUser(time,name,user)
-//                    val intent = Intent(this, AppointmentSelect::class.java)
-//                    val intent = Intent(this, CalendarTimePicker::class.java)
-//                    intent.putExtra("DoctorName", name)
-//                    intent.putExtra("DoctorPro", docPro)
-//                    startActivity(intent)
-
-
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -682,9 +513,6 @@ class MainPage : AppCompatActivity() {
     private fun paramForSearching(){
         val docView=binding.mainPageRecycleView
 
-//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
-//            .get(MainPageViewModel::class.java)
-//        val arrayList=ArrayList<ModalFormMain>()
         mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
 
             if(it.isNotEmpty()) {
@@ -721,39 +549,6 @@ class MainPage : AppCompatActivity() {
     }
 
 
-//    private fun arrForSearching(arr:ArrayList<String>){
-//        val docView: GridView = findViewById<GridView>(R.id.gridView)
-//
-//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arr,-1))
-//            .get(MainPageViewModel::class.java)
-//
-//        mainPageViewModel.dataChanged(arr,"")
-//
-//        mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
-//
-//
-//            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
-//            customAdapter.notifyDataSetChanged()
-//            docView.adapter=customAdapter
-//            customAdapter.notifyDataSetChanged()
-//
-//        })
-
-//        val arrayList=ArrayList<ModalFormMain>()
-
-//        mainPageViewModel.dataChanged(arr,"")
-
-//        mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
-//
-//
-//            val customAdapter= CustomAdapter(it as ArrayList<ModalFormMain>, this)
-//            customAdapter.notifyDataSetChanged()
-//            docView.adapter=customAdapter
-//            customAdapter.notifyDataSetChanged()
-//
-//        })
-
-//    }
 
 
 
@@ -766,12 +561,6 @@ class MainPage : AppCompatActivity() {
             val docView=binding.mainPageRecycleView
 
 
-
-//            docView.adapter = customAdapter
-
-//            paramForSearching()
-//        searchView()
-
             val temp = ArrayList<String>()
             val tempHos = ArrayList<String>()
             val tempName = ArrayList<String>()
@@ -780,47 +569,6 @@ class MainPage : AppCompatActivity() {
 
             mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
                 .get(MainPageViewModel::class.java)
-//
-//            mainPageViewModel.searchQueryLiveData.observe(this, androidx.lifecycle.Observer {
-//
-//                searchView.setQuery(it,false)
-//
-//
-//            })
-
-//        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
-//
-//        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
-//        autoCompleteTextView.setAdapter(adapter)
-//        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-//                        val selectedItem = parent.getItemAtPosition(position) as String
-//
-//
-//
-//            //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
-//            //
-//            //
-//            //                searchView.setQuery(null,true)
-//            //            }
-//            //            else{
-//
-//                        searchView.setQuery(selectedItem, true)
-//            //            }
-//
-//
-//
-//
-//
-//        }
-
-
-
-
-
-
-
-
-
 
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -842,60 +590,15 @@ class MainPage : AppCompatActivity() {
                         paramForSearching()
 //                        for (i in arraylistPro.indices) {
 //                            if (arraylistPro[i].contains(p0, true)) {
-//                                temp.add(arraylistName[i])
-//                                searchQuery.replace("",p0)
-//                                mainPageViewModel.searchQueryLiveData.value=searchQuery
-//
-//                            }
-//
-//                        }
-//
-//
-//                        for (i in arraylistHospital.indices) {
-//                            if (arraylistHospital[i].contains(p0, true)) {
-//
-//                                tempHos.add(arraylistName[i])
-//                                searchQuery.replace("", p0)
-//                                mainPageViewModel.searchQueryLiveData.value=searchQuery
-//                            }
-//                        }
-//                        for (i in arraylistName.indices) {
-//                            if (arraylistName[i].contains(p0, true)) {
-//
-//                                tempName.add(arraylistName[i])
-//                                searchQuery.replace("", p0)
-//                                mainPageViewModel.searchQueryLiveData.value=searchQuery
-//                            }
-//                        }
-//
-//                        if (temp.isNotEmpty()) {
-//
-//                           arrForSearching(temp)
-////                            paramForSearching()
-//                        }
-//                        else if(tempHos.isNotEmpty()) {
-//
-//                            arrForSearching(tempHos)
-////                            paramForSearching()
-//
-//
-//                        }
-//                        else if(tempName.isNotEmpty()){
-//
-//
-//                            arrForSearching(tempName)
-////                            paramForSearching()
-//                        }
 
-//                    callForSearching(tempHos,searchQuery,docView)
 
 
 
                     } else {
-//                    showMsg(docView)
 
 
-                        mainPageViewModel.getDataDoc()
+
+//                        mainPageViewModel.retrieveCache()
 
 //                        getAdapter()
 //                        paramForSearching()
@@ -928,6 +631,7 @@ class MainPage : AppCompatActivity() {
 //                        getAdapter()
 //                        paramForSearching()
 //                        paramForSearching()
+
                         mainPageViewModel.getDataDoc()
                         val gmail=getGmail()
                         displayAdapter(gmail)
@@ -949,85 +653,6 @@ class MainPage : AppCompatActivity() {
 
 
         }
-
-
-//    private fun searchDoctor(){
-//
-//        val temp = ArrayList<String>()
-//        val tempHos = ArrayList<String>()
-//        val tempName = ArrayList<String>()
-//        temp.clear()
-//        tempHos.clear()
-//        tempName.clear()
-//        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
-//            .get(MainPageViewModel::class.java)
-//            mainPageViewModel.searchQueryLiveData.observe(this, androidx.lifecycle.Observer {p0->
-//
-//
-//
-//            if (p0!= null) {
-//                for (i in arraylistPro.indices) {
-//                    if (arraylistPro[i].contains(p0, true)) {
-//                        temp.add(arraylistName[i])
-//
-//                    }
-//
-//                }
-//
-//
-//                for (i in arraylistHospital.indices) {
-//                    if (arraylistHospital[i].contains(p0, true)) {
-//
-//                        tempHos.add(arraylistName[i])
-//
-//                    }
-//                }
-//                for (i in arraylistName.indices) {
-//                    if (arraylistName[i].contains(p0, true)) {
-//
-//                        tempName.add(arraylistName[i])
-//
-//                    }
-//                }
-//
-//                if (temp.isNotEmpty()) {
-//
-//                    dataChanged(temp,"")
-////                            paramForSearching()
-//                }
-//                else if(tempHos.isNotEmpty()) {
-//
-//                    dataChanged(tempHos,"")
-////                            paramForSearching()
-//
-//
-//                }
-//                else if(tempName.isNotEmpty()){
-//
-//
-//                    dataChanged(tempName,"")
-////                            paramForSearching()
-//                }
-//
-////                    callForSearching(tempHos,searchQuery,docView)
-//
-//
-//
-//            }
-//
-//
-//
-//
-//            })
-//
-//
-//
-//    }
-
-
-
-
-
 
 
 
@@ -1878,47 +1503,6 @@ class MainPage : AppCompatActivity() {
             val item = itemModel[position]
 
 
-//
-//
-//            var CheckName = itemModel[position].docName
-//            var name = itemModel[position].docName
-//            if (CheckName != null) {
-//                if (CheckName.length > 10) {
-//                    var index = CheckName.indexOf(" ", 5, true)
-//                    CheckName = CheckName.substring(0, index) + "\n" + CheckName.substring(
-//                        index,
-//                        CheckName.length
-//                    )
-//                    holder.tvImageName?.text = CheckName
-//
-//                } else {
-//                    holder.tvImageName?.text = CheckName
-//
-//                }
-//            }
-//
-////            tvImageName?.text=itemModel[position].docName
-//
-//            holder.hospital?.text=itemModel[position].hospital
-//
-//
-//            holder.tvTime?.text = itemModel[position].time
-////            val str= sendResult()
-////            var i= sendPosition()
-//            val pro=itemModel[position].pro
-//            holder.tvPro?.text = pro
-//
-//
-//
-//
-//            val doc=itemModel[position].docName.toString()
-//            val cache= MyCache()
-//            val bit: Bitmap? =cache.retrieveBitmapFromCache(doc)
-//            itemModel[position].image=bit
-//            with(context)
-//                .load(bit)
-//                .into(holder.imageView)
-
 
             holder.bind(itemModel[position], listener, longClickListener,context,position)
 
@@ -2025,7 +1609,7 @@ class MainPage : AppCompatActivity() {
             mainPageViewModel.getDataDoc()
             val gamil=getGmail()
             displayAdapter(gamil)
-//            binding.sortByName.visibility=View.VISIBLE
+            binding.sortByName.visibility=View.VISIBLE
             swipe.isRefreshing = false
 
         }
@@ -2183,38 +1767,6 @@ class MainPage : AppCompatActivity() {
         val tempName = ArrayList<String>()
         val searchView = findViewById<SearchView>(R.id.searchDoc)
         searchView.queryHint = " Professional/Hospital/Doc Name"
-
-//        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autocomplete_text_view)
-//
-//        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylistPro)
-//        autoCompleteTextView.setAdapter(adapter)
-//        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-//                        val selectedItem = parent.getItemAtPosition(position) as String
-//
-//
-//
-//            //            if(autoCompleteTextView.text.isEmpty() || autoCompleteTextView.text.isBlank()){
-//            //
-//            //
-//            //                searchView.setQuery(null,true)
-//            //            }
-//            //            else{
-//
-//                        searchView.setQuery(selectedItem, true)
-//            //            }
-//
-//
-//
-//
-//
-//        }
-
-
-
-
-
-
-
 
         val custom=CustomAdapter(modalList, this)
 
@@ -2399,16 +1951,6 @@ class MainPage : AppCompatActivity() {
                     )
                 }
 
-
-
-
-//                if (j < tempName.size - 1) {
-//
-//
-//                }
-
-
-//                setColorText(i)
 
             }
             else{
