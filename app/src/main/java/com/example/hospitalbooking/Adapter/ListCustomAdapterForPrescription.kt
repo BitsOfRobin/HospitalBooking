@@ -65,7 +65,7 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         var appointment=prescription.appointment.toString()
         appointment.replace("\n","")
         viewHolder.txtAppointment.text=appointment
-        viewHolder.txtPayStatus.text=prescription.payStatus.toString()
+        viewHolder.txtVisitStatus.text=prescription.visitStatus.toString()
 //        viewHolder.txtDoc.text=prescription.doc.toString()
         val medi=prescription.medicine.toString()
         val mediStr=prescription.medicine.toString()
@@ -198,7 +198,7 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
         lateinit var txtName: TextView
         lateinit var txtDoc: TextView
         lateinit var txtMedi: TextView
-        lateinit var txtPayStatus: TextView
+        lateinit var txtVisitStatus: TextView
         lateinit var txtAppointment: TextView
         lateinit var ivImage: ImageView
         lateinit var ivImage2: ImageView
@@ -208,7 +208,7 @@ class ListCustomAdapterForPrescription(var context: PrescriptionDisplay, private
             this.txtName=row?.findViewById(R.id.txtUser) as TextView
             this.txtDoc= row.findViewById(R.id.txtDoc) as TextView
             this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
-            this.txtPayStatus= row.findViewById(R.id.txtPayStatus) as TextView
+            this.txtVisitStatus= row.findViewById(R.id.txtVisitStatus) as TextView
             this.txtAppointment= row.findViewById(R.id.txtAppoint) as TextView
             this.ivImage= row.findViewById(R.id.userImg) as ImageView
             this.ivImage2= row.findViewById(R.id.imageView3) as ImageView

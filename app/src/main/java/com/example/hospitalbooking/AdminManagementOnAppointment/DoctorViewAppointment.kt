@@ -2,6 +2,7 @@ package com.example.hospitalbooking.AdminManagementOnAppointment
 
 import com.example.hospitalbooking.KotlinClass.MyCache
 import android.annotation.SuppressLint
+import android.app.backup.BackupManager.dataChanged
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
@@ -15,12 +16,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.hospitalbooking.Adapter.ListCustomAdapterForPrescription
+import com.example.hospitalbooking.BookingAppointment.MainPageViewModel
+import com.example.hospitalbooking.BookingAppointment.MainPageViewModelFactory
 import com.example.hospitalbooking.KotlinClass.AppointmentDetail
 import com.example.hospitalbooking.PrescriptionControl.PatientPrescription
 import com.example.hospitalbooking.KotlinClass.Prescription
 import com.example.hospitalbooking.R
+import com.example.hospitalbooking.databinding.ActivityDoctorViewAppointmentBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,8 +49,10 @@ class DoctorViewAppointment : AppCompatActivity() {
     var appointment = ArrayList<String>()
     val arrayForSearch=ArrayList<String>()
     val arraylistAppointment = ArrayList<AppointmentDetail>()
+//    private lateinit var binding:ActivityDoctorViewAppointmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        binding= ActivityDoctorViewAppointmentBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_doctor_view_appointment)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -68,7 +77,7 @@ class DoctorViewAppointment : AppCompatActivity() {
 //        val arrayForSearch=ArrayList<String>()
 //        val arraylistAppointment = ArrayList<AppointmentDetail>()
         var user = " "
-        var doc = " "
+        var docApp = " "
 //        val docView=findViewById<RecyclerView>(R.id.Rview)
         val docView = findViewById<ListView>(R.id.listDocAppoint)
         val userGoogle = Firebase.auth.currentUser
@@ -91,6 +100,7 @@ class DoctorViewAppointment : AppCompatActivity() {
             var docName = it.documents
 
 //                }
+            val arrayVisitStatus=ArrayList<String>()
 
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
@@ -104,10 +114,12 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
 
-                doc = document.get("doctorAppoint").toString()
+                docApp = document.get("doctorAppoint").toString()
+               val visitStatus = document.get("visitStatus").toString()
+                arrayVisitStatus.add(visitStatus)
                 user=document.get("user").toString()
-                if(doc!="null") {
-                    appointment.add(doc)
+                if(docApp!="null") {
+                    appointment.add(docApp)
 
                 }
 
@@ -120,16 +132,16 @@ class DoctorViewAppointment : AppCompatActivity() {
 //                    arraylist.add("No records found")
 //
 //                } else {
-                if(docName.contains("Dr")&&doc!="null"&&user!="null")
+                if(docName.contains("Dr")&&docApp!="null"&&user!="null")
                 {
 //                    arraylist.add("User:$user\nAppointed Doctor:$docName\nAppointment Detail:$doc\n\n")
-                    var doctime=doc
-                    val index=doc.indexOf(",")
+                    var doctime=docApp
+                    val index=docApp.indexOf(",")
                     doctime=doctime.substring(0,index)+"\n"+doctime.substring(index,doctime.length)
-                    arraylist.add(Prescription(user,docName,doctime,0F,"",""))
+                    arraylist.add(Prescription(user,docName,doctime,0F,visitStatus,""))
 
-                    arrayForSearch.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
-                    arraylistAppointment.add(AppointmentDetail(user, docName, doc,""))
+                    arrayForSearch.add("{docName=$docName, doctorAppoint=$docApp, user=$user}")
+                    arraylistAppointment.add(AppointmentDetail(user, docName, docApp,""))
 
                 }
 
@@ -140,7 +152,7 @@ class DoctorViewAppointment : AppCompatActivity() {
             }
 
 
-            var arr = ListCustomAdapterForPrescription(this,arraylist)
+            val arr = ListCustomAdapterForPrescription(this,arraylist)
 //            fragmentSearchPatient(arr)
             docView.adapter = arr
 
@@ -206,43 +218,51 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
 
-//            docView.setOnItemClickListener { adapterView, view, i, l ->
-//
-////                val intent= Intent(this, PatientPrescription::class.java)
-//
-//                var doctorAppointment=" "
-//                if(tempList.isNotEmpty()){
+           docView.setOnItemClickListener { adapterView, view, i, l ->
+
+//                val intent= Intent(this, PatientPrescription::class.java)
+
+                var doctorAppointment=" "
+                var docName=""
+                var userName=""
+                var appointment=""
+                if(tempList.isNotEmpty()){
 //                    for(k in arrayForSearch.indices){
 //
 //                        if(arrayForSearch[k].contains(tempList.get(i).user.toString())
 //                            &&arrayForSearch[k].contains(tempList.get(i).doc.toString())){
-//
+
 //                            doctorAppointment=arrayForSearch[k].toString()
+                            docName=tempList.get(i).doc.toString()
+                            userName=tempList.get(i).user.toString()
+                            appointment=tempList.get(i).medicine.toString()
+
 //                        }
+
+                    clickToCertify(docName,userName,appointment)
+
+                    }
+
+
+
+
+                else{
 //
-//
-//
-//                    }
-//
-//
-////                    intent.putExtra("userName", doctorAppointment)
-//////                intent.putExtra("doctorAppoint",appointment[i])
-////                    startActivity(intent)
-//                }
-//                else{
-////
-////                    intent.putExtra("userName", arrayForSearch[i])
-//////                intent.putExtra("doctorAppoint",appointment[i])
-////                    startActivity(intent)
-//
-//                }
-//
-//
-//
-//
-//
-//
-//            }
+                    docName=arraylistAppointment.get(i).docName
+                    userName=arraylistAppointment.get(i).userName
+                    appointment=arraylistAppointment.get(i).AppointmentDetail
+
+
+                    clickToCertify(docName,userName,appointment)
+
+                }
+
+
+
+
+
+
+            }
 
         }
 
@@ -250,6 +270,76 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
 
+
+    }
+
+
+
+
+    private fun clickToCertify(docName:String,userName:String,appointment:String){
+
+
+
+
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Certify the present of patient")
+            builder.setMessage("Are you sure to finalize the appointment?")
+
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(
+                    applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT
+                ).show()
+
+                updateVisitStatus(docName,userName,appointment)
+//                Toast.makeText(this,"The patient is presented",Toast.LENGTH_LONG).show()
+
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(
+                    applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT
+                ).show()
+
+                Toast.makeText(this,"The status is not updated",Toast.LENGTH_LONG).show()
+
+            }
+
+
+
+
+            builder.show()
+
+
+
+    }
+
+
+    private fun updateVisitStatus(docName:String,userName:String,appointment:String){
+        mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
+
+        val userAppointmentID ="{docName=$docName, doctorAppoint=$appointment, user=$userName}"
+
+
+
+        val updateVisit = hashMapOf(
+
+            "visitStatus" to "Visited"
+
+
+        )
+
+        mFirebaseDatabaseInstance!!.collection("userAppointment")
+            .document(userAppointmentID).update(updateVisit as Map<String, Any>).addOnSuccessListener {
+
+                Toast.makeText(this,"Visit Status is updated Successfully",Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this,"Visit Status is Failed to Update",Toast.LENGTH_LONG).show()
+            }
 
     }
 
@@ -270,13 +360,13 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
     private  fun dataChanged()
-{
+    {
 
     val docView = findViewById<ListView>(R.id.listDocAppoint)
     val arr = ListCustomAdapterForPrescription(this,tempList)
 
     docView.adapter = arr
-}
+    }
 
 
 
@@ -428,6 +518,9 @@ class DoctorViewAppointment : AppCompatActivity() {
             Glide.with(context)
                 .load(bit)
                 .into(viewHolder.ivImage2)
+
+            viewHolder.txtVisit.text=prescription.visitStatus.toString()
+
             return view as View
 
         }
@@ -441,6 +534,7 @@ class DoctorViewAppointment : AppCompatActivity() {
         private  class ViewHolder(row: View?){
             lateinit var txtName: TextView
             lateinit var txtDoc: TextView
+            lateinit var txtVisit: TextView
             lateinit var txtMedi: TextView
         lateinit var ivImage2:ImageView
 
@@ -448,6 +542,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                 this.txtName=row?.findViewById(R.id.txtUser) as TextView
                 this.txtDoc= row.findViewById(R.id.txtDoc) as TextView
                 this.txtMedi= row.findViewById(R.id.txtMedi) as TextView
+                this.txtVisit= row.findViewById(R.id.txtVisitStatus) as TextView
 //            this.ivImage=row?.findViewById(R.id.imgAppoint) as ImageView
                 this.ivImage2= row.findViewById(R.id.imageView3) as ImageView
 

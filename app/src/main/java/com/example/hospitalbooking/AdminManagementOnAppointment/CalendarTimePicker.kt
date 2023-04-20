@@ -509,7 +509,8 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             "doctorAppoint" to appointTime,
             "user" to loginUser,
             "docName" to doctorName,
-        "commentStatus" to "Not Commented"
+        "commentStatus" to "Not Commented",
+            "visitStatus" to "Not Visited",
 
 
         )

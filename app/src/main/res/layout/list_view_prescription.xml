@@ -126,6 +126,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#FFC107">
+
         <TextView
             android:id="@+id/txtDoc"
             android:layout_width="wrap_content"
@@ -147,8 +148,8 @@
             android:id="@+id/txtAppoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_gravity="left"
+            android:layout_margin="10dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
 
@@ -161,14 +162,13 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtPayStatus"
+            android:id="@+id/txtVisitStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_gravity="left"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
 
+            android:text="hi"
 
             android:fontFamily="serif-monospace"
 

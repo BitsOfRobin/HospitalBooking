@@ -408,7 +408,7 @@ class DoctorAppointment : AppCompatActivity() {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
 
-                linearCurrent.visibility =View.GONE
+//                linearCurrent.visibility =View.GONE
 //                    arr.notifyDataSetChanged()
                 getCurrentViewModel()
 

@@ -109,6 +109,7 @@ class DoctorAppointmentViewModel:ViewModel() {
         val arraylistPro = ArrayList<String>()
         val arraylistUser = ArrayList<String>()
         var arraylistDocName = ArrayList<String>()
+        var arraylistVisitStatus = ArrayList<String>()
 
         var user = " "
         var doc = " "
@@ -142,6 +143,8 @@ class DoctorAppointmentViewModel:ViewModel() {
             for (document in it) {
                 Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 arraylistPro.add(document.id.toString())
+
+                val visitStatus=document.get("visitStatus").toString()
 
 
                 val docName = document.get("docName").toString()
@@ -199,7 +202,8 @@ class DoctorAppointmentViewModel:ViewModel() {
                         arraylistAppointment.add(AppointmentDetail(user, docName, doc,commentStatus))
 
                         arrayDel.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
-                    } else {
+                    }
+                    else if(calendarDate.after(date)&&visitStatus=="Visited") {
 
                         arraylistPastAppointment.add(AppointmentDetail(user, docName, doc,commentStatus))
                         arrayDelPast.add("{docName=$docName, doctorAppoint=$doc, user=$user}")
