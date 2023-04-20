@@ -189,8 +189,16 @@ class DoctorAppointment : AppCompatActivity() {
                    deleteCurrent(position)
                 }
 
+                    override fun onCommentClick(position: Int) {
+                        errMsg()
+                    }
 
-            },object :CustomAdapterDocAppointment.OnItemLongClickListener{
+                    override fun onDeleteClick(position: Int) {
+                        deleteCurrent(position)
+                    }
+
+
+                },object :CustomAdapterDocAppointment.OnItemLongClickListener{
                     override fun onItemLongClick(position: Int) {
 
                         errMsg()
@@ -227,6 +235,14 @@ class DoctorAppointment : AppCompatActivity() {
                 object : CustomAdapterDocAppointment.OnItemClickListener{
                     override fun onItemClick(position: Int) {
 
+                        deletePast(position)
+                    }
+
+                    override fun onCommentClick(position: Int) {
+                        navigateToComment(position)
+                    }
+
+                    override fun onDeleteClick(position: Int) {
                         deletePast(position)
                     }
 
@@ -484,7 +500,7 @@ class DoctorAppointment : AppCompatActivity() {
         doctorAppointmentViewModel=ViewModelProvider(this).get(DoctorAppointmentViewModel::class.java)
 
 
-                if(i<doctorAppointmentViewModel.arrayDelPast.size){
+        if(i<doctorAppointmentViewModel.arrayDelPast.size){
 
                     toComment(i)
                 }

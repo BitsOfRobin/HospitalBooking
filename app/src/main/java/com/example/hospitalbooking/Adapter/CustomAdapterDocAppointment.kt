@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,15 @@ class CustomAdapterDocAppointment (var context: Context, private var appointment
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
+        fun onCommentClick(position: Int)
+        fun onDeleteClick(position: Int)
+
     }
+
+//    interface OnItemClickListenerButton {
+//        fun onItemClickButton(currentItem: YourDataModel)
+//    }
+
 
     interface OnItemLongClickListener {
         fun onItemLongClick(position: Int)
@@ -42,6 +51,16 @@ class CustomAdapterDocAppointment (var context: Context, private var appointment
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder.deleteBtn.setOnClickListener {
+            listener.onDeleteClick(position)
+        }
+
+        holder.commentBtn.setOnClickListener {
+
+            listener.onCommentClick(position)
+        }
+
         holder.bind(appointmentDetail[position], listener, longClickListener,context,position)
     }
 
@@ -67,6 +86,8 @@ class CustomAdapterDocAppointment (var context: Context, private var appointment
         lateinit var ivImage: ImageView
         lateinit var ivImage2: ImageView
         lateinit var txtcommentStatus: TextView
+        lateinit var commentBtn: Button
+        lateinit var deleteBtn: Button
 
         init {
            this.txtName= row.findViewById(R.id.txtAppoint) as TextView
@@ -77,6 +98,8 @@ class CustomAdapterDocAppointment (var context: Context, private var appointment
             this.txtcommentStatus= row.findViewById(R.id.commentStatus) as TextView
             this.ivImage= row.findViewById(R.id.userImg) as ImageView
             this.ivImage2= row.findViewById(R.id.docImg) as ImageView
+            this.commentBtn=row.findViewById(R.id.commentBtn) as Button
+            this.deleteBtn=row.findViewById(R.id.deleteBtn) as Button
 
         }
 
@@ -162,7 +185,10 @@ class CustomAdapterDocAppointment (var context: Context, private var appointment
 
            itemView.setOnClickListener {
                 listener.onItemClick(position)
+               listener.onCommentClick(position)
+               listener.onDeleteClick(position)
             }
+
 
             itemView.setOnLongClickListener {
                 longClickListener.onItemLongClick(position)
