@@ -3,10 +3,13 @@ package com.example.hospitalbooking.DoctorInformationManagement
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
+import android.util.Log
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,6 +35,8 @@ class DoctorSummarizeReport : AppCompatActivity() {
         val docName = findViewById<TextView>(R.id.dotName)
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docLocation = findViewById<TextView>(R.id.dtHos)
+        val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
+
 
         val userGoogle = Firebase.auth.currentUser
         var dtname = ""
@@ -68,6 +73,22 @@ class DoctorSummarizeReport : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
             }
+
+
+        summarizeReportViewModel = ViewModelProvider(this).get(SummarizeReportViewModel::class.java)
+        summarizeReportViewModel.calculateAverageRating(dtname)
+
+        summarizeReportViewModel.averageRating.observe(this, Observer { averageRating ->
+            // Update the UI with the average rating
+            ratingBar.rating = averageRating.toFloat()
+        })
+//        var rating = 0.0
+//        summarizeReportViewModel.updateAppointmentRating(dtname, rating)
+//        ratingBar.setOnRatingBarChangeListener { _, rate, _ ->
+//            ratingBar.rating = rate
+//            Toast.makeText(this, "Rate $rate", Toast.LENGTH_SHORT).show()
+//        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
