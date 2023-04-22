@@ -128,7 +128,6 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 for(document in it){
                     doctorLocation = document.get("hospital").toString()
                     rating = document.get("rateFrequency").toString()
-
                 }
                 docLocation.text = doctorLocation
                 ratingBar.rating = rating.toFloat()
