@@ -18,7 +18,7 @@
         android:layout_height="300dp"
         android:id="@+id/firebaseImage"
         android:layout_marginVertical="30dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/doctor_image" />
 
     <Button

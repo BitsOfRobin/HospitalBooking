@@ -3,12 +3,12 @@
     <style name="normalStyle">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">23sp</item>
     </style>
 
     <style name="headerStyle">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textColor">@color/header_purple</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">28sp</item>
     </style>
 </resources>

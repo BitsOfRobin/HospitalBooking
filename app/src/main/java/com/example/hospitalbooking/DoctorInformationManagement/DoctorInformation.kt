@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.hospitalbooking.BookingAppointment.MainPage
@@ -211,9 +212,19 @@ class DoctorInformation : AppCompatActivity() {
                         Toast.makeText(this,"Failed to add doctor", Toast.LENGTH_SHORT).show()
                     }
 
-                val intent= Intent(this, MainPage::class.java)
-                intent.putExtra("DoctorName", docName)
-                startActivity(intent)
+                val dialog = AlertDialog.Builder(this)
+                    .setTitle("Doctor Profile Created")
+                    .setMessage("Your doctor profile has been created. Press OK navigate to homepage")
+                    .setPositiveButton("OK") { _, _ ->
+                        // Navigate to the page
+                        val intent= Intent(this, MainPage::class.java)
+                        intent.putExtra("DoctorName", docName)
+                        startActivity(intent)
+                        finish()
+                    }
+                    .create()
+                dialog.show()
+
 
             }
 

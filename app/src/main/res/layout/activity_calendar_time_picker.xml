@@ -27,6 +27,7 @@
             android:layout_marginTop="10dp"
             android:padding="5dp"
             app:civ_border_color="@color/white"
+            android:scaleType="centerCrop"
             app:civ_border_width="1dp"
             app:civ_shadow="true"
             app:civ_shadow_color="#3f51b5"
@@ -65,11 +66,12 @@
             android:layout_width="255dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:isIndicator="false"
+            android:isIndicator="true"
             android:numStars="5"
+            android:stepSize="0.5"
+            android:layout_margin="5dp"
             android:padding="5dp"
-
-            android:stepSize="0.5" />
+            android:progressBackgroundTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/comment_details_title"
@@ -102,15 +104,6 @@
             android:text="Location"
             android:textColor="#282BDC"
             android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btn_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginHorizontal="70dp"
-            android:textSize="14sp"
-          />
 
 
         <Button
