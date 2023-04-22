@@ -44,4 +44,10 @@
     <string name="review">Feedback Review</string>
     <string name="feedback_Q3_summarize">3. Comments about the doctor</string>
     <string name="numberReview">( 0 )</string>
+    <string name="job_location">Working Location:</string>
+    <string name="quesOneOptionOne">( 0 )</string>
+    <string name="option_start_value">0</string>
+    <string name="quesOneOptionTwo">( 0 )</string>
+    <string name="quesOptionValue">( 0 )</string>
+    <string name="allComment">No comment</string>
 </resources>

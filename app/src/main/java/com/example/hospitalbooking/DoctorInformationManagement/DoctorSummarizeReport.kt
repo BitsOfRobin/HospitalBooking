@@ -26,15 +26,17 @@ class DoctorSummarizeReport : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Doctor Summarize Report")
-        var doctorSpecialist = ""
 
-        val docJob = findViewById<TextView>(R.id.dtPro)
-        val docName = findViewById<TextView>(R.id.dotName)
+
         val firebaseImg = findViewById<ImageView>(R.id.ImgMed)
+        val docName = findViewById<TextView>(R.id.dotName)
+        val docJob = findViewById<TextView>(R.id.dtPro)
+        val docLocation = findViewById<TextView>(R.id.dtHos)
 
         val userGoogle = Firebase.auth.currentUser
-        var dtname=""
-
+        var dtname = ""
+        var hospital = ""
+        var doctorSpecialist = ""
 
         userGoogle.let {
             if (userGoogle != null) {
@@ -57,9 +59,11 @@ class DoctorSummarizeReport : AppCompatActivity() {
             .get().addOnSuccessListener {
                 for(document in it){
                     doctorSpecialist = document.get("pro").toString()
+                    hospital = document.get("hospital").toString()
                 }
-                docJob.text = doctorSpecialist
                 docName.text = dtname
+                docJob.text = doctorSpecialist
+                docLocation.text = hospital
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()

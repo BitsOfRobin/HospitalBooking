@@ -20,8 +20,9 @@
             <ImageView
                 android:id="@+id/ImgMed"
                 android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/doctor_image" />
 
             <LinearLayout
@@ -67,6 +68,27 @@
                     <TextView
                         android:id="@+id/dtPro"
                         android:text="@string/doctor_profession"
+                        style="@style/normalStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="@string/job_location"
+                        style="@style/normalStyle"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp" />
+
+                    <TextView
+                        android:id="@+id/dtHos"
+                        android:text="@string/working_location"
                         style="@style/normalStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,6 +158,88 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/quesOneOptionOne"
+                        android:text="@string/quesOptionValue"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"/>
+
+                    <TextView
+                        android:id="@+id/excellent"
+                        android:text="@string/radioQuesOneOptionOne"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"/>
+
+                    <TextView
+                        android:id="@+id/quesOneOptionTwo"
+                        android:text="@string/quesOptionValue"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/good"
+                        android:text="@string/radioQuesOneOptionTwo"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/quesOneOptionThree"
+                        android:text="@string/quesOptionValue"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"/>
+
+                    <TextView
+                        android:id="@+id/fair"
+                        android:text="@string/radioQuesOneOptionThree"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="30dp" />
+
+                    <TextView
+                        android:id="@+id/quesOneOptionFour"
+                        android:text="@string/quesOptionValue"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp" />
+
+                    <TextView
+                        android:id="@+id/poor"
+                        android:text="@string/radioQuesOneOptionFour"
+                        style="@style/normalStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="30dp" />
+                </LinearLayout>
+            </LinearLayout>
             <TextView
                 android:id="@+id/secondFeedback"
                 android:text="@string/feedback_Q2"
@@ -144,6 +248,94 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/quesTwoOptionOne"
+                    android:text="@string/quesOptionValue"
+                    style="@style/normalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"/>
+
+                <TextView
+                    android:id="@+id/excellentCommunicate"
+                    android:text="@string/radioQuesTwoOptionOne"
+                    style="@style/normalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/quesTwoOptionTwo"
+                    android:text="@string/quesOptionValue"
+                    style="@style/normalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"/>
+
+                <TextView
+                    android:id="@+id/clearCommunicate"
+                    android:text="@string/radioQuesTwoOptionTwo"
+                    style="@style/normalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/quesTwoOptionThree"
+                    android:text="@string/quesOptionValue"
+                    style="@style/normalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"/>
+
+                <TextView
+                    android:id="@+id/unclearCommunicate"
+                    android:text="@string/radioQuesTwoOptionThree"
+                    style="@style/normalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/quesTwoOptionFour"
+                    android:text="@string/quesOptionValue"
+                    style="@style/normalStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"/>
+
+                <TextView
+                    android:id="@+id/difficultCommunicate"
+                    android:text="@string/radioQuesTwoOptionFour"
+                    style="@style/normalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/thirdFeedback"
                 android:text="@string/feedback_Q3_summarize"
@@ -151,6 +343,14 @@
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:text="@string/allComment"
+                style="@style/normalStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"/>
         </LinearLayout>
 
         <View

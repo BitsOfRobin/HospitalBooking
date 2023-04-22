@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
 
-
         <TextView
             android:id="@+id/patientName"
             android:text="@string/patient_name"
@@ -87,7 +86,8 @@
                 android:numStars="5"
                 android:padding="5dp"
                 android:stepSize="0.5"
-                android:contentDescription="@string/feedback_rating" />
+                android:contentDescription="@string/feedback_rating"
+                android:progressBackgroundTint="@color/colorPrimaryDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
