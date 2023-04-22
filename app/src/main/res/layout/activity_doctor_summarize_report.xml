@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECD285"
+    android:background="#FFC107"
     android:orientation="vertical"
     tools:context=".DoctorInformationManagement.DoctorSummarizeReport">
 
@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="#ECD285">
 
             <ImageView
                 android:id="@+id/ImgMed"
@@ -32,7 +32,7 @@
                 android:layout_margin="22.5dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -54,9 +54,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
                     <TextView
                         android:text="@string/profession"
                         style="@style/normalStyle"
@@ -69,7 +69,7 @@
                         android:id="@+id/dtPro"
                         android:text="@string/doctor_profession"
                         style="@style/normalStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp" />
                 </LinearLayout>
@@ -98,7 +98,7 @@
         </LinearLayout>
 
         <View
-            android:background="#ECD285"
+            android:background="#FFC107"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/white">
+            android:background="#ECD285">
 
             <TextView
                 android:text="@string/rating"
@@ -132,7 +132,7 @@
         </LinearLayout>
 
         <View
-            android:background="#ECD285"
+            android:background="#FFC107"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
@@ -140,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/white">
+            android:background="#ECD285">
 
             <TextView
                 android:text="@string/comment"
@@ -333,28 +333,13 @@
                     style="@style/normalStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp" />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="20dp"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/thirdFeedback"
-                android:text="@string/feedback_Q3_summarize"
-                style="@style/normalStyle"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/comment"
-                android:text="@string/allComment"
-                style="@style/normalStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"/>
         </LinearLayout>
 
         <View
-            android:background="#ECD285"
+            android:background="#FFC107"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
@@ -362,12 +347,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/white">
+            android:background="#ECD285">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/white">
+                android:background="#ECD285">
 
                 <TextView
                     android:text="@string/review"

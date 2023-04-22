@@ -71,6 +71,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         super.onCreate(savedInstanceState)
         val doctorName = intent.getStringExtra("DoctorName").toString()
         val doctorSpecial = intent.getStringExtra("DoctorPro").toString()
+
         //val docName = findViewById<TextView>(R.id.docNameLocation)
         //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
 
@@ -145,6 +146,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 
         val doctorName = intent.getStringExtra("DoctorName")
+
+        val docLocation = findViewById<TextView>(R.id.appointment_details_location)
+        val ratingBar = findViewById<RatingBar>(R.id.accuRate)
 
         val cache= MyCache()
         val img= doctorName?.let { cache.retrieveBitmapFromCache(it) }

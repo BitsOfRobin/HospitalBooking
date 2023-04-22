@@ -1,7 +1,5 @@
 package com.example.hospitalbooking.DoctorInformationManagement
 
-import android.provider.SyncStateContract.Helpers.update
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.hospitalbooking.KotlinClass.MyCache
 import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,7 +32,7 @@ class DoctorSummarizeReport : AppCompatActivity() {
         supportActionBar!!.setTitle("Doctor Summarize Report")
 
 
-        val firebaseImg = findViewById<ImageView>(R.id.ImgMed)
+
         val docName = findViewById<TextView>(R.id.dotName)
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docLocation = findViewById<TextView>(R.id.dtHos)
@@ -49,15 +50,10 @@ class DoctorSummarizeReport : AppCompatActivity() {
             }
 
         }
-
-        val storageReference= FirebaseStorage.getInstance().getReference("Img/$dtname.jpg")
-        storageReference.getBytes(Long.MAX_VALUE).addOnSuccessListener { bytes ->
-            // Successfully downloaded data to bytes
-            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-            firebaseImg.setImageBitmap(bitmap)
-        }.addOnFailureListener {
-            // Handle any errors
-        }
+        val cache = MyCache()
+        val bitmap = cache.retrieveBitmapFromCache(dtname)
+        val imgDoct = findViewById<ImageView>(R.id.ImgMed)
+        imgDoct.setImageBitmap(bitmap)
 
         val documentRef = mFirebaseDatabaseInstance!!.collection("doctor")
         documentRef.whereEqualTo("name", dtname)
