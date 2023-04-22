@@ -1,0 +1,13 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background"
+        android:drawable="@android:drawable/btn_star_big_off" />
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <bitmap
+                android:src="@drawable/rating_bar_half_star"
+                android:tileMode="repeat" />
+        </clip>
+    </item>
+    <item android:id="@android:id/progress"
+        android:drawable="@android:drawable/btn_star_big_on" />
+</layer-list>

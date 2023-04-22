@@ -55,6 +55,7 @@ class EditDoctorProfile : AppCompatActivity() {
         val autoCompleteHospital= findViewById<AutoCompleteTextView>(R.id.autoCurrentHospital)
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
 
+
         val userGoogle = Firebase.auth.currentUser
         var dtname=""
         var hospital = ""
@@ -71,6 +72,7 @@ class EditDoctorProfile : AppCompatActivity() {
             docJobText.isEnabled = true
             autoCompleteHospital.isEnabled = true
             docLocationText.isEnabled = true
+            firebaseImg.isEnabled = true
 
             // Hide the "Edit" button and show the "Update" and "Cancel" buttons
             editProfile.visibility = View.GONE
@@ -79,6 +81,14 @@ class EditDoctorProfile : AppCompatActivity() {
             selectImgBtn.visibility = View.VISIBLE
 //            cancelButton.visibility = View.VISIBLE
             autoCompleteHospital.visibility = View.VISIBLE
+
+            firebaseImg.setOnClickListener {
+                selectImage()
+            }
+
+            selectImgBtn.setOnClickListener {
+                selectImage()
+            }
         }
         cancelUpdate.setOnClickListener {
             val storageReference= FirebaseStorage.getInstance().getReference("Img/$dtname.jpg")
@@ -108,6 +118,7 @@ class EditDoctorProfile : AppCompatActivity() {
             docJobText.isEnabled = false
             autoCompleteHospital.isEnabled = false
             docLocationText.isEnabled = false
+            firebaseImg.isEnabled = false
 
             // Hide the "Edit" button and show the "Update" and "Cancel" buttons
             editProfile.visibility = View.VISIBLE
@@ -115,10 +126,6 @@ class EditDoctorProfile : AppCompatActivity() {
             cancelUpdate.visibility = View.GONE
             selectImgBtn.visibility = View.GONE
             autoCompleteHospital.visibility = View.GONE
-        }
-
-        selectImgBtn.setOnClickListener {
-            selectImage()
         }
 
         getDoctorHos()
