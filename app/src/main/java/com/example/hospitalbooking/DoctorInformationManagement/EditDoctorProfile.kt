@@ -17,8 +17,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.KotlinClass.MyCache
+import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.R
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
@@ -49,8 +51,20 @@ class EditDoctorProfile : AppCompatActivity() {
 
         val editProfile = findViewById<Button>(R.id.edit_Btn)
         val updateProfile = findViewById<Button>(R.id.updateBtn)
+        val cancelUpdate = findViewById<Button>(R.id.cancelBtn)
         val autoCompleteHospital= findViewById<AutoCompleteTextView>(R.id.autoCurrentHospital)
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
+
+        val userGoogle = Firebase.auth.currentUser
+        var dtname=""
+        var hospital = ""
+        var doctorSpecialist = ""
+        userGoogle.let {
+            if (userGoogle != null) {
+                dtname = "Dr " + userGoogle.displayName.toString()
+            }
+
+        }
 
         editProfile.setOnClickListener {
             // Make text fields editable
@@ -61,9 +75,46 @@ class EditDoctorProfile : AppCompatActivity() {
             // Hide the "Edit" button and show the "Update" and "Cancel" buttons
             editProfile.visibility = View.GONE
             updateProfile.visibility = View.VISIBLE
+            cancelUpdate.visibility = View.VISIBLE
             selectImgBtn.visibility = View.VISIBLE
 //            cancelButton.visibility = View.VISIBLE
             autoCompleteHospital.visibility = View.VISIBLE
+        }
+        cancelUpdate.setOnClickListener {
+            val storageReference= FirebaseStorage.getInstance().getReference("Img/$dtname.jpg")
+            storageReference.getBytes(Long.MAX_VALUE).addOnSuccessListener { bytes ->
+                // Successfully downloaded data to bytes
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                firebaseImg.setImageBitmap(bitmap)
+            }.addOnFailureListener {
+                // Handle any errors
+            }
+
+            val documentRef = mFirebaseDatabaseInstance!!.collection("doctor")
+            documentRef.whereEqualTo("name", dtname)
+                .get().addOnSuccessListener {
+                    for(document in it){
+                        hospital = document.get("hospital").toString()
+                        doctorSpecialist = document.get("pro").toString()
+                    }
+                    docJobText.setText(doctorSpecialist)
+                    docLocationText.setText(hospital)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
+                }
+
+            // Make text fields editable
+            docJobText.isEnabled = false
+            autoCompleteHospital.isEnabled = false
+            docLocationText.isEnabled = false
+
+            // Hide the "Edit" button and show the "Update" and "Cancel" buttons
+            editProfile.visibility = View.VISIBLE
+            updateProfile.visibility = View.GONE
+            cancelUpdate.visibility = View.GONE
+            selectImgBtn.visibility = View.GONE
+            autoCompleteHospital.visibility = View.GONE
         }
 
         selectImgBtn.setOnClickListener {
@@ -282,8 +333,18 @@ class EditDoctorProfile : AppCompatActivity() {
                     ?.addOnFailureListener {
                         Toast.makeText(this,"Failed to edit profile information", Toast.LENGTH_SHORT).show()
                     }
-                val intent= Intent(this, EditDoctorProfile::class.java)
-                startActivity(intent)
+
+                val dialog = AlertDialog.Builder(this)
+                    .setTitle("Doctor Profile Updated")
+                    .setMessage("Your doctor profile has been updated. Press OK navigate to profile page")
+                    .setPositiveButton("OK") { _, _ ->
+                        // Navigate to the page
+                        val intent = Intent(this, EditDoctorProfile::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    .create()
+                dialog.show()
             }
         }
     }

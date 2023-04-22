@@ -36,4 +36,5 @@
     <string name="edit">Edit</string>
     <string name="profile_update">Update</string>
     <string name="hospital_suggestion">Suggestion location for hospital</string>
+    <string name="cancel_update">Cancel</string>
 </resources>
