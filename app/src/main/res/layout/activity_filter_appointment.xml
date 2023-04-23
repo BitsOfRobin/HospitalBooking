@@ -34,8 +34,8 @@
             android:id="@+id/txtDoc"
             android:layout_width="286dp"
             android:layout_height="483dp"
-            android:text="TextView"
-            android:textSize="20dp"
+            android:text="@string/test"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:background="@color/browser_actions_bg_grey"
             android:textColor="@color/black"
@@ -44,6 +44,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerDocName" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

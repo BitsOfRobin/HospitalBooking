@@ -250,9 +250,10 @@
         <Button
             android:id="@+id/submitComment"
             android:text="@string/submit_comment"
+            style="@style/buttonStyle"
             android:background="@drawable/bg_white_rounded"
             android:layout_margin="10dp"
-            android:layout_width="200sp"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

@@ -12,7 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,33 +33,6 @@
             app:civ_shadow_radius="10dp"
             />
 
-<!--        <TextView-->
-<!--            android:id="@+id/doctor_details_title"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Doctor Details"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="20dp"-->
-<!--            android:textStyle="bold" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/docNameLocation"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="45dp"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="18dp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/docSpecialistLocation"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="45dp"-->
-<!--            android:textSize="18dp"-->
-<!--            android:textColor="@color/black"/>-->
-
         <RatingBar
             android:id="@+id/accuRate"
             android:layout_width="255dp"
@@ -77,39 +49,24 @@
             android:id="@+id/comment_details_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comment"
+            android:text="@string/review"
+            style="@style/subHeaderStyle"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/appointment_details_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Appointment Details"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_marginStart="20dp" />
 
         <TextView
             android:id="@+id/appointment_details_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:text="Location"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_marginStart="20dp"
+            android:text="@string/working_location"
+            style="@style/subHeaderStyle" />
 
         <TextView
             android:id="@+id/dtHos"
             android:text="@string/working_location"
-            style="@style/normalStyle"
+            style="@style/menuStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp" />
@@ -121,8 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="31dp"
+            style="@style/buttonStyle"
             android:background="@drawable/bg_white_rounded"
-            android:text="SET DATETIME" />
+            android:text="@string/button_setTime" />
 
         <Button
             android:id="@+id/btnup1"
@@ -131,7 +89,8 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_white_rounded"
             android:layout_marginTop="17dp"
-            android:text="Book Appointment" />
+            style="@style/buttonStyle"
+            android:text="@string/book_appointment" />
 
         <TextView
             android:id="@+id/tv_textTime"
@@ -146,46 +105,6 @@
 
 
     </LinearLayout>
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical">-->
-
-
-<!--&lt;!&ndash;        <Button&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/btnEnd"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-
-<!--&lt;!&ndash;            android:layout_marginStart="117dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_marginTop="60dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text=" Time 2" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;        <Button&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/btnup2"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-
-<!--&lt;!&ndash;            android:layout_marginStart="110dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_marginTop="20dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="update time 2" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/EndTime"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-
-<!--&lt;!&ndash;            android:layout_marginStart="120dp"&ndash;&gt;-->
-
-<!--&lt;!&ndash;            android:textColor="#282BDC"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textSize="22sp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;            tools:text="@tools:sample/date/ddmmyy" />&ndash;&gt;-->
-
-
-<!--    </LinearLayout>-->
-
 </ScrollView>
 
     <com.google.android.material.navigation.NavigationView

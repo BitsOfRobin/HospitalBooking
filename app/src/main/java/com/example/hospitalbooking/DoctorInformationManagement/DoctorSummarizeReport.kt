@@ -35,11 +35,13 @@ class DoctorSummarizeReport : AppCompatActivity() {
         val docName = findViewById<TextView>(R.id.dotName)
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docLocation = findViewById<TextView>(R.id.dtHos)
+        val numRate = findViewById<TextView>(R.id.numRate)
 
         val userGoogle = Firebase.auth.currentUser
         var dtname = ""
         var hospital = ""
         var doctorSpecialist = ""
+        var numberFeedback = 0
 
         userGoogle.let {
             if (userGoogle != null) {
@@ -58,10 +60,13 @@ class DoctorSummarizeReport : AppCompatActivity() {
                 for(document in it){
                     doctorSpecialist = document.get("pro").toString()
                     hospital = document.get("hospital").toString()
+                    numberFeedback = (document.get("numRatings") as Long).toInt()
                 }
                 docName.text = dtname
                 docJob.text = doctorSpecialist
                 docLocation.text = hospital
+                numRate.text = numberFeedback.toString()
+
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()

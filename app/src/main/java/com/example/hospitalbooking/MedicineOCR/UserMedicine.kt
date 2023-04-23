@@ -48,8 +48,7 @@ class UserMedicine : AppCompatActivity() {
         setContentView(R.layout.activity_user_medicine)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle("Patient Medicine")
-//        readMedicine()
+        supportActionBar!!.setTitle("Patient Medicine Recognize")
 
         showNavBar()
 

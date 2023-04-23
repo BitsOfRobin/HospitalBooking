@@ -1,160 +1,100 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#ECD285"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:cardBackgroundColor="#ECD285"
+        app:cardCornerRadius="4dp"
+        tools:ignore="UselessParent">
 
-    >
-
-
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:layout_marginRight="5dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:background="#ECD285"-->
-<!--            android:padding="2dp"-->
-<!--            app:cardBackgroundColor="#ECD285"-->
-<!--            app:cardCornerRadius="4dp"-->
-
-<!--          >-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:src="@drawable/fui_ic_mail_white_24dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="5dp"
+            android:contentDescription="@string/doctor_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            <TextView
+                android:id="@+id/imageName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                style="@style/normalBoldStyle"
+                android:text="@string/doctor_name"/>
 
-            android:background="#ECD285"
-            android:orientation="horizontal"
-            android:padding="2dp"
-            app:cardBackgroundColor="#ECD285"
-            app:cardCornerRadius="4dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#FFC107" />
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="54dp"
+                android:layout_height="48dp"
+                app:srcCompat="@drawable/docpro"
+                android:importantForAccessibility="no" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="165dp"
-                    android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/docTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/doctor_profession"
+                style="@style/normalBoldStyle" />
 
-                    android:scaleType="fitStart"
+            <TextView
+                android:id="@+id/docPro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#152CAE"
+                />
 
-                    android:src="@drawable/fui_ic_mail_white_24dp"
-                    app:civ_border_color="#FF000000"
-                    app:civ_border_width="5dp"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:background="#FFC107" />
 
-                    />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="54dp"
+                android:layout_height="48dp"
+                app:srcCompat="@drawable/appointmentimg"
+                android:contentDescription="@string/image" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/docHospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/working_location"
+                style="@style/normalBoldStyle" />
 
-                    android:orientation="vertical">
-
-                        <TextView
-
-                            android:id="@+id/imageName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_gravity="left"
-
-
-
-                            android:layout_marginStart="5dp"
-
-                            android:textColor="@color/black"
-                            android:textSize="27sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="20dp"
-                            android:background="#FFC107" />
-
-                        <ImageView
-
-                            android:id="@+id/imageView3"
-                            android:layout_width="54dp"
-                            android:layout_height="48dp"
-                            app:srcCompat="@drawable/docpro" />
-
-                        <TextView
-
-                            android:id="@+id/docTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left
-"
-                            android:layout_marginStart="5dp"
-
-
-                            android:layout_marginTop="5dp"
-
-
-                            android:textColor="#152CAE"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="17dp"
-                            android:background="#FFC107" />
-
-
-                        <ImageView
-
-                            android:id="@+id/imageView2"
-                            android:layout_width="54dp"
-                            android:layout_height="48dp"
-                            app:srcCompat="@drawable/appointmentimg" />
-
-
-                        <TextView
-
-                            android:id="@+id/docHospital"
-                            android:layout_width="wrap_content"
-                            android:layout_height="19dp"
-                            android:layout_gravity="left
-"
-                            android:layout_margin="10dp"
-                            android:text="hi"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="20dp"
-
-                            android:background="#FFC107" />
-
-
-
-                        <TextView
-
-                            android:id="@+id/docPro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left
-"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/black"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-
-                </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="#FFC107" />
         </LinearLayout>
-        <!--</androidx.cardview.widget.CardView>-->
-
-
+    </LinearLayout>
 </LinearLayout>

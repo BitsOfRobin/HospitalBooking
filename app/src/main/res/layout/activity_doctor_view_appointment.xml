@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="#ECD285"
     tools:context=".AdminManagementOnAppointment.DoctorViewAppointment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,57 +18,20 @@
             android:id="@+id/searchDoc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
+            style="@style/normalStyle"
             android:background="@drawable/bg_white_rounded"
-            android:submitBackground="@drawable/bg_white_rounded"
-
-            />
-
-
-        <!--        <AutoCompleteTextView-->
-        <!--            android:id="@+id/autocomplete_text_view"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:completionThreshold="1"-->
-        <!--            android:background="@drawable/toggle_rounded"-->
-        <!--            android:textColor="@color/black"-->
-        <!--            android:layout_margin="10dp"-->
-        <!--            android:textColorHint="@color/black"-->
-        <!--            android:hint="Enter your query for suggestion" />-->
+            android:submitBackground="@drawable/bg_white_rounded" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/listDocAppoint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
         android:layout_marginStart="3dp"
-
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="35dp"
         android:background="@color/white"
-        android:textColor="@color/black"
+        style="@style/normalStyle"
         app:civ_border_width="5dp"
-
-        tools:listitem="@layout/list_view_prescription"
-        />
-
-
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/fragmentContainerView"-->
-<!--        android:name="com.example.hospitalbooking.ViewPatientFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginStart="177dp" />-->
-
-
-    <!-- <fragment-->
-<!--      android:layout_height="wrap_content"-->
-<!--     android:layout_width="match_parent"-->
-<!--     android:name="com.example.hospitalbooking.ViewPatientFragment"></fragment>-->
-
-
+        tools:listitem="@layout/list_view_prescription" />
 </LinearLayout>

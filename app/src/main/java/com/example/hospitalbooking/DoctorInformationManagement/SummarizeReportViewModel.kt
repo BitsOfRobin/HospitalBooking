@@ -66,14 +66,12 @@ class SummarizeReportViewModel: ViewModel() {
         documentRef.whereEqualTo("name", docName)
             .get().addOnSuccessListener {
                 val appointmentDoc = it.documents[0]
-                val currentRating = rating
-                val numRatings = ratingCount
 
                 // Update the appointment with the new rating and number of ratings
                 appointmentDoc.reference.update(
                     mapOf(
-                        "rateFrequency" to currentRating,
-                        "numRatings" to numRatings
+                        "rateFrequency" to rating,
+                        "numRatings" to ratingCount
                     )
                 )
             }

@@ -12,8 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="132dp"
-
-        android:text="UserId"
+        android:text="@string/userid"
         app:layout_constraintBottom_toTopOf="@+id/passText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -26,22 +25,24 @@
         android:layout_width="58dp"
         android:layout_height="18dp"
         android:layout_marginBottom="104dp"
-        android:text="password"
+        android:text="@string/password"
         app:layout_constraintBottom_toTopOf="@+id/ageText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <TextView
         android:id="@+id/ageText"
         android:layout_width="64dp"
         android:layout_height="16dp"
-        android:text="Age"
+        android:text="@string/age"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -50,12 +51,13 @@
         android:cursorVisible="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:text="Register"
-        android:textColor="#000000"
+        android:text="@string/register"
+        android:textColor="#E1BEE7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age" />
+        app:layout_constraintTop_toBottomOf="@+id/age"
+        tools:ignore="TextViewEdits" />
 
     <EditText
         android:id="@+id/id"
@@ -66,14 +68,15 @@
         android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
-        android:text="user id"
+        android:minHeight="48dp"
+        android:text="@string/userid"
         app:layout_constraintBottom_toTopOf="@+id/pass"
-
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor,DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/pass"
@@ -84,14 +87,15 @@
         android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
-        android:text="password"
+        android:minHeight="48dp"
+        android:text="@string/password"
         app:layout_constraintBottom_toTopOf="@+id/age"
-
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor,DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/age"
@@ -102,13 +106,13 @@
         android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
-        android:text="Age"
+        android:minHeight="48dp"
+        android:text="@string/age"
         app:layout_constraintBottom_toBottomOf="parent"
-
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor,DuplicateSpeakableTextCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

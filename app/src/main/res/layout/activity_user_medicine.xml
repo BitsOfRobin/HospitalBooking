@@ -7,69 +7,79 @@
     android:orientation="vertical"
     android:background="#ECD285"
     tools:context=".MedicineOCR.UserMedicine"
-
     android:id="@+id/drawerLayout">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAlignment="center"
-        android:text="Upload Medicine Image"
-        android:textColor="@color/black"
-        android:textSize="26dp"
-        android:textStyle="bold"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/firebaseImage"
-        android:layout_marginVertical="30dp"
-        android:scaleType="fitCenter"
-        />
-
-        <Button
-            android:id="@+id/btnRet"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/bg_white_rounded"
-            android:text="Select Medicine Image" />
-
-        <Button
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Recognise Medicine"
-            android:background="@drawable/bg_white_rounded"
-        android:id="@+id/uploadImageBtn"
-        />
-
-        <TextView
-            android:text="Medicine Name "
-            android:textSize="30dp"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#9C27B0"
-            />
-    <TextView
-        android:id="@+id/medName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:inputType="textPersonName"
-        android:text="Medicine Name" />
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:text="@string/upload_medicine_image"
+                style="@style/subHeaderStyle" />
+
+            <ImageView
+                android:id="@+id/firebaseImage"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginVertical="15dp"
+                android:scaleType="centerCrop"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/medicine_image" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="#ECD285"/>
+
+            <Button
+                android:id="@+id/btnRet"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="32dp"
+                style="@style/buttonStyle"
+                android:background="@drawable/bg_white_rounded"
+                android:text="@string/select_medicine_image" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                style="@style/buttonStyle"
+                android:text="@string/recognise_medicine"
+                android:background="@drawable/bg_white_rounded"
+                android:id="@+id/uploadImageBtn" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="#ECD285"/>
+
+            <TextView
+                android:text="@string/medicine_name"
+                style="@style/headerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="#9C27B0" />
+
+            <TextView
+                android:id="@+id/medName"
+                style="@style/subHeaderStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ems="10"
+                android:text="@string/medicine_name" />
+        </LinearLayout>
     </ScrollView>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -78,9 +88,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
 
 
