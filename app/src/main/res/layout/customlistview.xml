@@ -118,13 +118,6 @@
                 android:textStyle="bold" />
 
 
-            <Button
-                android:id="@+id/commentBtn"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="comment here"
-                android:background="@drawable/bg_white_rounded"/>
 
         </LinearLayout>
         <LinearLayout
@@ -171,6 +164,15 @@
                     android:textColor="#282BDC"
                     android:textSize="22sp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/commentBtn"
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="comment here"
+                    android:background="@drawable/bg_white_rounded"/>
+
 
                 <TextView
                     android:id="@+id/commentStatus"
