@@ -14,14 +14,14 @@
         android:layout_height="100dp"
         app:civ_border_color="@color/white"
         android:layout_marginBottom="8dp"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/nav_header_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Name"
+        android:text="@string/menu_itemName"
         android:textColor="@color/purple_500"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

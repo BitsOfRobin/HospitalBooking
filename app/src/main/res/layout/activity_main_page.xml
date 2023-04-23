@@ -6,45 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECD285"
-    tools:context=".BookingAppointment.MainPage"
-   >
+    tools:context=".BookingAppointment.MainPage">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#ECD285"
-        >
+        android:background="#ECD285">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
             <android.widget.SearchView
                 android:id="@+id/searchDoc"
                 android:layout_width="match_parent"
+                android:layout_margin="5dp"
                 android:layout_height="54dp"
                 android:textColorHint="@color/black"
                 android:background="@drawable/bg_white_rounded"
                 android:submitBackground="@drawable/bg_white_rounded" />
-
-            <!--        <AutoCompleteTextView-->
-            <!--            android:id="@+id/autocomplete_text_view"-->
-            <!--            android:layout_width="210dp"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:completionThreshold="1"-->
-            <!--            android:background="@drawable/toggle_rounded"-->
-            <!--            android:textColor="@color/black"-->
-            <!--            android:layout_marginStart="8dp"-->
-            <!--            android:layout_marginTop="9dp"-->
-            <!--            android:layout_marginEnd="9dp"-->
-            <!--            android:padding="4dp"-->
-            <!--            android:textColorHint="@color/black"-->
-            <!--            android:hint="Enter  for suggestion" />-->
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -60,31 +42,22 @@
                 android:id="@+id/sortByName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_gravity="right"
-
+                android:layout_gravity="end"
                 android:background="@drawable/toggle_rounded"
-
                 android:textColor="@color/black"
-                android:textOff="Sort by Name"
-                android:textOn="Sort by Specialist" />
+                android:textOff="@string/sort_by_name"
+                android:textOn="@string/sort_by_specialist" />
         </LinearLayout>
-
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="4dp"
-
-
-
             android:background="#FFC107"
             android:textColor="@color/black"
             android:visibility="visible"
             app:civ_border_width="5dp"
-
             tools:visibility="visible">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -97,59 +70,16 @@
                 android:textColor="@color/black"
                 android:visibility="visible"
                 app:civ_border_width="5dp"
-                tools:listitem="@layout/row_items"
-
-                />
-
-
+                tools:listitem="@layout/row_items" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/naviBtm"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             app:menu="@menu/bottomnavigationbar" />
-
-
-    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="64dp"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginStart="0dp"-->
-<!--        android:layout_marginTop="670dp"-->
-<!--        android:layout_marginEnd="0dp"-->
-<!--        android:layout_marginBottom="-3dp"-->
-<!--        app:menu="@menu/bottomnavigationbar"/>-->
-
-
-<!--    <fragment-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:name="com.example.hospitalbooking.FragmentWithSearching"-->
-<!--        ></fragment>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/sortByName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-
-
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginStart="29dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="121dp"-->
-<!--        android:layout_marginBottom="4dp"-->
-<!--        android:text="Sort By Name" />-->
-
-
     </LinearLayout>
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -158,8 +88,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

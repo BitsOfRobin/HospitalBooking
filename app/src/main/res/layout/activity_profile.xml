@@ -12,36 +12,15 @@
         android:orientation="vertical"
         android:background="#ECD285">
 
-
-
-
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_alignParentEnd="true"-->
-
-
-<!--        android:layout_centerInParent="true"-->
-<!--        android:background="#FFC107"-->
-<!--        android:padding="2dp"-->
-<!--        app:cardBackgroundColor="#FFC107"-->
-<!--        app:cardCornerRadius="4dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.499">-->
-
-
         <de.hdodenhof.circleimageview.CircleImageView
             app:civ_border_color="@color/white"
             android:id="@+id/userImg"
             android:layout_width="103dp"
             android:layout_height="161dp"
             android:layout_margin="20dp"
-
             android:layout_gravity="center"
             app:srcCompat="@drawable/google" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
@@ -49,65 +28,43 @@
 
         <TextView
             android:id="@+id/emailTv"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            style="@style/normalBoldStyle"
+            android:text="@string/email"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#ECD285"/>
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView"-->
-<!--            style="@style/TextAppearance.MaterialComponents.Caption"-->
-<!--            android:layout_width="130dp"-->
-<!--            android:layout_height="43dp"-->
-<!--         -->
-<!--            android:layout_marginStart="141dp"-->
-<!--            android:layout_marginTop="300dp"-->
-<!--            android:text="logged in"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="20dp"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            tools:layout_editor_absoluteY="300dp" />-->
-
 
         <TextView
             android:id="@+id/DisplayName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:layout_margin="20dp"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/name"
+            style="@style/normalBoldStyle" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#ECD285"/>
+
         <Button
             android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/bg_white_rounded"
             android:layout_gravity="center"
-            android:text="log out" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="#ECD285"/>
-        <!--    </androidx.cardview.widget.CardView>-->
+            android:text="@string/log_out"
+            style="@style/buttonStyle"/>
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -117,8 +74,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

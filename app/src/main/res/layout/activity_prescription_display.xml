@@ -15,18 +15,16 @@
             android:id="@+id/presListCheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="3dp"
             android:layout_marginTop="70dp"
             android:layout_marginEnd="3dp"
             android:background="@color/white"
             tools:listitem="@layout/list_view_prescription" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
             <SearchView
@@ -34,9 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_white_rounded"
-                android:submitBackground="@drawable/bg_white_rounded"
-
-                />
+                android:submitBackground="@drawable/bg_white_rounded" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -47,8 +43,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

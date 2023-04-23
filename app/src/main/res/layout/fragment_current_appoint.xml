@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".CurrentAppointFragment">
 
-
 <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
 <!--        android:id="@+id/swipeRefresh"-->
 <!--        android:layout_width="wrap_content"-->
@@ -19,46 +18,37 @@
 <!--            android:id="@+id/listDocAppoint"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:background="@color/white"-->
+<!--            android:background="@color/white" />-->
 
-<!--            />-->
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="hi"-->
-<!--                android:textSize="40dp"-->
-<!--                android:textColor="@color/purple_200"-->
-<!--                />-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="hi"-->
+<!--            android:textSize="40dp"-->
+<!--            android:textColor="@color/purple_200" />-->
 <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <RadioButton
         android:id="@+id/radioButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton" />
+        android:text="@string/radiobutton" />
 
     <RadioButton
         android:id="@+id/radioButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton" />
+        android:text="@string/radiobutton" />
 
     <RadioButton
         android:id="@+id/radioButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton" />
+        android:text="@string/radiobutton" />
 
     <RadioButton
         android:id="@+id/radioButton5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton" />
-
-
+        android:text="@string/radiobutton" />
 </LinearLayout>

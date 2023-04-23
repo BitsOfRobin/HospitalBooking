@@ -12,116 +12,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ECD285">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iconIv"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:src='@drawable/google'
-        android:layout_marginTop="100dp"
-             />
 
-    <TextView
-        android:id="@+id/captionIv"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="406dp"
-        android:layout_height="117dp"
-        android:gravity="center"
-        android:text="welcome to Google SignIn"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iconIv"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="center"
+            android:src='@drawable/medfront'
+            android:layout_marginTop="100dp" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/googleSignInBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-     android:layout_gravity="center_horizontal"
+        <TextView
+            android:id="@+id/captionIv"
+            style="@style/normalBoldStyle"
+            android:layout_width="406dp"
+            android:layout_height="117dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/welcome" />
 
-        />
+        <TextView
+            android:id="@+id/descriptionLogin"
+            style="@style/normalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:text="@string/description_login" />
 
-
-    <!--    <TextView-->
-<!--        android:id="@+id/idText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="132dp"-->
-
-<!--        android:text="UserId"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/passText"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/id"-->
-<!--        app:layout_constraintHorizontal_bias="0.518"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.914" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/passText"-->
-<!--        android:layout_width="55dp"-->
-<!--        android:layout_height="16dp"-->
-<!--        android:layout_marginBottom="436dp"-->
-<!--        android:text="password"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/pass"-->
-<!--        app:layout_constraintHorizontal_bias="0.63"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnSubmit"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="128dp"-->
-<!--        android:cursorVisible="true"-->
-<!--        android:focusable="true"-->
-<!--        android:focusableInTouchMode="true"-->
-<!--        android:text="Login"-->
-<!--        android:textColor="#000000"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/id"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="96dp"-->
-<!--        android:cursorVisible="true"-->
-<!--        android:ems="10"-->
-<!--        android:focusable="true"-->
-<!--        android:focusableInTouchMode="true"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="user id"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/pass"-->
-
-
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.597"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="1.0" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/pass"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="260dp"-->
-<!--        android:cursorVisible="true"-->
-<!--        android:ems="10"-->
-<!--        android:focusable="true"-->
-<!--        android:focusableInTouchMode="true"-->
-<!--        android:inputType="textPersonName"-->
-
-
-<!--        android:text="password"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.592"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/googleSignInBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -129,8 +53,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

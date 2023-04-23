@@ -9,30 +9,16 @@
     tools:context=".UserAppointmentManagement.DoctorAppointment"
     android:id="@+id/drawerLayout">
 
-<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--        android:id="@+id/swipeRefresh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="visible"-->
-
-<!--        tools:visibility="visible">-->
-
-
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/currentList"
-            >
+            android:id="@+id/currentList">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/appointmentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:layout_constraintBottom_toTopOf="@+id/swipeRefresh"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.38"
@@ -42,17 +28,14 @@
                     android:id="@+id/currentAppoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Appointment" />
+                    android:text="@string/current_appointment" />
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/PastAppoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Past Appointment" />
-
-
+                    android:text="@string/past_appointment" />
             </com.google.android.material.tabs.TabLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecycleDocAppoint"
@@ -62,52 +45,16 @@
                 android:visibility="visible"
                 android:padding="10dp"
                 android:paddingBottom="10dp"
-
-                tools:listitem="@layout/customlistview"
-
-
-            />
-
+                tools:listitem="@layout/customlistview" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/PastList"
-
-            >
-<!--            <ListView-->
-<!--                android:id="@+id/listPastAppoint"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@color/white"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                android:visibility="visible"-->
-
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                tools:listitem="@layout/customlistview"-->
-<!--                >-->
-
-
-<!--            </ListView>-->
+            android:id="@+id/PastList" >
 
         </LinearLayout>
-
-
-
-<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-
-
-    <!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/viewpager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="509dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/swipeRefresh" />-->
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -116,8 +63,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

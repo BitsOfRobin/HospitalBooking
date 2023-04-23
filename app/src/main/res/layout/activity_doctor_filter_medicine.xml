@@ -13,19 +13,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textAlignment="center"
-        android:text="Retrieve Patient Medicine"
-
-        android:textSize="26dp"
-        android:textStyle="bold"
-        />
-
+        android:text="@string/retrieve_patient_medicine"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnRet"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="32dp"
-        android:text="Retrieve" />
+        android:text="@string/retrieve" />
 
     <EditText
         android:id="@+id/medicineText"
@@ -33,21 +30,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-
-        android:hint="Medicine"
+        android:hint="@string/medicine"
         android:textStyle="italic"
-        android:alpha="0.4"/>
-
-<!--    <TextView-->
-<!--        android:id="@+id/medDisplay"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Medicine" />-->
+        android:alpha="0.4"
+        android:importantForAutofill="no" />
 
     <ListView
         android:id="@+id/filterMediList"
         android:layout_width="363dp"
         android:layout_height="432dp" />
-
-
 </LinearLayout>

@@ -13,42 +13,57 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/firebaseImage"
-        android:layout_marginVertical="30dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/doctor_image" />
+        <ImageView
+            android:id="@+id/firebaseImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginVertical="30dp"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/doctor_image" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="32dp"
-        android:id="@+id/btnRet"
-        android:text="@string/select_image"
-        android:background="@drawable/bg_white_rounded" />
+        <TextView
+            android:text="@string/doctor_name"
+            style="@style/headerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/upload_image"
-        android:id="@+id/uploadImageBtn"
-        android:background="@drawable/bg_white_rounded" />
+        <TextView
+            android:id="@+id/dtName"
+            android:text="@string/doctor_name"
+            style="@style/normalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="#9C27B0" />
 
-    <TextView
-        android:text="@string/doctor_name"
-        android:textSize="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#9C27B0" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#ECD285"/>
 
-    <TextView
-        android:id="@+id/dtName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:ems="10"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/btnRet"
+            android:text="@string/select_image"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_white_rounded" />
+
+        <Button
+            android:id="@+id/uploadImageBtn"
+            android:text="@string/upload_image"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_white_rounded" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#ECD285"/>
     </LinearLayout>
 </ScrollView>
