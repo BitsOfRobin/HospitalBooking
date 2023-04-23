@@ -71,6 +71,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         super.onCreate(savedInstanceState)
         val doctorName = intent.getStringExtra("DoctorName").toString()
         val doctorSpecial = intent.getStringExtra("DoctorPro").toString()
+        //val doctorLocation = intent.getStringExtra("hospital").toString()
         //val docName = findViewById<TextView>(R.id.docNameLocation)
         //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
 
@@ -116,6 +117,24 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Choose Doctor Appointment")
 
+        var rating = ""
+        var doctorLocation = ""
+        val docLocation = findViewById<TextView>(R.id.dtHos)
+        val ratingBar = findViewById<RatingBar>(R.id.accuRate)
+
+        mFirebaseDatabaseInstance?.collection("doctor")?.whereEqualTo("name", doctorName)
+            ?.get()?.addOnSuccessListener {
+
+                for(document in it){
+                    doctorLocation = document.get("hospital").toString()
+                    rating = document.get("rateFrequency").toString()
+                }
+                docLocation.text = doctorLocation
+                ratingBar.rating = rating.toFloat()
+            }
+            ?.addOnFailureListener {
+                Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
+            }
 
         val userName=findGoogleUser()
         showNavBar()
@@ -428,15 +447,15 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        val  doc =doctor?.uid
 
 //
-        mFirebaseDatabaseInstance?.collection("doctor")?.document("$doctorName")
-            ?.update("Time",realDate)
-            ?.addOnSuccessListener {
+        mFirebaseDatabaseInstance.collection("doctor").document("$doctorName")
+            .update("Time",realDate)
+            .addOnSuccessListener {
 
 
                 Toast.makeText(this,"Successfully update doctor ",Toast.LENGTH_SHORT).show()
 
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
 
                 Toast.makeText(this,"Failed to update doctor",Toast.LENGTH_SHORT).show()
             }

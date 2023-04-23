@@ -8,13 +8,14 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.hospitalbooking.KotlinClass.MyCache
 import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 
 class DoctorSummarizeReport : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore ?= null
@@ -31,12 +32,9 @@ class DoctorSummarizeReport : AppCompatActivity() {
         supportActionBar!!.setTitle("Doctor Summarize Report")
 
 
-        val firebaseImg = findViewById<ImageView>(R.id.ImgMed)
         val docName = findViewById<TextView>(R.id.dotName)
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docLocation = findViewById<TextView>(R.id.dtHos)
-        val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
-
 
         val userGoogle = Firebase.auth.currentUser
         var dtname = ""
@@ -49,15 +47,10 @@ class DoctorSummarizeReport : AppCompatActivity() {
             }
 
         }
-
-        val storageReference= FirebaseStorage.getInstance().getReference("Img/$dtname.jpg")
-        storageReference.getBytes(Long.MAX_VALUE).addOnSuccessListener { bytes ->
-            // Successfully downloaded data to bytes
-            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-            firebaseImg.setImageBitmap(bitmap)
-        }.addOnFailureListener {
-            // Handle any errors
-        }
+        val cache = MyCache()
+        val bitmap = cache.retrieveBitmapFromCache(dtname)
+        val imgDoct = findViewById<ImageView>(R.id.ImgMed)
+        imgDoct.setImageBitmap(bitmap)
 
         val documentRef = mFirebaseDatabaseInstance!!.collection("doctor")
         documentRef.whereEqualTo("name", dtname)
@@ -73,26 +66,42 @@ class DoctorSummarizeReport : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
             }
-
-
         summarizeReportViewModel = ViewModelProvider(this).get(SummarizeReportViewModel::class.java)
-        summarizeReportViewModel.calculateAverageRating(dtname)
 
-        summarizeReportViewModel.averageRating.observe(this, Observer { averageRating ->
-            // Update the UI with the average rating
-            ratingBar.rating = averageRating.toFloat()
-        })
-//        var rating = 0.0
-//        summarizeReportViewModel.updateAppointmentRating(dtname, rating)
-//        ratingBar.setOnRatingBarChangeListener { _, rate, _ ->
-//            ratingBar.rating = rate
-//            Toast.makeText(this, "Rate $rate", Toast.LENGTH_SHORT).show()
-//        }
-
+        getCalculateRating(dtname)
+        getFeedbackCommentResult(dtname)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    private fun getCalculateRating(docName: String){
+        val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
+        summarizeReportViewModel.calculateAverageRating(docName)
+
+        summarizeReportViewModel.averageRating.observe(this, Observer { averageRating ->
+            // Update the UI with the average rating
+            ratingBar.rating = averageRating.toFloat()
+        })
+    }
+
+    private fun getFeedbackCommentResult(docName: String){
+        summarizeReportViewModel.questionOneResult(docName)
+        summarizeReportViewModel.feedbackAnsOne.observe(this) { feedbackAnsOne ->
+            findViewById<TextView>(R.id.quesOneOptionOne).text = feedbackAnsOne[0].toString()
+            findViewById<TextView>(R.id.quesOneOptionTwo).text = feedbackAnsOne[1].toString()
+            findViewById<TextView>(R.id.quesOneOptionThree).text = feedbackAnsOne[2].toString()
+            findViewById<TextView>(R.id.quesOneOptionFour).text = feedbackAnsOne[3].toString()
+        }
+
+        summarizeReportViewModel.questionTwoResult(docName)
+        summarizeReportViewModel.feedbackAnsTwo.observe(this) { feedbackAnsTwo ->
+            findViewById<TextView>(R.id.quesTwoOptionOne).text = feedbackAnsTwo[0].toString()
+            findViewById<TextView>(R.id.quesTwoOptionTwo).text = feedbackAnsTwo[1].toString()
+            findViewById<TextView>(R.id.quesTwoOptionThree).text = feedbackAnsTwo[2].toString()
+            findViewById<TextView>(R.id.quesTwoOptionFour).text = feedbackAnsTwo[3].toString()
+        }
     }
 }

@@ -99,11 +99,20 @@
             android:id="@+id/appointment_details_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
             android:text="Location"
-            android:textColor="#282BDC"
-            android:textSize="18sp" />
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dtHos"
+            android:text="@string/working_location"
+            style="@style/normalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp" />
 
 
         <Button
