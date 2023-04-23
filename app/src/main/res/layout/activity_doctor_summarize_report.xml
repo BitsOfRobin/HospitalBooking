@@ -364,8 +364,9 @@
                     android:layout_margin="10dp" />
 
                 <TextView
+                    android:id="@+id/numRate"
                     android:text="@string/numberReview"
-                    style="@style/normalStyle"
+                    style="@style/headerStyle"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -375,7 +376,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
