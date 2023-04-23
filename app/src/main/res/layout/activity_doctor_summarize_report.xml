@@ -170,7 +170,7 @@
                     <TextView
                         android:id="@+id/quesOneOptionOne"
                         android:text="@string/quesOptionValue"
-                        style="@style/normalStyle"
+                        style="@style/headerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"/>
@@ -187,9 +187,10 @@
                     <TextView
                         android:id="@+id/quesOneOptionTwo"
                         android:text="@string/quesOptionValue"
-                        style="@style/normalStyle"
+                        style="@style/headerStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"/>
 
                     <TextView
                         android:id="@+id/good"
@@ -208,7 +209,7 @@
                     <TextView
                         android:id="@+id/quesOneOptionThree"
                         android:text="@string/quesOptionValue"
-                        style="@style/normalStyle"
+                        style="@style/headerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"/>
@@ -225,7 +226,7 @@
                     <TextView
                         android:id="@+id/quesOneOptionFour"
                         android:text="@string/quesOptionValue"
-                        style="@style/normalStyle"
+                        style="@style/headerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp" />
@@ -256,7 +257,7 @@
                 <TextView
                     android:id="@+id/quesTwoOptionOne"
                     android:text="@string/quesOptionValue"
-                    style="@style/normalStyle"
+                    style="@style/headerStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"/>
@@ -278,7 +279,7 @@
                 <TextView
                     android:id="@+id/quesTwoOptionTwo"
                     android:text="@string/quesOptionValue"
-                    style="@style/normalStyle"
+                    style="@style/headerStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"/>
@@ -300,7 +301,7 @@
                 <TextView
                     android:id="@+id/quesTwoOptionThree"
                     android:text="@string/quesOptionValue"
-                    style="@style/normalStyle"
+                    style="@style/headerStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"/>
@@ -322,7 +323,7 @@
                 <TextView
                     android:id="@+id/quesTwoOptionFour"
                     android:text="@string/quesOptionValue"
-                    style="@style/normalStyle"
+                    style="@style/headerStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"/>
