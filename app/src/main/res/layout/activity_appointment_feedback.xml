@@ -80,14 +80,14 @@
 
             <RatingBar
                 android:id="@+id/ratingComment"
-                android:layout_width="wrap_content"
+                android:layout_width="251dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:contentDescription="@string/feedback_rating"
                 android:numStars="5"
                 android:padding="5dp"
-                android:stepSize="0.5"
-                android:contentDescription="@string/feedback_rating"
-                android:progressBackgroundTint="@color/colorPrimaryDark" />
+                android:progressBackgroundTint="@color/colorPrimaryDark"
+                android:stepSize="0.5" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View

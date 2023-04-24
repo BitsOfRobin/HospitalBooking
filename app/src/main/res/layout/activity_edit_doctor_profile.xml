@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/ImgMed"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginVertical="15dp"
             android:scaleType="centerCrop"
             android:layout_margin="10dp"
