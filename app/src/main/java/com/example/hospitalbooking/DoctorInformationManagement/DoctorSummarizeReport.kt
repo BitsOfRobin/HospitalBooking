@@ -1,17 +1,19 @@
 package com.example.hospitalbooking.DoctorInformationManagement
 
-import android.graphics.BitmapFactory
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hospitalbooking.Adapter.FeedbackReviewAdapter
 import com.example.hospitalbooking.KotlinClass.MyCache
+import com.example.hospitalbooking.KotlinClass.feedbackReview
 import com.example.hospitalbooking.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,6 +22,8 @@ import com.google.firebase.ktx.Firebase
 class DoctorSummarizeReport : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore ?= null
     private lateinit var  summarizeReportViewModel: SummarizeReportViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var feedbackReviewAdapter: FeedbackReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
@@ -29,7 +33,7 @@ class DoctorSummarizeReport : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle("Doctor Summarize Report")
+        supportActionBar!!.title = "Doctor Summarize Report"
 
 
         val docName = findViewById<TextView>(R.id.dotName)
@@ -51,8 +55,8 @@ class DoctorSummarizeReport : AppCompatActivity() {
         }
         val cache = MyCache()
         val bitmap = cache.retrieveBitmapFromCache(dtname)
-        val imgDoct = findViewById<ImageView>(R.id.ImgMed)
-        imgDoct.setImageBitmap(bitmap)
+        val imgDoc = findViewById<ImageView>(R.id.ImgMed)
+        imgDoc.setImageBitmap(bitmap)
 
         val documentRef = mFirebaseDatabaseInstance!!.collection("doctor")
         documentRef.whereEqualTo("name", dtname)
@@ -71,10 +75,11 @@ class DoctorSummarizeReport : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
             }
-        summarizeReportViewModel = ViewModelProvider(this).get(SummarizeReportViewModel::class.java)
+        summarizeReportViewModel = ViewModelProvider(this)[SummarizeReportViewModel::class.java]
 
         getCalculateRating(dtname)
         getFeedbackCommentResult(dtname)
+        getFeedbackReview(dtname)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -108,5 +113,30 @@ class DoctorSummarizeReport : AppCompatActivity() {
             findViewById<TextView>(R.id.quesTwoOptionThree).text = feedbackAnsTwo[2].toString()
             findViewById<TextView>(R.id.quesTwoOptionFour).text = feedbackAnsTwo[3].toString()
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getFeedbackReview(docName: String) {
+        summarizeReportViewModel.feedbackReview(docName)
+
+        val feedbackReviewView = findViewById<RecyclerView>(R.id.feedbackReviewRecycler)
+        feedbackReviewView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        summarizeReportViewModel.feedbackReview.observe(this) { feedbackReview ->
+//            findViewById<TextView>(R.id.feedbackUserName).text = feedbackReview[0].toString()
+//            findViewById<TextView>(R.id.feedbackRating).text = feedbackReview[1].toString()
+//            findViewById<TextView>(R.id.feedbackComment).text = feedbackReview[2].toString()
+            val arrFeedback = FeedbackReviewAdapter(this, feedbackReview as ArrayList<feedbackReview>)
+            arrFeedback.notifyDataSetChanged()
+            feedbackReviewView.adapter = arrFeedback
+        }
+
+
+//        val arrFeedback = FeedbackReviewAdapter(this, it as ArrayList<feedbackReview>)
+//        arrFeedback.notifyDataSetChanged()
+//        feedbackReviewView.adapter = arrFeedback
+
+
+
     }
 }

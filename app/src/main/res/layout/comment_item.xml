@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="#FFC107"
+        android:orientation="vertical"
+        app:cardCornerRadius="14dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:contentDescription="@null"
+            android:foregroundGravity="center"
+            android:src="@drawable/person"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/feedbackUserName"
+            android:text="@string/user_name"
+            style="@style/rowItemMainStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+        <RatingBar
+            android:id="@+id/feedbackRating"
+            android:layout_width="235dp"
+            android:layout_height="40dp"
+            android:isIndicator="true"
+            android:layout_gravity="start"
+            android:layout_marginTop="-12dp"
+            android:layout_marginStart="-60dp"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/colorPrimaryDark"
+            android:progressTint="@color/colorAccent"
+            android:scaleX="0.25"
+            android:scaleY="0.25"
+            android:stepSize="0.5" />
+
+        <TextView
+            android:id="@+id/feedbackComment"
+            style="@style/rowItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/comment"
+            android:background="#FFFFFF"
+            tools:ignore="TextSizeCheck" />
+    </LinearLayout>
+</RelativeLayout>

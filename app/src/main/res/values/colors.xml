@@ -11,4 +11,7 @@
     <color name="colorPrimary">#808080</color>
     <color name="colorPrimaryDark">#808080</color>
     <color name="colorAccent">#9C27B0</color>
+    <color name="ratingBarBackground">#CCCCCC</color>
+    <color name="ratingBarSecondaryProgress">#CCCCCC</color>
+    <color name="ratingBarProgress">#FFC107</color>
 </resources>

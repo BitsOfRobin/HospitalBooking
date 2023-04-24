@@ -94,4 +94,5 @@
     <string name="recognise_medicine">Recognise Medicine</string>
     <string name="select_medicine_image">Select Medicine Image</string>
     <string name="medicine_image">Medicine Image</string>
+    <string name="noFeedback">No feedback</string>
 </resources>

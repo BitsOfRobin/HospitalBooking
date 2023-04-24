@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="5dp">
+
+        <View
+            android:background="#FFC107"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -377,13 +383,25 @@
                     android:layout_margin="10dp" />
             </LinearLayout>
 
-
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/feedbackReviewRecycler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/comment_item">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <View
+                android:background="#FFC107"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
         </LinearLayout>
 
     </LinearLayout>
