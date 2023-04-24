@@ -21,9 +21,7 @@ import com.google.firebase.ktx.Firebase
 
 class DoctorSummarizeReport : AppCompatActivity() {
     private var mFirebaseDatabaseInstance: FirebaseFirestore ?= null
-    private lateinit var  summarizeReportViewModel: SummarizeReportViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var feedbackReviewAdapter: FeedbackReviewAdapter
+    private lateinit var summarizeReportViewModel: SummarizeReportViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
@@ -123,20 +121,9 @@ class DoctorSummarizeReport : AppCompatActivity() {
         feedbackReviewView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         summarizeReportViewModel.feedbackReview.observe(this) { feedbackReview ->
-//            findViewById<TextView>(R.id.feedbackUserName).text = feedbackReview[0].toString()
-//            findViewById<TextView>(R.id.feedbackRating).text = feedbackReview[1].toString()
-//            findViewById<TextView>(R.id.feedbackComment).text = feedbackReview[2].toString()
             val arrFeedback = FeedbackReviewAdapter(this, feedbackReview as ArrayList<feedbackReview>)
             arrFeedback.notifyDataSetChanged()
             feedbackReviewView.adapter = arrFeedback
         }
-
-
-//        val arrFeedback = FeedbackReviewAdapter(this, it as ArrayList<feedbackReview>)
-//        arrFeedback.notifyDataSetChanged()
-//        feedbackReviewView.adapter = arrFeedback
-
-
-
     }
 }

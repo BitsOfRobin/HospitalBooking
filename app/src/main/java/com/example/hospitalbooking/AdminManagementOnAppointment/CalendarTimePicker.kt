@@ -1,5 +1,6 @@
 package com.example.hospitalbooking.AdminManagementOnAppointment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -17,10 +18,16 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hospitalbooking.Adapter.FeedbackReviewAdapter
 import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.DoctorInformationManagement.SummarizeReportViewModel
 import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
 import com.example.hospitalbooking.KotlinClass.MyCache
 import com.example.hospitalbooking.KotlinClass.appointmentViewModel
+import com.example.hospitalbooking.KotlinClass.feedbackReview
 import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
@@ -58,10 +65,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
     var savedMinute = 0
     var realDate=" "
 
+
+
     private lateinit var toggle:ActionBarDrawerToggle
 
     //private lateinit var mapView: MapView
     private lateinit var appointmentStoring:appointmentViewModel
+    private lateinit var calendarTimePickerViewModel: CalendarTimePickerViewModel
     private val doctorAppointmentList = ArrayList<String>()
     private val checkUserList = ArrayList<String>()
 
@@ -79,6 +89,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         //docSpecialist.setText(docProLocate)
 //        val docNameLocate = intent.getStringExtra("DoctorName").toString()
         //val docProLocate = intent.getStringExtra("DoctorPro").toString()
+
         getDoctorAppointment(doctorName)
         //mapLocationAPI(savedInstanceState, doctorName, docProLocate)
 //        val buttonGoogleMap = findViewById<Button>(R.id.btn_map)
@@ -109,7 +120,6 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
 //Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
 //        }
-
         setContentView(R.layout.activity_calendar_time_picker)
         pickDate()
 //        checkAppointmentBooked()
@@ -119,26 +129,40 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         var rating = ""
         var doctorLocation = ""
+        var doctorSpecialist = ""
+        var numberFeedback = 0
+
         val docLocation = findViewById<TextView>(R.id.dtHos)
         val ratingBar = findViewById<RatingBar>(R.id.accuRate)
+        val docJob = findViewById<TextView>(R.id.dtPro)
+        val docName = findViewById<TextView>(R.id.dotName)
+        val numRate = findViewById<TextView>(R.id.numRate)
 
         mFirebaseDatabaseInstance?.collection("doctor")?.whereEqualTo("name", doctorName)
             ?.get()?.addOnSuccessListener {
 
                 for(document in it){
                     doctorLocation = document.get("hospital").toString()
+                    doctorSpecialist = document.get("pro").toString()
                     rating = document.get("rateFrequency").toString()
+                    numberFeedback = (document.get("numRatings") as Long).toInt()
                 }
                 docLocation.text = doctorLocation
+                docJob.text = doctorSpecialist
                 ratingBar.rating = rating.toFloat()
+                docName.text = doctorName
+                numRate.text = numberFeedback.toString()
+
             }
             ?.addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
             }
-
         val userName=findGoogleUser()
+
         showNavBar()
 
+        calendarTimePickerViewModel = ViewModelProvider(this)[CalendarTimePickerViewModel::class.java]
+        getFeedbackReview(doctorName)
 
     }
 
@@ -1344,5 +1368,23 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        hostName.setText(hospitalName)
         // Return hospital name value
         return hospitalName
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getFeedbackReview(docName: String) {
+        val feedbackReviewView = findViewById<RecyclerView>(R.id.feedbackReviewRecycler)
+
+        if (feedbackReviewView != null) {
+            feedbackReviewView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+            calendarTimePickerViewModel.feedbackReview(docName)
+
+            calendarTimePickerViewModel.feedbackReview.observe(this) { feedbackReview ->
+                val arrFeedback = FeedbackReviewAdapter(this, feedbackReview as ArrayList<feedbackReview>)
+                arrFeedback.notifyDataSetChanged()
+                feedbackReviewView.adapter = arrFeedback
+            }
+        } else {
+            Toast.makeText(this, "commentView is null", Toast.LENGTH_SHORT).show()
+        }
     }
 }

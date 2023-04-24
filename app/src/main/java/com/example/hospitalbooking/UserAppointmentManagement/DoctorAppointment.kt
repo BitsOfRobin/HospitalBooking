@@ -37,8 +37,6 @@ import com.example.hospitalbooking.KotlinClass.AppointmentDetail
 import com.example.hospitalbooking.MedicineOCR.MedicineRecord
 import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.PrescriptionControl.PrescriptionDisplay
-import com.example.hospitalbooking.databinding.ActivityDoctorAppointmentBinding
-import com.example.hospitalbooking.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth

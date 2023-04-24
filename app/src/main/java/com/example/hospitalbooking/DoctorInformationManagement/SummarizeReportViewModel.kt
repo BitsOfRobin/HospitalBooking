@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.hospitalbooking.BookingAppointment.Feedback
 import com.example.hospitalbooking.KotlinClass.feedbackReview
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -134,7 +133,6 @@ class SummarizeReportViewModel: ViewModel() {
 
     fun feedbackReview(docName: String) {
         val comment = "commented"
-        val noComment = "No comment"
         val feedbackList = arrayListOf<feedbackReview>()
         val documentRef = mFirebaseDatabaseInstance.collection("userAppointment")
         documentRef.whereEqualTo("docName", docName)
@@ -147,9 +145,6 @@ class SummarizeReportViewModel: ViewModel() {
                     val feedbackComment = document.getString("comment")
                     if (feedbackUser != null && feedbackRateStar != null && feedbackComment != null){
                         feedbackList.add(feedbackReview(feedbackUser, feedbackRateStar, feedbackComment))
-                    }
-                    else if(feedbackUser != null && feedbackRateStar != null && feedbackComment == null){
-                        feedbackList.add(feedbackReview(feedbackUser, feedbackRateStar, noComment))
                     }
                     else{
                         Log.w(this.toString(), "Incorrect database collection")

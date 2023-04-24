@@ -13,10 +13,6 @@ import java.util.ArrayList
 
 class FeedbackReviewAdapter(var context: Context, private var feedbackReview: ArrayList<feedbackReview>): RecyclerView.Adapter<FeedbackReviewAdapter.ViewHolder>() {
 
-    companion object {
-        private const val TAG = "FeedbackReviewAdapter"
-    }
-
     class ViewHolder(commentItem: View) : RecyclerView.ViewHolder(commentItem){
         private val feedbackUser: TextView = commentItem.findViewById(R.id.feedbackUserName)
         private val feedbackRating: RatingBar = commentItem.findViewById(R.id.feedbackRating)

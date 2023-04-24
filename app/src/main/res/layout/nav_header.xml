@@ -7,7 +7,6 @@
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp">
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/nav_header_image"
         android:layout_width="100dp"
@@ -22,9 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/menu_itemName"
-        android:textColor="@color/purple_500"
+        android:textColor="#DCA605"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-
-
 </LinearLayout>
