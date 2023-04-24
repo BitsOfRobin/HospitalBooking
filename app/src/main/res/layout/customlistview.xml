@@ -5,47 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="15dp"
->
-
-
-
-
-
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/imgAppoint"-->
-        <!--            android:layout_width="73dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentStart="true"-->
-        <!--            android:layout_alignParentTop="true"-->
-        <!--            android:layout_marginStart="3dp"-->
-        <!--            android:layout_marginTop="0dp"-->
-        <!--            app:srcCompat="@drawable/appointment" />-->
-
+    android:layout_marginBottom="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
        android:orientation="horizontal"
-
-
-
         android:background="#ECD285"
-
         app:cardBackgroundColor="#ECD285"
         app:cardCornerRadius="4dp">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/userImg"
-
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-
-            android:layout_gravity="left"
-
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
             android:padding="5dp"
             app:civ_border_color="@color/white"
-
             app:civ_border_width="1dp"
             app:civ_shadow="true"
             app:civ_shadow_color="#3f51b5"
@@ -53,34 +29,21 @@
 
         <TextView
             android:id="@+id/txtAppoint"
-            android:layout_width="188dp"
-            android:layout_height="wrap_content"
-
-            android:layout_gravity="right"
-            android:text="Appointment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="start"
+            android:gravity="center_vertical"
+            android:text="@string/user_name"
             android:textColor="#282BDC"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-
-
-        <!--            <de.hdodenhof.circleimageview.CircleImageView-->
-        <!--                android:id="@+id/userImg"-->
-        <!--                android:layout_width="52dp"-->
-        <!--                android:layout_height="51dp"-->
-        <!--                android:layout_alignParentStart="true"-->
-        <!--                android:layout_alignParentTop="true"-->
-        <!--                android:layout_marginStart="8dp"-->
-        <!--                android:layout_marginTop="13dp"-->
-        <!--                tools:srcCompat="@tools:sample/avatars" />-->
-
+            style="@style/normalBoldStyle"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         android:background="#FFC107"
         android:padding="2dp">
 
@@ -88,57 +51,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFC107"
-
             android:orientation="horizontal"
             android:padding="2dp">
 
             <TextView
                 android:id="@+id/txtNum"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-
-                android:layout_gravity="top"
-
-                android:text="Num"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:text="@string/num"
+                style="@style/headerValStyle" />
 
             <TextView
                 android:id="@+id/txtWarn"
-                android:layout_width="wrap_content"
+                style="@style/normalBoldStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center"
-                android:layout_margin="20dp"
-
-                android:text="Appointment"
-                android:textColor="#282BDC"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
-
+                android:layout_marginStart="22dp"
+                android:text="@string/appointment_status"
+                android:textColor="#282BDC" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFC107"
-
             android:orientation="horizontal"
             android:padding="2dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/docImg"
-
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-
-
-
                 android:padding="5dp"
                 app:civ_border_color="@color/white"
-
                 app:civ_border_width="1dp"
                 app:civ_shadow="true"
                 app:civ_shadow_color="#3f51b5"
@@ -148,43 +95,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFC107"
-
                 android:orientation="vertical"
                 android:padding="2dp">
-
 
                 <TextView
                     android:id="@+id/txtDoc"
                     android:layout_width="192dp"
                     android:layout_height="wrap_content"
-
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_margin="20dp"
-                    android:text="Appointment"
+                    android:text="@string/doctor_name"
                     android:textColor="#282BDC"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    style="@style/normalBoldStyle" />
 
                 <Button
                     android:id="@+id/commentBtn"
-                    android:layout_gravity="left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="comment here"
-                    android:background="@drawable/bg_white_rounded"/>
-
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="start"
+                    android:background="@drawable/bg_white_rounded"
+                    style="@style/buttonStyle"
+                    android:text="@string/commentBtn" />
 
                 <TextView
                     android:id="@+id/commentStatus"
                     android:layout_width="192dp"
                     android:layout_height="wrap_content"
-
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_margin="20dp"
-                    android:text="Appointment"
+                    android:text="@string/feedback_status"
                     android:textColor="#282BDC"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    style="@style/normalBoldStyle" />
 
             </LinearLayout>
         </LinearLayout>
@@ -193,32 +135,20 @@
             android:id="@+id/txtUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
-
-            android:layout_gravity="left"
-
-            android:text="Appointment"
+            android:layout_marginStart="103dp"
+            android:layout_gravity="start"
+            android:text="@string/appointment_detail"
             android:textColor="#282BDC"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            style="@style/normalBoldStyle" />
 
-<!--        <de.hdodenhof.circleimageview.CircleImageView-->
-<!--            android:id="@+id/docImg"-->
-<!--            android:layout_width="90dp"-->
-<!--            android:layout_height="95dp"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:layout_alignParentTop="true"-->
-
-<!--            android:layout_marginStart="17dp"-->
-<!--            android:layout_marginTop="160dp"-->
-
-<!--            />-->
         <Button
             android:id="@+id/deleteBtn"
+            style="@style/buttonStyle"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="delete appointment"
+            android:text="@string/delete_appointment"
             android:background="@drawable/bg_white_rounded"/>
 
 
