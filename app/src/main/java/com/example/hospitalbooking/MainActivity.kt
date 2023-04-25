@@ -47,16 +47,22 @@ class MainActivity : AppCompatActivity() {
     private val arraylistName = ArrayList<String>()
     private var mFirebaseDatabaseInstance: FirebaseFirestore? = null
     var images = intArrayOf(
-        R.drawable.appointment,
+        R.drawable.user_profile,
         R.drawable.settime,
-        R.drawable.doc,
-        R.drawable.entermedicine,
-        R.drawable.medicine,
-        R.drawable.upload,
-        R.drawable.doc3,
-        R.drawable.medicine,
-        R.drawable.dt3,
-        R.drawable.dt2
+        R.drawable.upload_image,
+        R.drawable.doctor_profile,
+        R.drawable.booking,
+        R.drawable.summary_report,
+        R.drawable.recognize,
+        R.drawable.record,
+    )
+
+    var userImages = intArrayOf(
+        R.drawable.user_profile,
+        R.drawable.settime,
+        R.drawable.booking,
+        R.drawable.recognize,
+        R.drawable.record,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,10 +116,10 @@ class MainActivity : AppCompatActivity() {
         if (loginUser.contains("@student.tarc",true)) {
             names = arrayOf(
 
-                "Login Detail",
+                "Account Detail",
                 "View Doctors",
-                "Upload Images for Doctor",
-                "Profile",
+                "Upload Image for Doctor",
+                "Doctor Profile",
                 "Doctor View Appointment",
                 "Doctor Summarize Report",
                 "Medicine Recognition",
@@ -244,7 +250,7 @@ class MainActivity : AppCompatActivity() {
 
             for (i in names.indices) {
 
-                modalList.add(Modal(names[i], images[i]))
+                modalList.add(Modal(names[i], userImages[i]))
             }
             var customAdapter = CustomAdapter(modalList, this)
             val grid = findViewById<GridView>(R.id.gridView)
