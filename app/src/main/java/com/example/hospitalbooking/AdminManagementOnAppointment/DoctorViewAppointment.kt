@@ -185,7 +185,7 @@ class DoctorViewAppointment : AppCompatActivity() {
                                 if(arraylistUser[i].contains(p0,true))
                                 {
                                     tempList.add(Prescription(arraylistUser[i],arraylistDocName[i],appointment[i],
-                                        0F,"",""))
+                                        0F,arrayVisitStatus[i],""))
 
                                 }
 
