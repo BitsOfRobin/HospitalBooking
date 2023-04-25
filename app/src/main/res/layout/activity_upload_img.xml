@@ -51,6 +51,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="32dp"
             android:layout_gravity="center"
+            style="@style/buttonStyle"
             android:background="@drawable/bg_white_rounded" />
 
         <Button
@@ -59,6 +60,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            style="@style/buttonStyle"
             android:background="@drawable/bg_white_rounded" />
 
         <View
