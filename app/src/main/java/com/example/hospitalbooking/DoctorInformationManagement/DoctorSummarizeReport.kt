@@ -37,7 +37,6 @@ class DoctorSummarizeReport : AppCompatActivity() {
         val docName = findViewById<TextView>(R.id.dotName)
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docLocation = findViewById<TextView>(R.id.dtHos)
-        val numRate = findViewById<TextView>(R.id.numRate)
 
         val userGoogle = Firebase.auth.currentUser
         var dtname = ""
@@ -62,18 +61,19 @@ class DoctorSummarizeReport : AppCompatActivity() {
                 for(document in it){
                     doctorSpecialist = document.get("pro").toString()
                     hospital = document.get("hospital").toString()
-                    numberFeedback = (document.get("numRatings") as Long).toInt()
                 }
                 docName.text = dtname
                 docJob.text = doctorSpecialist
                 docLocation.text = hospital
-                numRate.text = numberFeedback.toString()
-
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
             }
         summarizeReportViewModel = ViewModelProvider(this)[SummarizeReportViewModel::class.java]
+
+        summarizeReportViewModel.feedbackTotalNum.observe(this) { feedbackTotalNum ->
+            findViewById<TextView>(R.id.numRate).text = feedbackTotalNum.toString()
+        }
 
         getCalculateRating(dtname)
         getFeedbackCommentResult(dtname)
@@ -86,12 +86,11 @@ class DoctorSummarizeReport : AppCompatActivity() {
     }
 
     private fun getCalculateRating(docName: String){
-        val ratingBar = findViewById<RatingBar>(R.id.rating_bar)
         summarizeReportViewModel.calculateAverageRating(docName)
 
         summarizeReportViewModel.averageRating.observe(this, Observer { averageRating ->
             // Update the UI with the average rating
-            ratingBar.rating = averageRating.toFloat()
+            findViewById<RatingBar>(R.id.rating_bar).rating = averageRating.toFloat()
         })
     }
 

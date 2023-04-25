@@ -90,55 +90,56 @@
             android:onClick="navigateHospitalGM"
             tools:ignore="OnClick" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#ECD285">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#ECD285">
-
-            <TextView
-                android:text="@string/review"
-                style="@style/subHeaderStyle"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_marginStart="20dp"/>
-
-            <TextView
-                android:id="@+id/numRate"
-                android:text="@string/numberReview"
-                style="@style/headerStyle"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp" />
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp">
+            android:background="#ECD285">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/feedbackReviewRecycler"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/white"
-                tools:listitem="@layout/comment_item">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:background="#ECD285">
+
+                <TextView
+                    android:text="@string/review"
+                    style="@style/subHeaderStyle"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/numRate"
+                    android:text="@string/numberReview"
+                    style="@style/headerStyle"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/feedbackReviewRecycler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    tools:listitem="@layout/comment_item">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
         <Button
             android:id="@+id/btn_timePicker"
             android:layout_width="wrap_content"
@@ -179,9 +180,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        >
-
+        app:menu="@menu/nav_menu">
     </com.google.android.material.navigation.NavigationView>
-
 </androidx.drawerlayout.widget.DrawerLayout>

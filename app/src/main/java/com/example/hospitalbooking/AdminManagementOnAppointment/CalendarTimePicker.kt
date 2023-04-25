@@ -136,13 +136,10 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         var rating = ""
         var doctorLocation = ""
         var doctorSpecialist = ""
-        var numberFeedback = 0
 
         val docLocation = findViewById<TextView>(R.id.dtHos)
-        val ratingBar = findViewById<RatingBar>(R.id.accuRate)
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docName = findViewById<TextView>(R.id.dotName)
-        val numRate = findViewById<TextView>(R.id.numRate)
         val navHospital = findViewById<TextView>(R.id.map)
 
         mFirebaseDatabaseInstance?.collection("doctor")?.whereEqualTo("name", doctorName)
@@ -151,14 +148,10 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 for(document in it){
                     doctorLocation = document.get("hospital").toString()
                     doctorSpecialist = document.get("pro").toString()
-                    rating = document.get("rateFrequency").toString()
-                    numberFeedback = (document.get("numRatings") as? Long?: 0).toInt()
                 }
                 docLocation.text = doctorLocation
                 docJob.text = doctorSpecialist
-                ratingBar.rating = rating.toFloat()
                 docName.text = doctorName
-                numRate.text = numberFeedback.toString()
 
                 navHospital.setOnClickListener {
                     navigateHospitalGM(doctorLocation)
@@ -172,8 +165,12 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         showNavBar()
 
         calendarTimePickerViewModel = ViewModelProvider(this)[CalendarTimePickerViewModel::class.java]
-        getFeedbackReview(doctorName)
+        calendarTimePickerViewModel.numberFeedback.observe(this) {numberFeedback ->
+            findViewById<TextView>(R.id.numRate).text = numberFeedback.toString()
+        }
 
+        getCalculateRating(doctorName)
+        getFeedbackReview(doctorName)
     }
 
     private fun getDateTimeCalendar() {
@@ -1351,6 +1348,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 //        mapView.onLowMemory()
 //    }
 
+    private fun getCalculateRating(docName: String){
+        calendarTimePickerViewModel.calculateAverageRating(docName)
+
+        calendarTimePickerViewModel.averageRating.observe(this) {averageRating ->
+            findViewById<RatingBar>(R.id.accuRate).rating = averageRating.toFloat()
+        }
+    }
 
     private fun hospitaLocation(docNameLocate : String) : String{
 
@@ -1393,6 +1397,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 arrFeedback.notifyDataSetChanged()
                 feedbackReviewView.adapter = arrFeedback
             }
+
         } else {
             Toast.makeText(this, "commentView is null", Toast.LENGTH_SHORT).show()
         }
@@ -1402,25 +1407,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val geocoder = Geocoder(this)
         val addresses = geocoder.getFromLocationName(hospitalLocation, 1)
         if (addresses.isNotEmpty()) {
-            val hospitalLatLng = LatLng(addresses[0].latitude, addresses[0].longitude)
-            val uri = "geo:${hospitalLatLng.latitude},${hospitalLatLng.longitude}?q=${hospitalLatLng.latitude},${hospitalLatLng.longitude}($hospitalLocation)"
+            val latLng = LatLng(addresses[0].latitude, addresses[0].longitude)
+            val uri = "geo:${latLng.latitude},${latLng.longitude}?q=${latLng.latitude},${latLng.longitude}($hospitalLocation)"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                val currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                if (currentLocation != null) {
-                    val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-                    val results = FloatArray(1)
-                    Location.distanceBetween(currentLatLng.latitude, currentLatLng.longitude, hospitalLatLng.latitude, hospitalLatLng.longitude, results)
-                    val distance = String.format("%.2f km", results[0] / 1000)
-                    intent.putExtra("distance", distance)
-                }
-            }
-            val distances = intent.getStringExtra("distance")
-            if (distances != null) {
-                Toast.makeText(this, "Distance to hospital: $distances", Toast.LENGTH_SHORT).show()
-            }
             startActivity(intent)
         } else {
             // Handle case where no location is found

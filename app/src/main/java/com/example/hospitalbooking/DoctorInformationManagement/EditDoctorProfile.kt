@@ -300,7 +300,6 @@ class EditDoctorProfile : AppCompatActivity() {
 
             val dtpro=docPro.text
             val pro=dtpro.toString()
-            val rateFrequency=0.0F
             val hosTxt=docHospital.text.toString()
 
             if(hosTxt.isNotEmpty()||hosTxt.isNotBlank()){
@@ -333,7 +332,6 @@ class EditDoctorProfile : AppCompatActivity() {
                 val doc= hashMapOf(
                     "name" to doctorName,
                     "pro" to pro,
-                    "rateFrequency" to rateFrequency,
                     "hospital" to hospital
                 )
                 mFirebaseDatabaseInstance?.collection("doctor")?.document(doctorName)?.update(

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bumptech.glide.Glide.init
 import com.example.hospitalbooking.KotlinClass.feedbackReview
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -25,6 +26,10 @@ class SummarizeReportViewModel: ViewModel() {
     private val _feedbackReview = MutableLiveData<List<feedbackReview>>()
     val feedbackReview: LiveData<List<feedbackReview>>
         get() = _feedbackReview
+
+    private val _feedbackTotalNum = MutableLiveData<Int>()
+    val feedbackTotalNum: LiveData<Int>
+        get() = _feedbackTotalNum
 
     init {
         readUser()
@@ -56,25 +61,8 @@ class SummarizeReportViewModel: ViewModel() {
                 else
                     0.0
 
-                // Pass the docName, averageRating, and ratingCount to updateAppointmentRating function in summarizeReportViewModel
-                updateAppointmentRating(docName, averageRating, ratingCount)
                 _averageRating.value = averageRating
-            }
-    }
-
-    private fun updateAppointmentRating(docName: String, rating: Double, ratingCount: Int) {
-        val documentRef = mFirebaseDatabaseInstance.collection("doctor")
-        documentRef.whereEqualTo("name", docName)
-            .get().addOnSuccessListener {
-                val appointmentDoc = it.documents[0]
-
-                // Update the appointment with the new rating and number of ratings
-                appointmentDoc.reference.update(
-                    mapOf(
-                        "rateFrequency" to rating,
-                        "numRatings" to ratingCount
-                    )
-                )
+                _feedbackTotalNum.value = ratingCount
             }
     }
 
@@ -134,6 +122,7 @@ class SummarizeReportViewModel: ViewModel() {
     fun feedbackReview(docName: String) {
         val comment = "commented"
         val feedbackList = arrayListOf<feedbackReview>()
+        var numRate = 0
         val documentRef = mFirebaseDatabaseInstance.collection("userAppointment")
         documentRef.whereEqualTo("docName", docName)
             .whereEqualTo("commentStatus", comment)
@@ -145,12 +134,14 @@ class SummarizeReportViewModel: ViewModel() {
                     val feedbackComment = document.getString("comment")
                     if (feedbackUser != null && feedbackRateStar != null && feedbackComment != null){
                         feedbackList.add(feedbackReview(feedbackUser, feedbackRateStar, feedbackComment))
+                        numRate++
                     }
                     else{
                         Log.w(this.toString(), "Incorrect database collection")
                     }
                 }
                 _feedbackReview.value = feedbackList
+                _feedbackTotalNum.value = numRate
             }
     }
 }
