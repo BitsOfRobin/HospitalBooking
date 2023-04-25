@@ -11,6 +11,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/ImgMed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
@@ -55,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:autofillHints="doctor profession"
-        android:enabled="false"
+
         android:inputType="text"
         android:minHeight="48dp"
         android:maxLength="100"
@@ -108,7 +109,7 @@
         android:inputType="textPersonName"
         android:text="@string/working_location"
         android:textStyle="italic"
-        android:enabled="false"
+
         tools:ignore="LabelFor,VisualLintTextFieldSize,DuplicateSpeakableTextCheck"
         android:importantForAutofill="no" />
 
