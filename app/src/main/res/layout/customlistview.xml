@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/txtDoc"
-                    android:layout_width="192dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_margin="20dp"
@@ -120,7 +120,7 @@
 
                 <TextView
                     android:id="@+id/commentStatus"
-                    android:layout_width="192dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_margin="20dp"
@@ -133,7 +133,7 @@
 
         <TextView
             android:id="@+id/txtUser"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="103dp"
             android:layout_gravity="start"
