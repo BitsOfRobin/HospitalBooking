@@ -239,7 +239,15 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 //                        }
 
-                    clickToCertify(docName,userName,appointment)
+                    if(currentDateTime(appointment)){
+                        clickToCertify(docName,userName,appointment)
+                    }
+
+                    else{
+
+                        Toast.makeText(this,"Sorry Doctor this appointment does not reach the time",Toast.LENGTH_LONG).show()
+                    }
+
 
                     }
 
@@ -253,7 +261,14 @@ class DoctorViewAppointment : AppCompatActivity() {
                     appointment=arraylistAppointment.get(i).AppointmentDetail
 
 
-                    clickToCertify(docName,userName,appointment)
+                    if(currentDateTime(appointment)){
+                        clickToCertify(docName,userName,appointment)
+                    }
+
+                    else{
+
+                        Toast.makeText(this,"Sorry Doctor this appointment does not reach the time",Toast.LENGTH_LONG).show()
+                    }
 
                 }
 
@@ -272,6 +287,21 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
     }
+
+    private fun currentDateTime(dateString:String):Boolean{
+
+
+
+        val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm:ss")
+        val date = dateFormat.parse(dateString)
+
+        val now=Calendar.getInstance().time
+
+        return now.after(date)
+
+    }
+
+
 
 
 
