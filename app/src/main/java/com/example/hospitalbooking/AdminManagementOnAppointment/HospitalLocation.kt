@@ -13,7 +13,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 class HospitalLocation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hospital_location)
         val hospitalName = intent.getStringExtra("HospitalName").toString()
 
         val mapView = findViewById<MapView>(R.id.map_view)

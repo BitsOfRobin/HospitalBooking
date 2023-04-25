@@ -241,7 +241,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:maxLength="100"
             android:maxLines="3"
             android:padding="10dp"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
