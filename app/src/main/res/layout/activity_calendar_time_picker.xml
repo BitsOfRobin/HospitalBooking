@@ -76,6 +76,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp" />
+
+        <TextView
+            android:id="@+id/map"
+            style="@style/rowItemMainStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="#093EFF"
+            android:text="@string/view_on_google_map"
+            android:clickable="true"
+            android:onClick="navigateHospitalGM"
+            tools:ignore="OnClick" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -137,6 +137,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val docJob = findViewById<TextView>(R.id.dtPro)
         val docName = findViewById<TextView>(R.id.dotName)
         val numRate = findViewById<TextView>(R.id.numRate)
+        val navHospital = findViewById<TextView>(R.id.map)
 
         mFirebaseDatabaseInstance?.collection("doctor")?.whereEqualTo("name", doctorName)
             ?.get()?.addOnSuccessListener {
@@ -153,6 +154,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                 docName.text = doctorName
                 numRate.text = numberFeedback.toString()
 
+                navHospital.setOnClickListener {
+                    navigateHospitalGM(doctorLocation)
+                }
             }
             ?.addOnFailureListener {
                 Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
@@ -1385,6 +1389,20 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             }
         } else {
             Toast.makeText(this, "commentView is null", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun navigateHospitalGM(hospitalLocation: String){
+        val geocoder = Geocoder(this)
+        val addresses = geocoder.getFromLocationName(hospitalLocation, 1)
+        if (addresses.isNotEmpty()) {
+            val latLng = LatLng(addresses[0].latitude, addresses[0].longitude)
+            val uri = "geo:${latLng.latitude},${latLng.longitude}?q=${latLng.latitude},${latLng.longitude}($hospitalLocation)"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            startActivity(intent)
+        } else {
+            // Handle case where no location is found
+            Toast.makeText(this, "No hospital location can found", Toast.LENGTH_SHORT).show()
         }
     }
 }
