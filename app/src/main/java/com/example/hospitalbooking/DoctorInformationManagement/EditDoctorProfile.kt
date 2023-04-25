@@ -1,5 +1,6 @@
 package com.example.hospitalbooking.DoctorInformationManagement
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
@@ -206,6 +207,7 @@ class EditDoctorProfile : AppCompatActivity() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setDocPic() {
         val docName = "Dr " + getGoogleName()
 
@@ -334,7 +336,9 @@ class EditDoctorProfile : AppCompatActivity() {
                     "rateFrequency" to rateFrequency,
                     "hospital" to hospital
                 )
-                mFirebaseDatabaseInstance?.collection("doctor")?.document( "$doctorName")?.set(doc)?.addOnSuccessListener {
+                mFirebaseDatabaseInstance?.collection("doctor")?.document(doctorName)?.update(
+                    doc as Map<String, Any>
+                )?.addOnSuccessListener {
                     Toast.makeText(this,"Successfully edit profile information",Toast.LENGTH_SHORT).show()
                 }
                     ?.addOnFailureListener {

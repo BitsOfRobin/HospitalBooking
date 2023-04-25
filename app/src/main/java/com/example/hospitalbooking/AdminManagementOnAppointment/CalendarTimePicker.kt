@@ -5,8 +5,12 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +21,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +55,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
+import android.Manifest
 
 class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
     var day = 0
@@ -146,7 +152,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                     doctorLocation = document.get("hospital").toString()
                     doctorSpecialist = document.get("pro").toString()
                     rating = document.get("rateFrequency").toString()
-                    numberFeedback = (document.get("numRatings") as Long).toInt()
+                    numberFeedback = (document.get("numRatings") as? Long?: 0).toInt()
                 }
                 docLocation.text = doctorLocation
                 docJob.text = doctorSpecialist
@@ -1396,9 +1402,25 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
         val geocoder = Geocoder(this)
         val addresses = geocoder.getFromLocationName(hospitalLocation, 1)
         if (addresses.isNotEmpty()) {
-            val latLng = LatLng(addresses[0].latitude, addresses[0].longitude)
-            val uri = "geo:${latLng.latitude},${latLng.longitude}?q=${latLng.latitude},${latLng.longitude}($hospitalLocation)"
+            val hospitalLatLng = LatLng(addresses[0].latitude, addresses[0].longitude)
+            val uri = "geo:${hospitalLatLng.latitude},${hospitalLatLng.longitude}?q=${hospitalLatLng.latitude},${hospitalLatLng.longitude}($hospitalLocation)"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                val currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                if (currentLocation != null) {
+                    val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
+                    val results = FloatArray(1)
+                    Location.distanceBetween(currentLatLng.latitude, currentLatLng.longitude, hospitalLatLng.latitude, hospitalLatLng.longitude, results)
+                    val distance = String.format("%.2f km", results[0] / 1000)
+                    intent.putExtra("distance", distance)
+                }
+            }
+            val distances = intent.getStringExtra("distance")
+            if (distances != null) {
+                Toast.makeText(this, "Distance to hospital: $distances", Toast.LENGTH_SHORT).show()
+            }
             startActivity(intent)
         } else {
             // Handle case where no location is found
