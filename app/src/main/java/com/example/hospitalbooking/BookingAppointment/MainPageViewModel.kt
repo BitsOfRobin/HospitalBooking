@@ -980,52 +980,37 @@ class MainPageViewModel(private val p0:ArrayList<String>, private  val num:Int):
 
 
 
-        var j = 0
+//        var j = 0
         val size=tempName.size
         for (i in arraylistName.indices) {
-            if (arraylistName[i] == tempName[j]) {
+            for(j in tempName.indices) {
+                if (arraylistName[i] == tempName[j]) {
 
-                val cache= MyCache()
-                val bitmap: Bitmap? =cache.retrieveBitmapFromCache(tempName[j])
-                val time = arraylistTime[i] + "\n" + arraylistTime2[i]
-                bitmap?.let {
-                    ModalFormMain(
-                        arraylistPro[i],
-                        it,
-                        arraylistName[i],
-                        time,
-                        arraylistHospital[i]
-                    )
-                }?.let {
-                    modalListSearch.add(
-                        it
-                    )
+                    val cache = MyCache()
+                    val bitmap: Bitmap? = cache.retrieveBitmapFromCache(tempName[j])
+                    val time = arraylistTime[i] + "\n" + arraylistTime2[i]
+                    bitmap?.let {
+                        ModalFormMain(
+                            arraylistPro[i],
+                            it,
+                            arraylistName[i],
+                            time,
+                            arraylistHospital[i]
+                        )
+                    }?.let {
+                        modalListSearch.add(
+                            it
+                        )
+                    }
+
+
+
                 }
 
-
-
-
-//                if (j < tempName.size - 1) {
-//
-//
-//                }
-
-
-//                setColorText(i)
-
-            }
-            else{
-                if(j < size-1){
-                    j++
-                }
 
             }
 
 
-
-
-
-//                dt++
         }
 //
 //         _modalListSearch.value=modalListSearch
