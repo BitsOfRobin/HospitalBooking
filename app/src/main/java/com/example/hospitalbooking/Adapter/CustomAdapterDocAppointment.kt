@@ -185,8 +185,8 @@ class CustomAdapterDocAppointment (var context: Context, private var appointment
 
            itemView.setOnClickListener {
                 listener.onItemClick(position)
-               listener.onCommentClick(position)
-               listener.onDeleteClick(position)
+//               listener.onCommentClick(position)
+//               listener.onDeleteClick(position)
             }
 
 
