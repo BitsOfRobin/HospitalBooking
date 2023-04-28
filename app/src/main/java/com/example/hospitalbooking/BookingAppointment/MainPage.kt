@@ -1,5 +1,10 @@
 package com.example.hospitalbooking.BookingAppointment
 
+import com.example.hospitalbooking.BookingAppointment.MainPageViewModel
+import com.example.hospitalbooking.BookingAppointment.MainPageViewModelFactory
+
+
+
 
 
 import com.example.hospitalbooking.KotlinClass.MyCache
@@ -24,6 +29,7 @@ import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -137,7 +143,7 @@ class MainPage : AppCompatActivity() {
 
 
 
-        mainPageViewModel=ViewModelProvider(this,MainPageViewModelFactory(arraylistEmpty,-1))
+        mainPageViewModel=ViewModelProvider(this, MainPageViewModelFactory(arraylistEmpty,-1))
                             .get(MainPageViewModel::class.java)
        mainPageViewModel.getDataDoc()
 //        var getCache=mainPageViewModel.retrieveCache()
@@ -510,7 +516,7 @@ class MainPage : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun paramForSearching(){
+    private fun paramForSearching(searchResult:String){
         val docView=binding.mainPageRecycleView
 
         mainPageViewModel.modalListLiveSearch.observe(this, androidx.lifecycle.Observer {
@@ -539,6 +545,8 @@ class MainPage : AppCompatActivity() {
 
 
                     })
+
+
 
                 val docView = binding.mainPageRecycleView
                 adapter.notifyDataSetChanged()
@@ -587,7 +595,7 @@ class MainPage : AppCompatActivity() {
 //                        showMsg(p0)
 
                         mainPageViewModel.searchDoctor(p0)
-                        paramForSearching()
+                        paramForSearching(p0)
 //                        for (i in arraylistPro.indices) {
 //                            if (arraylistPro[i].contains(p0, true)) {
 
@@ -626,7 +634,7 @@ class MainPage : AppCompatActivity() {
 //                        showMsg(p0)
 
                         mainPageViewModel.searchDoctor(p0)
-                        paramForSearching()
+                        paramForSearching(p0)
                     } else {
 //                        getAdapter()
 //                        paramForSearching()
@@ -1588,6 +1596,11 @@ class MainPage : AppCompatActivity() {
             }
 
         }
+
+
+
+
+
 
 
 
