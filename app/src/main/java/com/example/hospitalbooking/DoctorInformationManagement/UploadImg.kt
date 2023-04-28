@@ -26,6 +26,7 @@ class UploadImg : AppCompatActivity() {
         supportActionBar!!.setTitle("Upload Doctor Image")
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
+        val image = findViewById<ImageView>(R.id.firebaseImage)
         var dtname=""
         val name=findViewById<TextView>(R.id.dtName)
         val userGoogle = Firebase.auth.currentUser
@@ -39,6 +40,11 @@ class UploadImg : AppCompatActivity() {
 
         }
         selectImgBtn.setOnClickListener {
+            selectImage()
+
+        }
+
+        image.setOnClickListener {
             selectImage()
 
         }

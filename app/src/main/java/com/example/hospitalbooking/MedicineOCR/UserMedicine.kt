@@ -54,8 +54,14 @@ class UserMedicine : AppCompatActivity() {
 
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
+        val image = findViewById<ImageView>(R.id.firebaseImage)
 
         selectImgBtn.setOnClickListener {
+            selectImage()
+
+        }
+
+        image.setOnClickListener {
             selectImage()
 
         }
