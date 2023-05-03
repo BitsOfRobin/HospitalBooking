@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Geocoder
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.KotlinClass.MyCache
 import com.example.hospitalbooking.MainActivity
 import com.example.hospitalbooking.R
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -55,7 +57,9 @@ class EditDoctorProfile : AppCompatActivity() {
         val cancelUpdate = findViewById<Button>(R.id.cancelBtn)
         val autoCompleteHospital= findViewById<AutoCompleteTextView>(R.id.autoCurrentHospital)
         val selectImgBtn=findViewById<Button>(R.id.btnRet)
-
+        val navHospital = findViewById<TextView>(R.id.map)
+        var errMsgPro = findViewById<TextView>(R.id.errPro)
+        var errMsgHosp = findViewById<TextView>(R.id.errHos)
 
         val userGoogle = Firebase.auth.currentUser
         var dtname=""
@@ -80,8 +84,10 @@ class EditDoctorProfile : AppCompatActivity() {
             updateProfile.visibility = View.VISIBLE
             cancelUpdate.visibility = View.VISIBLE
             selectImgBtn.visibility = View.VISIBLE
-//            cancelButton.visibility = View.VISIBLE
             autoCompleteHospital.visibility = View.VISIBLE
+            navHospital.visibility = View.GONE
+            errMsgHosp.visibility = View.VISIBLE
+            errMsgPro.visibility = View.VISIBLE
 
             firebaseImg.setOnClickListener {
                 selectImage()
@@ -91,6 +97,12 @@ class EditDoctorProfile : AppCompatActivity() {
                 selectImage()
             }
         }
+
+        navHospital.setOnClickListener {
+
+            navigateHospitalGM(docLocationText.text.toString())
+        }
+
         cancelUpdate.setOnClickListener {
             val storageReference= FirebaseStorage.getInstance().getReference("Img/$dtname.jpg")
             storageReference.getBytes(Long.MAX_VALUE).addOnSuccessListener { bytes ->
@@ -110,6 +122,11 @@ class EditDoctorProfile : AppCompatActivity() {
                     }
                     docJobText.setText(doctorSpecialist)
                     docLocationText.setText(hospital)
+
+                    navHospital.setOnClickListener {
+                        navigateHospitalGM(hospital)
+                    }
+
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed ", Toast.LENGTH_SHORT).show()
@@ -121,12 +138,19 @@ class EditDoctorProfile : AppCompatActivity() {
             docLocationText.isEnabled = false
             firebaseImg.isEnabled = false
 
+            // Remove error message if there are no changes
+            errMsgHosp.text = ""
+            errMsgPro.text = ""
+
             // Hide the "Edit" button and show the "Update" and "Cancel" buttons
             editProfile.visibility = View.VISIBLE
             updateProfile.visibility = View.GONE
             cancelUpdate.visibility = View.GONE
             selectImgBtn.visibility = View.GONE
             autoCompleteHospital.visibility = View.GONE
+            navHospital.visibility = View.VISIBLE
+            errMsgHosp.visibility = View.GONE
+            errMsgPro.visibility = View.GONE
         }
 
         getDoctorHos()
@@ -273,7 +297,7 @@ class EditDoctorProfile : AppCompatActivity() {
 
         docHospital.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                val input =docHospital.text.toString()
+                val input = docHospital.text.toString()
                 if (input.isNotEmpty()) {
                     // validate input here
                     if (!isLetters(input)) {
@@ -302,11 +326,11 @@ class EditDoctorProfile : AppCompatActivity() {
             val pro=dtpro.toString()
             val hosTxt=docHospital.text.toString()
 
-            if(hosTxt.isNotEmpty()||hosTxt.isNotBlank()){
+            if(docHospital.text.toString().isNotEmpty()||docHospital.text.toString().isNotBlank()){
                 hospital=hosTxt
             }
             val letter:Boolean=isLetters(pro)
-            val validaHos=isLetters(hospital)
+            val validaHos:Boolean=isLetters(hospital)
 
             mFirebaseDatabaseInstance= FirebaseFirestore.getInstance()
             val doctorName=docName
@@ -319,15 +343,16 @@ class EditDoctorProfile : AppCompatActivity() {
                 errTextPro.text=" "
             }
 
-            if(!validaHos||hospital.isBlank()||hospital.isEmpty()){
+            if(!validaHos||docHospital.text.toString().isBlank()||docHospital.text.toString().isEmpty()){
                 Toast.makeText(this,"Hospital contain non alphabet or empty",Toast.LENGTH_LONG).show()
+//                Toast.makeText(this,"$hosTxt",Toast.LENGTH_LONG).show()
                 errTextHos.text="Hospital contain non alphabet or empty"
             }
             else{
                 errTextHos.text=" "
             }
 
-            if(letter&&pro!=" "&&pro!="" &&validaHos&&hospital.isNotBlank()&&hospital.isNotEmpty())
+            if(letter&&pro!=" "&&pro!="" &&validaHos&&docHospital.text.toString().isNotBlank()&&docHospital.text.toString().isNotEmpty())
             {
                 val doc= hashMapOf(
                     "name" to doctorName,
@@ -385,5 +410,19 @@ class EditDoctorProfile : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    fun navigateHospitalGM(hospitalLocation: String){
+        val geocoder = Geocoder(this)
+        val addresses = geocoder.getFromLocationName(hospitalLocation, 1)
+        if (addresses.isNotEmpty()) {
+            val latLng = LatLng(addresses[0].latitude, addresses[0].longitude)
+            val uri = "geo:${latLng.latitude},${latLng.longitude}?q=${latLng.latitude},${latLng.longitude}($hospitalLocation)"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            startActivity(intent)
+        } else {
+            // Handle case where no location is found
+            Toast.makeText(this, "No hospital location can found", Toast.LENGTH_SHORT).show()
+        }
     }
 }

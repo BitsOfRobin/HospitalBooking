@@ -1,5 +1,6 @@
 package com.example.hospitalbooking.MedicineOCR
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,6 +31,7 @@ class DoctorFilterMedicine : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun retrieveMedi()
     {
         var loginUser=" "

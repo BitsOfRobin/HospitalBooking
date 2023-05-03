@@ -418,7 +418,19 @@ class PrescriptionDisplay : AppCompatActivity() {
 
         nav_view.setNavigationItemSelectedListener {
 
-            when(it.itemId){
+            when (it.itemId) {
+
+                R.id.nav_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_profile -> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
 
                 R.id.nav_BookAppoint -> {
                     val intent = Intent(this, MainPage::class.java)
@@ -426,31 +438,8 @@ class PrescriptionDisplay : AppCompatActivity() {
 
                 }
 
-
-
-
-                R.id.nav_Pres -> {
-                    val intent = Intent(this, PrescriptionDisplay::class.java)
-                    startActivity(intent)
-
-                }
-                R.id.nav_home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-
-                }
-                R.id.nav_profile -> {
-                    val intent = Intent(this, Profile::class.java)
-                    startActivity(intent)
-
-                }
                 R.id.nav_viewAppoint -> {
                     val intent = Intent(this, DoctorAppointment::class.java)
-                    startActivity(intent)
-
-                }
-                R.id.nav_medicineRecord -> {
-                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
@@ -459,21 +448,13 @@ class PrescriptionDisplay : AppCompatActivity() {
                     startActivity(intent)
                 }
 
-
-
-
-
+                R.id.nav_medicineRecord -> {
+                    val intent = Intent(this, MedicineRecord::class.java)
+                    startActivity(intent)
+                }
             }
-
-
             true
-
         }
-
-
-
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

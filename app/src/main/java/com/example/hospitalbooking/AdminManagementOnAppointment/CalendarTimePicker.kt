@@ -1197,7 +1197,19 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         nav_view.setNavigationItemSelectedListener {
 
-            when(it.itemId){
+            when (it.itemId) {
+
+                R.id.nav_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_profile -> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
 
                 R.id.nav_BookAppoint -> {
                     val intent = Intent(this, MainPage::class.java)
@@ -1205,31 +1217,8 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
                 }
 
-
-
-
-                R.id.nav_Pres -> {
-                    val intent = Intent(this, PrescriptionDisplay::class.java)
-                    startActivity(intent)
-
-                }
-                R.id.nav_home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-
-                }
-                R.id.nav_profile -> {
-                    val intent = Intent(this, Profile::class.java)
-                    startActivity(intent)
-
-                }
                 R.id.nav_viewAppoint -> {
                     val intent = Intent(this, DoctorAppointment::class.java)
-                    startActivity(intent)
-
-                }
-                R.id.nav_medicineRecord -> {
-                    val  intent = Intent(this, MedicineRecord::class.java)
                     startActivity(intent)
 
                 }
@@ -1238,22 +1227,13 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
                     startActivity(intent)
                 }
 
-
-
-
-
+                R.id.nav_medicineRecord -> {
+                    val intent = Intent(this, MedicineRecord::class.java)
+                    startActivity(intent)
+                }
             }
-
-
             true
-
         }
-
-
-
-
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -1358,12 +1338,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
     private fun hospitaLocation(docNameLocate : String) : String{
 
-        //val docName = findViewById<TextView>(R.id.docNameLocation)
-        //val docSpecialist = findViewById<TextView>(R.id.docSpecialistLocation)
         mFirebaseDatabaseInstance = FirebaseFirestore.getInstance()
-
-        //docName.setText(docNameLocate)
-        //docSpecialist.setText(docProLocate)
 
         var hospitalName = ""
 
@@ -1377,12 +1352,9 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             .addOnFailureListener {
                 Toast.makeText(this, "Fail to retrieve", Toast.LENGTH_SHORT).show()
             }
-
-//        val hostName = findViewById<TextView>(R.id.appointment_details_location)
-//        hostName.setText(hospitalName)
-        // Return hospital name value
         return hospitalName
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun getFeedbackReview(docName: String) {
         val feedbackReviewView = findViewById<RecyclerView>(R.id.feedbackReviewRecycler)

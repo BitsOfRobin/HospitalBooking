@@ -86,7 +86,8 @@
             android:layout_height="wrap_content"
             android:textColor="#F44336"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:visibility="gone" />
 
         <TextView
             android:text="@string/working_location"
@@ -110,7 +111,6 @@
             android:minHeight="48dp"
             android:visibility="gone" />
 
-
         <EditText
             android:id="@+id/dtHos"
             style="@style/normalStyle"
@@ -127,6 +127,20 @@
             tools:ignore="LabelFor,VisualLintTextFieldSize,DuplicateSpeakableTextCheck"
             android:importantForAutofill="no" />
 
+        <TextView
+            android:id="@+id/map"
+            style="@style/rowItemMainStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:minHeight="48dp"
+            android:text="@string/view_on_google_map"
+            android:textColor="#093EFF"
+            tools:ignore="OnClick,UsingOnClickInXml"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/errHos"
@@ -135,7 +149,8 @@
             android:layout_height="wrap_content"
             android:textColor="#F44336"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/edit_Btn"
@@ -176,5 +191,9 @@
                 android:visibility="gone"
                 android:background="@drawable/bg_white_rounded" />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#ECD285"/>
 </LinearLayout>
     </ScrollView>
