@@ -859,7 +859,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             return false
         }
         else if(savedHour >=17&&minute>-1){
-            tvTime.text="The doctor is after office hours"
+            tvTime.text="The appointment is after office hours"
             return false
         }
 
@@ -1010,7 +1010,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
             return false
         }
         else if(savedHour >=17&&minute>-1){
-            tvTime.text="The doctor is after office hours"
+            tvTime.text="The appointment is after office hours"
             return false
         }
 
