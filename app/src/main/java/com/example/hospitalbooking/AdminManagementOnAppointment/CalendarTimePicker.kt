@@ -437,7 +437,7 @@ class CalendarTimePicker : AppCompatActivity(),DatePickerDialog.OnDateSetListene
 
         }
         else if(savedHour >=17&&minute>-1){
-            tvTime.text="The doctor is after office hours"
+            tvTime.text="The appointment is after office hours"
 
         }
 
