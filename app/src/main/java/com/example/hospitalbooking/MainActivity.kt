@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
                 modalList.add(Modal(names[i], images[i]))
             }
-            var customAdapter = CustomAdapter(modalList, this)
+            var customAdapter = HomeCustomAdapter(modalList, this)
             val grid = findViewById<GridView>(R.id.gridView)
 
 //        val arraylist = arrayOf("Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login","Set time for Doctors","Upload Images for doctor")
@@ -252,7 +252,7 @@ class MainActivity : AppCompatActivity() {
 
                 modalList.add(Modal(names[i], userImages[i]))
             }
-            var customAdapter = CustomAdapter(modalList, this)
+            var customAdapter = HomeCustomAdapter(modalList, this)
             val grid = findViewById<GridView>(R.id.gridView)
 
 //        val arraylist = arrayOf("Book Appointment", "Medicine Record", "Enter Medicine","View Doctor Appointment","User Registration","Login","Set time for Doctors","Upload Images for doctor")
@@ -357,7 +357,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    class CustomAdapter(var itemModel: ArrayList<Modal>, var context: Context) : BaseAdapter() {
+    class HomeCustomAdapter(var itemModel: ArrayList<Modal>, var context: Context) : BaseAdapter() {
         override fun getCount(): Int {
 
             return itemModel.size
