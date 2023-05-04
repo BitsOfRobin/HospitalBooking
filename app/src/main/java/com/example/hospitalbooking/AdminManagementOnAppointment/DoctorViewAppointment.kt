@@ -13,19 +13,29 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.hospitalbooking.Adapter.ListCustomAdapterForPrescription
+import com.example.hospitalbooking.BookingAppointment.MainPage
 import com.example.hospitalbooking.BookingAppointment.MainPageViewModel
 import com.example.hospitalbooking.BookingAppointment.MainPageViewModelFactory
+import com.example.hospitalbooking.DoctorInformationManagement.DoctorSummarizeReport
+import com.example.hospitalbooking.DoctorInformationManagement.EditDoctorProfile
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
 import com.example.hospitalbooking.KotlinClass.AppointmentDetail
 import com.example.hospitalbooking.PrescriptionControl.PatientPrescription
 import com.example.hospitalbooking.KotlinClass.Prescription
+import com.example.hospitalbooking.MainActivity
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.R
 import com.example.hospitalbooking.databinding.ActivityDoctorViewAppointmentBinding
 import com.google.android.material.navigation.NavigationView
@@ -38,6 +48,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DoctorViewAppointment : AppCompatActivity() {
+    private lateinit var toggle:ActionBarDrawerToggle
     private var mFirebaseDatabaseInstance: FirebaseFirestore?=null
     private var fragmentInput:String?=null
     private var tempList=ArrayList<Prescription>()
@@ -58,6 +69,7 @@ class DoctorViewAppointment : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setTitle("Appointment Checking")
         readUserRecord()
+        showNavBar()
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -86,6 +98,8 @@ class DoctorViewAppointment : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 user = userGoogle.displayName.toString()
+                val photoUrl=userGoogle.photoUrl
+                naviImg(photoUrl,user)
             } else {
 //
                 user = " NOne"
@@ -586,6 +600,87 @@ class DoctorViewAppointment : AppCompatActivity() {
     }
 
 
+    private fun showNavBar(){
+
+
+        val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val nav_view=findViewById<NavigationView>(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        nav_view.setNavigationItemSelectedListener {
+
+            when (it.itemId) {
+
+                R.id.nav_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_profile -> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_Delete_doctor -> {
+                    val intent = Intent(this, MainPage::class.java)
+                    startActivity(intent)
+
+                }
+
+
+                R.id.nav_edit_docProfile -> {
+                    val intent = Intent(this, EditDoctorProfile::class.java)
+                    startActivity(intent)
+
+                }
+
+
+
+                R.id.nav_view_report -> {
+                    val intent = Intent(this, DoctorSummarizeReport::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_view_schedule -> {
+                    val intent = Intent(this, DoctorViewAppointment::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_medicineRecord -> {
+                    val intent = Intent(this, MedicineRecord::class.java)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+
     private fun naviImg(photoUrl: Uri?, loginUser: String) {
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
@@ -599,6 +694,7 @@ class DoctorViewAppointment : AppCompatActivity() {
 
 
     }
+
 
 
 //    fun captureInput(p0:String){
