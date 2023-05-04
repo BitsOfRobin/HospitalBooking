@@ -140,7 +140,8 @@
             android:text="@string/view_on_google_map"
             android:textColor="#093EFF"
             tools:ignore="OnClick,UsingOnClickInXml"
-            android:focusable="true" />
+            android:focusable="true"
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/errHos"
