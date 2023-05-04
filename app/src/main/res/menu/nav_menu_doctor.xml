@@ -13,19 +13,28 @@
         android:icon="@drawable/baseline_medication_liquid_20" />
 
     <item
-        android:id="@+id/nav_set_doctor_time"
-        android:title="Update Doctor Schedule"
+        android:id="@+id/nav_edit_docProfile"
+        android:title="Edit Doctor Profile"
         android:icon="@drawable/baseline_event_20" />
 
     <item
         android:id="@+id/nav_upload_doctor"
         android:title="Upload Doctor Profile"
         android:icon="@drawable/baseline_event_18" />
+    <item
+        android:id="@+id/nav_Delete_doctor"
+        android:title="Delete Doctor Profile"
+        android:icon="@drawable/baseline_event_18" />
 
     <item
         android:id="@+id/nav_view_schedule"
         android:title="View Doctor Schedule"
         android:icon="@drawable/baseline_badge_20" />
+    <item
+        android:id="@+id/nav_view_report"
+        android:title="View Doctor Summarize Report"
+        android:icon="@drawable/baseline_badge_20" />
+
 
     <item
         android:id="@+id/nav_OCR"

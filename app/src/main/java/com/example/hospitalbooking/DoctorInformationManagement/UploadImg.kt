@@ -6,9 +6,19 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MenuItem
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
+import com.example.hospitalbooking.AdminManagementOnAppointment.DoctorViewAppointment
+import com.example.hospitalbooking.BookingAppointment.MainPage
+import com.example.hospitalbooking.GoogleLogInForAdminAndUser.Profile
 import com.example.hospitalbooking.KotlinClass.MyCache
+import com.example.hospitalbooking.MainActivity
+import com.example.hospitalbooking.MedicineOCR.MedicineRecord
+import com.example.hospitalbooking.MedicineOCR.UserMedicine
 import com.example.hospitalbooking.R
+import com.example.hospitalbooking.UserAppointmentManagement.DoctorAppointment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -17,7 +27,7 @@ import com.squareup.picasso.Picasso
 
 class UploadImg : AppCompatActivity() {
     private lateinit var ImageUri: Uri
-
+    private lateinit var toggle:ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_img)
@@ -28,6 +38,8 @@ class UploadImg : AppCompatActivity() {
         val uploadImgBtn=findViewById<Button>(R.id.uploadImageBtn)
         val image = findViewById<ImageView>(R.id.firebaseImage)
         var dtname=""
+
+        showNavBar()
         val name=findViewById<TextView>(R.id.dtName)
         val userGoogle = Firebase.auth.currentUser
         userGoogle.let {
@@ -35,6 +47,8 @@ class UploadImg : AppCompatActivity() {
 //                    val name = user.displayName
             if (userGoogle != null) {
                 dtname = userGoogle.displayName.toString()
+                val photoUrl=userGoogle.photoUrl
+                naviImg(photoUrl,dtname)
                 name.text=dtname
             }
 
@@ -165,6 +179,89 @@ class UploadImg : AppCompatActivity() {
         return string.matches("^[a-zA-Z ]*$".toRegex())
 
 //        return string.none { it !in 'A'..'Z' && it !in 'a'..'z' }
+    }
+
+
+
+
+
+
+    private fun showNavBar(){
+
+
+        val drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val nav_view=findViewById<NavigationView>(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        nav_view.setNavigationItemSelectedListener {
+
+            when (it.itemId) {
+
+                R.id.nav_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_profile -> {
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_Delete_doctor -> {
+                    val intent = Intent(this, MainPage::class.java)
+                    startActivity(intent)
+
+                }
+
+
+                R.id.nav_edit_docProfile -> {
+                    val intent = Intent(this, EditDoctorProfile::class.java)
+                    startActivity(intent)
+
+                }
+
+
+
+                R.id.nav_view_report -> {
+                    val intent = Intent(this, DoctorSummarizeReport::class.java)
+                    startActivity(intent)
+
+                }
+
+                R.id.nav_view_schedule -> {
+                    val intent = Intent(this, DoctorViewAppointment::class.java)
+                    startActivity(intent)
+
+                }
+                R.id.nav_OCR -> {
+                    val intent = Intent(this, UserMedicine::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_medicineRecord -> {
+                    val intent = Intent(this, MedicineRecord::class.java)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 
 
