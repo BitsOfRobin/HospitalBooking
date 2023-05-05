@@ -130,5 +130,10 @@
         android:background="@drawable/bg_white_rounded"
         style="@style/buttonStyle"
         android:text="@string/create_profile" />
+
+    <View
+        android:background="#ECD285"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
 </LinearLayout>
 </ScrollView>
