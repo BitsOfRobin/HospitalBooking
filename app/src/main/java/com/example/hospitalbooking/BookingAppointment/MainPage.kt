@@ -364,7 +364,7 @@ class MainPage : AppCompatActivity() {
 
             mainPageViewModel.deletionDoctor(dtname,i)
             Toast.makeText(this, "Dr $dtname ,$i",Toast.LENGTH_LONG).show()
-            val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
+//            val bo="Dr $dtname"==mainPageViewModel.modalList.get(i).docName
 
         }
 
